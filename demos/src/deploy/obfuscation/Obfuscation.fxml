@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import deploy.obfuscation.BackgroundRectangle?>
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<BorderPane xmlns:fx="http://javafx.com/fxml" >
+
+  <center>
+    <SplitPane orientation="HORIZONTAL">
+      <StackPane>
+        <!-- A custom rectangle in the background that is bound to match the content rectangle of the GraphControl at any given zoom level -->
+        <BackgroundRectangle zoom               = "${graphControl.zoom}"
+                             viewportXOffset    = "${graphControl.viewPoint.x}"
+                             viewportYOffset    = "${graphControl.viewPoint.y}"
+                             contentRectXOffset = "${graphControl.contentRect.x}"
+                             contentRectYOffset = "${graphControl.contentRect.y}"
+                             contentRectWidth   = "${graphControl.contentRect.width}"
+                             contentRectHeight  = "${graphControl.contentRect.height}"
+
+                             fill = "#336699AA"
+                             stroke = "black"/>
+
+        <!-- The GraphControl in the center with a transparent background to see the background rectangle -->
+        <GraphControl fx:id="graphControl" style="-fx-background-color: transparent;"/>
+      </StackPane>
+
+      <!-- On the right: help pane that displays a short instruction for this demo -->
+      <TitledPane collapsible="false" expanded="true" maxHeight="Infinity" text="Description / Documentation">
+        <TabPane>
+          <Tab text="Demo" closable="false">
+            <WebView fx:id="helpView" prefWidth="300"/>
+          </Tab>
+          <Tab text="yGuard" closable="false">
+            <WebView fx:id="yguardDocView" prefWidth="300"/>
+          </Tab>
+        </TabPane>
+      </TitledPane>
+    </SplitPane>
+
+  </center>
+
+  <top>
+    <!-- A toolbar with some common buttons -->
+    <ToolBar>
+      <items>
+        <Button onAction="#increaseZoom">
+          <graphic><ImageView><Image url="@resources/plus2-16.png"/></ImageView></graphic>
+          <tooltip><Tooltip text="Zoom in"/></tooltip>
+        </Button>
+        <Button onAction="#decreaseZoom">
+          <graphic><ImageView><Image url="@resources/minus2-16.png"/></ImageView></graphic>
+          <tooltip><Tooltip text="Zoom out"/></tooltip>
+        </Button>
+        <Button onAction="#fitGraphBounds">
+          <graphic><ImageView><Image url="@resources/fit2-16.png"/></ImageView></graphic>
+          <tooltip><Tooltip text="Fit content"/></tooltip>
+        </Button>
+        <Button onAction="#updateContentRect">
+          <graphic><ImageView><Image url="@resources/reload-16.png"/></ImageView></graphic>
+          <tooltip><Tooltip text="Update content rectangle"/></tooltip>
+        </Button>
+      </items>
+    </ToolBar>
+  </top>
+</BorderPane>

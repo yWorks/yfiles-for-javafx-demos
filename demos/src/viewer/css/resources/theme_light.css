@@ -1,0 +1,237 @@
+/****************************************************************************
+ **
+ ** This demo file is part of yFiles for JavaFX 3.3.
+ **
+ ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for JavaFX version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for JavaFX powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for JavaFX
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+.overview-node-style {
+  -fx-fill: #0488CC;
+}
+
+.overview-group-node-style {
+  -fx-fill: transparent;
+  -fx-stroke: #0488CC;
+  -fx-stroke-width: 2;
+}
+
+.overview-edge-style {
+  -fx-stroke: #0488CC;
+  -fx-stroke-width: 2;
+}
+
+.label-style.background {
+  -fx-fill: transparent;
+}
+
+.label-style.text {
+  -fx-fill: #0488CC;
+}
+
+.edge-style {
+  -fx-stroke: #0488CC;
+  -fx-stroke-width: 2;
+}
+
+.node-style {
+  -fx-fill: #A8CCD8;
+  -fx-stroke: #0488CC;
+  -fx-stroke-width: 2;
+}
+
+.group-node-style.outer {
+  -fx-fill: #A8CCD8;
+  -fx-stroke: #0488CC;
+  -fx-stroke-width: 2;
+}
+
+.group-node-style.inner {
+  -fx-fill: white;
+}
+
+.collapse-button {
+  -fx-background-color: lightgrey;
+  -fx-background-insets: 0,1;
+  -fx-background-radius: 2,1;
+  -fx-border-width: 1;
+  -fx-border-color: black;
+  -fx-padding: 0;
+  -fx-font-size: 6;
+}
+
+.collapse-button:hover {
+  -fx-background-color: white;
+}
+
+.lasso-path {
+  -fx-fill: #AAD15E33;
+  -fx-stroke: black;
+  -fx-stroke-dash-array: 4;
+}
+
+.lasso-finish-region {
+  -fx-fill: rgba(250,0,0,0.15);
+  -fx-stroke: black;
+  -fx-stroke-dash-array: 4;
+}
+
+.lasso-finish-region-highlight {
+  -fx-fill: rgba(250,0,0,0.15);
+  -fx-stroke: black;
+  -fx-stroke-dash-array: 4;
+}
+
+.marquee {
+  -fx-fill: #A8CCD833;
+  -fx-stroke: black;
+  -fx-stroke-dash-array: 4;
+}
+
+.focus-indicator {
+  -fx-stroke: #676A55;
+  -fx-stroke-width: 2;
+}
+
+.selection-indicator {
+  -fx-stroke: #AAD15E;
+}
+
+.highlight-indicator {
+  paint1: red;
+  paint2: yellow;
+}
+
+.oriented-focus-indicator {
+  -fx-stroke: red;
+}
+
+.oriented-selection-indicator {
+  -fx-stroke: #AAD15E;
+}
+
+.oriented-highlight-indicator {
+  -fx-stroke: blue;
+}
+
+.edge-focus-indicator {
+  -fx-stroke: red;
+  -fx-stroke-width: 3;
+}
+
+.edge-highlight-indicator {
+  -fx-stroke: red;
+  -fx-stroke-width: 3;
+}
+
+.edge-selection-indicator {
+  -fx-stroke: red;
+  -fx-stroke-width: 3;
+}
+
+.default-bend {
+  -fx-stroke: red;
+  -fx-stroke-width: 3;
+  -fx-fill: red;
+}
+
+.label-candidate-indicator {
+  -fx-stroke: red;
+}
+
+.highlighted-label-candidate-indicator {
+  -fx-stroke: yellow;
+}
+
+.highlight-indicator {
+  paint1: red;
+  paint2: yellow;
+}
+
+.stripe-drop-target-highlight-indicator {
+  paint1: red;
+  paint2: yellow;
+}
+
+.port-candidate {
+  paint1: white;
+  paint2: black;
+  valid-paint: cyan;
+  invalid-paint: salmon;
+  focus-paint: yellow;
+}
+
+.snap-result.single-line {
+  -fx-stroke: red;
+}
+
+.snap-result.in-between {
+  -fx-stroke: red;
+}
+
+.snap-result.fixed-distance {
+  -fx-stroke: red;
+}
+
+.snap-result.grid {
+  -fx-stroke: red;
+}
+
+.snap-result.resize.equal-width {
+  -fx-stroke: red;
+}
+
+.snap-result.resize.equal-height {
+  -fx-stroke: blue;
+}
+
+.snap-result.edge-segment {
+  -fx-stroke: red;
+}
+
+.graph-control {
+  -fx-background-color: white;
+}
+
+.graph-overview-control {
+  -fx-background-color: white;
+}
+
+.overview-viewport {
+  -fx-fill: #A8CCD833;
+  -fx-stroke: black;
+}
+
+.handle {
+  -fx-fill: gray;
+}
+
+.handle.move {
+  -fx-fill: orange;
+}
+
+.handle.resize {
+  -fx-fill: green;
+  -fx-stroke: blue;
+}

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+<!-- Ant build script to run the SVG image export demo.             -->
+<!-- The Java based Ant tool is available from         -->
+<!-- http://ant.apache.org/                            -->
+<project name="SVG Image Export Demo" default="run" basedir="../.." >
+
+  <!-- prints a help text -->
+  <target name="help">
+    <echo>
+      This Ant script can be used to run the SVG Image export demo which illustrates the
+      SVG export capability of yFiles for JavaFX with the JFXConverter and Batik SVG Toolkit.
+      Since both libraries are needed but not part of this distribution, the script will
+      download the libraries and their dependencies on demand.
+      This script will download patched versions of the Batik SVG, JFXConverter and
+      MDIUtilities libraries from the yFiles website.
+    </echo>
+  </target>
+
+  <!-- defines some properties that are used throughout the tasks -->
+  <target name="-init">
+    <property name="distdir" value="${basedir}/../.."/>
+    <!-- the directory with libraries needed for this demo -->
+    <property name="lib.dir" value="${distdir}/lib"/>
+    <!-- the directory that is the source root of the demo -->
+    <property name="demo.src.dir" value="${basedir}"/>
+    <!-- the directory with the class files of the demo -->
+    <property name="demo.class.dir" value="${distdir}/demos/out/classes"/>
+    <!-- the directory with the source files of the abstract export demo -->
+    <property name="demo.base.src.dir" value="${distdir}/demos/src/viewer/imageexport"/>
+    <!--the directory with icon resources used in the demo -->
+    <property name="demo.toolkit.dir" value="${distdir}/demos/src/toolkit"/>
+
+    <!-- the jar archive of yFiles for JavaFX -->
+    <property name="yfiles.jar" value="${lib.dir}/yfiles-for-javafx.jar"/>
+    <!-- the jar archive of batik -->
+    <property name="batik.jar" value="${lib.dir}/batik.jar"/>
+    <!-- the download location of batik -->
+    <property name="batik.download" value="https://www.yworks.com/resources/yfilesjava/demos-support/3.0.0.1/batik.jar"/>
+    <!-- the jar archive of JFXConverter  -->
+    <property name="JFXConverter.jar" value="${lib.dir}/JFXConverter.jar"/>
+    <!-- the download location of JFXConverter  -->
+    <property name="JFXConverter.download" value="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/JFXConverter.jar"/>
+    <!-- the jar archive of MDIUtilities-core-LGPL  -->
+    <property name="MDIUtilities-core-LGPL.jar" value="${lib.dir}/MDIUtilities-core-LGPL.jar"/>
+    <!-- the download location of MDIUtilities-core-LGPL  -->
+    <property name="MDIUtilities-core-LGPL.download" value="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/MDIUtilities-core-LGPL.jar"/>
+    <!-- the jar archive of MDIUtilities-ui-LGPL  -->
+    <property name="MDIUtilities-ui-LGPL.jar" value="${lib.dir}/MDIUtilities-ui-LGPL.jar"/>
+    <!-- the download location of MDIUtilities-ui-LGPL  -->
+    <property name="MDIUtilities-ui-LGPL.download" value="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/MDIUtilities-ui-LGPL.jar"/>
+
+    <!-- check if the third party libraries exist -->
+    <condition property="third-party-jars.exists">
+      <and>
+        <available file="${batik.jar}"/>
+        <available file="${JFXConverter.jar}"/>
+        <available file="${MDIUtilities-core-LGPL.jar}"/>
+        <available file="${MDIUtilities-ui-LGPL.jar}"/>
+      </and>
+    </condition>
+
+    <!-- the class path for the demo -->
+    <path id="demo.classpath">
+      <pathelement location="${demo.class.dir}"/>
+      <pathelement location="${yfiles.jar}"/>
+      <pathelement location="${batik.jar}"/>
+      <pathelement location="${JFXConverter.jar}"/>
+      <pathelement location="${MDIUtilities-core-LGPL.jar}"/>
+      <pathelement location="${MDIUtilities-ui-LGPL.jar}"/>
+    </path>
+  </target>
+
+  <include file="../../../build-utils.xml" as="utils"/>
+
+  <!-- asks the user to download the third party libraries -->
+  <target name="-get-libraries" unless="third-party-jars.exists">
+    <echo>
+      The next step will download patched versions of the Batik SVG, JFXConverter and MDIUtilities libraries from
+      the yFiles website.
+      Batik and the MDIUtilities are maintained by the Apache Software Foundation and licensed under
+      the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0).
+      JFXConverter is maintained by Herve Girod on sourceforge (https://sourceforge.net/projects/jfxconverter/)
+      and licensed under the BSD license (https://opensource.org/licenses/bsd-license.php).
+    </echo>
+    <input message="Do you want to download patched versions of the third-party libraries: ${line.separator}Batik, JFXConverter and MDIUtilities?" validargs="yes,no" addproperty="download.libs" defaultvalue="no"/>
+    <condition property="download.abort">
+      <equals arg1="no" arg2="${download.libs}"/>
+    </condition>
+    <fail if="download.abort">Download aborted by user.</fail>
+    <get src="${batik.download}" dest="${batik.jar}" skipexisting="false" ignoreerrors="false" verbose="true"/>
+    <get src="${JFXConverter.download}" dest="${JFXConverter.jar}" skipexisting="false" ignoreerrors="false" verbose="true"/>
+    <get src="${MDIUtilities-core-LGPL.download}" dest="${MDIUtilities-core-LGPL.jar}" skipexisting="false" ignoreerrors="false" verbose="true"/>
+    <get src="${MDIUtilities-ui-LGPL.download}" dest="${MDIUtilities-ui-LGPL.jar}" skipexisting="false" ignoreerrors="false" verbose="true"/>
+  </target>
+
+  <!-- compiles the application's classes -->
+  <target name="compile" description="Compiles the demo files" depends="-init,-get-libraries,utils.check-fx-sdk">
+    <mkdir dir="${demo.class.dir}"/>
+    <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" debug="true">
+      <src path="${demo.base.src.dir}"/>
+      <src path="${demo.src.dir}"/>
+      <src path="${demo.toolkit.dir}"/>
+      <classpath refid="demo.classpath"/>
+      <compilerarg line="${java.fx.args}"/>
+    </javac>
+    <!-- copy image files, etc. -->
+    <copy todir="${demo.class.dir}/toolkit">
+      <fileset dir="${demo.toolkit.dir}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+    <!-- copy fxml files, etc. -->
+    <copy todir="${demo.class.dir}">
+      <fileset dir="${demo.src.dir}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- runs the application -->
+  <target name="run" description="Runs the SVG image export application" depends="-init,compile">
+    <java failonerror="true" fork="true" classname="viewer.svgimageexport.SVGImageExportDemo">
+      <classpath refid="demo.classpath"/>
+      <jvmarg line="${java.fx.args}"/>
+    </java>
+  </target>
+
+  <!-- removes everything that has been built or downloaded -->
+  <target name="clean" description="Removes builds and downloads" depends="-init">
+    <delete file="${batik.jar}"/>
+    <delete file="${JFXConverter.jar}"/>
+    <delete file="${MDIUtilities-core-LGPL.jar}"/>
+    <delete file="${MDIUtilities-ui-LGPL.jar}"/>
+    <delete dir="${demo.class.dir}"/>
+  </target>
+</project>

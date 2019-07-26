@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.graph.styles.LabelTemplate?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+
+<!-- LabelTemplate that displays the business data of a relation. Its behavior is specified in -->
+<!-- "RelationLabelController.java" and some style adjustments are made in "TemplateStyle.css". -->
+<LabelTemplate fx:id="relationLabelNode"
+               fx:controller="style.templatestyle.RelationLabelController"
+               xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <stylesheets><URL value="@TemplateStyle.css"/></stylesheets>
+  <VBox styleClass="edgeLabel" alignment="CENTER">
+    <!-- label text displays the ids of the customer and the relation belonging to this label's edge  -->
+    <Label fx:id="labelText" text="${relationLabelNode.labelText}" styleClass="nameLabel"/>
+
+    <!-- Sub label that shows the names of the customer and the relation belonging to this label's edge -->
+    <HBox alignment="CENTER">
+      <Label text="${relationLabelNode.item.tag.customer.name}" styleClass="subLabel"/>
+      <Label text="&#8594;" styleClass="subLabel"/>
+      <Label text="${relationLabelNode.item.tag.product.name}" styleClass="subLabel"/>
+    </HBox>
+  </VBox>
+</LabelTemplate>

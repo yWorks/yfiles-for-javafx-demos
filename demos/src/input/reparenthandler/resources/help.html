@@ -1,0 +1,35 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/help.css"/>
+</head>
+<body class="demo-description">
+
+<p>
+  This demo shows how reparenting of nodes can be customized. This is done with a custom implementing
+  of the interface <code>IReparentHandler</code> that is set as default reparent handler of the
+  input mode of the graph component.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+    <li>
+      Select and move a node. While dragging, press the <code>SHIFT</code> key to add or remove a node from a group.
+      Angled indicators are shown at the group's corners if adding or removing is possible.
+    </li>
+  </ul>
+<h2>Node Types</h2>
+<ul>
+    <li>
+      <font color="#b22222"><b>Red nodes</b></font> cannot be added to any group.
+    </li>
+    <li>
+      <font color="#228b22"><b>Green nodes</b></font> and <font color="#4169e1"><b>blue nodes</b></font> can be added
+      only to groups of the same color.
+    </li>
+    <li>
+      <font color="#228b22"><b>Green nodes</b></font> can be reparented without pressing the <code>SHIFT</code> key.
+    </li>
+</ul>
+
+</body>
+</html>

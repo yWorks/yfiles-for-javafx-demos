@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import com.yworks.yfiles.view.GraphOverviewControl?>
+<?import toolkit.CommandButton?>
+<?import toolkit.CommandMenuItem?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.web.WebView?>
+<?import java.lang.Double?>
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.Label?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:id="root">
+
+  <top>
+
+    <!--menu and toolbar-->
+
+    <VBox>
+      <MenuBar fx:id="menubar">
+        <Menu text="File">
+          <CommandMenuItem command="New" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Open" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="SaveAs" commandTarget="${graphControl}"/>
+          <MenuItem text="Exit" onAction="#exit"/>
+        </Menu>
+        <Menu text="Edit">
+          <CommandMenuItem command="Cut" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Copy" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Paste" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Duplicate" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Delete" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="Undo" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Redo" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="ReverseEdge" commandTarget="${graphControl}"/>
+        </Menu>
+        <Menu text="View">
+          <CommandMenuItem command="IncreaseZoom" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="DecreaseZoom" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Zoom" commandTarget="${graphControl}" text="Zoom 1:1">
+            <commandParameter><Double fx:value="1.0"></Double></commandParameter>
+          </CommandMenuItem>
+          <CommandMenuItem command="FitGraphBounds" commandTarget="${graphControl}"/>
+        </Menu>
+        <Menu text="Grouping">
+          <CommandMenuItem command="GroupSelection" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="UngroupSelection" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="ExpandGroup" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="CollapseGroup" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="EnterGroup" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="ExitGroup" commandTarget="${graphControl}"/>
+        </Menu>
+      </MenuBar>
+      <ToolBar>
+        <CommandButton command="New" commandTarget="${graphControl}"/>
+        <CommandButton command="Open" commandTarget="${graphControl}"/>
+        <CommandButton command="Save" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="Undo" commandTarget="${graphControl}"/>
+        <CommandButton command="Redo" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="Cut" commandTarget="${graphControl}"/>
+        <CommandButton command="Copy" commandTarget="${graphControl}"/>
+        <CommandButton command="Paste" commandTarget="${graphControl}"/>
+        <CommandButton command="Delete" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+          <commandParameter><Double fx:value="1.0"></Double></commandParameter>
+          <graphic><IconProvider fx:value="ZOOM_RESET"/></graphic>
+          <tooltip><TooltipProvider fx:value="ZOOM_RESET"/></tooltip>
+        </CommandButton>
+        <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="GroupSelection" commandTarget="${graphControl}"/>
+        <CommandButton command="UngroupSelection" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <ToggleButton onAction="#toggleSnapping" styleClass="command-button">
+          <graphic><IconProvider fx:value="SNAPPING"/></graphic>
+          <tooltip><TooltipProvider fx:value="SNAPPING"/></tooltip>
+        </ToggleButton>
+        <ToggleButton onAction="#toggleOrthogonalEditing" styleClass="command-button">
+          <graphic><IconProvider fx:value="ORTHOGONAL_EDITING"/></graphic>
+          <tooltip><TooltipProvider fx:value="ORTHOGONAL_EDITING"/></tooltip>
+        </ToggleButton>
+        <ToggleButton onAction="#toggleGrid" styleClass="command-button">
+          <graphic><IconProvider fx:value="GRID"/></graphic>
+          <tooltip><TooltipProvider fx:value="GRID"/></tooltip>
+        </ToggleButton>
+        <ToggleButton onAction="#toggleSelectionMode" styleClass="command-button">
+          <graphic><IconProvider fx:value="LASSO"/></graphic>
+          <tooltip><TooltipProvider fx:value="LASSO"/></tooltip>
+        </ToggleButton>
+        <Separator orientation="VERTICAL"/>
+        <Label text="Themes"/>
+        <ComboBox fx:id="themesComboBox">
+          <tooltip><Tooltip text="Choose the theme"/></tooltip>
+        </ComboBox>
+        <Separator orientation="VERTICAL"/>
+        <ToggleButton text="Show CSS" onAction="#toggleCss">
+          <tooltip><Tooltip text="Shows the CSS file"/></tooltip>
+        </ToggleButton>
+        <Button onAction="#applyCss">
+          <graphic><IconProvider fx:value="RELOAD"/></graphic>
+          <tooltip><Tooltip text="Applies the CSS changes"/></tooltip>
+        </Button>
+      </ToolBar>
+    </VBox>
+  </top>
+  <center>
+
+    <!--the graph editing area-->
+
+    <GraphControl fx:id="graphControl" fileIOEnabled="true"/>
+  </center>
+  <left>
+
+    <!--graph overview and help text-->
+
+    <VBox>
+        <!--the graph overview on the left side.-->
+        <TitledPane animated="false" collapsible="false" text="Overview">
+            <GraphOverviewControl fx:id="overviewControl" minHeight="250" maxHeight="Infinity" maxWidth="Infinity"/>
+        </TitledPane>
+
+        <!--The help panel on the left side.-->
+        <TitledPane VBox.vgrow="ALWAYS" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="Help">
+            <WebView prefWidth="300.0" fx:id="webView"/>
+        </TitledPane>
+      </VBox>
+  </left>
+  <right>
+
+    <!--css file -->
+
+    <TitledPane fx:id="cssTitledPane" collapsible="false" maxHeight="Infinity" text="Cascading Style Sheet">
+      <TextArea fx:id="cssTextArea" prefWidth="300"/>
+    </TitledPane>
+  </right>
+</BorderPane>

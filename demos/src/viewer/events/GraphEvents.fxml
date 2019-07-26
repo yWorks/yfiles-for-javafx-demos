@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import toolkit.CommandButton?>
+<?import toolkit.CommandMenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.SplitPane?>
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+
+  <left>
+    <VBox>
+
+      <!--the event logging options -->
+      <TitledPane animated="false" collapsible="false" expanded="true" maxHeight="1.7976931348623157E308"
+                  text="Event Log Options">
+        <VBox>
+          <TitledPane animated="false" collapsible="true" expanded="true" maxHeight="1.7976931348623157E308"
+                      text="Input Mode Events" contentDisplay="RIGHT">
+            <graphic>
+              <CheckBox fx:id="logAllInputEvents" onAction="#toggleAllInputEventListener"
+                        style="-fx-text-fill: white;">
+                <tooltip><Tooltip text="Selects all events"/></tooltip>
+                Check All</CheckBox>
+            </graphic>
+            <VBox>
+              <CheckBox fx:id="logInputModeEvents" onSelectedChange="#toggleInputModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by GraphViewerInputMode or GraphEditorInputMode."/></tooltip>
+                Viewer/Editor Events</CheckBox>
+              <CheckBox fx:id="logNavigationModeEvents" onSelectedChange="#toggleNavigationModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by NavigationInputMode when a group node was collapsed, expanded, entered or exited."/></tooltip>
+                Navigation Events</CheckBox>
+              <CheckBox fx:id="logClickModeEvents" onSelectedChange="#toggleClickModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by ClickInputMode."/></tooltip>
+                Click Events</CheckBox>
+              <CheckBox fx:id="logTapModeEvents" onSelectedChange="#toggleTapModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by TapInputMode on touch devices."/></tooltip>
+                Tap Events</CheckBox>
+              <CheckBox fx:id="logMoveModeEvents" onSelectedChange="#toggleMoveModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by MoveInputMode when an item was moved."/></tooltip>
+                Move Events</CheckBox>
+              <CheckBox fx:id="logMoveViewportModeEvents" onSelectedChange="#toggleMoveViewportModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by MoveViewportInputMode when the graph was panned or zoomed."/></tooltip>
+                Move Viewport Events</CheckBox>
+              <CheckBox fx:id="logHandleModeEvents" onSelectedChange="#toggleHandleModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by HandleInputMode when a node was resized or another handle was moved."/></tooltip>
+                Handle Move Events</CheckBox>
+              <CheckBox fx:id="logMouseHoverModeEvents" onSelectedChange="#toggleMouseHoverModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by MouseHoverInputMode when an item was hovered for a certain amount of time (e.g. to show a ToolTip)."/></tooltip>
+                Mouse Hover Events</CheckBox>
+              <CheckBox fx:id="logTextEditorModeEvents" onSelectedChange="#toggleTextEditorModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by TextEditorInputMode during Label Editing."/></tooltip>
+                Text Editor Events</CheckBox>
+              <CheckBox fx:id="logContextMenuModeEvents" onSelectedChange="#toggleContextMenuModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by ContextMenuInputMode."/></tooltip>
+                Context Menu Events</CheckBox>
+              <CheckBox fx:id="logCreateBendModeEvents" onSelectedChange="#toggleCreateBendModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by CreateBendInputMode during bend creation."/></tooltip>
+                Create Bend Events</CheckBox>
+              <CheckBox fx:id="logCreateEdgeModeEvents" onSelectedChange="#toggleCreateEdgeModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by CreateEdgeInputMode during edge creation."/></tooltip>
+                Create Edge Events</CheckBox>
+              <CheckBox fx:id="logItemHoverModeEvents" onSelectedChange="#toggleItemHoverModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by ItemHoverInputMode when the mouse enters or leaves an item."/></tooltip>
+                Item Hover Events</CheckBox>
+              <CheckBox fx:id="logMoveLabelModeEvents" onSelectedChange="#toggleMoveLabelModeEventListener">
+                <tooltip><Tooltip text="Events dispatched by MoveLabelInputMode when a label was moved."/></tooltip>
+                Move Label Events</CheckBox>
+              <CheckBox fx:id="logClipboardEvents" onSelectedChange="#toggleClipboardEventListener">
+                <tooltip><Tooltip text="Events dispatched by the Clipboard when a Cut, Copy, or Paste operation occured."/></tooltip>
+                Clipboard Events</CheckBox>
+              <CheckBox fx:id="logUndoEvents" onSelectedChange="#toggleUndoEventListener">
+                <tooltip><Tooltip text="Events dispatched by Undo engine when an operation was undone or redone."/></tooltip>
+                Undo Events</CheckBox>
+            </VBox>
+          </TitledPane>
+          <TitledPane animated="false" collapsible="true" expanded="true" maxHeight="1.7976931348623157E308"
+                      text="GraphControl Events" contentDisplay="RIGHT">
+            <graphic>
+              <CheckBox fx:id="logAllGraphControlEvents" onAction="#toggleAllGraphControlEventListener"
+                        style="-fx-text-fill: white;">
+                <tooltip><Tooltip text="Selects all events"/></tooltip>
+                Check All</CheckBox>
+            </graphic>
+            <VBox>
+              <CheckBox fx:id="logClipboardCopierEvents" onSelectedChange="#toggleClipboardCopierEventListener">
+                <tooltip><Tooltip text="Logs actions in the clipboard and during duplication"/></tooltip>
+                Clipboard Copier Events</CheckBox>
+              <CheckBox fx:id="logMouseEvents" onSelectedChange="#toggleGraphControlMouseEventListener">
+                <tooltip><Tooltip text="Dispatched when the mouse is moved or mouse buttons are pressed."/></tooltip>
+                Mouse Events</CheckBox>
+              <CheckBox fx:id="logTouchEvents" onSelectedChange="#toggleGraphControlTouchEventListener">
+                <tooltip><Tooltip text="Dispatched on touch devices upon touch interaction."/></tooltip>
+                Touch Events</CheckBox>
+              <CheckBox fx:id="logKeyEvents" onSelectedChange="#toggleKeyEventListener">
+                <tooltip><Tooltip text="Dispatched when a key is pressed or released."/></tooltip>
+                Key Events</CheckBox>
+              <CheckBox fx:id="logSelectionEvents" onSelectedChange="#toggleSelectionEventListener">
+                <tooltip><Tooltip text="Dispatched by GraphControl.Selection when graph items are selected or deselected."/></tooltip>
+                Selection Events</CheckBox>
+              <CheckBox fx:id="logViewportEvents" onSelectedChange="#toggleGraphControlViewportEventListener">
+                <tooltip><Tooltip text="Report changes of the view port and zoom level."/></tooltip>
+                Viewport Events</CheckBox>
+              <CheckBox fx:id="logRenderEvents" onSelectedChange="#toggleGraphControlRenderEventListener">
+                <tooltip><Tooltip text="Dispatched when the GraphControl is rendered."/></tooltip>
+                Render Events</CheckBox>
+              <CheckBox fx:id="logGraphControlEvents" onSelectedChange="#toggleGraphControlEventListener">
+                <tooltip><Tooltip text="Logs changes of the Current Item, the complete graph or the input mode."/></tooltip>
+                Other Events</CheckBox>
+            </VBox>
+          </TitledPane>
+          <TitledPane animated="false" collapsible="true" expanded="false" maxHeight="1.7976931348623157E308"
+                      text="Graph Events" contentDisplay="RIGHT" graphicTextGap="24">
+            <graphic>
+              <CheckBox fx:id="logAllGraphEvents" onAction="#toggleAllGraphEventListener"
+                        style="-fx-text-fill: white;">
+              <tooltip><Tooltip text="Selects all events"/></tooltip>
+              Check All</CheckBox>
+            </graphic>
+            <VBox>
+              <CheckBox fx:id="logNodeEvents" onSelectedChange="#toggleNodeEventListener">
+                <tooltip><Tooltip text="Dispatched when a node is created, removed, or changed."/></tooltip>
+                Node Events</CheckBox>
+              <CheckBox fx:id="logEdgeEvents" onSelectedChange="#toggleEdgeEventListener">
+                <tooltip><Tooltip text="Dispatched when an edge is created, removed, or changed."/></tooltip>
+                Edge Events</CheckBox>
+              <CheckBox fx:id="logLabelEvents" onSelectedChange="#toggleLabelEventListener">
+                <tooltip><Tooltip text="Dispatched when a label is created, removed, or changed."/></tooltip>
+                Label Events</CheckBox>
+              <CheckBox fx:id="logPortEvents" onSelectedChange="#togglePortEventListener">
+                <tooltip><Tooltip text="Dispatched when a port is created, removed, or changed."/></tooltip>
+                Port Events</CheckBox>
+              <CheckBox fx:id="logBendEvents" onSelectedChange="#toggleBendEventListener">
+                <tooltip><Tooltip text="Dispatched when a bend is created, removed, or changed."/></tooltip>
+                Bend Events</CheckBox>
+              <CheckBox fx:id="logNodeBoundsEvents" onSelectedChange="#toggleNodeBoundsEventListener">
+                <tooltip><Tooltip text="Dispatched when the bounds of a node have changed."/></tooltip>
+                Node Bounds Changed Event</CheckBox>
+              <CheckBox fx:id="logGraphRenderEvents" onSelectedChange="#toggleGraphRenderEventListener">
+                <tooltip><Tooltip text="Reports events that occur when the graph is rendered within a control."/></tooltip>
+                Graph Render Events</CheckBox>
+            </VBox>
+          </TitledPane>
+
+        </VBox>
+      </TitledPane>
+
+      <!--The help panel on the left side.-->
+      <TitledPane VBox.vgrow="ALWAYS" animated="false" collapsible="false" expanded="true" maxHeight="1.7976931348623157E308"
+                  text="Help">
+        <content>
+          <WebView prefWidth="300.0" fx:id="helpView" fontScale="1"/>
+        </content>
+      </TitledPane>
+
+    </VBox>
+  </left>
+
+  <center>
+    <SplitPane>
+
+    <!--menu and toolbar-->
+    <VBox>
+      <MenuBar style="-fx-border-width: 1 0 1 0;">
+        <Menu text="File">
+          <CommandMenuItem command="New" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Open" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="SaveAs" commandTarget="${graphControl}"/>
+        </Menu>
+        <Menu text="Edit">
+          <CommandMenuItem command="Cut" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Copy" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Paste" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Duplicate" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Delete" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="Undo" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Redo" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="ReverseEdge" commandTarget="${graphControl}"/>
+        </Menu>
+        <Menu text="View">
+          <CommandMenuItem command="IncreaseZoom" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="DecreaseZoom" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="FitGraphBounds" commandTarget="${graphControl}"/>
+        </Menu>
+        <Menu text="Grouping">
+          <CommandMenuItem command="GroupSelection" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="UngroupSelection" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="ExpandGroup" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="CollapseGroup" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="EnterGroup" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="ExitGroup" commandTarget="${graphControl}"/>
+        </Menu>
+      </MenuBar>
+
+      <ToolBar>
+        <CommandButton command="New" commandTarget="${graphControl}"/>
+        <CommandButton command="Open" commandTarget="${graphControl}"/>
+        <CommandButton command="Save" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <ToggleButton fx:id="toggleEditingButton" onSelectedChange="#toggleEditing" styleClass="command-button">
+          Toggle Editing
+        </ToggleButton>
+        <ToggleButton onSelectedChange="#toggleOrthogonalEditing" styleClass="command-button">
+          Orthogonal Edges
+        </ToggleButton>
+        <ToggleButton onSelectedChange="#toggleLassoSelection" styleClass="command-button">
+          Lasso Selection
+        </ToggleButton>
+      </ToolBar>
+
+      <!--the GraphControl-->
+      <GraphControl fx:id="graphControl" fileIOEnabled="true" VBox.vgrow="ALWAYS"/>
+    </VBox>
+
+      <!-- the event log -->
+    <TitledPane animated="false" collapsible="false" expanded="true" maxHeight="1.7976931348623157E308"
+                text="Event Log" prefWidth="500" contentDisplay="RIGHT" graphicTextGap="24">
+      <graphic>
+        <HBox spacing="16" alignment="CENTER_RIGHT">
+          <CheckBox fx:id="groupEvents" style="-fx-text-fill: white;" selected="true">
+            Group Identical Events
+          </CheckBox>
+          <Button fx:id="clearButton" onAction="#clearButtonClick">
+            Clear Log
+          </Button>
+        </HBox>
+      </graphic>
+      <ListView fx:id="eventList"/>
+    </TitledPane>
+  </SplitPane>
+  </center>
+</BorderPane>

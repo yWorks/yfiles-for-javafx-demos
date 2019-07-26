@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<?import viewer.printing.NumbersOnlyTextField?>
+
+<!-- Settings for what and how to print the contents of the GraphControl -->
+<TitledPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="viewer.printing.SettingsController"
+            expanded="true" text="Printing Configuration">
+  <tooltip><Tooltip text="Settings for what and how to print the contents of the GraphControl"/> </tooltip>
+  <GridPane hgap="5" vgap="5">
+    <padding><Insets top="5" right="10" bottom="10" left="10"/></padding>
+    <CheckBox fx:id="usePrintRectangle" GridPane.rowIndex="2" GridPane.columnSpan="2" text="Use rectangle content" selected="true">
+      <tooltip><Tooltip text="Print only the content of the rectangle or the whole graph?"/> </tooltip>
+    </CheckBox>
+    <CheckBox fx:id="scaleDownToFitPage" GridPane.rowIndex="3" GridPane.columnSpan="2" text="Scale down to fit content on one page" selected="true">
+      <tooltip><Tooltip text="Scale the content to print down if the content doesn't fit on one page?"/> </tooltip>
+    </CheckBox>
+    <CheckBox fx:id="scaleUpToFitPage" GridPane.rowIndex="4" GridPane.columnSpan="2" text="Scale up to fit content on one page" selected="true">
+      <tooltip><Tooltip text="Scale the content to print up if the content is smaller than the available space on one page?"/> </tooltip>
+    </CheckBox>
+    <CheckBox fx:id="centerContent" GridPane.rowIndex="5" GridPane.columnSpan="2" text="Center content on page" selected="true">
+      <tooltip><Tooltip text="If the actual content is smaller than the page, should it be centered?"/> </tooltip>
+    </CheckBox>
+    <CheckBox fx:id="printDecorations" GridPane.rowIndex="6" GridPane.columnSpan="2" text="Print decorations on page" selected="true">
+      <tooltip><Tooltip text="If checked, prints a header and a footer on each page."/> </tooltip>
+    </CheckBox>
+    <CheckBox fx:id="printPageMarks" GridPane.rowIndex="7" GridPane.columnSpan="2" text="Print page marks" selected="true">
+      <tooltip><Tooltip text="If checked, prints page marks."/> </tooltip>
+    </CheckBox>
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="8" text="Scale"/>
+    <NumbersOnlyTextField fx:id="scaleField" GridPane.columnIndex="1" GridPane.rowIndex="8" text="1.0" prefColumnCount="4" doubleAllowed="true"/>
+  </GridPane>
+</TitledPane>

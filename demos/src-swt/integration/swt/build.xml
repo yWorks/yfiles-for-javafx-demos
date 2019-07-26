@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+<!-- Ant build script to run the SWT demo.             -->
+<!-- The Java based Ant tool is available from         -->
+<!-- http://ant.apache.org/                            -->
+<project name="SWT Demo" default="run" basedir="../../../.." >
+
+  <!-- prints a help text -->
+  <target name="help">
+    <echo>
+      This Ant script can be used to run the SWT demo which illustrates
+      the integration of yFiles for JavaFX with the Standard Widget
+      Toolkit (SWT). Since swt.jar is needed but not part of this distribution,
+      the script will download it on demand.
+    </echo>
+  </target>
+
+  <!-- defines some properties that are used throughout the tasks -->
+  <target name="-init">
+    <!-- the directory with libraries needed for this demo -->
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <!-- the directory with the source files of the demo -->
+    <property name="demo.src.dir" value="${basedir}/demos/src-swt"/>
+    <!-- the directory with the class files of the demo -->
+    <property name="demo.class.dir" value="${basedir}/demos/out/classes"/>
+    <!--the directory with icon resources used in the demo -->
+    <property name="demo.toolkit.dir" value="${basedir}/demos/src"/>
+
+    <!-- the jar archive for embedding SWT controls in JavaFX -->
+    <condition
+     property="jfxswt.jar"
+     value="${java.home}/lib/jfxswt.jar"
+     else="${java.home}/lib/javafx-swt.jar">
+      <equals arg1="${ant.java.version}" arg2="1.8"/>
+    </condition>
+    <!-- the jar archive of yFiles for JavaFX -->
+    <property name="yfiles.jar" value="${lib.dir}/yfiles-for-javafx.jar"/>
+    <!-- the zip archive of SWT -->
+    <property name="swt.zip" value="${lib.dir}/swt.zip"/>
+    <!-- the jar archive of SWT -->
+    <property name="swt.jar" value="${lib.dir}/swt.jar"/>
+
+    <!-- check if the swt.zip file exists -->
+    <available property="swt.zip.exists" file="${swt.zip}"/>
+    <!-- check if the set.jar file exists -->
+    <available property="swt.jar.exists" file="${swt.jar}"/>
+
+    <!-- the class path for the demo -->
+    <path id="demo.classpath">
+      <pathelement location="${demo.class.dir}"/>
+      <pathelement location="${demo.src.dir}"/>
+      <pathelement location="${demo.toolkit.dir}"/>
+      <pathelement location="${jfxswt.jar}"/>
+      <pathelement location="${yfiles.jar}"/>
+      <pathelement location="${swt.jar}"/>
+    </path>
+  </target>
+
+  <include file="../../../build-utils.xml" as="utils"/>
+
+  <!-- determines the operation system -->
+  <target name="-check-os" depends="-init">
+    <condition property="isWindows" value="true">
+      <os family="windows"/>
+    </condition>
+
+    <condition property="isLinux" value="true">
+      <and>
+        <os family="unix"/>
+        <not>
+          <os family="mac"/>
+        </not>
+      </and>
+    </condition>
+
+    <condition property="isMac" value="true">
+      <os family="mac"/>
+    </condition>
+  </target>
+
+  <!-- defines the download location for the windows variant of SWT -->
+  <target name="-if_windows" depends="-check-os" if="isWindows">
+    <property name="swt.download.file" value="swt-win32-win32-x86_64.zip"/>
+    <!--
+        for some ANT/Java combinations an <jvmargs> element with empty value is
+        not the same as no <jvmargs> element thus a dummy argument that has no
+        effect is used instead
+      -->
+    <property name="jvm.arg" value="-Ddoes=nothing"/>
+  </target>
+
+  <!-- defines the download location for the linux variant of SWT -->
+  <target name="-if_unix" depends="-check-os" if="isLinux">
+    <property name="swt.download.file" value="swt-gtk-linux-x86_64.zip"/>
+    <!--
+        for some ANT/Java combinations an <jvmargs> element with empty value is
+        not the same as no <jvmargs> element thus a dummy argument that has not
+        effect is used instead
+      -->
+    <property name="jvm.arg" value="-Ddoes=nothing"/>
+  </target>
+
+  <!-- defines the download location for the mac variant of SWT -->
+  <target name="-if_mac" depends="-check-os" if="isMac">
+    <property name="swt.download.file" value="swt-cocoa-macosx-x86_64.zip"/>
+    <property name="jvm.arg" value="-XstartOnFirstThread"/>
+  </target>
+
+  <!-- asks the user to download SWT -->
+  <target name="-get-swt" unless="swt.jar.exists" depends="-if_windows, -if_unix, -if_mac">
+    <echo>
+      The next step will download Standard Widget Toolkit (SWT) from ${swt.download}.
+      SWT is a graphical widget toolkit for use with the Java platform. It is
+      maintained by the Eclipse Foundation in tandem with the Eclipse IDE and
+      licensed under Eclipse Public License 1.0 (http://www.eclipse.org/org/documents/epl-v10.php).
+    </echo>
+    <input message="Do you want to download the Standard Widget Toolkit? yes/no" validargs="yes,no" addproperty="download.swt" defaultvalue="no"/>
+    <condition property="download.abort">
+      <equals arg1="no" arg2="${download.swt}"/>
+    </condition>
+    <fail if="download.abort">Download aborted by user.</fail>
+
+    <property name="swt.download.url" value="http://www.yworks.com/resources/yfilesjavafx/demos-support/3.2/${swt.download.file}"/>
+    <get src="${swt.download.url}" dest="${swt.zip}" skipexisting="false" ignoreerrors="false" verbose="true"/>
+  </target>
+
+  <!-- unzips swt.jar from the downloaded swt.zip archive -->
+  <target name="-unzip-swt" unless="swt.jar.exists" depends="-get-swt">
+    <unzip src="${swt.zip}" dest="${lib.dir}">
+      <patternset>
+        <include name="swt.jar"/>
+      </patternset>
+    </unzip>
+  </target>
+
+  <!-- compiles the application's classes -->
+  <target name="compile" description="Compiles the demo files" depends="-unzip-swt,utils.check-fx-sdk">
+    <mkdir dir="${demo.class.dir}"/>
+    <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" srcdir="${demo.src.dir}" debug="true">
+      <classpath refid="demo.classpath"/>
+      <compilerarg line="${java.fx.args}"/>
+    </javac>
+  </target>
+
+  <!-- runs the application -->
+  <target name="run" description="Runs the SWT demo" depends="compile">
+    <java failonerror="true" fork="true" classname="integration.swt.SwtDemo">
+      <classpath refid="demo.classpath"/>
+      <jvmarg value="${jvm.arg}"/>
+      <jvmarg line="${java.fx.args}"/>
+    </java>
+  </target>
+
+  <!-- removes everything that has been built or downloaded -->
+  <target name="clean" description="Removes builds and downloads" depends="-init">
+    <delete file="${swt.jar}"/>
+    <delete file="${swt.zip}"/>
+    <delete dir="${demo.class.dir}"/>
+  </target>
+
+</project>

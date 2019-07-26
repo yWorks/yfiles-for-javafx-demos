@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import com.yworks.yfiles.view.GraphOverviewControl?>
+<?import com.yworks.yfiles.view.input.ICommand?>
+<?import complete.orgchart.ImageProvider?>
+<?import complete.orgchart.OrgChartDemo?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import java.net.URL?>
+<?import java.lang.Double?>
+
+
+<!--The visual components of the OrgChart. The screen consists of three parts:
+  - The main graph view in the center with a ToolBar on top,
+  - informational widgets on the left side like an overview and a structure view
+  - a browser on the right that displays a html help file.-->
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root">
+  <stylesheets><URL value="@OrgChart.css" /></stylesheets>
+
+  <center>
+
+    <!--Main screen.-->
+    <VBox styleClass="orgChartBorder">
+      <children>
+
+        <!--A ToolBar with various buttons to interact with the graph.-->
+        <ToolBar>
+          <items>
+
+            <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+
+            <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+
+            <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+              <commandParameter><Double fx:value="1.0"></Double></commandParameter>
+              <graphic><IconProvider fx:value="ZOOM_RESET"/></graphic>
+              <tooltip><TooltipProvider fx:value="ZOOM_RESET"/></tooltip>
+            </CommandButton>
+
+            <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+
+            <Separator orientation="VERTICAL"/>
+
+            <CommandButton commandTarget="${graphControl}" text="">
+              <command><ICommand fx:constant="ZOOM_TO_CURRENT_ITEM"/></command>
+              <tooltip><Tooltip text="Zoom to current focused employee"/></tooltip>
+              <graphic><ImageView><image><ImageProvider fx:value="woman1_16"/></image></ImageView></graphic>
+            </CommandButton>
+
+            <CommandButton commandTarget="${graphControl}" commandParameter="${graphControl.currentItem}"
+                           text="">
+              <command><OrgChartDemo fx:constant="SHOW_PARENT"/></command>
+              <graphic><IconProvider fx:value="UP"/></graphic>
+              <tooltip><Tooltip text="Show supervisor of selected employee"/></tooltip>
+            </CommandButton>
+
+            <CommandButton commandTarget="${graphControl}" commandParameter="${graphControl.currentItem}"
+                           text="">
+              <command><OrgChartDemo fx:constant="HIDE_PARENT"/></command>
+              <graphic><IconProvider fx:value="DOWN"/></graphic>
+              <tooltip><Tooltip text="Hide supervisor of selected employee"/></tooltip>
+            </CommandButton>
+
+            <CommandButton commandTarget="${graphControl}" commandParameter="${graphControl.currentItem}"
+                           text="">
+              <command><OrgChartDemo fx:constant="SHOW_CHILDREN"/></command>
+              <graphic><IconProvider fx:value="PLUS"/></graphic>
+              <tooltip><Tooltip text="Show subordinates of selected employee"/></tooltip>
+            </CommandButton>
+
+            <CommandButton commandTarget="${graphControl}" commandParameter="${graphControl.currentItem}"
+                           text="">
+              <command><OrgChartDemo fx:constant="HIDE_CHILDREN"/></command>
+              <graphic><IconProvider fx:value="MINUS"/></graphic>
+              <tooltip><Tooltip text="Hide subordinates of selected employee"/></tooltip>
+            </CommandButton>
+
+            <CommandButton commandTarget="${graphControl}"
+                           text="All">
+              <command><OrgChartDemo fx:constant="SHOW_ALL"/></command>
+              <tooltip><Tooltip text="Show all"/></tooltip>
+            </CommandButton>
+          </items>
+        </ToolBar>
+
+        <!--The main graph control that takes the major space of the center of the screen.-->
+        <GraphControl fx:id="graphControl"
+                      prefWidth="${graphControlContainer.width}"
+                      VBox.vgrow="SOMETIMES"
+                      fileIOEnabled="true"
+                      maximumZoom="4"/>
+      </children>
+    </VBox>
+  </center>
+
+
+  <left>
+    <VBox maxWidth="250">
+
+      <!-- The overview that displays the overall structure of the graph simplified.-->
+      <TitledPane animated="false" collapsible="false" expanded="true" maxHeight="1.7976931348623157E308"
+                  text="Overview">
+        <content>
+          <GraphOverviewControl fx:id="overviewControl"
+                                prefHeight="200"
+                                maxHeight="Infinity"
+                                maxWidth="Infinity"/>
+        </content>
+      </TitledPane>
+
+      <!--The tree view that displays the graph structure in a hierarchical manner.-->
+      <TitledPane VBox.vgrow="ALWAYS" animated="false" collapsible="false" expanded="true" maxHeight="1.7976931348623157E308"
+                  text="Structure">
+        <content>
+          <TreeView fx:id="treeView"
+                    maxWidth="Infinity"/>
+        </content>
+      </TitledPane>
+
+      <!--Properties box in the lower left corner-->
+      <TitledPane animated="false" collapsible="false" expanded="true" maxHeight="1.7976931348623157E308"
+                  text="Details">
+        <content>
+          <GridPane hgap="10" vgap="5">
+            <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+
+            <columnConstraints>
+              <ColumnConstraints hgrow="NEVER"/>
+              <ColumnConstraints hgrow="NEVER" maxWidth="155"/>
+            </columnConstraints>
+
+            <!--Left side: description-->
+            <!--The displayed text should not be cropped by the pane, so the elements are texts rather than labels.-->
+            <Text GridPane.columnIndex="0" GridPane.rowIndex="0" text="Name"/>
+            <Text GridPane.columnIndex="0" GridPane.rowIndex="1" text="Position"/>
+            <Text GridPane.columnIndex="0" GridPane.rowIndex="2" text="Phone"/>
+            <Text GridPane.columnIndex="0" GridPane.rowIndex="3" text="Fax"/>
+            <Text GridPane.columnIndex="0" GridPane.rowIndex="4" text="Email"/>
+            <Text GridPane.columnIndex="0" GridPane.rowIndex="5" text="Business Unit"/>
+            <Text GridPane.columnIndex="0" GridPane.rowIndex="6" text="Status"/>
+
+            <!--Right side: data. These get updated in the controller when the current item changes.-->
+            <!--<Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="${graphControl.currentItem}"/>-->
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="5"
+                  alignment="CENTER_LEFT">
+              <Label text="${graphControl.currentItem.tag.employee.firstName}" />
+              <Label text="${graphControl.currentItem.tag.employee.name}" />
+            </HBox>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="${graphControl.currentItem.tag.employee.position}"/>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="2" text="${graphControl.currentItem.tag.employee.phone}"/>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="3" text="${graphControl.currentItem.tag.employee.fax}"/>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="4" text="${graphControl.currentItem.tag.employee.email}"/>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="5" text="${graphControl.currentItem.tag.employee.businessUnit}"/>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="6" spacing="5"
+                  alignment="CENTER_LEFT">
+              <Ellipse radiusX="4" radiusY="4" fill="${root.properties.currentEmployeeStatusColor}"></Ellipse>
+              <Label text="${graphControl.currentItem.tag.employee.status}" />
+            </HBox>
+          </GridPane>
+        </content>
+      </TitledPane>
+    </VBox>
+  </left>
+
+  <right>
+
+    <!--The help panel on the right side.-->
+    <TitledPane animated="false" collapsible="false" expanded="true" maxHeight="1.7976931348623157E308"
+                text="Help">
+      <content>
+        <WebView prefWidth="300.0" fx:id="webView" fontScale="1"/>
+      </content>
+    </TitledPane>
+  </right>
+</BorderPane>

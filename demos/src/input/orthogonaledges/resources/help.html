@@ -1,0 +1,45 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/help.css"/>
+</head>
+<body class="demo-description">
+
+<p>
+  Enable orthogonal edge editing using the <code>GraphEditorInputMode</code>. Customize
+  the behavior by implementing the <code>IOrthogonalEdgeHelper</code> interface and modifying the lookup of
+  the edges in the graph via the <code>GraphDecorator</code> mechanism.
+</p>
+
+<h2>Things to try</h2>
+
+Drag segments and bends of the edges and observe the different characteristics.
+
+<h2>Edge Types</h2>
+
+<ul>
+  <li>
+    <font color="#B22222"><b>Red edges</b></font> behave like normal edges with no orthogonal editing. The segments are
+    straight lines with arbitrary slope. Dragging an unselected segment always creates a new bend.
+  </li>
+  <li>
+    <font color="green"><b>Green edges</b></font> demonstrate the default orthogonal edge editing behavior. While
+    dragging,
+    all segments stay orthogonal and new bends are created as needed.
+  </li>
+  <li>
+    <font color="purple"><b>Purple edges</b></font> behave just like green edges except that the locations of the source
+    port and target port are constraint to the given port candidates of the nodes.
+  </li>
+  <li>
+    <font color="orange"><b>Orange edges</b></font> behave just like green edges except that the source and
+    target port can be placed at any location inside the node since they use dynamic port candidates.
+  </li>
+  <li>
+    <font color="#4169E1"><b>Blue edges</b></font> behave just like green edges for the inner segments. The first and
+    the last segment can have an arbitrary slope. If a new bend is added to one of these two segments, the newly
+    created inner segment becomes orthogonal immediately.
+  </li>
+</ul>
+
+</body>
+</html>

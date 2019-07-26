@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import java.lang.String?>
+<?import java.lang.Double?>
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<BorderPane xmlns:fx="http://javafx.com/fxml/">
+  <top>
+    <!-- toolbar that provides controls of this demo -->
+    <ToolBar>
+      <!-- button to create a new random graph -->
+      <Button fx:id="newButton" onAction="#newGraphButtonClick" styleClass="command-button">
+        <tooltip><Tooltip text="New random graph"/></tooltip>
+        <graphic><IconProvider fx:value="New"/></graphic>
+      </Button>
+
+      <Separator orientation="VERTICAL" prefHeight="-1.0"/>
+
+      <!-- buttons to adjust zoom level -->
+      <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+        <commandParameter><Double fx:value="1.0"></Double></commandParameter>
+        <graphic><IconProvider fx:value="ZOOM_RESET"/></graphic>
+        <tooltip><TooltipProvider fx:value="ZOOM_RESET"/></tooltip>
+      </CommandButton>
+      <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+
+      <Separator orientation="VERTICAL" prefHeight="-1.0"/>
+
+      <!-- Selection of layouts -->
+      <ComboBox fx:id="layoutComboBox" onAction="#layoutComboBoxSelectedIndexChanged">
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Hierarchic Layout"/>
+            <String fx:value="Organic Layout"/>
+            <String fx:value="Orthogonal Layout"/>
+          </FXCollections>
+        </items>
+        <tooltip><Tooltip text="Select layout"></Tooltip></tooltip>
+      </ComboBox>
+      <Button fx:id="applyLayoutButton" onAction="#applyLayoutButtonClick" styleClass="command-button">
+        <tooltip><TooltipProvider fx:value="LAYOUT"/></tooltip>
+      </Button>
+
+      <Separator orientation="VERTICAL" prefHeight="-1.0"/>
+
+      <!-- shortest path controls -->
+      <Button text="Mark as Source" onAction="#markSourceNodesButtonClick">
+        <tooltip><Tooltip text="Mark selected nodes as source"/></tooltip>
+      </Button>
+      <Button text="Mark as Target" onAction="#markTargetNodesButtonClick">
+        <tooltip><Tooltip text="Mark selected nodes as target"/></tooltip>
+      </Button>
+      <ComboBox fx:id="directedComboBox" onAction="#directedComboBoxSelectedIndexChanged">
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Directed Edges"/>
+            <String fx:value="Undirected Edges"/>
+          </FXCollections>
+        </items>
+        <tooltip><Tooltip text="Select edge type"></Tooltip></tooltip>
+      </ComboBox>
+
+      <Separator orientation="VERTICAL" prefHeight="-1.0"/>
+
+      <!-- label controls -->
+      <Button fx:id="editLabelsButton" text="Uniform Edge Labels" onAction="#editLabelsButtonClick">
+        <tooltip><Tooltip text="Set uniform labels for all edges"/></tooltip>
+      </Button>
+      <Button text="Remove Labels" onAction="#removeLabelsButtonClick">
+        <tooltip><Tooltip text="Remove all labels"/></tooltip>
+      </Button>
+    </ToolBar>
+  </top>
+
+  <center>
+    <!-- graph control that will contain the example graph -->
+    <GraphControl fx:id="graphControl"/>
+  </center>
+
+  <right>
+    <!-- help pane that displays a short instruction for this demo -->
+    <TitledPane collapsible="false" expanded="true" maxHeight="Infinity" text="Description">
+      <WebView fx:id="helpView" prefWidth="300"/>
+    </TitledPane>
+  </right>
+</BorderPane>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<?import javafx.scene.web.WebView?>
+<?import toolkit.CommandMenuItem?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import com.yworks.yfiles.view.GraphOverviewControl?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import viewer.largegraphs.DoubleTextField?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:id="root">
+  <top>
+    <!--menu and toolbar-->
+
+    <VBox>
+      <MenuBar fx:id="menubar">
+        <Menu text="File">
+          <MenuItem text="Exit" onAction="#exit"/>
+        </Menu>
+        <Menu text="Edit">
+          <CommandMenuItem command="Cut" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Copy" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Paste" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Duplicate" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Delete" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+          <CommandMenuItem command="Undo" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="Redo" commandTarget="${graphControl}"/>
+          <SeparatorMenuItem/>
+        </Menu>
+        <Menu text="View">
+          <CommandMenuItem command="IncreaseZoom" commandTarget="${graphControl}"/>
+          <MenuItem text="Zoom 1:1" onAction="#resetZoom"/>
+          <CommandMenuItem command="DecreaseZoom" commandTarget="${graphControl}"/>
+          <CommandMenuItem command="FitGraphBounds" commandTarget="${graphControl}"/>
+        </Menu>
+      </MenuBar>
+      <ToolBar>
+        <CommandButton command="Undo" commandTarget="${graphControl}"/>
+        <CommandButton command="Redo" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="Cut" commandTarget="${graphControl}"/>
+        <CommandButton command="Copy" commandTarget="${graphControl}"/>
+        <CommandButton command="Paste" commandTarget="${graphControl}"/>
+        <CommandButton command="Delete" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+          <commandParameter>
+            <Double fx:value="1.0"/>
+          </commandParameter>
+          <graphic>
+            <IconProvider fx:value="ZOOM_RESET"/>
+          </graphic>
+          <tooltip>
+            <TooltipProvider fx:value="ZOOM_RESET"/>
+          </tooltip>
+        </CommandButton>
+        <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+        <Separator orientation="VERTICAL"/>
+        <Button fx:id="prevBtn" onAction="#showGraph">
+          <graphic><IconProvider fx:value="PREVIOUS"/></graphic>
+          <tooltip><Tooltip text="Show previous graph"/></tooltip>
+        </Button>
+        <ComboBox fx:id="graphChooserBox" prefWidth="200.0"/>
+        <Button fx:id="nextBtn" onAction="#showGraph">
+          <graphic><IconProvider fx:value="NEXT"/></graphic>
+          <tooltip><Tooltip text="Show next graph"/></tooltip>
+        </Button>
+      </ToolBar>
+    </VBox>
+  </top>
+  <center>
+    <!--the GraphControl-->
+    <GraphControl fx:id="graphControl" fileIOEnabled="true" minimumZoom="0.005d"/>
+  </center>
+  <right>
+    <VBox fx:id="rightVBox">
+      <!--the graph overview on the left side.-->
+      <TitledPane fx:id="overviewPane" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="Overview">
+        <GraphOverviewControl fx:id="overview" prefHeight="200" maxHeight="Infinity" maxWidth="Infinity"/>
+      </TitledPane>
+
+      <!--The help panel on the left side.-->
+      <TitledPane VBox.vgrow="ALWAYS" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="Help">
+        <WebView prefWidth="300.0" fx:id="webView"/>
+      </TitledPane>
+    </VBox>
+  </right>
+  <left>
+    <BorderPane>
+      <center>
+      <ScrollPane fitToWidth="true">
+      <TitledPane collapsible="false" text="Performance optimizations">
+        <VBox spacing="3">
+          <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+          <CheckBox fx:id="disableOverviewCB" text="Disable overview" selected="true" onAction="#applyState">
+            <tooltip><Tooltip text="Disables the overview component, which can make drawing the main graph control slower"/> </tooltip>
+          </CheckBox>
+          <CheckBox fx:id="enablePathRenderOptimizationCB" text="Enable optimized edge rendering" disable="${enableFastStylesCB.selected}" onAction="#applyState">
+            <tooltip><Tooltip text="Enables an optimized path rendering policy for the PolylineEdgeStyle"/> </tooltip>
+          </CheckBox>
+          <CheckBox fx:id="enableFastStylesCB" text="Enable fast styles" selected="true" onAction="#applyState">
+            <tooltip><Tooltip text="Enables level-of-detail styles and low-fidelity styles for low zoom levels"/> </tooltip>
+          </CheckBox>
+          <TitledPane collapsible="false" text="Fast Styles" disable="${!enableFastStylesCB.selected}">
+            <GridPane hgap="3" vgap="1">
+              <Label text="Edges" GridPane.rowIndex="0" GridPane.columnSpan="3"/>
+              <Label text="Hide edges shorter than" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
+                <padding><Insets left="20"/></padding>
+                <tooltip><Tooltip text="Edges shorter than this many pixels are not drawn; this doesn't affect the visual result much"/></tooltip>
+              </Label>
+              <DoubleTextField fx:id="hideEdgesTF" text="0" GridPane.rowIndex="1" GridPane.columnIndex="2" prefWidth="50" onAction="#applyThreshold"/>
+              <Label text="px" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+              <Label text="Don't show bends below" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                <padding><Insets left="20"/></padding>
+                <tooltip><Tooltip text="Bends will not be shown below this zoom level"/></tooltip>
+              </Label>
+              <DoubleTextField fx:id="hideBendsTF" text="0" GridPane.rowIndex="2" GridPane.columnIndex="2" prefWidth="50" onAction="#applyThreshold"/>
+              <Label text="\%" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+              <Label text="Edge labels" GridPane.rowIndex="3" GridPane.columnSpan="3"/>
+              <Label text="Hide below" GridPane.rowIndex="4" GridPane.columnIndex="0">
+                <padding><Insets left="20"/></padding>
+                <tooltip><Tooltip text="Hide edge labels below this zoom level"/></tooltip>
+              </Label>
+              <DoubleTextField fx:id="hideEdgeLabelsTF" text="50" GridPane.rowIndex="4" GridPane.columnIndex="2" prefWidth="50" onAction="#applyThreshold"/>
+              <Label text="\%" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+              <Label text="Sketch below" GridPane.rowIndex="5" GridPane.columnIndex="0">
+                <padding><Insets left="20"/></padding>
+                <tooltip><Tooltip text="Render edge labels as sketch below this zoom level"/></tooltip>
+              </Label>
+              <DoubleTextField fx:id="sketchEdgeLabelsTF" text="50" GridPane.rowIndex="5" GridPane.columnIndex="2" prefWidth="50" onAction="#applyThreshold"/>
+              <Label text="\%" GridPane.rowIndex="5" GridPane.columnIndex="3"/>
+
+              <Label text="Nodes" GridPane.rowIndex="6" GridPane.columnSpan="3"/>
+              <Label text="Prettier node style above" GridPane.rowIndex="7" GridPane.columnIndex="0">
+                <padding><Insets left="20"/></padding>
+                <tooltip><Tooltip text="Render nodes in a more complex style above this zoom level"/></tooltip>
+              </Label>
+              <DoubleTextField fx:id="nodeStyleTF" text="60" GridPane.rowIndex="7" GridPane.columnIndex="2" prefWidth="50" onAction="#applyThreshold"/>
+              <Label text="\%" GridPane.rowIndex="7" GridPane.columnIndex="3"/>
+
+              <Label text="Node labels" GridPane.rowIndex="8" GridPane.columnSpan="3"/>
+              <Label text="Hide below" GridPane.rowIndex="9" GridPane.columnIndex="0">
+                <padding><Insets left="20"/></padding>
+                <tooltip><Tooltip text="Hide node labels below this zoom level"/></tooltip>
+              </Label>
+              <DoubleTextField fx:id="hideNodeLabelsTF" text="20" GridPane.rowIndex="9" GridPane.columnIndex="2" prefWidth="50" onAction="#applyThreshold"/>
+              <Label text="\%" GridPane.rowIndex="9" GridPane.columnIndex="3"/>
+
+              <Label text="Sketch below" GridPane.rowIndex="10" GridPane.columnIndex="0">
+                <padding><Insets left="20"/></padding>
+                <tooltip><Tooltip text="Render node labels as sketch below this zoom level"/></tooltip>
+              </Label>
+              <DoubleTextField fx:id="sketchNodeLabelsTF" text="40" GridPane.rowIndex="10" GridPane.columnIndex="2" prefWidth="50" onAction="#applyThreshold"/>
+              <Label text="\%" GridPane.rowIndex="10" GridPane.columnIndex="3"/>
+            </GridPane>
+          </TitledPane>
+          <CheckBox fx:id="disableVirtualizationsCB" text="Disable virtualization" onAction="#applyState">
+            <tooltip><Tooltip text="Disables virtualization which improves panning performance below the configured zoom levels at the expense of worsening zooming performance when crossing the threshold"/> </tooltip>
+          </CheckBox>
+          <TitledPane collapsible="false" text="Virtualization" disable="${!disableVirtualizationsCB.selected}">
+          <GridPane hgap="3" vgap="1">
+            <Label text="Don't virtualize edges below" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"/>
+            <DoubleTextField fx:id="virtualizeEdgesTF" text="20" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="50" onAction="#applyThreshold"/>
+            <Label text="\%" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <Label text="Don't virtualize nodes below" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <DoubleTextField fx:id="virtualizeNodesTF" text="20" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="50" onAction="#applyThreshold"/>
+            <Label text="\%" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+          </GridPane>
+          </TitledPane>
+          <CheckBox fx:id="disableSelectionHandlesCB" text="Disable selection handles" selected="true" onAction="#applyState">
+            <tooltip><Tooltip text="Disables selection handles, which can slow down things considerably if there are many of them"/> </tooltip>
+          </CheckBox>
+          <CheckBox fx:id="customSelectionDecorationCB" text="Enable custom selection decoration" selected="true" onAction="#applyState">
+            <tooltip><Tooltip text="Uses faster implementations for the selection decoration"/> </tooltip>
+          </CheckBox>
+          <CheckBox fx:id="labelModelBakingCB" text="Enable label model baking" onAction="#applyState">
+            <tooltip><Tooltip text="Fixes the position of labels on the canvas which makes calculating their position much cheaper"/> </tooltip>
+          </CheckBox>
+        </VBox>
+      </TitledPane>
+      </ScrollPane>
+      </center>
+      <bottom>
+      <TitledPane collapsible="false" text="Test controls">
+        <VBox spacing="3">
+          <padding><Insets top="3" right="3" bottom="3" left="3"/></padding>
+          <TitledPane collapsible="false" text="Information">
+            <GridPane>
+              <Label text="Zoom level" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
+                <tooltip><Tooltip text="The current zoom level of the graph component"/></tooltip>
+              </Label>
+              <Label fx:id="zoomLbl" text="12" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
+
+              <Label text="Selected items" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                <tooltip><Tooltip text="The number of currently selected elements"/></tooltip>
+              </Label>
+              <Label fx:id="selectedItemsLbl" text="0" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
+
+              <Label text="Animation FPS" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                <tooltip><Tooltip text="The current number of frames drawn per second"/></tooltip>
+              </Label>
+              <Label fx:id="fpsLbl" text="0" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
+
+              <Label text="Frames in Animation" GridPane.rowIndex="3" GridPane.columnIndex="0">
+                <tooltip><Tooltip text="The total number of frames rendered for the current animation"/></tooltip>
+              </Label>
+              <Label fx:id="frameCountLbl" text="0" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
+            </GridPane>
+          </TitledPane>
+          <TitledPane collapsible="false" text="Animations">
+            <HBox spacing="2">
+              <Button onAction="#onZoomAnimationClicked">
+                <tooltip><Tooltip text="Zooms to a random node and back"/></tooltip>
+                <graphic><ImageView preserveRatio="true"><Image url="@./resources/zoom.PNG"/></ImageView></graphic>
+              </Button>
+              <Button onAction="#onPanAnimationClicked">
+                <tooltip><Tooltip text="Pans the viewport in a circular motion"/></tooltip>
+                <graphic><ImageView preserveRatio="true"><Image url="@./resources/panInCircle.PNG"/></ImageView></graphic>
+              </Button>
+              <Button onAction="#onSpiralZoomAnimationClicked">
+                <tooltip><Tooltip text="Combines zooming and panning at the same time"/></tooltip>
+                <graphic><ImageView preserveRatio="true"><Image url="@./resources/spiralZoom.PNG"/></ImageView></graphic>
+              </Button>
+              <Button onAction="#onNodeAnimationClicked">
+                <tooltip><Tooltip text="Moves selected nodes randomly"/></tooltip>
+                <graphic><ImageView preserveRatio="true"><Image url="@./resources/moveNodes.PNG"/></ImageView></graphic>
+              </Button>
+            </HBox>
+          </TitledPane>
+           <TitledPane collapsible="false" text="Selection">
+            <GridPane hgap="2" vgap="2">
+              <Label GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" text="Nodes"/>
+              <Label GridPane.rowIndex="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" text="Edges"/>
+              <Label GridPane.rowIndex="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" text="Labels"/>
+
+              <Button GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="Nothing" onAction="#onSelectNothing">
+                <tooltip><Tooltip text="Deselect everything"/></tooltip>
+              </Button>
+               <Button GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="1000" onAction="#onSelect1000Nodes">
+                <tooltip><Tooltip text="Select 1000 random nodes"/></tooltip>
+              </Button>
+               <Button GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="1000" onAction="#onSelect1000Edges">
+                <tooltip><Tooltip text="Select 1000 random edges"/></tooltip>
+              </Button>
+               <Button GridPane.rowIndex="1" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="1000" onAction="#onSelect1000Labels">
+                <tooltip><Tooltip text="Select 1000 random labels"/></tooltip>
+              </Button>
+
+              <Button GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="Everything" onAction="#onSelectAll">
+                <tooltip><Tooltip text="Select all nodes, edges and labels in the graph"/></tooltip>
+              </Button>
+               <Button GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="All" onAction="#onSelectAllNodes">
+                <tooltip><Tooltip text="Select all nodes"/></tooltip>
+              </Button>
+               <Button GridPane.rowIndex="2" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="All" onAction="#onSelectAllEdges">
+                <tooltip><Tooltip text="Select all edges"/></tooltip>
+              </Button>
+               <Button GridPane.rowIndex="2" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" maxWidth="Infinity" text="All" onAction="#onSelectAllLabels">
+                <tooltip><Tooltip text="Select all labels"/></tooltip>
+              </Button>
+            </GridPane>
+          </TitledPane>
+        </VBox>
+      </TitledPane>
+      </bottom>
+    </BorderPane>
+  </left>
+</BorderPane>

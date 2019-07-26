@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.graph.styles.NodeTemplate?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+
+<!-- NodeTemplate for displaying the business data of a customer. Its behavior is specified in -->
+<!-- "CustomerController.java" and some style adjustments are made in "TemplateStyle.css". -->
+<NodeTemplate fx:id="customerNode" styleClass="customer"
+              xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+              fx:controller="style.templatestyle.CustomerController">
+  <stylesheets><URL value="@TemplateStyle.css"/></stylesheets>
+  <VBox alignment="CENTER">
+    <!-- name of the customer is displayed as the caption of this node -->
+    <Label fx:id="nameLabel" text="${customerNode.item.tag.name}" styleClass="nameLabel"/>
+
+    <!-- id of the customer -->
+    <HBox spacing="5.0">
+      <Label text="Id:" style="-fx-font-size: 16.0;"/>
+      <Label text="${customerNode.item.tag.id}" styleClass="nameLabel"/>
+    </HBox>
+
+    <!-- location of the customer -->
+    <HBox spacing="5.0">
+      <Label text="Location:" style="-fx-font-size: 16.0;"/>
+      <Label text="${customerNode.item.tag.location}" styleClass="nameLabel"/>
+    </HBox>
+
+    <!-- insets that keep the text off the border of the node -->
+    <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+  </VBox>
+</NodeTemplate>

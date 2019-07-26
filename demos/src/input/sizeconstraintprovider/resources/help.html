@@ -1,0 +1,38 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/help.css"/>
+</head>
+<body class="demo-description">
+
+<p>
+    This demo shows how resizing of nodes can be restricted.
+</p>
+<p>
+    This is done with custom implementations of the interface <code>ISizeConstraintProvider&lt;INode&gt;</code>
+    that are added to the lookup of the nodes.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+    <li>
+        Select and resize the nodes.
+    </li>
+</ul>
+<h2>Node Types</h2>
+<ul>
+    <li>
+        <font color="#4169e1"><b>Blue nodes</b></font> cannot shrink. Additionally, neither side can become
+        larger than three times its initial size in each resizing operation.
+    </li>
+    <li>
+        The minimum size of a <font color="#228b22"><b>green nodes</b></font> is the size of its labels. It gets
+        never smaller than that.
+    </li>
+    <li>
+        The <font color="#ff8c00"><b>orange node</b></font> must always encompass the black rectangle.
+        Additionally, it has predefined minimum and maximum sizes.
+    </li>
+</ul>
+
+</body>
+</html>

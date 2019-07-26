@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_6wlLcMgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.application" bindingContexts="_6wlLecgZEeSyMNYR5xypkQ">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_6wlLccgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.window.main" selectedElement="_6wlLkMgZEeSyMNYR5xypkQ" label="%trimmedwindow.label.yEd" iconURI="platform:/plugin/com.yworks.yEdLite/icons/y-logo-32.png" bindingContexts="_Xn3LYFAQEeapBsE-yDWZyw" width="500" height="400">
+    <tags>shellMaximized</tags>
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_6wlLkMgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.ide.perspectivestack">
+      <children xsi:type="advanced:Perspective" xmi:id="_6wlLkcgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.perspective.editor" label="%perspective.label.editor">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_HLf90FMJEea9mo3tJ3bKEQ" elementId="com.yworks.yEdLite.partsashcontainer.sample" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_HLf90VMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partsashcontainer.0" containerData="2000">
+            <children xsi:type="basic:PartStack" xmi:id="_HLf90lMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.1" containerData="3000">
+              <children xsi:type="basic:Part" xmi:id="_HLf901MJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.overview" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.OverviewViewPart" label="%part.label.overview" tooltip="%part.tooltip.overview"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_HLf91FMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.2" containerData="7000">
+              <children xsi:type="basic:Part" xmi:id="_HLf91VMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.description" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.DescriptionViewPart" label="%part.label.properties" tooltip="%part.tooltip.properties"/>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_HLf91lMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.0" containerData="6000">
+            <children xsi:type="basic:Part" xmi:id="_HLf911MJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.editor" containerData="6000" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.GraphEditorPart" label="%part.label.unnamed">
+              <menus xsi:type="menu:PopupMenu" xmi:id="_HLf92FMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popupmenu.editor" toBeRendered="false" visible="false" label="%popupmenu.label.context_menu">
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_HLf92VMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.setText" label="%menuitem.label.set_label_text" tooltip="%menuitem.tooltip.set_label_text" command="_hK_WMFAKEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_HLf92lMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.addLabel" label="%menuitem.label.add_label" tooltip="%menuitem.tooltip.add_label" command="_fWX2kFANEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:MenuSeparator" xmi:id="_HLf921MJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.menuseparator.7"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_HLf93FMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.cut" label="%menuitem.label.cut" iconURI="platform:/plugin/com.yworks.yEdLite/icons/cut-16.png" tooltip="%menuitem.tooltip.cut" command="_7ioXYE9REeaSJMRH3Sa8oQ">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_HLf93VMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.copy" label="%menuitem.label.copy" iconURI="platform:/plugin/com.yworks.yEdLite/icons/copy-16.png" tooltip="%menuitem.tooltip.copy" command="_h33z8E9SEeaSJMRH3Sa8oQ">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_eteOEFAOEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.popup.paste" label="%menuitem.label.paste" iconURI="platform:/plugin/com.yworks.yEdLite/icons/paste-16.png" tooltip="%menuitem.tooltip.paste" command="_ayCkQE9TEeaSJMRH3Sa8oQ">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:MenuSeparator" xmi:id="_HLf931MJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.menuseparator.8"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_HLf94FMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.group" label="%menuitem.label.group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/group-16.png" tooltip="%menuitem.tooltip.group" command="_EG7GsE_hEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_6VIGkFAOEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.popup.ungroup" label="%menuitem.label.ungroup" iconURI="platform:/plugin/com.yworks.yEdLite/icons/ungroup-16.png" tooltip="%menuitem.tooltip.ungroup" command="_B0l3sE_hEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Paper</tags>
+                </children>
+              </menus>
+              <menus xsi:type="menu:PopupMenu" xmi:id="_HLf92FMJEea9mo3tJ3bKEQ1" elementId="yed-lite-eclipse-rcp.popupmenu.editor.empty" toBeRendered="false" visible="false">
+              </menus>
+            </children>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_lo2b0FMvEeal98oY91I5Ig" elementId="yed-lite-eclipse-rcp.partsashcontainer.1" containerData="2125">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_D_qboFQUEeayx9ktpHee8Q" elementId="yed-lite-eclipse-rcp.partsashcontainer.2" containerData="2000">
+              <children xsi:type="basic:PartStack" xmi:id="_HLf94lMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.palette" containerData="1000">
+                <children xsi:type="basic:Part" xmi:id="_HLf941MJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.palette.shapes" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ShapeNodePalettePart" label="%part.label.palette_shape_nodes" tooltip="%part.tooltip.palette_shape_nodes"/>
+                <children xsi:type="basic:Part" xmi:id="_HLf95FMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.nodes.modern" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ModernNodesPart" label="%part.label.palette_modern_nodes" tooltip="%part.tooltip.palette_modern_nodes"/>
+                <children xsi:type="basic:Part" xmi:id="_HLf95VMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.palette.groups" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.GroupPalettePart" label="%part.label.palette_group_nodes" tooltip="%part.tooltip.palette_group_nodes"/>
+              </children>
+              <children xsi:type="basic:PartStack" xmi:id="_Ie1VoFQUEeayx9ktpHee8Q" elementId="yed-lite-eclipse-rcp.partstack.3" containerData="750">
+                <children xsi:type="basic:Part" xmi:id="_HLf95lMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.palette.edges" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.EdgePalettePart" label="%part.label.palette_edges" tooltip="%part.tooltip.palette_edges"/>
+              </children>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_nvUZEFMvEeal98oY91I5Ig" elementId="yed-lite-eclipse-rcp.partstack.layout" containerData="2400">
+              <children xsi:type="basic:Part" xmi:id="_rm-nIFMvEeal98oY91I5Ig" elementId="yed-lite-eclipse-rcp.part.layout.hierarchic" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.LayoutPart" label="%part.label.hierarchic" iconURI="platform:/plugin/com.yworks.yEdLite/icons/layout-hierarchic.png" tooltip="%part.tooltip.hierarchic">
+                <tags>Hierarchic</tags>
+              </children>
+              <children xsi:type="basic:Part" xmi:id="_xU-rwFMvEeal98oY91I5Ig" elementId="yed-lite-eclipse-rcp.part.layout.organic" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.LayoutPart" label="%part.label.organic" iconURI="platform:/plugin/com.yworks.yEdLite/icons/layout-organic-16.png" tooltip="%part.tooltip.organic">
+                <tags>Organic</tags>
+              </children>
+              <children xsi:type="basic:Part" xmi:id="_1pqNAFMvEeal98oY91I5Ig" elementId="yed-lite-eclipse-rcp.part.layout.orthogonal" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.LayoutPart" label="%part.label.orthogonal" iconURI="platform:/plugin/com.yworks.yEdLite/icons/layout-orthogonal-16.png" tooltip="%part.tooltip.orthogonal">
+                <tags>Orthogonal</tags>
+              </children>
+              <children xsi:type="basic:Part" xmi:id="_5IjVwFMvEeal98oY91I5Ig" elementId="yed-lite-eclipse-rcp.part.layout.edgerouter" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.LayoutPart" label="%part.label.routing" iconURI="platform:/plugin/com.yworks.yEdLite/icons/orthogonal-routing.png" tooltip="%part.tooltip.routing">
+                <tags>EdgeRouter</tags>
+              </children>
+            </children>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_nzBt0FMCEea9mo3tJ3bKEQ" elementId="com.yworks.yEdLite.perspective.view" label="%perspective.label.view">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_vEjasFMCEea9mo3tJ3bKEQ" elementId="com.yworks.yEdLite.partsashcontainer.sample" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_vEjasVMCEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partsashcontainer.0" containerData="2000">
+            <children xsi:type="basic:PartStack" xmi:id="_vEjaslMCEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.1" containerData="3000">
+              <children xsi:type="basic:Part" xmi:id="_vEjas1MCEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.overview" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.OverviewViewPart" label="%part.label.overview" tooltip="%part.tooltip.overview"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_vEjatFMCEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.2" containerData="3000">
+              <children xsi:type="basic:Part" xmi:id="_E4OKcFNHEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.neighborhood" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ContextNeighborhoodPart" label="%part.label.neighborhood" tooltip="%part.tooltip.neighborhood"/>
+              <children xsi:type="basic:Part" xmi:id="_7TbxUFPREeaq9rbo9gfCVQ" elementId="yed-lite-eclipse-rcp.part.predecessors" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ContextPredecessorsPart" label="%part.label.predecessors" tooltip="%part.tooltip.predecessors"/>
+              <children xsi:type="basic:Part" xmi:id="_LiuDYFPSEeaq9rbo9gfCVQ" elementId="yed-lite-eclipse-rcp.part.successors" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ContextSuccessorsPart" label="%part.label.successors" tooltip="%part.tooltip.successors"/>
+              <children xsi:type="basic:Part" xmi:id="_L8hDcFPSEeaq9rbo9gfCVQ" elementId="yed-lite-eclipse-rcp.part.foldercontents" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ContextFolderContentsPart" label="%part.label.folder_content" tooltip="%part.tooltip.folder_content"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_dvWHsFPZEea5FL5vAKvlCw" elementId="yed-lite-eclipse-rcp.partstack.3" containerData="3000">
+              <children xsi:type="basic:Part" xmi:id="_eJfGAFPZEea5FL5vAKvlCw" elementId="yed-lite-eclipse-rcp.part.structure" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.StructureViewPart" label="%part.label.structure_view" tooltip="%part.tooltip.structure_view"/>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_vEjatlMCEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.0" containerData="8000">
+            <children xsi:type="basic:Part" xmi:id="_JyciMFMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.view" containerData="8000" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.GraphViewerPart" label="%part.label.unnamed">
+              <menus xsi:type="menu:PopupMenu" xmi:id="_JyciMVMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popupmenu.editor" toBeRendered="false" visible="false" label="%popupmenu.label.context_menu">
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JyciMlMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.setText" label="%menuitem.label.set_label_text" tooltip="%menuitem.tooltip.set_label_text" command="_hK_WMFAKEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JyciM1MaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.addLabel" label="%menuitem.label.add_label" tooltip="%menuitem.tooltip.add_label" command="_fWX2kFANEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:MenuSeparator" xmi:id="_JyciNFMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.menuseparator.7"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JyciNVMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.cut" label="%menuitem.label.cut" iconURI="platform:/plugin/com.yworks.yEdLite/icons/cut-16.png" tooltip="%menuitem.tooltip.cut" command="_7ioXYE9REeaSJMRH3Sa8oQ">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JyciNlMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.copy" label="%menuitem.label.copy" iconURI="platform:/plugin/com.yworks.yEdLite/icons/copy-16.png" tooltip="%menuitem.tooltip.copy" command="_h33z8E9SEeaSJMRH3Sa8oQ">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JyciN1MaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.paste" label="%menuitem.label.paste" iconURI="platform:/plugin/com.yworks.yEdLite/icons/paste-16.png" tooltip="%menuitem.tooltip.paste" command="_ayCkQE9TEeaSJMRH3Sa8oQ">
+                  <tags>Node</tags>
+                  <tags>Edge</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:MenuSeparator" xmi:id="_JyciOFMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.menuseparator.8"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JyciOVMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.group" label="%menuitem.label.group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/group-16.png" tooltip="%menuitem.tooltip.group" command="_EG7GsE_hEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Paper</tags>
+                </children>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JyciOlMaEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.popup.ungroup" label="%menuitem.label.ungroup" iconURI="platform:/plugin/com.yworks.yEdLite/icons/ungroup-16.png" tooltip="%menuitem.tooltip.ungroup" command="_B0l3sE_hEeatvrLoK7apNA">
+                  <tags>Node</tags>
+                  <tags>Paper</tags>
+                </children>
+              </menus>
+            </children>
+          </children>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_6wlLicgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.menu">
+      <children xsi:type="menu:Menu" xmi:id="_6wlLisgZEeSyMNYR5xypkQ" elementId="file" label="%menu.label.file">
+        <tags>shared</tags>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_9P94YE9QEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.new" label="%menuitem.label.new" iconURI="platform:/plugin/com.yworks.yEdLite/icons/new-document-16.png" tooltip="%menuitem.tooltip.new" command="_KQYasE9REeaSJMRH3Sa8oQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6wlLi8gZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.handleditem.file.open" label="%menuitem.label.open" iconURI="platform:/plugin/com.yworks.yEdLite/icons/open-16.png" tooltip="%menuitem.tooltip.open" command="_6wlLgMgZEeSyMNYR5xypkQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_eA9hoE_zEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.menuseparator.4">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6wlLjMgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.handleditem.save" label="%menuitem.label.save" iconURI="platform:/plugin/com.yworks.yEdLite/icons/save-16.png" tooltip="%menuitem.tooltip.save" command="_6wlLg8gZEeSyMNYR5xypkQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_BU2LME_iEeaxEJkaCJhNXA" elementId="yed-lite-eclipse-rcp.handledmenuitem.export" label="%menuitem.label.export" iconURI="platform:/plugin/com.yworks.yEdLite/icons/export-image-16.png" tooltip="%menuitem.tooltip.export" command="_64UzsE_hEeaxEJkaCJhNXA">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_mk-KEE_zEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.menuseparator.6">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_WFCcoE_iEeaxEJkaCJhNXA" elementId="yed-lite-eclipse-rcp.handledmenuitem.print" label="%menuitem.label.print" iconURI="platform:/plugin/com.yworks.yEdLite/icons/print-16.png" tooltip="%menuitem.tooltip.print" command="_QEG08E_iEeaxEJkaCJhNXA">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_fVV6oE_zEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.menuseparator.5">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:Menu" xmi:id="_qw97EFMBEeahnodIj0zQ2Q" elementId="yed-lite-eclipse-rcp.menu.changelocale" label="%menu.label.language">
+          <tags>shared</tags>
+          <children xsi:type="menu:DynamicMenuContribution" xmi:id="_MmgScL_VEeeeNMACMl0sZA" elementId="yed-lite-eclipse-rcp.dynamicmenucontribution.setinitiallocale" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.SetInitialLocale"/>
+          <children xsi:type="menu:HandledMenuItem" xmi:id="_-iryEFMBEeahnodIj0zQ2Q" elementId="yed-lite-eclipse-rcp.handledmenuitem.englishlocale" label="%menuitem.label.english" type="Radio" command="_QESdEFMBEeahnodIj0zQ2Q">
+            <tags>shared</tags>
+            <tags>locale-english</tags>
+            <parameters xmi:id="_-r4pIFP4EeatI_EMzVfqpw" elementId="com.yworks.yedlite.parameter.0" name="language_parameter" value="english"/>
+          </children>
+          <children xsi:type="menu:HandledMenuItem" xmi:id="_xNB_kFMBEeahnodIj0zQ2Q" elementId="yed-lite-eclipse-rcp.handledmenuitem.germanlocale" label="%menuitem.label.german" tooltip="" type="Radio" command="_QESdEFMBEeahnodIj0zQ2Q">
+            <tags>shared</tags>
+            <tags>locale-german</tags>
+            <parameters xmi:id="_AwPGgFP5EeatI_EMzVfqpw" elementId="com.yworks.yedlite.parameter.1" name="language_parameter" value="german"/>
+          </children>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_OzsicFMCEeahnodIj0zQ2Q" elementId="yed-lite-eclipse-rcp.menuseparator.9"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6wlLjcgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.handleditem.quit" label="%menuitem.label.quit" tooltip="%menuitem.tooltip.quit" command="_6wlLfMgZEeSyMNYR5xypkQ">
+          <tags>shared</tags>
+        </children>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_LozDUE9KEeavYL3KV3aIoQ" elementId="yed-lite-eclipse-rcp.menu.edit" label="%menu.label.edit">
+        <tags>com.yworks.yEdLite.perspective.editor</tags>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_DX4cYE9SEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.cut" label="%menuitem.label.cut" iconURI="platform:/plugin/com.yworks.yEdLite/icons/cut-16.png" tooltip="%menuitem.tooltip.cut" command="_7ioXYE9REeaSJMRH3Sa8oQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Ghh4cE9TEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.copy" label="%menuitem.label.copy" iconURI="platform:/plugin/com.yworks.yEdLite/icons/copy-16.png" tooltip="%menuitem.tooltip.copy" command="_h33z8E9SEeaSJMRH3Sa8oQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_mBhUcE9TEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.paste" label="%menuitem.label.paste" iconURI="platform:/plugin/com.yworks.yEdLite/icons/paste-16.png" tooltip="%menuitem.tooltip.paste" command="_ayCkQE9TEeaSJMRH3Sa8oQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_-kGcsE_zEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handledmenuitem.duplicate" label="%menuitem.label.duplicate" iconURI="platform:/plugin/com.yworks.yEdLite/icons/duplicate-16.png" tooltip="%menuitem.tooltip.duplicate" command="_FRHuUE_0EeaPgpU1WenWVg"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_T8PUoE9UEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.menuseparator.0"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_M7RX0E9KEeavYL3KV3aIoQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.undo" label="%menuitem.label.undo" iconURI="platform:/plugin/com.yworks.yEdLite/icons/undo-16.png" tooltip="%menuitem.tooltip.undo" command="_-cdk4E9JEeavYL3KV3aIoQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_E0y0YE9UEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.redo" label="%menuitem.label.redo" iconURI="platform:/plugin/com.yworks.yEdLite/icons/redo-16.png" tooltip="%menuitem.tooltip.redo" command="_8VXxAE9TEeaSJMRH3Sa8oQ"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_ZKWccE9NEea6LKuEMsmbkw" elementId="yed-lite-eclipse-rcp.menu.view" label="%menu.label.view">
+        <tags>shared</tags>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_XrktIE9UEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.zoomIn" label="%menuitem.label.zoom_in" iconURI="platform:/plugin/com.yworks.yEdLite/icons/magnify-16.png" tooltip="%menuitem.tooltip.zoom_in" command="_HmC0AE9UEeanVdlFhLy6sQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_T-yc4E9VEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.zoomout" label="%menuitem.label.zoom_out" iconURI="platform:/plugin/com.yworks.yEdLite/icons/demagnify-16.png" tooltip="%menuitem.tooltip.zoom_out" command="_IMTGQE9VEeanVdlFhLy6sQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_ZYBQUE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.menuseparator.2">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_c0DHAE9NEea6LKuEMsmbkw" elementId="yed-lite-eclipse-rcp.handledmenuitem.fitcontent" label="%menuitem.label.fit_content" iconURI="platform:/plugin/com.yworks.yEdLite/icons/fit-16.png" tooltip="%menuitem.tooltip.fit_content" command="_iqkOcE9NEea6LKuEMsmbkw">
+          <tags>shared</tags>
+        </children>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_9lOH8E9WEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.menu.layout" label="%menu.label.layout">
+        <tags>com.yworks.yEdLite.perspective.editor</tags>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_-hWZAE9WEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.hierarchic" label="%menuitem.label.hierarchic" iconURI="platform:/plugin/com.yworks.yEdLite/icons/layout-hierarchic.png" tooltip="%menuitem.tooltip.hierarchic" command="_AVP1AE9WEeanVdlFhLy6sQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_pZwpUE9YEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.organic" label="%menuitem.label.organic" iconURI="platform:/plugin/com.yworks.yEdLite/icons/layout-organic-16.png" tooltip="%menuitem.tooltip.organic" command="_SnH_AE9YEeanVdlFhLy6sQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_xYhPoE9YEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledmenuitem.orthogonal" label="%menuitem.label.orthogonal" iconURI="platform:/plugin/com.yworks.yEdLite/icons/layout-orthogonal-16.png" tooltip="%menuitem.tooltip.orthogonal" command="_WZ2pwE9YEeanVdlFhLy6sQ"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_DQ9dIE_jEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.menuseparator.3"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_D-TrUE_jEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handledmenuitem.edgeRouter" label="%menuitem.label.routing" iconURI="platform:/plugin/com.yworks.yEdLite/icons/orthogonal-routing.png" tooltip="%menuitem.tooltip.routing" command="_89IHkE_iEeatvrLoK7apNA"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_4rcscE_hEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.menu.grouping" label="%menu.label.grouping">
+        <tags>shared</tags>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6-7K8E_hEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handledmenuitem.group" label="%menuitem.label.group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/group-16.png" tooltip="%menuitem.tooltip.group" command="_EG7GsE_hEeatvrLoK7apNA">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_G1aQwE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handledmenuitem.ungroup" label="%menuitem.label.ungroup" iconURI="platform:/plugin/com.yworks.yEdLite/icons/ungroup-16.png" tooltip="%menuitem.tooltip.ungroup" command="_B0l3sE_hEeatvrLoK7apNA">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_W4AxsE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.menuseparator.1">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_vqrm0E_yEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handledmenuitem.enterGroup" label="%menuitem.label.enter_group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/enter-group-16.png" tooltip="%menuitem.tooltip.enter_group" command="_hnicME_yEeaPgpU1WenWVg">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Kjv7AE_zEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handledmenuitem.exitGroup" label="%menuitem.label.exit_group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/exit-group-16.png" tooltip="%menuitem.tooltip.exit_group" command="_kLSLUE_yEeaPgpU1WenWVg">
+          <tags>shared</tags>
+        </children>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_6wlLjsgZEeSyMNYR5xypkQ" elementId="help" label="%menu.label.help">
+        <tags>shared</tags>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6wlLj8gZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.handleditem.about" label="%menuitem.label.about" tooltip="%menuitem.tooltip.about" command="_6wlLhsgZEeSyMNYR5xypkQ">
+          <tags>shared</tags>
+        </children>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_6wlLlcgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.trimbar.top">
+      <children xsi:type="menu:ToolBar" xmi:id="_6wlLlsgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.toolbar">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_YY3YUE9REeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.new" label="%menuitem.label.new" iconURI="platform:/plugin/com.yworks.yEdLite/icons/new-document-16.png" tooltip="%menuitem.tooltip.new" command="_KQYasE9REeaSJMRH3Sa8oQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_6wlLl8gZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.handleditem.trimbar.top.open" label="%menuitem.label.open" iconURI="platform:/plugin/com.yworks.yEdLite/icons/open-16.png" tooltip="%menuitem.tooltip.open" command="_6wlLgMgZEeSyMNYR5xypkQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_6wlLmMgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.handleditem.trimbar.top.save" label="%menuitem.label.save" iconURI="platform:/plugin/com.yworks.yEdLite/icons/save-16.png" tooltip="%menuitem.tooltip.save" command="_6wlLg8gZEeSyMNYR5xypkQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_o2dUQE_iEeaxEJkaCJhNXA" elementId="yed-lite-eclipse-rcp.handledtoolitem.print" label="%menuitem.label.print" iconURI="platform:/plugin/com.yworks.yEdLite/icons/print-16.png" tooltip="%menuitem.tooltip.print" command="_QEG08E_iEeaxEJkaCJhNXA">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_wumNEE9REeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.toolbarseparator.0">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_3up1UFMIEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.cut" label="%menuitem.label.cut" iconURI="platform:/plugin/com.yworks.yEdLite/icons/cut-16.png" tooltip="%menuitem.tooltip.cut" command="_7ioXYE9REeaSJMRH3Sa8oQ">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MgiNgE9TEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.copy" label="%menuitem.label.copy" iconURI="platform:/plugin/com.yworks.yEdLite/icons/copy-16.png" tooltip="%menuitem.tooltip.copy" command="_h33z8E9SEeaSJMRH3Sa8oQ">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_rFuOIE9TEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.paste" label="%menuitem.label.paste" iconURI="platform:/plugin/com.yworks.yEdLite/icons/paste-16.png" tooltip="%menuitem.tooltip.paste" command="_ayCkQE9TEeaSJMRH3Sa8oQ">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MjCcwE_0EeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handledtoolitem.duplicate" label="%menuitem.label.duplicate" iconURI="platform:/plugin/com.yworks.yEdLite/icons/duplicate-16.png" tooltip="%menuitem.tooltip.duplicate" command="_FRHuUE_0EeaPgpU1WenWVg">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_Mlja8E9UEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.toolbarseparator.1">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_UqMLUE9KEeavYL3KV3aIoQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.undo" label="%menuitem.label.undo" iconURI="platform:/plugin/com.yworks.yEdLite/icons/undo-16.png" tooltip="%menuitem.tooltip.undo" command="_-cdk4E9JEeavYL3KV3aIoQ">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_IsJgcE9UEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.redo" label="%menuitem.label.redo" iconURI="platform:/plugin/com.yworks.yEdLite/icons/redo-16.png" tooltip="%menuitem.tooltip.redo" command="_8VXxAE9TEeaSJMRH3Sa8oQ">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_cOqtUE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.toolbarseparator.2">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_NHecQE9UEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.zoomIn" iconURI="platform:/plugin/com.yworks.yEdLite/icons/magnify-16.png" tooltip="%menuitem.tooltip.zoom_in" command="_HmC0AE9UEeanVdlFhLy6sQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_E0SBkE9VEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.zoomOut" iconURI="platform:/plugin/com.yworks.yEdLite/icons/demagnify-16.png" tooltip="%menuitem.tooltip.zoom_out" command="_IMTGQE9VEeanVdlFhLy6sQ">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_S0xLsE9TEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.fitContent" iconURI="platform:/plugin/com.yworks.yEdLite/icons/fit-16.png" tooltip="%menuitem.tooltip.fit_content" command="_iqkOcE9NEea6LKuEMsmbkw">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_dinogE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.toolbarseparator.3">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_eKe5wE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handledtoolitem.group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/group-16.png" tooltip="%menuitem.tooltip.group" command="_EG7GsE_hEeatvrLoK7apNA">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_iqN0cE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handledtoolitem.ungroup" iconURI="platform:/plugin/com.yworks.yEdLite/icons/ungroup-16.png" tooltip="%menuitem.tooltip.ungroup" command="_B0l3sE_hEeatvrLoK7apNA">
+          <tags>com.yworks.yEdLite.perspective.editor</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_O_qssE_zEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handledtoolitem.enterGroup" label="%menuitem.label.enter_group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/enter-group-16.png" tooltip="%menuitem.tooltip.enter_group" command="_hnicME_yEeaPgpU1WenWVg">
+          <tags>shared</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_R2S7kE_zEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handledtoolitem.exitGroup" label="%menuitem.label.exit_group" iconURI="platform:/plugin/com.yworks.yEdLite/icons/exit-group-16.png" tooltip="%menuitem.tooltip.exit_group" command="_kLSLUE_yEeaPgpU1WenWVg">
+          <tags>shared</tags>
+        </children>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_9wx6UFPNEeadW-a6loS0kQ" elementId="com.yworks.yedlite.toolcontrol.0" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.controls.SpacerControl">
+        <tags>stretch</tags>
+      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_e6URkFPPEeadW-a6loS0kQ" elementId="com.yworks.yedlite.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_aIi6wFPGEeardJ6s3geObQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.editor" label="%menuitem.label.edit_mode" iconURI="platform:/plugin/com.yworks.yEdLite/icons/editor-16.png" tooltip="%menuitem.tooltip.edit_mode" selected="true" type="Radio" command="_no320FMDEea9mo3tJ3bKEQ">
+          <tags>shared</tags>
+          <parameters xmi:id="_0MjAcFPMEeadW-a6loS0kQ" elementId="com.yworks.yedlite.parameter.perspective" name="perspective_parameter" value="com.yworks.yEdLite.perspective.editor"/>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_noh4gFPHEeardJ6s3geObQ" elementId="yed-lite-eclipse-rcp.handledtoolitem.viewer" label="%menuitem.label.navigation_mode" iconURI="platform:/plugin/com.yworks.yEdLite/icons/viewer-16.png" tooltip="%menuitem.tooltip.navigation_mode" type="Radio" command="_no320FMDEea9mo3tJ3bKEQ">
+          <tags>shared</tags>
+          <parameters xmi:id="__rLm8FPMEeadW-a6loS0kQ" elementId="com.yworks.yedlite.parameter.perspective" name="perspective_parameter" value="com.yworks.yEdLite.perspective.view"/>
+        </children>
+      </children>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_6wlLfcgZEeSyMNYR5xypkQ" elementId="com.yworks.yedlite.handler.quitCommand" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.QuitHandler" command="_6wlLfMgZEeSyMNYR5xypkQ"/>
+  <handlers xmi:id="_6wlLgcgZEeSyMNYR5xypkQ" elementId="com.yworks.yedlite.handler.openCommand" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.OpenHandler" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
+  <handlers xmi:id="_6wlLhMgZEeSyMNYR5xypkQ" elementId="com.yworks.yedlite.handler.saveCommand" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.SaveHandler" command="_6wlLg8gZEeSyMNYR5xypkQ"/>
+  <handlers xmi:id="_6wlLh8gZEeSyMNYR5xypkQ" elementId="com.yworks.yedlite.handler.aboutCommand" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.AboutHandler" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
+  <handlers xmi:id="_Cqd2YE9KEeavYL3KV3aIoQ" elementId="yed-lite-eclipse-rcp.handler.undo" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.UndoHandler" command="_-cdk4E9JEeavYL3KV3aIoQ"/>
+  <handlers xmi:id="_Ofam8E9REeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handler.new" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.NewHandler" command="_KQYasE9REeaSJMRH3Sa8oQ"/>
+  <handlers xmi:id="_Ah2DYE9SEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handler.cut" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.CutHandler" command="_7ioXYE9REeaSJMRH3Sa8oQ"/>
+  <handlers xmi:id="_iXFDAE9TEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handler.paste" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.PasteHandler" command="_ayCkQE9TEeaSJMRH3Sa8oQ"/>
+  <handlers xmi:id="_CefrYE9UEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handler.redo" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.RedoHandler" command="_8VXxAE9TEeaSJMRH3Sa8oQ"/>
+  <handlers xmi:id="_8z5OIE9VEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.handler.copy" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.CopyHandler" command="_h33z8E9SEeaSJMRH3Sa8oQ"/>
+  <handlers xmi:id="_ndubcE9NEea6LKuEMsmbkw" elementId="yed-lite-eclipse-rcp.handler.fitContent" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.FitContentHandler" command="_iqkOcE9NEea6LKuEMsmbkw"/>
+  <handlers xmi:id="_KOCJ8E9UEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handler.zoomIn" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.ZoomInHandler" command="_HmC0AE9UEeanVdlFhLy6sQ"/>
+  <handlers xmi:id="_KFBicE9VEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handler.zoomOut" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.ZoomOutHandler" command="_IMTGQE9VEeanVdlFhLy6sQ"/>
+  <handlers xmi:id="_KisD8E9XEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handler.layoutHierarchic" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.HierarchicLayoutHandler" command="_AVP1AE9WEeanVdlFhLy6sQ"/>
+  <handlers xmi:id="_UOEHoE9YEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handler.layoutOrganic" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.OrganicLayoutHandler" command="_SnH_AE9YEeanVdlFhLy6sQ"/>
+  <handlers xmi:id="_iyxHME9YEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.handler.layoutOrthogonal" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.OrthogonalLayoutHandler" command="_WZ2pwE9YEeanVdlFhLy6sQ"/>
+  <handlers xmi:id="_9O8s0E_hEeaxEJkaCJhNXA" elementId="yed-lite-eclipse-rcp.handler.export" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.ExportHandler" command="_64UzsE_hEeaxEJkaCJhNXA"/>
+  <handlers xmi:id="_TS_LwE_iEeaxEJkaCJhNXA" elementId="yed-lite-eclipse-rcp.handler.print" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.PrintHandler" command="_QEG08E_iEeaxEJkaCJhNXA"/>
+  <handlers xmi:id="_F1gvcE_hEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handler.ungroup" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.UnGroupHandler" command="_B0l3sE_hEeatvrLoK7apNA"/>
+  <handlers xmi:id="_IurU8E_hEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handler.group" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.GroupHandler" command="_EG7GsE_hEeatvrLoK7apNA"/>
+  <handlers xmi:id="_AOCesE_jEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handler.edgeRouter" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.EdgeRouterHandler" command="_89IHkE_iEeatvrLoK7apNA"/>
+  <handlers xmi:id="_pae0EE_yEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handler.enterGroup" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.EnterGroupHander" command="_hnicME_yEeaPgpU1WenWVg"/>
+  <handlers xmi:id="_sCcU0E_yEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handler.exitGroup" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.ExitGroupHandler" command="_kLSLUE_yEeaPgpU1WenWVg"/>
+  <handlers xmi:id="_amS8IE_0EeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.handler.duplicate" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.DuplicateHandler" command="_FRHuUE_0EeaPgpU1WenWVg"/>
+  <handlers xmi:id="_rq8G4FAKEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handler.setText" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.SetTextHandler" command="_hK_WMFAKEeatvrLoK7apNA"/>
+  <handlers xmi:id="_iW6PYFANEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.handler.addLabel" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.AddLabelHandler" command="_fWX2kFANEeatvrLoK7apNA"/>
+  <handlers xmi:id="_Ux8fAFMBEeahnodIj0zQ2Q" elementId="yed-lite-eclipse-rcp.handler.changelocale" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.ChangeLocaleHandler" command="_QESdEFMBEeahnodIj0zQ2Q"/>
+  <handlers xmi:id="_8CBr0FMEEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.handler.switchPerspective" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.handlers.SwitchPerspectiveHandler" command="_no320FMDEea9mo3tJ3bKEQ"/>
+  <bindingTables xmi:id="_6wlLfsgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.bindingtable" bindingContext="_Xn3LYFAQEeapBsE-yDWZyw">
+    <bindings xmi:id="_dYEX0FACEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1n" keySequence="M1+N" command="_KQYasE9REeaSJMRH3Sa8oQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_6wlLgsgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.keybinding.m1o" keySequence="M1+O" command="_6wlLgMgZEeSyMNYR5xypkQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_6wlLhcgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.keybinding.m1s" keySequence="M1+S" command="_6wlLg8gZEeSyMNYR5xypkQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_BL2kQFADEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1e" keySequence="M1+E" command="_64UzsE_hEeaxEJkaCJhNXA">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_4VEJwFACEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1p" keySequence="M1+P" command="_QEG08E_iEeaxEJkaCJhNXA">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_6wlLf8gZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.keybinding.m1q" keySequence="M1+Q" command="_6wlLfMgZEeSyMNYR5xypkQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_QzqRgFABEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1z" keySequence="M1+Z" command="_-cdk4E9JEeavYL3KV3aIoQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_kpArUFABEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1y" keySequence="M1+Y" command="_8VXxAE9TEeaSJMRH3Sa8oQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_m0_lQFACEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1x" keySequence="M1+X" command="_7ioXYE9REeaSJMRH3Sa8oQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_UzEQ4FACEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1c" keySequence="M1+C" command="_h33z8E9SEeaSJMRH3Sa8oQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_sg7NUFACEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1v" keySequence="M1+V" command="_ayCkQE9TEeaSJMRH3Sa8oQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_ymjHwFACEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1d" keySequence="M1+D" command="_FRHuUE_0EeaPgpU1WenWVg">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_6wlLiMgZEeSyMNYR5xypkQ" elementId="com.yworks.yEdLite.keybinding.m1f1" keySequence="M1+F1" command="_6wlLhsgZEeSyMNYR5xypkQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_fObnEFADEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.numpad+" keySequence="NUMPAD_ADD" command="_HmC0AE9UEeanVdlFhLy6sQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_neq-8FADEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.numpad-" keySequence="NUMPAD_SUBTRACT" command="_IMTGQE9VEeanVdlFhLy6sQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_wCJb4FADEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m10" keySequence="M1+0" command="_iqkOcE9NEea6LKuEMsmbkw">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_M8hggFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m2m3h" keySequence="M2+M3+H" command="_AVP1AE9WEeanVdlFhLy6sQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_SwEzgFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m2m3g" keySequence="M2+M3+G" command="_SnH_AE9YEeanVdlFhLy6sQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_arkqcFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m2m3o" keySequence="M2+M3+O" command="_WZ2pwE9YEeanVdlFhLy6sQ">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_fMuhcFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m2m3r" keySequence="M2+M3+R" command="_89IHkE_iEeatvrLoK7apNA">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_pUxIcFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1m3g" keySequence="M1+M3+G" command="_EG7GsE_hEeatvrLoK7apNA">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_vO0FAFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m1m3l" keySequence="M1+M3+L" command="_B0l3sE_hEeatvrLoK7apNA">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_1NHPcFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m3pageup" keySequence="M3+PAGE_UP" command="_hnicME_yEeaPgpU1WenWVg">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_7YTmYFAEEeaeaoFVtXqGNA" elementId="yed-lite-eclipse-rcp.keybinding.m3pagedown" keySequence="M3+PAGE_DOWN" command="_kLSLUE_yEeaPgpU1WenWVg">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_-8aogFATEeaMreLApvftxw" elementId="yed-lite-eclipse-rcp.keybinding.f2" keySequence="F2" command="_hK_WMFAKEeatvrLoK7apNA">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_GHpgIFAUEeaMreLApvftxw" elementId="yed-lite-eclipse-rcp.keybinding.m2f2" keySequence="M2+F2" command="_fWX2kFANEeatvrLoK7apNA">
+      <tags>type:user</tags>
+    </bindings>
+  </bindingTables>
+  <rootContext xmi:id="_6wlLecgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_6wlLesgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_6wlLe8gZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+    <children xmi:id="_Xn3LYFAQEeapBsE-yDWZyw" elementId="yed-lite-eclipse-rcp.bindingcontext.trimmedwindow" name="In Trimmed Window"/>
+  </rootContext>
+  <commands xmi:id="_6wlLfMgZEeSyMNYR5xypkQ" elementId="yed-lite-eclipse-rcp.command.quit" commandName="%command.commandname.quit"/>
+  <commands xmi:id="_6wlLgMgZEeSyMNYR5xypkQ" elementId="yed-lite-eclipse-rcp.command.open" commandName="%command.commandname.open"/>
+  <commands xmi:id="_6wlLg8gZEeSyMNYR5xypkQ" elementId="yed-lite-eclipse-rcp.command..save" commandName="%command.commandname.save"/>
+  <commands xmi:id="_6wlLhsgZEeSyMNYR5xypkQ" elementId="yed-lite-eclipse-rcp.command.aboutAction" commandName="%command.commandname.about"/>
+  <commands xmi:id="_-cdk4E9JEeavYL3KV3aIoQ" elementId="yed-lite-eclipse-rcp.command.undo" commandName="%command.commandname.undo"/>
+  <commands xmi:id="_KQYasE9REeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.command.new" commandName="%command.commandname.new"/>
+  <commands xmi:id="_7ioXYE9REeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.command.cut" commandName="%command.commandname.cut"/>
+  <commands xmi:id="_h33z8E9SEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.command.copy" commandName="%command.commandname.copy"/>
+  <commands xmi:id="_ayCkQE9TEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.command.paste" commandName="%command.commandname.paste"/>
+  <commands xmi:id="_8VXxAE9TEeaSJMRH3Sa8oQ" elementId="yed-lite-eclipse-rcp.command.redo" commandName="%command.commandname.redo"/>
+  <commands xmi:id="_iqkOcE9NEea6LKuEMsmbkw" elementId="yed-lite-eclipse-rcp.command.fitContentCommand" commandName="%command.commandname.fit_content"/>
+  <commands xmi:id="_HmC0AE9UEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.command.zoomIn" commandName="%command.commandname.zoom_in"/>
+  <commands xmi:id="_IMTGQE9VEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.command.zoomOut" commandName="%command.commandname.zoom_out"/>
+  <commands xmi:id="_AVP1AE9WEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.command.layoutHierarchic" commandName="%command.commandname.layout_hierarchic"/>
+  <commands xmi:id="_SnH_AE9YEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.command.layoutOrganic" commandName="%command.commandname.layout_organic"/>
+  <commands xmi:id="_WZ2pwE9YEeanVdlFhLy6sQ" elementId="yed-lite-eclipse-rcp.command.layoutOrthogonal" commandName="%command.commandname.layout_orthogonal"/>
+  <commands xmi:id="_64UzsE_hEeaxEJkaCJhNXA" elementId="yed-lite-eclipse-rcp.command.export" commandName="%command.commandname.export"/>
+  <commands xmi:id="_QEG08E_iEeaxEJkaCJhNXA" elementId="yed-lite-eclipse-rcp.command.print" commandName="%command.commandname.print"/>
+  <commands xmi:id="_B0l3sE_hEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.command.ungroupcommand" commandName="%command.commandname.ungroup"/>
+  <commands xmi:id="_EG7GsE_hEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.command.groupcommand" commandName="%command.commandname.group"/>
+  <commands xmi:id="_89IHkE_iEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.command.edgeroutingcommand" commandName="%command.commandname.routing"/>
+  <commands xmi:id="_hnicME_yEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.command.enterGroup" commandName="%command.commandname.enter_group"/>
+  <commands xmi:id="_kLSLUE_yEeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.command.exitGroup" commandName="%command.commandname.exit_group"/>
+  <commands xmi:id="_FRHuUE_0EeaPgpU1WenWVg" elementId="yed-lite-eclipse-rcp.command.duplicate" commandName="%command.commandname.duplicate"/>
+  <commands xmi:id="_hK_WMFAKEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.command.setTextCommand" commandName="%command.commandname.set_text"/>
+  <commands xmi:id="_fWX2kFANEeatvrLoK7apNA" elementId="yed-lite-eclipse-rcp.command.addLabelCommand" commandName="%command.commandname.add_label"/>
+  <commands xmi:id="_QESdEFMBEeahnodIj0zQ2Q" elementId="yed-lite-eclipse-rcp.command.changelocalecommand" commandName="%command.commandname.change_locale">
+    <parameters xmi:id="_IV4esFP4EeatI_EMzVfqpw" elementId="language_parameter" name="language" optional="false"/>
+  </commands>
+  <commands xmi:id="_no320FMDEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.command.switchPerspectiveCommand" commandName="%command.commandname.switch_perspective">
+    <parameters xmi:id="_HiLxwFMEEea9mo3tJ3bKEQ" elementId="perspective_parameter" name="perspective" optional="false"/>
+  </commands>
+  <addons xmi:id="_6wlLcsgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_6wlLc8gZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_6wlLdMgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_6wlLdcgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_6wlLdsgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_6wlLd8gZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_6wlLeMgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+</application:Application>

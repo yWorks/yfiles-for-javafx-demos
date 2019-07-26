@@ -1,0 +1,36 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/help.css"/>
+</head>
+<body class="demo-description">
+
+Reconnection of edges to other ports can be enabled and customized by implementing the <code>IEdgeReconnectionPortCandidateProvider</code>
+interface and adding instances to the <code>LookupChain</code> of the edges in the graph via the
+<code>ILookupDecorator</code> mechanism.
+
+<h2>Things to try</h2>
+
+<p> Select an edge and drag one of its port handles to another node. When over a node, green indicators
+  highlight valid new locations for the port. </p>
+
+<h2>Edge Types</h2>
+
+<ul>
+    <li>
+        <font color="#B22222"><b>Red edges</b></font> cannot be reconnected to another ports.
+    </li>
+    <li>
+      <font color="orange"><b>Orange edges</b></font> can be reconnected to other orange nodes, but you cannot create self-loops.
+    </li>
+    <li>
+      <font color="#4169E1"><b>Blue edges</b></font> can be connected to all other ports. Note
+        that the blue edge will reuse existing ports for other blue nodes and create new ports at the same location for other nodes.
+    </li>
+    <li>
+      <font color="green"><b>Green edges</b></font> connect to any location inside of green nodes when
+      the <code>Shift</code> key is pressed.
+    </li>
+</ul>
+
+</body>
+</html>

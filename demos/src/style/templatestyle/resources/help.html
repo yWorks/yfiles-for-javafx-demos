@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/help.css"/>
+</head>
+<body class="demo-description">
+
+<p>
+  This demo shows how to use <code>TemplateNodeStyle</code>, <code>TemplateLabelStyle</code> and
+  <code>TemplatePortStyle</code> to create complex node and label visualizations using FXML components.
+</p>
+
+<p>
+  The yFiles for JavaFX template styles allow to use arbitrary FXML components for graph item visualization, while
+  being able to access all relevant context information from the component implementation. Most context properties
+  can be used with data binding.
+</p>
+
+<p>
+This demo uses so-called "user-tags" to associate complex custom data objects with graph items.
+</p>
+
+<h2>Things to try</h2>
+
+<ul>
+  <li>
+    Select nodes or edge labels to see custom selection highlighting defined in the node and label templates.
+  </li>
+  <li>
+    Create new customers styled using the <code>TemplateNodeStyle</code> by clicking on the background.
+  </li>
+  <li>
+    Create new relations between customers and products with the template label visualization. Note that only edge
+    with direction from customers to products are allowed.
+  </li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/help.css"/>
+</head>
+<body class="demo-description">
+<p>
+  This demo shows how to obfuscate an yFiles for JavaFX application.
+  The obfuscation is done using yGuard, the free
+  bytecode obfuscator that is available at
+  <b>https://www.yworks.com/products/yguard</b>.
+</p>
+
+<h2>Obfuscation</h2>
+
+<p>
+  Obfuscation changes class, field, and method names in a consistent
+  but nonsensical way that does not change the functionality of the
+  software but makes decompiled Java code harder to read and publicly
+  available API description of the original code inapplicable to the
+  obfuscated code. Obfuscation is an important step in the process
+  of deploying an application in order to protect your software.
+  This demo also shows how to obfuscate the yFiles library, which
+  is required per license agreement for deploying an application
+  that uses it.
+</p>
+
+<p>
+  Since some names need to be kept at runtime in order for Java(FX)
+  applications to work, yGuard provides several mechanisms to control
+  the obfuscation process. In this demo, annotations are used for this.
+  For a fully documentation of the annotation mechanism click
+  on the <i>yGuard</i> tab above or visit our website at <b>www.yworks.com</b>.
+</p>
+
+<h2>The Demo Application</h2>
+<p>
+  A simple <code>GraphControl</code> is shown
+  that has a JavaFX rectangle in the background. The rectangle
+  is positioned and sized to match the content rectangle of the
+  GraphControl. This is entirely done using fxml and data binding.
+</p>
+<h2>Things to try</h2>
+<ul>
+  <li>
+    Create new nodes and see how the background rectangle resizes and repositions accordingly.
+  </li>
+  <li>
+    Pan and zoom in the GraphControl to see that that the background rectangle also zooms and
+    repositions accordingly.
+  </li>
+  <li>
+    Hit the "update content rectangle" button in the toolbar to manually update the
+    GraphControl's content rectangle to the current graph bounds.
+  </li>
+  <li>
+    Run the <code>show</code> ant task to inspect the obfuscation.
+  </li>
+  <li>
+    Switch to the <i>yGuard</i> tab to have a look at the yGuard documentation.
+  </li>
+</ul>
+</body>
+</html>

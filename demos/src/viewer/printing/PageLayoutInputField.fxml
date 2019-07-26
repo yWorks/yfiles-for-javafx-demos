@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tooltip?>
+
+<!-- A TitledPane that contains several TextFields to configure the page layout -->
+<TitledPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="viewer.printing.PageLayoutInputFieldController"
+            expanded="true" text="Paper Configuration">
+  <tooltip><Tooltip text="Settings for page layout like orientation or insets"/> </tooltip>
+  <GridPane hgap="5" vgap="5">
+    <padding><Insets top="5" right="10" bottom="10" left="10"/></padding>
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="0" text="Size"/>
+    <Text fx:id="paperSizeLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" text="A4"/>
+
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="1" text="Orientation"/>
+    <Text fx:id="paperOrientationLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" text="Portrait"/>
+
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="2" text="Margins Top"/>
+    <Text fx:id="paperMarginsTopLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" text="0"/>
+
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="3" text="Margins Right"/>
+    <Text fx:id="paperMarginsRightLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" text="0"/>
+
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="4" text="Margins Bottom"/>
+    <Text fx:id="paperMarginsBottomLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" text="0"/>
+
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="5" text="Margins Left"/>
+    <Text fx:id="paperMarginsLeftLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" text="0"/>
+
+    <Button onAction="#showPageSetupDialog" styleClass="command-button" text="Configure Paper..." GridPane.rowIndex="6" GridPane.columnSpan="2" maxWidth="Infinity" GridPane.fillWidth="true"/>
+  </GridPane>
+</TitledPane>

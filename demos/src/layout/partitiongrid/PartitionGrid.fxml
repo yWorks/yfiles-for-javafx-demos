@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.web.WebView?>
+<?import java.lang.Double?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import layout.partitiongrid.PartitionGridDemo?>
+<?import com.yworks.yfiles.layout.hierarchic.HierarchicLayout?>
+<?import com.yworks.yfiles.layout.organic.OrganicLayout?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:id="root">
+
+  <fx:define>
+    <PartitionGridDemo fx:constant="RUN_HIERARCHIC_LAYOUT" fx:id="runHierarchicLayoutCommand"/>
+    <PartitionGridDemo fx:constant="RUN_ORGANIC_LAYOUT" fx:id="runOrganicLayoutCommand"/>
+  </fx:define>
+
+  <top>
+    <!-- toolbar-->
+    <ToolBar fx:id="toolbar">
+      <items>
+        <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+          <commandParameter><Double fx:value="1.0"></Double></commandParameter>
+          <graphic><IconProvider fx:value="ZOOM_RESET"/></graphic>
+          <tooltip><TooltipProvider fx:value="ZOOM_RESET"/></tooltip>
+        </CommandButton>
+        <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+
+        <Separator orientation="VERTICAL"/>
+        <CommandButton command="GroupSelection" commandTarget="${graphControl}"/>
+        <CommandButton command="UngroupSelection" commandTarget="${graphControl}"/>
+
+        <Separator orientation="VERTICAL"/>
+        <CommandButton fx:id="hierarchicLayoutCommandBtn" commandTarget="${graphControl}" text="Hierarchic">
+          <command><fx:reference source="runHierarchicLayoutCommand"/></command>
+          <commandParameter><HierarchicLayout/></commandParameter>
+          <graphic><IconProvider fx:value="LAYOUT_HIERARCHIC"/></graphic>
+          <tooltip><TooltipProvider fx:value="LAYOUT_HIERARCHIC"/></tooltip>
+        </CommandButton>
+        <CommandButton fx:id="organicLayoutCommandBtn" commandTarget="${graphControl}" text="Organic">
+          <command><fx:reference source="runOrganicLayoutCommand"/></command>
+          <commandParameter><OrganicLayout minimumNodeDistance="50" preferredEdgeLength="100"/></commandParameter>
+          <graphic><IconProvider fx:value="LAYOUT_ORGANIC"/></graphic>
+          <tooltip><TooltipProvider fx:value="LAYOUT_ORGANIC"/></tooltip>
+        </CommandButton>
+      </items>
+    </ToolBar>
+  </top>
+
+  <center>
+    <!--the GraphControl-->
+    <GraphControl fx:id="graphControl" fileIOEnabled="true"/>
+  </center>
+
+  <left>
+    <VBox>
+      <children>
+        <!--the partition grid settings on the left side.-->
+        <TitledPane animated="false" collapsible="false" maxHeight="Infinity" text="Partition Grid">
+          <content>
+            <VBox>
+              <GridPane>
+
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <Label text="Use fix column order:  "/>
+                  <Rectangle width="15" height="15" fill="#ffaf00"/>
+                  <Rectangle width="15" height="15" fill="#ff8800"/>
+                  <Rectangle width="15" height="15" fill="#5bafe1"/>
+                  <Rectangle width="15" height="15" fill="#236CB6"/>
+                </HBox>
+                <CheckBox fx:id="fixOrderBox" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="RIGHT" selected="true"/>
+
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Minimum column width:  "/>
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="RIGHT">
+                  <Slider fx:id="minWidthSlider"  min="0" max="300" value="50" blockIncrement="25" minorTickCount="0" majorTickUnit="5" snapToTicks="true"/>
+                  <Label prefWidth="40" text="${minWidthSlider.value}" textAlignment="RIGHT"/>
+                </HBox>
+
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Stretch group nodes:  "/>
+                <CheckBox fx:id="stretchGroupBox" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="RIGHT" selected="false"/>
+              </GridPane>
+            </VBox>
+          </content>
+        </TitledPane>
+
+        <!--The help panel on the left side.-->
+        <TitledPane VBox.vgrow="ALWAYS" animated="false" collapsible="false" maxHeight="Infinity" text="Help">
+          <content>
+            <WebView prefWidth="300.0" fx:id="webView"/>
+          </content>
+        </TitledPane>
+
+      </children>
+    </VBox>
+  </left>
+</BorderPane>

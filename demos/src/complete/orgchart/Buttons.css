@@ -1,0 +1,87 @@
+/****************************************************************************
+ **
+ ** This demo file is part of yFiles for JavaFX 3.3.
+ **
+ ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for JavaFX version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for JavaFX powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for JavaFX
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+/* ==================
+The style for the buttons is round and with a dark radial gradient that
+makes the button look three-dimensional.
+The hovers make the buttons bright and change the text color to black.
+   ==================  */
+
+/*
+Style for a button that stands for showing/hiding
+the subordinates of an employee.
+The padding is a bit larger than the one of the parent button,
+because the symbol has a smaller width and thus
+the button needs more padding to be round.
+*/
+.childbutton {
+    -fx-background-color: #249AE7, radial-gradient(radius 150%, white, lightgray);
+    -fx-background-insets: 0,1;
+	-fx-background-radius: 2,1;
+    -fx-font-family: "System Regular";
+    -fx-font-size: 10px;
+    -fx-text-fill: #249AE7;
+    -fx-padding: 0;
+}
+
+.childbutton:hover {
+    -fx-background-color: #249AE7, radial-gradient(radius 250%, white, lightgray);
+    -fx-background-insets: 0,1;
+	-fx-background-radius: 2,1;
+    -fx-font-family: "System Regular";
+    -fx-font-size: 10px;
+	-fx-text-fill: #249AE7;
+    -fx-padding: 0;
+}
+
+/*
+Style for a button that stands for showing/hiding the supervisor of an employee.
+The padding is a bit smaller than the one of the child button,
+because the symbol has a larger width and thus
+the button needs less padding to be round.
+*/
+.parentbutton {
+    -fx-background-color: #249AE7, radial-gradient(radius 150%, white, lightgray);
+    -fx-background-insets: 0,1;
+	-fx-background-radius: 2,1;
+    -fx-font-family: "System Regular";
+    -fx-font-size: 10px;
+    -fx-text-fill: #249AE7;
+    -fx-padding: 0;
+}
+
+.parentbutton:hover {
+    -fx-background-color: #249AE7, radial-gradient(radius 250%, white, lightgray);
+    -fx-background-insets: 0,1;
+	-fx-background-radius: 2,1;
+    -fx-font-family: "System Regular";
+    -fx-font-size: 10px;
+    -fx-text-fill: #249AE7;
+    -fx-padding: 0;
+}

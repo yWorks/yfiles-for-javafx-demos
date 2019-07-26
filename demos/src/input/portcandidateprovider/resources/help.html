@@ -1,0 +1,47 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/help.css"/>
+</head>
+<body class="demo-description">
+
+<p>
+  The rules for edge creation can be customized by implementing the <code>IPortCandidateProvider</code> interface.
+</p>
+<p>
+  Add the custom implementation as decoration to the edge decorator of the graph to use it.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+  <li>
+    Initiate edge creation by dragging from an unselected node (with the left mouse button pressed).
+    Releasing the button finishes edge creation if the mouse is on a valid target and creates a bend otherwise.
+  </li>
+</ul>
+<h2>
+  Node Types
+</h2>
+<ul>
+  <li>
+    <font color="#b22222"><b>Red nodes</b></font> cannot have any edges. You cannot start or end an edge at
+    them. A red port candidate highlights that these nodes are invalid targets.
+  </li>
+  <li>
+    Only edges from other <font color="#228b22"><b>green nodes</b></font> can end at green nodes.
+  </li>
+  <li>
+    <font color="#4169e1"><b>Blue nodes</b></font> provide a set of predefined ports. Only one edge can be connected
+    to each of these ports. Occupied ports are highlighted in red.
+  </li>
+  <li>
+    <font color="#ff8c00"><b>Orange nodes</b></font> provide dynamic port candidates. Edges can start and end anywhere inside
+    these nodes when the <code>Shift</code> key is pressed. Note that these candidates are not highlighted.
+  </li>
+  <li>
+    Edges to <font color="purple"><b>purple nodes</b></font> can only end at ports of the same color as the source
+    port or the source node.
+  </li>
+</ul>
+
+</body>
+</html>

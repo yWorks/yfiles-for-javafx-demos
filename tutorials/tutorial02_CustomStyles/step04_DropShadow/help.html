@@ -1,0 +1,84 @@
+<html>
+<head>
+   <link rel="stylesheet" href="../../resource/help.css"/>
+</head>
+<body class="demo-description">
+
+<h2>Step 4: DropShadow</h2>
+
+<p>
+    This step shows two ways on how to create a drop shadow of nodes.
+</p>
+<p>
+    The default behavior makes use of the built-in JavaFX functionality. The ellipse which represents the main node
+    shape gets an DropShadowEffect. This solution is easy to implement as it comes out-of-the-box. However the
+    performance is pretty bad as you can see when you hit "Animate Nodes" (if it performs too poor or well on your
+    computer to see the effect, just change the number of nodes created in createSampleGraph()). In order to improve the
+    rendering performance the drop shadow can be pre-rendered into an image. This improves the performance dramatically
+    as you can see when you turn on "High-Performance Shadow" and hit "Animate Nodes" again.
+</p>
+<p>
+    With the caching property of class Node you can also improve the rendering performance in JavaFX, especially in the
+    case of primitives with effects applied. But since each Node is cached as a bitmap it also increases memory usage.
+    However our solution reuses one pre-rendered image as drop shadow for all nodes. This solution is also applied in
+    all node styles with drop shadows provided by yFiles for JavaFX.
+</p>
+
+<h2>Things to Try</h2>
+
+<ul>
+    <li>
+        Click "Animate Nodes" to see how the built-in drop shadow performs.
+    </li>
+    <li>
+        Turn on "High-Performance Shadow" and click "Animate Nodes" to see the high-performance pre-rendered drop shadow.
+    </li>
+    <li>
+        Take a look at <code>DropShadowVisual</code> and <code>createVisual()</code> as well as
+        <code>updateVisual()</code>.
+    </li>
+    <li>
+        Test different values for the variable NODE_SQRT_COUNT in class SampleApplication to change the number of
+        animated nodes.
+    </li>
+</ul>
+
+<h2>Left to Do</h2>
+
+<ul>
+    <li>
+        Implement <code>isInside()</code> and <code>getOutline()</code>, so edges will end at the node instead of its bounding box.
+    </li>
+    <li>
+        Implement hit test, so a node won't get selected when clicking in the bounding box but not in the node itself.
+    </li>
+    <li>
+        Implement <code>getBounds()</code>, so the drop shadow will be included in the bounds of the node.
+    </li>
+    <li>
+        Draw edges from nodes to their labels.
+    </li>
+    <li>
+        Create a custom label style.
+    </li>
+    <li>
+        Create a custom edge style.
+    </li>
+    <li>
+        Create a custom port style for nodes.
+    </li>
+</ul>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="https://docs.yworks.com/yfilesjavafx/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+  <li><a href="https://docs.yworks.com/yfilesjavafx/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="https://docs.yworks.com/yfilesjavafx/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractNodeStyle">AbstractNodeStyle</a></li>
+  <li><a href="https://docs.yworks.com/yfilesjavafx/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractNodeStyle%23AbstractNodeStyle-method-createVisual">AbstractNodeStyle#createVisual</a></li>
+  <li><a href="https://docs.yworks.com/yfilesjavafx/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractNodeStyle%23AbstractNodeStyle-method-updateVisual">AbstractNodeStyle#updateVisual</a></li>
+</ul>
+</body>
+</html>

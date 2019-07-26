@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import java.lang.Double?>
+
+<!-- Basic demo structure containing a graph control -->
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+  <top>
+    <!-- Toolbar with buttons to control the demo and most importantly to export the graph control to a file -->
+    <ToolBar>
+      <!-- Button that calls the export method in the controller -->
+      <Button onAction="#saveToFile" styleClass="command-button">
+        <graphic><IconProvider fx:value="EXPORT_IMAGE"/></graphic>
+        <tooltip><TooltipProvider fx:value="EXPORT_IMAGE"/></tooltip>
+      </Button>
+      <Separator orientation="VERTICAL"/>
+      <!-- Buttons to adjust zoom level -->
+      <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+        <commandParameter><Double fx:value="1.0"/></commandParameter>
+        <graphic><IconProvider fx:value="ZOOM_RESET"/></graphic>
+        <tooltip><TooltipProvider fx:value="ZOOM_RESET"/></tooltip>
+      </CommandButton>
+      <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+    </ToolBar>
+  </top>
+
+  <right>
+    <!-- help pane that displays a short instruction for this demo -->
+    <TitledPane animated="false" collapsible="false" maxHeight="Infinity" text="Description">
+        <WebView prefWidth="300.0" fx:id="helpView"/>
+    </TitledPane>
+  </right>
+
+  <left>
+    <!-- Settings panel on the left that configures the export. We mostly use GridPanes here to layout the widgets -->
+    <!-- Note that, for simplicity, we don't do input checks like forcing numerical entries in the input fields or similar
+         here, because that would require extra code in the controller -->
+    <VBox style="-fx-background-color: lightgray;">
+      <!-- Settings for the output format -->
+      <TitledPane text="Output">
+        <tooltip><Tooltip text="Settings for the output format of the image"/> </tooltip>
+        <GridPane hgap="5" vgap="5">
+        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+          <CheckBox fx:id="showDecorations" GridPane.rowIndex="0" GridPane.columnSpan="2" text="Show Decorations" selected="true">
+            <tooltip><Tooltip text="Hide the decorations like selection or handles?"/> </tooltip>
+          </CheckBox>
+          <CheckBox fx:id="exportRectContent" GridPane.rowIndex="1" GridPane.columnSpan="2" text="Export Rectangle Contents" selected="true">
+            <tooltip><Tooltip text="Export only the content of the rectangle or export the current view?"/> </tooltip>
+          </CheckBox>
+        </GridPane>
+      </TitledPane>
+
+      <!-- Settings for the background color -->
+      <TitledPane text="Colors">
+        <tooltip><Tooltip text="Settings for background color of the image"/> </tooltip>
+        <GridPane hgap="5" vgap="5">
+          <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="0" text="Background Color: "/>
+          <ColorPicker fx:id="backgroundColor" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity">
+            <tooltip><Tooltip text="Specifies the background color of the GraphControl via CSS"/> </tooltip>
+          </ColorPicker>
+          <CheckBox fx:id="transparent" GridPane.rowIndex="1" GridPane.columnSpan="2" text="Transparent">
+            <tooltip><Tooltip text="Export to SVG with a transparent background"/> </tooltip>
+          </CheckBox>
+        </GridPane>
+      </TitledPane>
+
+      <!-- Settings for the size and scaling -->
+      <TitledPane text="Bounds">
+        <tooltip><Tooltip text="Settings for the size and scaling of the output image"/> </tooltip>
+        <GridPane hgap="5" vgap="5">
+          <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="0" text="Size"/>
+          <ComboBox fx:id="sizeBox" GridPane.columnIndex="1" GridPane.rowIndex="0" promptText="Use Original Size" maxWidth="Infinity">
+            <tooltip><Tooltip text="Defines the output size of the image"/> </tooltip>
+          </ComboBox>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="1" text="Width"/>
+          <TextField fx:id="widthField" GridPane.columnIndex="1" GridPane.rowIndex="1" text="500" maxWidth="Infinity">
+            <tooltip><Tooltip text="Specifies the width of the final image (if 'specify width' is chosen)"/> </tooltip>
+          </TextField>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="2" text="Height"/>
+          <TextField fx:id="heightField" GridPane.columnIndex="1" GridPane.rowIndex="2" text="500" maxWidth="Infinity">
+            <tooltip><Tooltip text="Specifies the height of the final image (if 'specify height' is chosen)"/> </tooltip>
+          </TextField>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="3" text="Scale"/>
+          <TextField fx:id="scaleField" GridPane.columnIndex="1" GridPane.rowIndex="3" text="1.0" maxWidth="Infinity">
+            <tooltip><Tooltip text="The scaling of the image"/> </tooltip>
+          </TextField>
+        </GridPane>
+      </TitledPane>
+
+      <!-- Margin configurations for the exported image -->
+      <TitledPane text="Margins">
+        <tooltip><Tooltip text="Configurations of margins for the exported image"/> </tooltip>
+        <GridPane hgap="5" vgap="5">
+          <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="0" text="Top"/>
+          <TextField fx:id="topMarginField" GridPane.columnIndex="1" GridPane.rowIndex="0" text="0" maxWidth="Infinity">
+            <tooltip><Tooltip text="Specifies the size of the top margin"/> </tooltip>
+          </TextField>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="1" text="Right"/>
+          <TextField fx:id="rightMarginField" GridPane.columnIndex="1" GridPane.rowIndex="1" text="0" maxWidth="Infinity">
+            <tooltip><Tooltip text="Specifies the size of the right margin"/> </tooltip>
+          </TextField>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="2" text="Bottom"/>
+          <TextField fx:id="bottomMarginField" GridPane.columnIndex="1" GridPane.rowIndex="2" text="0" maxWidth="Infinity">
+            <tooltip><Tooltip text="Specifies the size of the bottom margin"/> </tooltip>
+          </TextField>
+          <Text GridPane.columnIndex="0" GridPane.rowIndex="3" text="Left"/>
+          <TextField fx:id="leftMarginField" GridPane.columnIndex="1" GridPane.rowIndex="3" text="0" maxWidth="Infinity">
+            <tooltip><Tooltip text="Specifies the size of the left margin"/> </tooltip>
+          </TextField>
+        </GridPane>
+      </TitledPane>
+    </VBox>
+  </left>
+
+  <center>
+    <!-- TabPane in the center with two tabs: One for the GraphControl to export, one for the GraphControl to display the preview image -->
+    <TabPane fx:id="tabPane">
+
+      <!-- Tab with the GraphControl that will contain the example graph -->
+      <Tab text="Graph" closable="false">
+        <GraphControl fx:id="graphControl"/>
+      </Tab>
+
+      <!-- The tab that shows the export preview image. -->
+      <Tab text="Export Preview" closable="false" onSelectionChanged="#updatePreview">
+        <!-- We display the preview image in a second GraphControl - this way, we get easy access to zoom and pan functionality -->
+        <WebView fx:id="preview"/>
+      </Tab>
+    </TabPane>
+  </center>
+</BorderPane>

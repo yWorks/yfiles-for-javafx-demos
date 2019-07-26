@@ -1,0 +1,282 @@
+/****************************************************************************
+ **
+ ** This demo file is part of yFiles for JavaFX 3.3.
+ **
+ ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for JavaFX version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for JavaFX powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for JavaFX
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+.overview-node-style {
+  -fx-fill: white;
+}
+
+.overview-group-node-style {
+  -fx-fill: transparent;
+  -fx-stroke: white;
+  -fx-stroke-width: 2;
+}
+
+.overview-edge-style {
+  -fx-stroke: white;
+  -fx-stroke-width: 2;
+}
+
+.label-style.background {
+  -fx-fill: transparent;
+}
+
+.label-style.text {
+  -fx-fill: white;
+}
+
+.label-style.group-node.text {
+  -fx-fill: #0488CC;
+}
+
+.edge-style {
+  -fx-stroke: #A8CCD8;
+  -fx-stroke-width: 2;
+}
+
+.node-style {
+  -fx-fill: #0488CC;
+  -fx-stroke: #A8CCD8;
+  -fx-stroke-width: 2;
+}
+
+.group-node-style.outer {
+  -fx-fill: #A8CCD8;
+  -fx-stroke: #A8CCD8;
+  -fx-stroke-width: 2;
+}
+
+.group-node-style.inner {
+  -fx-fill: #0488CC;
+}
+
+.collapse-button {
+  -fx-background-color: white;
+  -fx-background-insets: 0,1;
+  -fx-background-radius: 2,1;
+  -fx-border-width: 1;
+  -fx-border-color: black;
+  -fx-padding: 0;
+  -fx-font-size: 6;
+}
+
+.collapse-button:hover {
+  -fx-background-color: lightgrey;
+}
+
+.lasso-path {
+  -fx-fill: #E1E5CC55;
+  -fx-stroke: white;
+  -fx-stroke-dash-array: 4;
+}
+
+.lasso-finish-region {
+  -fx-fill: #CEC39655;
+  -fx-stroke: white;
+  -fx-stroke-dash-array: 4;
+}
+
+.lasso-finish-region-highlight {
+  -fx-fill: #CEC39655;
+  -fx-stroke: white;
+  -fx-stroke-dash-array: 4;
+}
+
+.marquee {
+  -fx-fill: #E1E5CC55;
+  -fx-stroke: white;
+  -fx-stroke-dash-array: 4;
+}
+
+.focus-indicator {
+  -fx-stroke: white;
+  -fx-stroke-width: 3;
+}
+
+.selection-indicator {
+  -fx-stroke: #AAD15E;
+}
+
+.highlight-indicator {
+  paint1: #F25A4C;
+  paint2: #AAD15E;
+}
+
+.oriented-focus-indicator {
+  -fx-stroke: #F25A4C;
+  -fx-stroke-width: 2;
+  -fx-stroke-dash-array: 4;
+}
+
+.oriented-selection-indicator {
+  -fx-stroke: #E1E5CC;
+}
+
+.oriented-highlight-indicator {
+  -fx-stroke: blue;
+}
+
+.edge-focus-indicator {
+  -fx-stroke: #F25A4C;
+  -fx-stroke-width: 2;
+  -fx-stroke-dash-array: 4;
+}
+
+.edge-highlight-indicator {
+  -fx-stroke: red;
+  -fx-stroke-width: 3;
+}
+
+.edge-selection-indicator {
+  -fx-stroke: #AAD15E;
+  -fx-stroke-width: 3;
+}
+
+.default-bend {
+  -fx-stroke: #E1E5CC;
+  -fx-stroke-width: 3;
+  -fx-fill: red;
+}
+
+.label-candidate-indicator {
+  -fx-stroke: #AAD15E;
+}
+
+.highlighted-label-candidate-indicator {
+  -fx-stroke: #F5BC0A;
+}
+
+.stripe-drop-target-highlight-indicator {
+  paint1: #F25A4C;
+  paint2: #AAD15E;
+}
+
+.port-candidate {
+  paint1: white;
+  paint2: black;
+  valid-paint: cyan;
+  invalid-paint: salmon;
+  focus-paint: yellow;
+}
+
+.snap-result.single-line {
+  -fx-stroke: #E1E5CC;
+}
+
+.snap-result.in-between {
+  -fx-stroke: #E1E5CC;
+}
+
+.snap-result.fixed-distance {
+  -fx-stroke: #E1E5CC;
+}
+
+.snap-result.grid {
+  -fx-stroke: #E1E5CC;
+}
+
+.snap-result.resize.equal-width {
+  -fx-stroke: #E1E5CC;
+}
+.snap-result.resize.equal-height {
+  -fx-stroke: #E1E5CC;
+}
+
+.snap-result.edge-segment {
+  -fx-stroke: #E1E5CC;
+}
+
+.graph-control {
+  -fx-background-color: #4A4C4E;
+}
+
+.graph-overview-control {
+  -fx-background-color:  #4A4C4E;
+}
+
+.overview-viewport {
+  -fx-fill: #E1E5CC55;
+  -fx-stroke: white;
+  -fx-stroke-dash-array: 4;
+}
+
+.handle {
+  -fx-fill: white;
+}
+
+.handle.move {
+  -fx-fill: white;
+}
+
+.handle.resize {
+  -fx-stroke: gray;
+  -fx-fill: #E1E5CC;
+}
+
+// JavaFX stuff
+
+.root {
+  -fx-base: rgb(50, 50, 50);
+  -fx-background: rgb(50, 50, 50);
+
+  -fx-color: derive(-fx-base, 10%);
+
+  -fx-control-inner-background: rgb(20, 20, 20);
+  -fx-control-inner-background-alt: derive(-fx-control-inner-background, 2.5%);
+
+  -fx-light-text-color: rgb(220, 220, 220);
+  -fx-mid-text-color: rgb(100, 100, 100);
+  -fx-dark-text-color: rgb(20, 20, 20);
+
+  -fx-accent: rgb(0, 80, 100);
+
+  -fx-selection-bar-non-focused: rgb(50, 50, 50);
+}
+
+.text-input {
+  -fx-prompt-text-fill: derive(-fx-control-inner-background, +50%);
+}
+
+.text-input:focused {
+  -fx-prompt-text-fill: transparent;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+  -fx-background-color: -fx-mark-highlight-color, rgb(220, 220, 220);
+}
+
+.scroll-bar > .increment-button:hover > .increment-arrow,
+.scroll-bar > .decrement-button:hover > .decrement-arrow {
+  -fx-background-color: -fx-mark-highlight-color, rgb(240, 240, 240);
+}
+
+.scroll-bar > .increment-button:pressed > .increment-arrow,
+.scroll-bar > .decrement-button:pressed > .decrement-arrow {
+  -fx-background-color: -fx-mark-highlight-color, rgb(255, 255, 255);
+}
