@@ -42,7 +42,7 @@
 <echo>run-PositionHandler
     Demo code that shows how to customize the movement behavior of INodes.</echo>
 <echo>run-ReparentHandler
-    Demo code that shows how to customize the reparent gesture in a IGroupedGraph.</echo>
+    Demo code that shows how to customize the reparent gesture in a grouped graph.</echo>
 <echo>run-ReshapeHandleProvider
     Demo code that shows how to customize the resize behavior of INodes.</echo>
 <echo>run-SingleSelection
@@ -246,7 +246,7 @@
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
-<target name="run-ReparentHandler" depends="compile" description="Demo code that shows how to customize the reparent gesture in a IGroupedGraph.">
+<target name="run-ReparentHandler" depends="compile" description="Demo code that shows how to customize the reparent gesture in a grouped graph.">
 <java classname="input.reparenthandler.ReparentHandlerDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>

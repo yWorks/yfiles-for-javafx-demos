@@ -1,0 +1,2 @@
+# Custom Snapping
+ This demo shows how the snapping feature can be customized. It adds snap lines to the bounds of node and edge labels, lets star shaped nodes snap to the grid points with their outline and uses graph independent additional snap lines nodes can snap to. 
