@@ -6,5 +6,5 @@
 
 | Demo | Description |
 |------|:-----------:|
-|[GraphBuilder](../../src\databinding\graphbuilder\README.md)| Demonstrates data binding using the `GraphBuilder` class. |
-|[InteractiveNodesGraphBuilder](../../src\databinding\interactivenodesgraphbuilder\README.md)| Demonstrates data binding using class `AdjacentNodesGraphBuilder` . |
+|[GraphBuilder](../../src/databinding/graphbuilder/README.md)| Demonstrates data binding using the `GraphBuilder` class. |
+|[InteractiveNodesGraphBuilder](../../src/databinding/interactivenodesgraphbuilder/README.md)| Demonstrates data binding using class `AdjacentNodesGraphBuilder` . |

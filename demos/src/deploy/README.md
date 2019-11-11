@@ -6,4 +6,4 @@
 
 | Demo | Description |
 |------|:-----------:|
-|[ObfuscationDemo](../../src\deploy\obfuscation\README.md)| Demonstrates the obfuscation of an yFiles for JavaFX application via yGuard. |
+|[ObfuscationDemo](../../src/deploy/obfuscation/README.md)| Demonstrates the obfuscation of an yFiles for JavaFX application via yGuard. |

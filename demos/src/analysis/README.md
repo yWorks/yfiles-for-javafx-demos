@@ -6,5 +6,5 @@
 
 | Demo | Description |
 |------|:-----------:|
-|[GraphAnalysis](../../src\analysis\graphanalysis\README.md)| Algorithms to analyse the structure of a graph in yFiles for Java (Swing). |
-|[ShortestPath](../../src\analysis\shortestpath\README.md)| Usage and visualization of shortest path algorithms in yFiles for JavaFX. |
+|[GraphAnalysis](../../src/analysis/graphanalysis/README.md)| Algorithms to analyse the structure of a graph in yFiles for Java (Swing). |
+|[ShortestPath](../../src/analysis/shortestpath/README.md)| Usage and visualization of shortest path algorithms in yFiles for JavaFX. |
