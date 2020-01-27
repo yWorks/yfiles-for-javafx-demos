@@ -4,7 +4,7 @@
   //
   // This demo file is part of yFiles for JavaFX 3.3.
   //
-  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -52,7 +52,7 @@
     <!-- the directory with the class files of the demo -->
     <property name="demo.class.dir" value="${basedir}/demos/out/classes"/>
     <!--the directory with icon resources used in the demo -->
-    <property name="demo.toolkit.dir" value="${basedir}/demos/src"/>
+    <property name="demo.resources.dir" value="${basedir}/demos/src"/>
 
     <!-- the jar archive for embedding SWT controls in JavaFX -->
     <condition
@@ -77,7 +77,7 @@
     <path id="demo.classpath">
       <pathelement location="${demo.class.dir}"/>
       <pathelement location="${demo.src.dir}"/>
-      <pathelement location="${demo.toolkit.dir}"/>
+      <pathelement location="${demo.resources.dir}"/>
       <pathelement location="${jfxswt.jar}"/>
       <pathelement location="${yfiles.jar}"/>
       <pathelement location="${swt.jar}"/>

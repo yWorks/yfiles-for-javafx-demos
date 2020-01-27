@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+<!--Created by yFiles for JavaFX 3.3-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:demo="http://www.yworks.com/yfiles-for-javafx/TreeMap/1.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0" xmlns:yfx="http://www.yworks.com/xml/yfiles-for-java-fx/3.1" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java.fx/3.0/ygraphml.xsd ">
+  <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="UserTags" for="all" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="NodeStyle" for="node" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
+  <key attr.name="EdgeLabels" for="edge" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="EdgeStyle" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
+  <key attr.name="PortLabels" for="port" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
+  <key attr.name="PortLocationParameter" for="port" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d9">
+    <y:SharedData>
+      <java:Font xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Family="System" Size="16.0" x:Key="1"/>
+      <yfx:ShapeNodeStyle Paint="#FF4D4D4D" x:Key="2"/>
+      <yfx:ShapeNodeStyle Paint="#FF00A489" x:Key="3"/>
+      <yfx:ShapeNodeStyle Paint="#FF00DE98" x:Key="4"/>
+      <yfx:ShapeNodeStyle Paint="#FF00B3BD" x:Key="5"/>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+            <y:Label.Style>
+              <yfx:DefaultLabelStyle Font="{y:GraphMLReference 1}" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+            </y:Label.Style>
+            <y:Label.Text>yFiles-for-JavaFX-Complete</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <demo:FileView Path="yFiles-for-JavaFX-Complete" Size="162997324"/>
+      </data>
+      <data key="d2">
+        <y:GraphMLReference ResourceKey="2"/>
+      </data>
+      <graph id="n0:">
+        <node id="n0::n0">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfx:DefaultLabelStyle Font="{y:GraphMLReference 1}" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>doc</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-JavaFX-Complete/doc" Size="140814306"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="2"/>
+          </data>
+          <graph id="n0::n0:">
+            <node id="n0::n0::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[readme
+(593kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/doc/readme" Size="593903"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+            <node id="n0::n0::n1">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[javadoc
+(108mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/doc/javadoc" Size="108756904"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+            <node id="n0::n0::n2">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[documentation-style.css
+(18kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/doc/documentation-style.css" Size="18753"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+            <node id="n0::n0::n3">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[api
+(31mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/doc/api" Size="31444746"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+        <node id="n0::n1">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfx:DefaultLabelStyle Font="{y:GraphMLReference 1}" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>tutorials</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-JavaFX-Complete/tutorials" Size="2150052"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="2"/>
+          </data>
+          <graph id="n0::n1:">
+            <node id="n0::n1::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[README.html
+(3kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/tutorials/README.html" Size="3813"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+            <node id="n0::n1::n1">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[resource
+(28kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/tutorials/resource" Size="28956"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+            <node id="n0::n1::n2">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[tutorial01_GettingStarted
+(610kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/tutorials/tutorial01_GettingStarted" Size="610709"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+            <node id="n0::n1::n3">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[tutorial02_CustomStyles
+(1mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/tutorials/tutorial02_CustomStyles" Size="1506574"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+        <node id="n0::n2">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                <y:Label.Style>
+                  <demo:DemoLabelStyle/>
+                </y:Label.Style>
+                <y:Label.Text><![CDATA[README.html
+(5kb)]]></y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-JavaFX-Complete/README.html" Size="5341"/>
+          </data>
+          <data key="d2">
+            <yfx:ShapeNodeStyle Paint="#FF00AFA1"/>
+          </data>
+        </node>
+        <node id="n0::n3">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfx:DefaultLabelStyle Font="{y:GraphMLReference 1}" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>demos</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-JavaFX-Complete/demos" Size="11873702"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="2"/>
+          </data>
+          <graph id="n0::n3:">
+            <node id="n0::n3::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-swt
+(71kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/src-swt" Size="71542"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+            <node id="n0::n3::n1">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[build.xml
+(20kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/build.xml" Size="20248"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+            <node id="n0::n3::n2">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[build-utils.xml
+(1kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/build-utils.xml" Size="1339"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+            <node id="n0::n3::n3">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src
+(10mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/src" Size="10479825"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+            <node id="n0::n3::n4">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[README.html
+(35kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/README.html" Size="35321"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+            <node id="n0::n3::n5">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-eclipsercp
+(1mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/src-eclipsercp" Size="1151810"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+            <node id="n0::n3::n6">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-svg
+(55kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/src-svg" Size="55307"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+            <node id="n0::n3::n7">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-neo4j
+(58kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/demos/src-neo4j" Size="58310"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="5"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+        <node id="n0::n4">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfx:DefaultLabelStyle Font="{y:GraphMLReference 1}" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>lib</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-JavaFX-Complete/lib" Size="8153923"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="2"/>
+          </data>
+          <graph id="n0::n4:">
+            <node id="n0::n4::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[yfiles-for-javafx.jar
+(8mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-JavaFX-Complete/lib/yfiles-for-javafx.jar" Size="8153923"/>
+              </data>
+              <data key="d2">
+                <yfx:ShapeNodeStyle Paint="#FF00A9CD"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+      </graph>
+    </node>
+  </graph>
+</graphml>

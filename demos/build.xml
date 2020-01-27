@@ -23,8 +23,28 @@
     Showcase of one of our central layout algorithms, the HierarchicLayout.</echo>
 <echo>run-InteractiveOrganicLayout
     Use InteractiveOrganicLayout for organic layout in interactive environments.</echo>
+<echo>run-FamilyTree
+    This demo shows how genealogical graphs (family trees) can be visualized.</echo>
+<echo>run-CriticalPaths
+    This demo shows how to emphazise important paths with hierarchic and tree layout algorithms.</echo>
+<echo>run-EdgeBundling
+    Demonstrates edge bundling for different layout styles.</echo>
+<echo>run-EdgeGrouping
+    Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout.</echo>
+<echo>run-PartialLayout
+    Shows how to arrange some elements in a graph while keeping other elements fixed.</echo>
 <echo>run-PartitionGrid
     Demonstrates the usage of a PartitionGrid for hierarchic and organic layout calculations.</echo>
+<echo>run-Sankey
+    Uses Hierarchic Layout to arrange Sankey diagrams.</echo>
+<echo>run-SplitEdges
+    Shows how to align edges at group nodes using RecursiveGroupLayout together with HierarchicLayout.</echo>
+<echo>run-TreeLayout
+    Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children.</echo>
+<echo>run-TreeMap
+    Shows disk usage of a directory tree with the Tree Map layout.</echo>
+<echo>run-CustomLabelModel
+    Customize label placement model.</echo>
 <echo>run-CustomPortModel
     Customize port location model.</echo>
 <echo>run-ContextMenu
@@ -35,6 +55,8 @@
     Shows the drag and drop support provided by yFiles for JavaFX.</echo>
 <echo>run-EdgeReconnectionPortCandidateProvider
     Demo code that shows how to customize the reconnection behavior for existing edges.</echo>
+<echo>run-LabelHandleProvider
+    Enable interactive rotating and resizing labels.</echo>
 <echo>run-OrthogonalEdges
     Customize orthogonal edge editing.</echo>
 <echo>run-PortCandidateProvider
@@ -53,22 +75,44 @@
     Demo application that shows how to integrate yFiles for JavaFX in a Swing application.</echo>
 <echo>run-Css
     Shows the possibilities to customize the visualizations in yFiles for JavaFX with the help of CSS.</echo>
+<echo>run-BackgroundImage
+    Shows how to add background visualizations to a graph control.</echo>
+<echo>run-ClickableStyleDecorator
+    Shows how to handle mouse clicks in specific areas of a node's visualization.</echo>
 <echo>run-EdgeToEdge
     Shows edge-to-edge connections.</echo>
 <echo>run-GraphEvents
     Explore the different kinds of events dispatched by yFiles for JavaFX.</echo>
+<echo>run-Filtering
+    Shows how to temporarily remove nodes or edges from the graph.</echo>
+<echo>run-FilteringWithFolding
+    Shows how to combine yFiles filtering and folding features.</echo>
+<echo>run-Folding
+    Shows how to use yFiles folding feature.</echo>
+<echo>run-GraphCopy
+    Shows how to copy a graph or sub graph.</echo>
 <echo>run-GraphMLCompatibility
     Shows how to enable read compatibility for GraphML files from older versions.</echo>
 <echo>run-GraphViewer
     A viewer which demonstrates different kinds of graphs created with yFiles for JavaFX.</echo>
+<echo>run-GridSnapping
+    Demonstrates how to enable grid snapping functionality for graph elements.</echo>
 <echo>run-ImageExport
     Export a graph as a bitmap image.</echo>
 <echo>run-LargeGraphs
     Improve the rendering performance for very large graphs in yFiles for JavaFX.</echo>
+<echo>run-LevelOfDetail
+    Demonstrates how to change the level of detail when zooming in and out.</echo>
 <echo>run-Printing
     Print the contents of a yFiles GraphControl.</echo>
 <echo>run-RenderingOrder
     Shows the effect of different rendering policies to the model items.</echo>
+<echo>run-SmartClickNavigation
+    Demonstrates how to navigate in a large graph.</echo>
+<echo>run-Snapping
+    Demonstrates how to enable snapping functionality for graph elements.</echo>
+<echo>run-Tooltips
+    Demonstrates how to add tooltips to graph items.</echo>
 <echo>run-RichTextLabelStyle
     Using the JavaFX 8 Rich Text API in yFiles.</echo>
 <echo>run-SimpleCustomStyle
@@ -80,7 +124,7 @@
 <echo>run-InteractiveNodesGraphBuilder
     Demonstrates data binding using class AdjacentNodesGraphBuilder.</echo>
 <echo>run-GraphAnalysis
-    Algorithms to analyse the structure of a graph in yFiles for Java (Swing).</echo>
+    Algorithms to analyse the structure of a graph in yFiles for JavaFX.</echo>
 <echo>run-ShortestPath
     Usage and visualization of shortest path algorithms in yFiles for JavaFX.</echo>
 <echo>run-ObfuscationDemo
@@ -192,8 +236,68 @@
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
+<target name="run-FamilyTree" depends="compile" description="This demo shows how genealogical graphs (family trees) can be visualized.">
+<java classname="layout.familytree.FamilyTreeDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-CriticalPaths" depends="compile" description="This demo shows how to emphazise important paths with hierarchic and tree layout algorithms.">
+<java classname="layout.criticalpaths.CriticalPathsDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-EdgeBundling" depends="compile" description="Demonstrates edge bundling for different layout styles.">
+<java classname="layout.edgebundling.EdgeBundlingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-EdgeGrouping" depends="compile" description="Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout.">
+<java classname="layout.edgegrouping.EdgeGroupingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-PartialLayout" depends="compile" description="Shows how to arrange some elements in a graph while keeping other elements fixed.">
+<java classname="layout.partiallayout.PartialLayoutDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
 <target name="run-PartitionGrid" depends="compile" description="Demonstrates the usage of a PartitionGrid for hierarchic and organic layout calculations.">
 <java classname="layout.partitiongrid.PartitionGridDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-Sankey" depends="compile" description="Uses Hierarchic Layout to arrange Sankey diagrams.">
+<java classname="layout.sankey.SankeyDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-SplitEdges" depends="compile" description="Shows how to align edges at group nodes using RecursiveGroupLayout together with HierarchicLayout.">
+<java classname="layout.splitedges.SplitEdgesDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-TreeLayout" depends="compile" description="Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children.">
+<java classname="layout.treelayout.TreeLayoutDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-TreeMap" depends="compile" description="Shows disk usage of a directory tree with the Tree Map layout.">
+<java classname="layout.treemap.TreeMapDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-CustomLabelModel" depends="compile" description="Customize label placement model.">
+<java classname="input.customlabelmodel.CustomLabelModelDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>
 </java>
@@ -224,6 +328,12 @@
 </target>
 <target name="run-EdgeReconnectionPortCandidateProvider" depends="compile" description="Demo code that shows how to customize the reconnection behavior for existing edges.">
 <java classname="input.edgereconnection.EdgePortCandidateProviderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-LabelHandleProvider" depends="compile" description="Enable interactive rotating and resizing labels.">
+<java classname="input.labelhandleprovider.LabelHandleProviderDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>
 </java>
@@ -282,6 +392,18 @@
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
+<target name="run-BackgroundImage" depends="compile" description="Shows how to add background visualizations to a graph control.">
+<java classname="viewer.backgroundimage.BackgroundImageDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-ClickableStyleDecorator" depends="compile" description="Shows how to handle mouse clicks in specific areas of a node's visualization.">
+<java classname="viewer.clickablestyledecorator.ClickableStyleDecoratorDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
 <target name="run-EdgeToEdge" depends="compile" description="Shows edge-to-edge connections.">
 <java classname="viewer.edgetoedge.EdgeToEdgeDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -290,6 +412,30 @@
 </target>
 <target name="run-GraphEvents" depends="compile" description="Explore the different kinds of events dispatched by yFiles for JavaFX.">
 <java classname="viewer.events.GraphEventsDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-Filtering" depends="compile" description="Shows how to temporarily remove nodes or edges from the graph.">
+<java classname="viewer.filtering.FilteringDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-FilteringWithFolding" depends="compile" description="Shows how to combine yFiles filtering and folding features.">
+<java classname="viewer.filteringandfolding.FilteringAndFoldingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-Folding" depends="compile" description="Shows how to use yFiles folding feature.">
+<java classname="viewer.folding.FoldingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-GraphCopy" depends="compile" description="Shows how to copy a graph or sub graph.">
+<java classname="viewer.graphcopy.GraphCopyDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>
 </java>
@@ -306,6 +452,12 @@
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
+<target name="run-GridSnapping" depends="compile" description="Demonstrates how to enable grid snapping functionality for graph elements.">
+<java classname="viewer.gridsnapping.GridSnappingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
 <target name="run-ImageExport" depends="compile" description="Export a graph as a bitmap image.">
 <java classname="viewer.imageexport.ImageExportDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -318,6 +470,12 @@
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
+<target name="run-LevelOfDetail" depends="compile" description="Demonstrates how to change the level of detail when zooming in and out.">
+<java classname="viewer.levelofdetail.LevelOfDetailDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
 <target name="run-Printing" depends="compile" description="Print the contents of a yFiles GraphControl.">
 <java classname="viewer.printing.PrintingDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -326,6 +484,24 @@
 </target>
 <target name="run-RenderingOrder" depends="compile" description="Shows the effect of different rendering policies to the model items.">
 <java classname="viewer.renderingorder.RenderingOrderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-SmartClickNavigation" depends="compile" description="Demonstrates how to navigate in a large graph.">
+<java classname="viewer.smartclicknavigation.SmartClickNavigationDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-Snapping" depends="compile" description="Demonstrates how to enable snapping functionality for graph elements.">
+<java classname="viewer.snapping.SnappingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-Tooltips" depends="compile" description="Demonstrates how to add tooltips to graph items.">
+<java classname="viewer.tooltips.TooltipsDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>
 </java>
@@ -360,7 +536,7 @@
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
-<target name="run-GraphAnalysis" depends="compile" description="Algorithms to analyse the structure of a graph in yFiles for Java (Swing).">
+<target name="run-GraphAnalysis" depends="compile" description="Algorithms to analyse the structure of a graph in yFiles for JavaFX.">
 <java classname="analysis.graphanalysis.GraphAnalysisDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>

@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -141,7 +141,7 @@ public class SwtDemo {
   private void initializeSwt(Shell shell) {
     // create a window with title and icon
     shell.setText("SWT Integration Demo - yFiles for JavaFX");
-    shell.setImage(loadImage(shell.getDisplay(), "logo_129.png"));
+    shell.setImage(loadImage(shell.getDisplay(), "logo_128.png"));
     shell.setLayout(new GridLayout(3, false));
     shell.setSize(1400, 850);
 
@@ -394,7 +394,7 @@ public class SwtDemo {
    * Loads an {@link org.eclipse.swt.graphics.Image} of the given resource file.
    */
   private static Image loadImage(Device device, String fileName) {
-    return new Image(device, SwtDemo.class.getResourceAsStream("../../toolkit/resources/" + fileName));
+    return new Image(device, SwtDemo.class.getResourceAsStream("/resources/" + fileName));
   }
 
   public static void main(String[] args) {

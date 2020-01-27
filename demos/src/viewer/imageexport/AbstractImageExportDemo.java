@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -65,7 +65,7 @@ import java.io.File;
 import java.util.Arrays;
 
 /**
- * Abstract base class for yFiles for Java image export demos. It uses a tabbed pane to support switching between the
+ * Abstract base class for yFiles for JavaFX image export demos. It uses a tabbed pane to support switching between the
  * {@link com.yworks.yfiles.view.GraphControl} that contains the graph to export and a preview of the export result.
  */
 public abstract class AbstractImageExportDemo extends DemoApplication {

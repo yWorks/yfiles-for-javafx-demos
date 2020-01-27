@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -125,7 +125,7 @@ public class IconProvider {
   }
   
   private static InputStream getResource(String name) {
-    return INSTANCE.getClass().getResourceAsStream("/toolkit/resources/" + name);
+    return INSTANCE.getClass().getResourceAsStream("/resources/" + name);
   }
 
   public static ImageView valueOf(String name){

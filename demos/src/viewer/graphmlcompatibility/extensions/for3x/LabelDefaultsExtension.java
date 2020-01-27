@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -37,7 +37,7 @@ import com.yworks.yfiles.graphml.MarkupExtension;
 import com.yworks.yfiles.utils.Obfuscation;
 
 /**
- * Handles the yFiles for Java 3.0.x version of GraphML element
+ * Handles the yFiles for JavaFX 3.0.x version of GraphML element
  * <code>&lt;LabelDefaults&gt;</code>.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = true)

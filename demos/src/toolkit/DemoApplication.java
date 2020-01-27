@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -97,11 +97,12 @@ public abstract class DemoApplication extends Application {
     }
 
     primaryStage.getIcons().addAll(
-        new Image("toolkit/resources/logo_29.png"),
-        new Image("toolkit/resources/logo_36.png"),
-        new Image("toolkit/resources/logo_48.png"),
-        new Image("toolkit/resources/logo_57.png"),
-        new Image("toolkit/resources/logo_129.png"));
+        new Image("resources/logo_16.png"),
+        new Image("resources/logo_24.png"),
+        new Image("resources/logo_32.png"),
+        new Image("resources/logo_48.png"),
+        new Image("resources/logo_64.png"),
+        new Image("resources/logo_128.png"));
     primaryStage.setTitle(getTitle());
     primaryStage.setScene(scene);
     primaryStage.show();

@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -565,11 +565,16 @@ public class SimpleEditorDemo extends DemoApplication {
     private boolean isFolderNode(ILabelOwner owner) {
       if (owner instanceof INode) {
         INode node = (INode) owner;
-        if (!view.getGraph().isGroupNode(node)) {
-          INode masterNode = view.getMasterItem(node);
-          if (view.getManager().getMasterGraph().isGroupNode(masterNode)) {
-            return true;
+        IGraph masterGraph = view.getManager().getMasterGraph();
+        if (view.getGraph().contains(node)) {
+          if (!view.getGraph().isGroupNode(node)) {
+            INode masterNode = view.getMasterItem(node);
+            if (masterGraph.isGroupNode(masterNode)) {
+              return true;
+            }
           }
+        } else if (masterGraph.contains(node)) {
+          return masterGraph.isGroupNode(node);
         }
       }
       return false;

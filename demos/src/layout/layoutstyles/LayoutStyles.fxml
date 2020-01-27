@@ -4,7 +4,7 @@
   //
   // This demo file is part of yFiles for JavaFX 3.3.
   //
-  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -76,7 +76,7 @@
         <CommandButton commandTarget="${graphControl}" text="">
           <command><fx:reference source="previousGraphCommand"/></command>
           <commandParameter>Previous</commandParameter>
-          <graphic><ImageView><Image url="/toolkit/resources/arrow-left-16.png"/></ImageView></graphic>
+          <graphic><ImageView><Image url="/resources/arrow-left-16.png"/></ImageView></graphic>
           <tooltip><Tooltip text="Show previous graph"/></tooltip>
         </CommandButton>
         <ComboBox fx:id="graphChooserBox" onAction="#onSampleGraphChanged">
@@ -105,7 +105,7 @@
         <CommandButton commandTarget="${graphControl}" text="">
           <command><fx:reference source="nextGraphCommand"/></command>
           <commandParameter>Next</commandParameter>
-          <graphic><ImageView><Image url="/toolkit/resources/arrow-right-16.png"/></ImageView></graphic>
+          <graphic><ImageView><Image url="/resources/arrow-right-16.png"/></ImageView></graphic>
           <tooltip><Tooltip text="Show next graph"/></tooltip>
         </CommandButton>
         <Separator orientation="VERTICAL"/>
@@ -141,13 +141,13 @@
         <CommandButton commandTarget="${graphControl}" text="">
           <command><fx:reference source="nodeLabelsCommand"/></command>
           <commandParameter>Node</commandParameter>
-          <graphic><ImageView><Image url="/toolkit/resources/nodelabel-16.png"/></ImageView></graphic>
+          <graphic><ImageView><Image url="/resources/nodelabel-16.png"/></ImageView></graphic>
           <tooltip><Tooltip text="Generate Node Labels"/></tooltip>
         </CommandButton>
         <CommandButton commandTarget="${graphControl}" text="">
           <command><fx:reference source="edgeLabelsCommand"/></command>
           <commandParameter>Edge</commandParameter>
-          <graphic><ImageView><Image url="/toolkit/resources/edgelabel-16.png"/></ImageView></graphic>
+          <graphic><ImageView><Image url="/resources/edgelabel-16.png"/></ImageView></graphic>
           <tooltip><Tooltip text="Generate Edge Labels"/></tooltip>
         </CommandButton>
       </items>

@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,42 +29,7 @@
  ***************************************************************************/
 package complete.bpmn.editor;
 
-import complete.bpmn.layout.BpmnLayout;
-import complete.bpmn.layout.LayoutOrientation;
-import complete.bpmn.view.ActivityNodeStyle;
-import complete.bpmn.view.AnnotationLabelStyle;
-import complete.bpmn.view.AnnotationNodeStyle;
-import complete.bpmn.view.BpmnConstants;
-import complete.bpmn.view.BpmnEdgeStyle;
-import complete.bpmn.view.BpmnLayoutData;
-import complete.bpmn.view.BpmnNodeStyle;
-import complete.bpmn.view.BpmnPortCandidateProvider;
-import complete.bpmn.view.ChoreographyLabelModel;
-import complete.bpmn.view.ChoreographyNodeStyle;
-import complete.bpmn.view.ConversationNodeStyle;
-import complete.bpmn.view.ConversationType;
-import complete.bpmn.view.DataObjectNodeStyle;
-import complete.bpmn.view.DataStoreNodeStyle;
-import complete.bpmn.view.EdgeType;
-import complete.bpmn.view.EventNodeStyle;
-import complete.bpmn.view.EventPortStyle;
-import complete.bpmn.view.GatewayNodeStyle;
-import complete.bpmn.view.GroupNodeStyle;
-import complete.bpmn.view.MessageLabelStyle;
-import complete.bpmn.view.Participant;
-import complete.bpmn.view.PoolHeaderLabelModel;
-import complete.bpmn.view.PoolNodeStyle;
-import complete.bpmn.view.config.ActivityNodeStyleConfiguration;
-import complete.bpmn.view.config.AnnotationNodeStyleConfiguration;
-import complete.bpmn.view.config.BpmnEdgeStyleConfiguration;
-import complete.bpmn.view.config.ChoreographyNodeStyleConfiguration;
-import complete.bpmn.view.config.ConversationNodeStyleConfiguration;
-import complete.bpmn.view.config.DataObjectNodeStyleConfiguration;
-import complete.bpmn.view.config.EdgeStyleConfiguration;
-import complete.bpmn.view.config.EventNodeStyleConfiguration;
-import complete.bpmn.view.config.GatewayNodeStyleConfiguration;
-import complete.bpmn.view.config.NodeStyleConfiguration;
-import complete.bpmn.view.config.PoolNodeStyleConfiguration;
+import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
@@ -78,6 +43,7 @@ import com.yworks.yfiles.graph.IEdgeDefaults;
 import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
+import com.yworks.yfiles.graph.ILabelOwner;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.INodeDefaults;
@@ -91,9 +57,9 @@ import com.yworks.yfiles.graph.labelmodels.CompositeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSegmentLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSides;
 import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
+import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
@@ -113,6 +79,7 @@ import com.yworks.yfiles.view.input.IInputMode;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.INodeInsetsProvider;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
+import com.yworks.yfiles.view.input.ItemClickedEventArgs;
 import com.yworks.yfiles.view.input.KeyboardInputMode;
 import com.yworks.yfiles.view.input.MoveViewportInputMode;
 import com.yworks.yfiles.view.input.NodeAlignmentPolicy;
@@ -126,7 +93,44 @@ import com.yworks.yfiles.view.input.SelectionEventArgs;
 import com.yworks.yfiles.view.input.StripeSubregion;
 import com.yworks.yfiles.view.input.StripeSubregionTypes;
 import com.yworks.yfiles.view.input.TableEditorInputMode;
+import complete.bpmn.di.BpmnDiParser;
+import complete.bpmn.di.BpmnLabelStyle;
+import complete.bpmn.layout.BpmnLayout;
+import complete.bpmn.layout.LayoutOrientation;
+import complete.bpmn.view.ActivityNodeStyle;
+import complete.bpmn.view.AnnotationNodeStyle;
+import complete.bpmn.view.BpmnConstants;
+import complete.bpmn.view.BpmnEdgeStyle;
+import complete.bpmn.view.BpmnLayoutData;
+import complete.bpmn.view.BpmnNodeStyle;
+import complete.bpmn.view.BpmnPortCandidateProvider;
+import complete.bpmn.view.ChoreographyLabelModel;
+import complete.bpmn.view.ChoreographyNodeStyle;
+import complete.bpmn.view.ConversationNodeStyle;
+import complete.bpmn.view.ConversationType;
+import complete.bpmn.view.DataObjectNodeStyle;
+import complete.bpmn.view.DataStoreNodeStyle;
+import complete.bpmn.view.EdgeType;
+import complete.bpmn.view.EventNodeStyle;
+import complete.bpmn.view.EventPortStyle;
+import complete.bpmn.view.GatewayNodeStyle;
+import complete.bpmn.view.GroupNodeStyle;
+import complete.bpmn.view.MessageLabelStyle;
+import complete.bpmn.view.Participant;
+import complete.bpmn.view.PoolNodeStyle;
+import complete.bpmn.view.config.ActivityNodeStyleConfiguration;
+import complete.bpmn.view.config.AnnotationNodeStyleConfiguration;
+import complete.bpmn.view.config.BpmnEdgeStyleConfiguration;
+import complete.bpmn.view.config.ChoreographyNodeStyleConfiguration;
+import complete.bpmn.view.config.ConversationNodeStyleConfiguration;
+import complete.bpmn.view.config.DataObjectNodeStyleConfiguration;
+import complete.bpmn.view.config.EdgeStyleConfiguration;
+import complete.bpmn.view.config.EventNodeStyleConfiguration;
+import complete.bpmn.view.config.GatewayNodeStyleConfiguration;
+import complete.bpmn.view.config.NodeStyleConfiguration;
+import complete.bpmn.view.config.PoolNodeStyleConfiguration;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Group;
@@ -143,11 +147,14 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import toolkit.DemoApplication;
 import toolkit.WebViewUtils;
 import toolkit.optionhandler.OptionEditor;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.time.Duration;
@@ -161,7 +168,7 @@ import java.util.function.Consumer;
  *
  * <p>The visualization and business logic is based on the BPMN 1.1 specification but isn't meant to
  * implement all aspects of the specification but to demonstrate what techniques offered by
- * yFiles for Java can be used to create such an editor:
+ * yFiles for JavaFX can be used to create such an editor:
  * </p>
  * <p>
  * <ul>
@@ -199,6 +206,7 @@ public class BpmnEditorDemo extends DemoApplication {
   public GraphControl graphControl;
   public WebView webView;
   private TableEditorInputMode tableEditorInputMode;
+  private FileChooser openFileDialog;
 
   // input mode that handles node dragging
   private NodeDropInputMode nodeDropInputMode;
@@ -231,17 +239,30 @@ public class BpmnEditorDemo extends DemoApplication {
   public void initialize() {
     // add the names of the sample diagrams to the combo box
     graphChooserBox.getItems().addAll(
-        "Business",
-        "Collaboration",
-        "Different Exception Flows",
-        "Expanded Subprocess",
-        "Lanes Segment",
-        "Lanes with Information Systems",
-        "Matrix Lanes",
-        "Process Normal Flow",
-        "Project Application",
-        "Simple BPMN Model",
-        "Vertical Swimlanes");
+        "GraphML: Business",
+        "GraphML: Collaboration",
+        "GraphML: Different Exception Flows",
+        "GraphML: Expanded Subprocess",
+        "GraphML: Lanes Segment",
+        "GraphML: Lanes with Information Systems",
+        "GraphML: Matrix Lanes",
+        "GraphML: Process Normal Flow",
+        "GraphML: Project Application",
+        "GraphML: Simple BPMN Model",
+        "GraphML: Vertical Swimlanes",
+        "BPMN-DI: Choreography",
+        "BPMN-DI: Collaboration",
+        "BPMN-DI: Collapsed Subprocess",
+        "BPMN-DI: Different Exception Flows",
+        "BPMN-DI: Horizontal Swimlanes",
+        "BPMN-DI: Label Styles",
+        "BPMN-DI: Lanes with Information Systems",
+        "BPMN-DI: Multiple Diagrams",
+        "BPMN-DI: Process Normal Flow",
+        "BPMN-DI: Project Application",
+        "BPMN-DI: Simple BPMN Model",
+        "BPMN-DI: Subprocess Hierarchy",
+        "BPMN-DI: Vertical Swimlanes");
 
     // load the help pane
     WebViewUtils.initHelp(webView, this);
@@ -304,6 +325,7 @@ public class BpmnEditorDemo extends DemoApplication {
     exteriorLabelModel.setInsets(new InsetsD(10));
     compositeLabelModel.getLabelModels().add(exteriorLabelModel);
     nodeDefaults.getLabelDefaults().setLayoutParameter(compositeLabelModel.createDefaultParameter());
+    nodeDefaults.getLabelDefaults().setStyle(BpmnLabelStyle.newDefaultInstance());
 
     graph.getGroupNodeDefaults().setStyle(new GroupNodeStyle());
 
@@ -355,10 +377,15 @@ public class BpmnEditorDemo extends DemoApplication {
     // don't allow node creation (except for context menu and drag'n'drop)
     geim.setCreateNodeAllowed(false);
     // Alter the ClickHitTestOrder so ports are tested before nodes
-    geim.setClickHitTestOrder(
-            GraphItemTypes.BEND, GraphItemTypes.EDGE_LABEL, GraphItemTypes.EDGE,
-            GraphItemTypes.PORT, GraphItemTypes.NODE, GraphItemTypes.NODE_LABEL
-    );
+    geim.setClickHitTestOrder(new GraphItemTypes[]{
+      GraphItemTypes.BEND, GraphItemTypes.EDGE_LABEL, GraphItemTypes.EDGE,
+      GraphItemTypes.PORT, GraphItemTypes.NODE, GraphItemTypes.NODE_LABEL
+    });
+    geim.setDoubleClickHitTestOrder(new GraphItemTypes[] {
+      GraphItemTypes.LABEL, GraphItemTypes.ALL
+    });
+    // automatically removing empty labels destroys choreographies
+    geim.setAutoRemovingEmptyLabelsEnabled(false);
 
     // Enable snapping
     GraphSnapContext snapContext = new GraphSnapContext();
@@ -401,6 +428,9 @@ public class BpmnEditorDemo extends DemoApplication {
     // setup the context menu
     initializeContextMenu(geim);
 
+    // add double click event handler
+    geim.addItemLeftDoubleClickedListener(this::onLeftDoubleClicked);
+
     // bind selection changes to property pane
     geim.addMultiSelectionFinishedListener(this::onSelectionChanged);
     tableEditorInputMode.getStripeSelection().addItemSelectionChangedListener((source, args) -> clearOptionPane("No Properties to show"));
@@ -408,6 +438,31 @@ public class BpmnEditorDemo extends DemoApplication {
     // initialize additional input bindings
     initializeInputBindings(geim.getKeyboardInputMode());
     return geim;
+  }
+
+  private void onLeftDoubleClicked( Object source, ItemClickedEventArgs<IModelItem> args ) {
+    if (args.isHandled()) {
+      return;
+    }
+
+    IModelItem item = args.getItem();
+
+    if (item instanceof ILabel) {
+      ((GraphEditorInputMode) graphControl.getInputMode()).editLabel((ILabel) item);
+      args.setHandled(true);
+      return;
+    }
+
+    if (item instanceof ILabelOwner) {
+      ILabelOwner owner = (ILabelOwner) item;
+      if (owner.getLabels().size() > 0) {
+        ((GraphEditorInputMode) graphControl.getInputMode()).editLabel(owner.getLabels().first());
+        args.setHandled(true);
+        return;
+      }
+    }
+
+    args.setHandled(false);
   }
 
   /**
@@ -504,7 +559,7 @@ public class BpmnEditorDemo extends DemoApplication {
 
   private void initializeContextMenu(GraphEditorInputMode geim) {
     // open context menu when node or edge is clicked
-    geim.setContextMenuItems(GraphItemTypes.NODE.or(GraphItemTypes.EDGE));
+    geim.setContextMenuItems(GraphItemTypes.NODE.or(GraphItemTypes.EDGE).or(GraphItemTypes.PORT));
     geim.addPopulateItemContextMenuListener(this::onPopulateItemContextMenu);
   }
   
@@ -521,17 +576,32 @@ public class BpmnEditorDemo extends DemoApplication {
 
     if (item instanceof INode) {
       INode node = (INode) item;
+      INodeStyle style = node.getStyle();
 
-      // Add an annotation label to the node and start editing its text
-      addMenuItem(menu, "Add annotation label", (e) -> {
-        ILabelModelParameter modelParameter = FreeNodeLabelModel.INSTANCE.createParameter(new PointD(0.75, 0),
-            new PointD(0, -50), PointD.ORIGIN, PointD.ORIGIN, 0);
-        ILabel newLabel = graph.addLabel(node, "", modelParameter, new AnnotationLabelStyle());
-        ((GraphEditorInputMode) graphControl.getInputMode()).editLabel(newLabel);
-      });
+      // If it is not a text annotation itself...
+      if (style instanceof AnnotationNodeStyle) {
+        // If it is a text annotation node, allow toggling the direction
+        final AnnotationNodeStyle textAnnotationStyle = (AnnotationNodeStyle) style;
+        addMenuItem(menu, "Toggle direction", (e) -> textAnnotationStyle.setLeft(!textAnnotationStyle.isLeft()));
+      } else {
+        // ... offer to add a text annotation node
+        addMenuItem(menu, "Add Text Annotation", (e) -> {
+          IRectangle nl = node.getLayout();
+          INode annotationNode = graph.createNode(new PointD(nl.getX(), nl.getY() - 50));
+          graph.setStyle(annotationNode, new AnnotationNodeStyle());
+          // including a connecting edge
+          BpmnEdgeStyle annotationEdgeStyle = new BpmnEdgeStyle();
+          annotationEdgeStyle.setType(EdgeType.ASSOCIATION);
+          graph.createEdge(node, annotationNode, annotationEdgeStyle);
+          InteriorStretchLabelModel model = new InteriorStretchLabelModel();
+          model.setInsets(new InsetsD(3, 3, 3, 3));
+          ILabel newLabel = graph.addLabel(annotationNode, "", model.createParameter(InteriorStretchLabelModel.Position.CENTER));
+          // and start to edit the label
+          ((GraphEditorInputMode) graphControl.getInputMode()).editLabel(newLabel);
+        });
+      }
 
       // If it is an Choreography node...
-      INodeStyle style = node.getStyle();
       if (style instanceof ChoreographyNodeStyle) {
         ChoreographyNodeStyle choreographyNodeStyle = (ChoreographyNodeStyle) style;
         menu.getItems().add(new SeparatorMenuItem());
@@ -551,16 +621,50 @@ public class BpmnEditorDemo extends DemoApplication {
             participant.setMultiInstance(!participant.isMultiInstance());
             graphControl.invalidate();
           });
+          // or edit its Label
+          addMenuItem(menu, "Edit Label", (e) -> {
+            ILabelModelParameter parameter = choreographyNodeStyle.getParticipantParameters(participant);
+            ILabel label = getLabelFromParameter(node.getLabels(), parameter);
+            if (label == null) {
+              label = graph.addLabel(node, "");
+              graph.setLabelLayoutParameter(label, parameter);
+              graph.setStyle(label, BpmnLabelStyle.newDefaultInstance());
+            }
+            ((GraphEditorInputMode) graphControl.getInputMode()).editLabel(label);
+          });
+
         } else {
-          // if no participant was clicked, a new one can be added to the top or bottom participants
           addMenuItem(menu, "Add Participant at Top", (e) -> {
-            choreographyNodeStyle.getTopParticipants().add(new Participant());
-            graphControl.invalidate();
+            Participant newParticipant = new Participant();
+            choreographyNodeStyle.getTopParticipants().add(newParticipant);
+            ILabelModelParameter parameter = choreographyNodeStyle.getParticipantParameters(newParticipant);
+            ILabel newLabel = graph.addLabel(node, "");
+            graph.setLabelLayoutParameter(newLabel, parameter);
+            graph.setStyle(newLabel, BpmnLabelStyle.newDefaultInstance());
+            ((GraphEditorInputMode) graphControl.getInputMode()).editLabel(newLabel);
           });
           addMenuItem(menu, "Add Participant at Bottom", (e) -> {
-            choreographyNodeStyle.getBottomParticipants().add(new Participant());
-            graphControl.invalidate();
+            Participant newParticipant = new Participant();
+            choreographyNodeStyle.getBottomParticipants().add(newParticipant);
+            ILabelModelParameter parameter = choreographyNodeStyle.getParticipantParameters(newParticipant);
+            ILabel newLabel = graph.addLabel(node, "");
+            graph.setLabelLayoutParameter(newLabel, parameter);
+            graph.setStyle(newLabel, BpmnLabelStyle.newDefaultInstance());
+            ((GraphEditorInputMode) graphControl.getInputMode()).editLabel(newLabel);
           });
+          addMenuItem(menu, "Edit Label", (e) -> {
+            ILabel taskNameBandLabel = null;
+            if (node.getLabels().size() < 1 || getLabelFromParameter(node.getLabels(), ChoreographyLabelModel.TASK_NAME_BAND) == null) {
+              ILabelModelParameter parameter = ChoreographyLabelModel.TASK_NAME_BAND;
+              taskNameBandLabel = graph.addLabel(node, "");
+              graph.setLabelLayoutParameter(taskNameBandLabel, parameter);
+              graph.setStyle(taskNameBandLabel, BpmnLabelStyle.newDefaultInstance());
+            } else {
+              taskNameBandLabel = getLabelFromParameter(node.getLabels(), ChoreographyLabelModel.TASK_NAME_BAND);
+            }
+            ((GraphEditorInputMode) graphControl.getInputMode()).editLabel(taskNameBandLabel);
+          });
+
         }
       }
 
@@ -634,15 +738,34 @@ public class BpmnEditorDemo extends DemoApplication {
     } else if (item instanceof IEdge) {
       IEdge edge = (IEdge) item;
       // For edges a label with a Message Icon may be added
-      addMenuItem(menu, "Add Message Icon Label", (evt) -> {
+      addMenuItem(menu, "Add Initiating Message Icon Label", (evt) -> {
         ILabelModelParameter modelParameter = new EdgeSegmentLabelModel(0, 0, 0,
             false, EdgeSides.ON_EDGE).createDefaultParameter();
-        graph.addLabel(edge, "", modelParameter, new MessageLabelStyle(), new SizeD(20, 14));
+        graph.addLabel(edge, "", modelParameter, MessageLabelStyle.createInitiatingStyle(), new SizeD(20, 14));
+      });
+      addMenuItem(menu, "Add Response Message Icon Label", (evt) -> {
+        ILabelModelParameter modelParameter = new EdgeSegmentLabelModel(0, 0, 0,
+            false, EdgeSides.ON_EDGE).createDefaultParameter();
+        graph.addLabel(edge, "", modelParameter, MessageLabelStyle.createResponseStyle(), new SizeD(20, 14));
       });
 
       // we don't want to be queried again if there are more items at this location
       args.setHandled(true);
     }
+  }
+
+  /**
+   * Retrieves the label to the corresponding choreography participant.
+   * @param nodeLabels All labels of this node
+   * @param parameter Parameter of this taskNameBand
+   */
+  private static ILabel getLabelFromParameter(Iterable<ILabel> nodeLabels, ILabelModelParameter parameter) {
+    for (ILabel label : nodeLabels) {
+      if (ChoreographyLabelModel.areEqual(label.getLayoutParameter(), parameter)) {
+        return label;
+      }
+    }
+    return null;
   }
 
   private void addMenuItem(ContextMenu menu, String name, Consumer<ActionEvent> consumer) {
@@ -665,13 +788,14 @@ public class BpmnEditorDemo extends DemoApplication {
     PoolNodeStyle poolNodeStyle = new PoolNodeStyle();
     INode poolNode = nodeContainer.createNode(PointD.ORIGIN, poolNodeStyle);
     ITable poolTable = getTable(poolNodeStyle);
-    poolTable.getColumnDefaults().setInsets(new InsetsD());
+    poolTable.getColumnDefaults().setInsets(InsetsD.EMPTY);
+    poolTable.setInsets(InsetsD.EMPTY);
     poolTable.createGrid(1, 1);
     //Use twice the default width for this sample column (looks nicer in the preview)
     poolTable.getRootColumn().getChildColumns().stream().findFirst().ifPresent(column -> {
       poolTable.setSize(column, column.getActualSize() * 2);
       nodeContainer.setNodeLayout(poolNode, poolTable.getLayout().toRectD());
-      nodeContainer.addLabel(poolNode, "Pool", PoolHeaderLabelModel.WEST);
+      poolTable.addLabel(poolTable.getRootRow().getChildRows().iterator().next(), "Pool");
     });
 
     PoolNodeStyle rowPoolNodeStyle = new PoolNodeStyle();
@@ -681,8 +805,8 @@ public class BpmnEditorDemo extends DemoApplication {
     IStripe rowSampleRow = rowTable.createRow(100d);
     IStripe rowSampleColumn = rowTable.createColumn(200d);
     rowTable.setStyle(rowSampleColumn, VoidStripeStyle.INSTANCE);
-    rowTable.setStripeInsets(rowSampleColumn, new InsetsD());
-    rowTable.setInsets(new InsetsD());
+    rowTable.setStripeInsets(rowSampleColumn, InsetsD.EMPTY);
+    rowTable.setInsets(InsetsD.EMPTY);
     rowTable.addLabel(rowSampleRow, "Row");
     nodeContainer.setNodeLayout(rowNode, rowTable.getLayout().toRectD());
     // Set the first row as tag so the NodeDragControl knows that a row and not a complete pool node shall be dragged
@@ -795,8 +919,8 @@ public class BpmnEditorDemo extends DemoApplication {
   protected void onLoaded() {
     graphChooserBox.getSelectionModel().select(0);
     // loads the 'Business' example diagram
-    if (!Objects.equals(graphChooserBox.getSelectionModel().getSelectedItem(), "Business")) {
-      graphChooserBox.getSelectionModel().select("Business");
+    if (!Objects.equals(graphChooserBox.getSelectionModel().getSelectedItem(), "GraphML: Business")) {
+      graphChooserBox.getSelectionModel().select("GraphML: Business");
     } else {
       onSampleGraphChanged(null);
     }
@@ -806,7 +930,10 @@ public class BpmnEditorDemo extends DemoApplication {
     if (inLoadSample) {
       return;
     }
-    String key = (String) graphChooserBox.getSelectionModel().getSelectedItem();
+    String item = (String) graphChooserBox.getSelectionModel().getSelectedItem();
+    int idx = item.indexOf(':');
+    boolean graphml = idx > -1 ? item.startsWith("GraphML") : true;
+    String key = idx > -1 ? item.substring(idx + 1).trim() : item;
     if (key == null || "None".equals(key)) {
       // no specific item - just clear the graph
       graphControl.getGraph().clear();
@@ -817,13 +944,19 @@ public class BpmnEditorDemo extends DemoApplication {
     inLoadSample = true;
     setUIEnabled(false);
     // derive the file name from the key
-    String fileName = "resources/" + key.toLowerCase();
+    String type = graphml ? "graphml" : "bpmn";
+    String fileName = "resources/" + type + '/' + key.toLowerCase();
     fileName = fileName.replace("-", "");
-    fileName = fileName.replace(" ", "_") + ".graphml";
+    fileName = fileName.replace(" ", "_") + '.' + type;
 
     try {
       // load the sample graph
-      graphControl.importFromGraphML(getClass().getResource(fileName));
+      if (graphml) {
+        graphControl.importFromGraphML(getClass().getResource(fileName));
+      } else {
+        new BpmnDiParser().load(graphControl.getGraph(), getClass().getResource(fileName));
+        graphControl.fitGraphBounds();
+      }
     } catch (IOException exc) {
       exc.printStackTrace();
     } finally {
@@ -959,6 +1092,45 @@ public class BpmnEditorDemo extends DemoApplication {
    */
   public void resetZoom(){
     graphControl.setZoom(1);
+  }
+
+  /**
+   * Opens diagrams from either GraphML format or BPMN DI format.
+   */
+  public void openBpmn() {
+    if (openFileDialog == null) {
+      openFileDialog = createOpenFileDialog();
+    }
+    if (openFileDialog != null) {
+      Window owner = (graphControl.getScene() != null) && (graphControl.getScene().getWindow() != null) ? graphControl.getScene().getWindow() : null;
+      final File fileToOpen = openFileDialog.showOpenDialog(owner);
+      if (fileToOpen != null) {
+        FileChooser.ExtensionFilter filter = openFileDialog.getSelectedExtensionFilter();
+        if (".bpmn".equals(filter.getExtensions().get(0))) {
+          try {
+            new BpmnDiParser().load(graphControl.getGraph(), fileToOpen.getAbsolutePath());
+            graphControl.fitGraphBounds();
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        } else {
+          try {
+            graphControl.importFromGraphML(fileToOpen);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
+    }
+  }
+
+  protected FileChooser createOpenFileDialog() {
+    FileChooser dialog = new FileChooser();
+    final ObservableList<FileChooser.ExtensionFilter> extensionFilters = dialog.getExtensionFilters();
+    extensionFilters.add(new FileChooser.ExtensionFilter("BPMN Files (*.bpmn)", ".bpmn"));
+    extensionFilters.add(new FileChooser.ExtensionFilter("GraphML Files (*.graphml)", ".graphml"));
+    dialog.setTitle("Open");
+    return dialog;
   }
 
   @Override

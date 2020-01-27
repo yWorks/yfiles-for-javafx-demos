@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for JavaFX 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -122,11 +122,12 @@ public class SwingDemo {
   private void initializeSwing(JFXPanel fxPanel) {
     JFrame frame = new JFrame("Swing Integration Demo - yFiles for JavaFX");
     frame.setIconImages(Arrays.asList(
-        getImageIcon("logo_29.png").getImage(),
-        getImageIcon("logo_36.png").getImage(),
+        getImageIcon("logo_16.png").getImage(),
+        getImageIcon("logo_24.png").getImage(),
+        getImageIcon("logo_32.png").getImage(),
         getImageIcon("logo_48.png").getImage(),
-        getImageIcon("logo_57.png").getImage(),
-        getImageIcon("logo_129.png").getImage()
+        getImageIcon("logo_64.png").getImage(),
+        getImageIcon("logo_128.png").getImage()
     ));
 
     Container contentPane = frame.getContentPane();
@@ -345,7 +346,7 @@ public class SwingDemo {
    * Finds an {@link ImageIcon} resource with the specified name.
    */
   private static ImageIcon getImageIcon(String name) {
-    return new ImageIcon(SwingDemo.class.getResource("/toolkit/resources/" + name));
+    return new ImageIcon(SwingDemo.class.getResource("/resources/" + name));
   }
 
   /**

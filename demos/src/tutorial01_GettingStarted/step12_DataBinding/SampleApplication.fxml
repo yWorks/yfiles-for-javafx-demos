@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tooltip?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+  <right>
+    <!-- On the right side of the of the BorderPane layout we create a WebView that shows a help text. -->
+    <TitledPane animated="false" collapsible="false" maxHeight="Infinity" text="Description">
+      <WebView prefHeight="200.0" prefWidth="300.0" fx:id="help"/>
+    </TitledPane>
+  </right>
+
+  <top>
+    <VBox>
+      <!-- On the top side of the of the BorderPane layout we first specify menus to invoke file handling, clipboard,
+      undo and grouping commands. -->
+      <MenuBar>
+        <Menu text="_File">
+          <MenuItem text="_Open..." onAction="#handleOpenAction" accelerator="Shortcut+O"/>
+          <MenuItem text="_Save..." onAction="#handleSaveAction" accelerator="Shortcut+S"/>
+          <MenuItem text="Save _As..." onAction="#handleSaveAsAction"/>
+          <SeparatorMenuItem/>
+          <MenuItem text="_Exit" onAction="#handleExitAction"/>
+        </Menu>
+        <Menu text="_Edit">
+          <MenuItem text="Cu_t" onAction="#handleCutAction"/>
+          <MenuItem text="_Copy" onAction="#handleCopyAction"/>
+          <MenuItem text="_Paste" onAction="#handlePasteAction"/>
+          <MenuItem text="_Delete" onAction="#handleDeleteAction"/>
+          <SeparatorMenuItem/>
+          <MenuItem text="_Undo" onAction="#handleUndoAction"/>
+          <MenuItem text="_Redo" onAction="#handleRedoAction"/>
+        </Menu>
+        <Menu text="_Grouping">
+          <MenuItem text="_Group Selection" onAction="#handleGroupAction"/>
+          <MenuItem text="_Ungroup Selection" onAction="#handleUngroupAction"/>
+          <MenuItem text="Expand Group" onAction="#handleExpandGroupAction"/>
+          <MenuItem text="Collapse Group" onAction="#handleCollapseGroupAction"/>
+          <MenuItem text="Enter Group" onAction="#handleEnterGroupAction"/>
+          <MenuItem text="Exit Group" onAction="#handleExitGroupAction"/>
+        </Menu>
+      </MenuBar>
+
+      <!-- Moreover we we populate a toolbar with buttons to adjust the zoom level and invoke clipboard and undo commands. -->
+      <ToolBar>
+        <Button onAction="#handleZoomInAction">
+          <tooltip>
+            <Tooltip text="Zoom In"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/plus2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button onAction="#handleZoomOutAction">
+          <tooltip>
+            <Tooltip text="Zoom Out"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/minus2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button onAction="#handleResetZoomAction">
+          <tooltip>
+            <Tooltip text="Zoom 1:1"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/zoom-original2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button onAction="#handleFitToContentAction">
+          <tooltip>
+            <Tooltip text="Fit Content"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/fit2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Separator/>
+        <Button onAction="#handleCutAction">
+          <tooltip>
+            <Tooltip text="Cut"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/cut2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button onAction="#handleCopyAction">
+          <tooltip>
+            <Tooltip text="Copy"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/copy-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button onAction="#handlePasteAction">
+          <tooltip>
+            <Tooltip text="Paste"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/paste-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button onAction="#handleDeleteAction">
+          <tooltip>
+            <Tooltip text="Delete"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/delete3-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Separator/>
+        <Button onAction="#handleUndoAction">
+          <tooltip>
+            <Tooltip text="Undo"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/undo-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button onAction="#handleRedoAction">
+          <tooltip>
+            <Tooltip text="Redo"/>
+          </tooltip>
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/redo-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+      </ToolBar>
+    </VBox>
+  </top>
+
+  <center>
+    <!-- In the center of the BorderPane layout we create an instance of GraphControl, which is one of the most important
+    classes of yFiles. It can hold, display, and edit an IGraph instance. It provides access to the Graph and Selection
+    instances, as well as provides convenience methods for undo and redo operations, as well as cut, copy, and paste
+    operations. Additionally it provides convenience methods for exporting the graph to GraphML and importing a graph
+    from GraphML. -->
+    <GraphControl fx:id="graphControl"/>
+  </center>
+</BorderPane>

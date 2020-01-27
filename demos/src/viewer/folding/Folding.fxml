@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.3.
+  //
+  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import java.lang.Double?>
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+    <right>
+        <TitledPane animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="Description">
+            <WebView prefWidth="300.0" fx:id="helpView"/>
+        </TitledPane>
+    </right>
+
+    <top>
+        <ToolBar fx:id="toolBar">
+            <CommandButton command="New" commandTarget="${graphControl}"/>
+            <Separator orientation="VERTICAL"/>
+            <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+            <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+            <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+            <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+                <commandParameter><Double fx:value="1.0"></Double></commandParameter>
+                <graphic><IconProvider fx:value="ZOOM_RESET"/></graphic>
+                <tooltip><TooltipProvider fx:value="ZOOM_RESET"/></tooltip>
+            </CommandButton>
+            <Separator orientation="VERTICAL"/>
+            <CommandButton command="Cut" commandTarget="${graphControl}"/>
+            <CommandButton command="Copy" commandTarget="${graphControl}"/>
+            <CommandButton command="Paste" commandTarget="${graphControl}"/>
+            <CommandButton command="Delete" commandTarget="${graphControl}"/>
+            <Separator orientation="VERTICAL"/>
+            <CommandButton command="Undo" commandTarget="${graphControl}"/>
+            <CommandButton command="Redo" commandTarget="${graphControl}"/>
+            <Separator orientation="VERTICAL"/>
+            <CommandButton command="GroupSelection" commandTarget="${graphControl}"/>
+            <CommandButton command="UngroupSelection" commandTarget="${graphControl}"/>
+            <CommandButton command="EnterGroup" commandTarget="${graphControl}"/>
+            <CommandButton command="ExitGroup" commandTarget="${graphControl}"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <GraphControl fx:id="graphControl"/>
+    </center>
+</BorderPane>

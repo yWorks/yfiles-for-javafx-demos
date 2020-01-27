@@ -4,7 +4,7 @@
   //
   // This demo file is part of yFiles for JavaFX 3.3.
   //
-  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -54,6 +54,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 
+<?import javafx.scene.control.Button?>
 <BorderPane xmlns:fx="http://javafx.com/fxml">
 
   <fx:define>
@@ -72,7 +73,7 @@
       <MenuBar>
         <Menu text="File">
           <CommandMenuItem command="New" commandTarget="${graphControl}"/>
-          <CommandMenuItem command="Open" commandTarget="${graphControl}"/>
+          <MenuItem text="Open" onAction="#openBpmn"/>
           <CommandMenuItem command="SaveAs" commandTarget="${graphControl}"/>
           <MenuItem text="Exit" onAction="#exit"/>
         </Menu>
@@ -85,6 +86,9 @@
       </MenuBar>
       <ToolBar>
         <CommandButton command="New" commandTarget="${graphControl}"/>
+        <Button onAction="#openBpmn" styleClass="command-button">
+          <graphic><IconProvider fx:value="Open"/></graphic>
+        </Button>
         <CommandButton command="Open" commandTarget="${graphControl}"/>
         <CommandButton command="Save" commandTarget="${graphControl}"/>
         <Separator orientation="VERTICAL"/>

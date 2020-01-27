@@ -4,7 +4,7 @@
   //
   // This demo file is part of yFiles for JavaFX 3.3.
   //
-  // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -54,10 +54,8 @@
     <property name="demo.src.dir" value="${basedir}"/>
     <!-- the directory with the class files of the demo -->
     <property name="demo.class.dir" value="${distdir}/demos/out/classes"/>
-    <!-- the directory with the source files of the abstract export demo -->
-    <property name="demo.base.src.dir" value="${distdir}/demos/src/viewer/imageexport"/>
     <!--the directory with icon resources used in the demo -->
-    <property name="demo.toolkit.dir" value="${distdir}/demos/src/toolkit"/>
+    <property name="demo.resources.dir" value="${distdir}/demos/src"/>
 
     <!-- the jar archive of yFiles for JavaFX -->
     <property name="yfiles.jar" value="${lib.dir}/yfiles-for-javafx.jar"/>
@@ -91,6 +89,7 @@
     <!-- the class path for the demo -->
     <path id="demo.classpath">
       <pathelement location="${demo.class.dir}"/>
+      <pathelement location="${demo.resources.dir}"/>
       <pathelement location="${yfiles.jar}"/>
       <pathelement location="${batik.jar}"/>
       <pathelement location="${JFXConverter.jar}"/>
@@ -126,16 +125,15 @@
   <target name="compile" description="Compiles the demo files" depends="-init,-get-libraries,utils.check-fx-sdk">
     <mkdir dir="${demo.class.dir}"/>
     <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" debug="true">
-      <src path="${demo.base.src.dir}"/>
       <src path="${demo.src.dir}"/>
-      <src path="${demo.toolkit.dir}"/>
+      <src path="${demo.resources.dir}"/>
       <classpath refid="demo.classpath"/>
       <compilerarg line="${java.fx.args}"/>
     </javac>
-    <!-- copy image files, etc. -->
-    <copy todir="${demo.class.dir}/toolkit">
-      <fileset dir="${demo.toolkit.dir}">
-        <exclude name="**/*.java"/>
+    <!-- copy stylesheets -->
+    <copy todir="${demo.class.dir}">
+      <fileset dir="${demo.resources.dir}">
+        <include name="resources/**/*.css"/>
       </fileset>
     </copy>
     <!-- copy fxml files, etc. -->
