@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -89,7 +89,6 @@
         <Button onAction="#openBpmn" styleClass="command-button">
           <graphic><IconProvider fx:value="Open"/></graphic>
         </Button>
-        <CommandButton command="Open" commandTarget="${graphControl}"/>
         <CommandButton command="Save" commandTarget="${graphControl}"/>
         <Separator orientation="VERTICAL"/>
         <CommandButton command="Undo" commandTarget="${graphControl}"/>

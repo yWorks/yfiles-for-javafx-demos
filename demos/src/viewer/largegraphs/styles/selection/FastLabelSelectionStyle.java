@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -46,7 +46,7 @@ import javafx.scene.transform.Transform;
 /**
  * Label style that is used as a zoom-invariant selection decorator.
  * <p>
- * This style essentially displays a rotated rectangle and scales its stroke thickness and brush by 1 / zoom level.
+ * This style essentially displays a rotated rectangle and scales its stroke thickness and brush by 1&nbsp;/&nbsp;zoom level.
  * This means that positioning considerations can still be done in world coordinates and the path doesn't require a
  * series of transformations to end up where it should be.
  * </p>

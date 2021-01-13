@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -33,7 +33,6 @@ import com.yworks.yfiles.geometry.GeneralPath;
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.MutableRectangle;
 import com.yworks.yfiles.geometry.PointD;
-import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
@@ -62,7 +61,9 @@ import toolkit.DemoApplication;
 import toolkit.WebViewUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Abstract base class for yFiles for JavaFX image export demos. It uses a tabbed pane to support switching between the
@@ -279,11 +280,20 @@ public abstract class AbstractImageExportDemo extends DemoApplication {
   protected ContextConfigurator createContextConfigurator() {
     // check if the rectangular region or the whole view port should be printed
     boolean useRectangle = exportRectContent.isSelected();
-    // check if the rectangular region or the whole view port should be printed
-    RectD regionToExport = useRectangle ? exportRect.toRectD() : getExportingGraphControl().getViewport();
 
     // create a configurator with the settings of the option panel
-    ContextConfigurator configurator = new ContextConfigurator(regionToExport.getEnlarged(-1));
+    ContextConfigurator configurator;
+    if (useRectangle) {
+      configurator = new ContextConfigurator(exportRect.toRectD().getEnlarged(-1));
+    } else {
+      List<PointD> corners = new ArrayList<>(4);
+      corners.add(graphControl.toWorldCoordinates(new PointD(0,0)));
+      corners.add(graphControl.toWorldCoordinates(new PointD(graphControl.getInnerSize().width,0)));
+      corners.add(graphControl.toWorldCoordinates(new PointD(0,graphControl.getInnerSize().height)));
+      corners.add(graphControl.toWorldCoordinates(new PointD(graphControl.getInnerSize().width,graphControl.getInnerSize().height)));
+      configurator = new ContextConfigurator(corners);
+    }
+    configurator.setProjection(graphControl.getProjection());
     setScale(configurator);
     // parse and set the margins
     double top = Double.parseDouble(topMarginField.getText());
@@ -301,13 +311,14 @@ public abstract class AbstractImageExportDemo extends DemoApplication {
     GraphControl control = graphControl;
     // check whether decorations (selection, handles, ...) should be hidden
     if (!showDecorations.isSelected()) {
-      // if so, create a new GraphComponent with the same graph
+      // if so, create a new GraphControl with the same graph
       control = new GraphControl();
       control.resize(graphControl.getWidth(), graphControl.getHeight());
       control.setGraph(graphControl.getGraph());
       control.setViewPoint(graphControl.getViewPoint());
       control.setBackground(graphControl.getBackground());
       control.setNodeOrientation(graphControl.getEffectiveNodeOrientation());
+      control.setProjection(graphControl.getProjection());
       control.updateImmediately();
     }
     return control;

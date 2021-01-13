@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -31,17 +31,11 @@
 
 <!-- basic demo structure containing graph control -->
 <?import com.yworks.yfiles.view.GraphControl?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.web.WebView?>
 <?import toolkit.CommandButton?>
-<?import javafx.scene.control.Separator?>
 <?import toolkit.IconProvider?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml">
   <top>
     <ToolBar>
@@ -87,6 +81,13 @@
                 styleClass="command-button">
         <tooltip><Tooltip text="Choose whether to use directed edges or not"/></tooltip>
       </CheckBox>
+      <Separator orientation="VERTICAL"/>
+      <Label fx:id="kCoreLabel" text="k-Core:" disable="true"/>
+      <Spinner fx:id="kCoreSpinner" editable="true" maxWidth="50" disable="true">
+      <valueFactory>
+        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="5" initialValue="3" />
+      </valueFactory>
+    </Spinner>
       <Separator orientation="VERTICAL"/>
       <Button fx:id="layoutButton" onAction="#runLayout" styleClass="command-button" text="Layout">
         <graphic><IconProvider fx:value="LAYOUT_ORGANIC"/></graphic>

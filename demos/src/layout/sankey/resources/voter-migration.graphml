@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -28,7 +28,7 @@
   //
   /////////////////////////////////////////////////////////////////////////////
 -->
-<!--Created by yFiles for JavaFX 3.3-->
+<!--Created by yFiles for JavaFX 3.4-->
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0" xmlns:yfx="http://www.yworks.com/xml/yfiles-for-java-fx/3.1" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
   <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
   <key attr.name="NodeGeometry" for="node" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
@@ -867,11 +867,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFFCC00" Thickness="62.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e1" source="n1" sourceport="p0" target="n6" targetport="p0">
@@ -899,11 +899,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="98.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e2" source="n3" sourceport="p0" target="n8" targetport="p0">
@@ -931,11 +931,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F993366" Thickness="38.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e3" source="n0" sourceport="p0" target="n5" targetport="p0">
@@ -963,11 +963,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F000000" Thickness="136.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e4" source="n4" sourceport="p0" target="n9" targetport="p0">
@@ -995,11 +995,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F99CC00" Thickness="36.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e5" source="n5" sourceport="p1" target="n10" targetport="p0">
@@ -1027,11 +1027,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F000000" Thickness="146.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e6" source="n6" sourceport="p1" target="n11" targetport="p0">
@@ -1059,11 +1059,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="97.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e7" source="n9" sourceport="p1" target="n13" targetport="p0">
@@ -1085,11 +1085,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F99CC00" Thickness="35.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e8" source="n8" sourceport="p1" target="n12" targetport="p0">
@@ -1117,11 +1117,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F993366" Thickness="37.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e9" source="n7" sourceport="p1" target="n17" targetport="p0">
@@ -1149,11 +1149,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFFCC00" Thickness="20.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e10" source="n15" sourceport="p0" target="n14" targetport="p0">
@@ -1181,11 +1181,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F666699" Thickness="2.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e11" source="n8" sourceport="p2" target="n16" targetport="p0">
@@ -1213,11 +1213,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F993366" Thickness="3.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e12" source="n9" sourceport="p2" target="n16" targetport="p1">
@@ -1245,7 +1245,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F99CC00"/>
+        <yfx:BezierEdgeStyle Pen="#7F99CC00"/>
       </data>
     </edge>
     <edge id="e13" source="n7" sourceport="p2" target="n16" targetport="p2">
@@ -1273,11 +1273,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFFCC00" Thickness="4.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e14" source="n15" sourceport="p1" target="n11" targetport="p1">
@@ -1305,11 +1305,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F666699" Thickness="3.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e15" source="n15" sourceport="p2" target="n10" targetport="p1">
@@ -1337,11 +1337,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F666699" Thickness="11.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e16" source="n3" sourceport="p1" target="n15" targetport="p3">
@@ -1363,11 +1363,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F993366" Thickness="3.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e17" source="n4" sourceport="p1" target="n15" targetport="p4">
@@ -1395,7 +1395,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F99CC00"/>
+        <yfx:BezierEdgeStyle Pen="#7F99CC00"/>
       </data>
     </edge>
     <edge id="e18" source="n2" sourceport="p1" target="n15" targetport="p5">
@@ -1423,7 +1423,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7FFFCC00"/>
+        <yfx:BezierEdgeStyle Pen="#7FFFCC00"/>
       </data>
     </edge>
     <edge id="e19" source="n1" sourceport="p1" target="n15" targetport="p6">
@@ -1451,11 +1451,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="20.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e20" source="n0" sourceport="p1" target="n15" targetport="p7">
@@ -1483,11 +1483,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F000000" Thickness="10.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e21" source="n3" sourceport="p2" target="n7" targetport="p3">
@@ -1515,7 +1515,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F993366"/>
+        <yfx:BezierEdgeStyle Pen="#7F993366"/>
       </data>
     </edge>
     <edge id="e22" source="n4" sourceport="p2" target="n8" targetport="p3">
@@ -1537,7 +1537,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F99CC00"/>
+        <yfx:BezierEdgeStyle Pen="#7F99CC00"/>
       </data>
     </edge>
     <edge id="e23" source="n4" sourceport="p3" target="n7" targetport="p4">
@@ -1565,7 +1565,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#FF99CC00"/>
+        <yfx:BezierEdgeStyle Pen="#FF99CC00"/>
       </data>
     </edge>
     <edge id="e24" source="n1" sourceport="p2" target="n8" targetport="p4">
@@ -1593,11 +1593,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="11.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e25" source="n1" sourceport="p3" target="n9" targetport="p3">
@@ -1625,11 +1625,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="8.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e26" source="n1" sourceport="p4" target="n7" targetport="p5">
@@ -1657,11 +1657,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="5.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e27" source="n1" sourceport="p5" target="n5" targetport="p2">
@@ -1689,11 +1689,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="8.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e28" source="n0" sourceport="p2" target="n8" targetport="p5">
@@ -1721,7 +1721,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F000000"/>
+        <yfx:BezierEdgeStyle Pen="#7F000000"/>
       </data>
     </edge>
     <edge id="e29" source="n0" sourceport="p3" target="n9" targetport="p4">
@@ -1749,7 +1749,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F000000"/>
+        <yfx:BezierEdgeStyle Pen="#7F000000"/>
       </data>
     </edge>
     <edge id="e30" source="n0" sourceport="p4" target="n7" targetport="p6">
@@ -1777,11 +1777,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F000000" Thickness="11.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e31" source="n7" sourceport="p7" target="n14" targetport="p1">
@@ -1809,11 +1809,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFFCC00" Thickness="4.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e32" source="n8" sourceport="p6" target="n13" targetport="p1">
@@ -1841,7 +1841,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F993366"/>
+        <yfx:BezierEdgeStyle Pen="#7F993366"/>
       </data>
     </edge>
     <edge id="e33" source="n9" sourceport="p5" target="n14" targetport="p2">
@@ -1869,7 +1869,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F99CC00"/>
+        <yfx:BezierEdgeStyle Pen="#7F99CC00"/>
       </data>
     </edge>
     <edge id="e34" source="n8" sourceport="p7" target="n14" targetport="p3">
@@ -1897,11 +1897,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F993366" Thickness="3.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e35" source="n7" sourceport="p8" target="n13" targetport="p2">
@@ -1929,7 +1929,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7FFFCC00"/>
+        <yfx:BezierEdgeStyle Pen="#7FFFCC00"/>
       </data>
     </edge>
     <edge id="e36" source="n7" sourceport="p9" target="n12" targetport="p1">
@@ -1957,7 +1957,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7FFFCC00"/>
+        <yfx:BezierEdgeStyle Pen="#7FFFCC00"/>
       </data>
     </edge>
     <edge id="e37" source="n6" sourceport="p2" target="n14" targetport="p4">
@@ -1985,7 +1985,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7FFF0000"/>
+        <yfx:BezierEdgeStyle Pen="#7FFF0000"/>
       </data>
     </edge>
     <edge id="e38" source="n9" sourceport="p6" target="n11" targetport="p2">
@@ -2013,11 +2013,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F99CC00" Thickness="5.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e39" source="n8" sourceport="p8" target="n11" targetport="p3">
@@ -2045,11 +2045,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F993366" Thickness="3.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e40" source="n7" sourceport="p10" target="n11" targetport="p4">
@@ -2077,11 +2077,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFFCC00" Thickness="5.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e41" source="n5" sourceport="p3" target="n14" targetport="p5">
@@ -2109,11 +2109,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F000000" Thickness="2.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e42" source="n9" sourceport="p7" target="n10" targetport="p2">
@@ -2141,11 +2141,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7F99CC00" Thickness="4.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e43" source="n8" sourceport="p9" target="n10" targetport="p3">
@@ -2173,7 +2173,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle Pen="#7F993366"/>
+        <yfx:BezierEdgeStyle Pen="#7F993366"/>
       </data>
     </edge>
     <edge id="e44" source="n7" sourceport="p11" target="n10" targetport="p4">
@@ -2201,11 +2201,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFFCC00" Thickness="21.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e45" source="n6" sourceport="p3" target="n10" targetport="p5">
@@ -2233,11 +2233,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfx:PolylineEdgeStyle>
-          <yfx:PolylineEdgeStyle.Pen>
+        <yfx:BezierEdgeStyle>
+          <yfx:BezierEdgeStyle.Pen>
             <yfx:Pen Paint="#7FFF0000" Thickness="2.0"/>
-          </yfx:PolylineEdgeStyle.Pen>
-        </yfx:PolylineEdgeStyle>
+          </yfx:BezierEdgeStyle.Pen>
+        </yfx:BezierEdgeStyle>
       </data>
     </edge>
   </graph>

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -30,7 +30,6 @@
 package input.reshapehandleprovider;
 
 import com.yworks.yfiles.geometry.RectD;
-import com.yworks.yfiles.graph.DefaultGraph;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
@@ -42,7 +41,11 @@ import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
+import com.yworks.yfiles.view.input.HandlePositions;
+import com.yworks.yfiles.view.input.IEventRecognizer;
 import com.yworks.yfiles.view.input.IReshapeHandleProvider;
+import com.yworks.yfiles.view.input.IReshapeHandler;
+import com.yworks.yfiles.view.input.NodeReshapeHandleProvider;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -69,34 +72,57 @@ public class ReshapeHandleProviderDemo extends DemoApplication {
    */
   private void registerReshapeHandleProvider(Rectangle boundaryRectangle) {
     NodeDecorator nodeDecorator = graphControl.getGraph().getDecorator().getNodeDecorator();
-    nodeDecorator.getReshapeHandleProviderDecorator().setImplementationWrapper(
-        (node, delegateProvider) -> {
+    
+    
+    // deactivate reshape handling for the red node
+    nodeDecorator.getReshapeHandleProviderDecorator().hideImplementation(
+        node -> Color.FIREBRICK.equals(node.getTag()));
+
+    // return customized reshape handle provider for the orange, blue and green node
+    nodeDecorator.getReshapeHandleProviderDecorator().setFactory(
+        node -> Color.DARKORANGE.equals(node.getTag())
+            || Color.ROYALBLUE.equals(node.getTag())
+            || Color.FORESTGREEN.equals(node.getTag())
+            || Color.PURPLE.equals(node.getTag())
+            || Color.GRAY.equals(node.getTag()),
+        node -> {
           // Obtain the tag from the node
           Object nodeTag = node.getTag();
+          RectD maximumBoundingArea = new RectD(boundaryRectangle.getX(), boundaryRectangle.getY(),
+              boundaryRectangle.getWidth(), boundaryRectangle.getHeight());
 
-          // Check if it is a known tag and choose the respective implementation.
-          // Fallback to the default behavior otherwise.
+          // Create a default reshape handle provider for nodes
+          IReshapeHandler reshapeHandler = node.lookup(IReshapeHandler.class);
+          NodeReshapeHandleProvider provider = new NodeReshapeHandleProvider(node, reshapeHandler,
+              HandlePositions.BORDER);
+
+          // Customize the handle provider depending on the node's color
           if (Color.DARKORANGE.equals(nodeTag)) {
-            // An implementation that delegates certain behavior to the default implementation
-            return new OrangeReshapeHandleProvider(boundaryRectangle, delegateProvider);
-          } else if (Color.FIREBRICK.equals(nodeTag)) {
-            // A simple implementation that prohibits resizing
-            return new RedReshapeHandleProvider();
-          } else if (Color.ROYALBLUE.equals(nodeTag)) {
-            // An implementation that uses two levels of delegation to create a combined behavior
-            return new OrangeReshapeHandleProvider(boundaryRectangle, new GreenReshapeHandleProvider(delegateProvider, node));
+            // Restrict the node bounds to the boundaryRectangle
+            provider.setMaximumBoundingArea(maximumBoundingArea);
           } else if (Color.FORESTGREEN.equals(nodeTag)) {
-            // Another implementation that delegates certain behavior to the default implementation
-            return new GreenReshapeHandleProvider(delegateProvider, node);
-          } else {
-            return delegateProvider;
+            // Show only handles at the corners and always use aspect ratio resizing
+            provider.setHandlePositions(HandlePositions.CORNERS);
+            provider.setRatioReshapeRecognizer(IEventRecognizer.ALWAYS);
+          } else if (Color.ROYALBLUE.equals(nodeTag)) {
+            // Restrict the node bounds to the boundaryRectangle and
+            // show only handles at the corners and always use aspect ratio resizing
+            provider.setMaximumBoundingArea(maximumBoundingArea);
+            provider.setHandlePositions(HandlePositions.CORNERS);
+            provider.setRatioReshapeRecognizer(IEventRecognizer.ALWAYS);
+          } else if (Color.PURPLE.equals(nodeTag)) {
+            provider = new PurpleNodeReshapeHandleProvider(node, reshapeHandler);
+          } else if (Color.GRAY.equals(nodeTag)) {
+            provider.setHandlePositions(HandlePositions.SOUTH_EAST);
+            provider.setCenterReshapeRecognizer(IEventRecognizer.ALWAYS);
           }
+          return provider;
         });
   }
 
   /**
-   * Initializes this demo by configuring the input mode and the model item lookup and creating an example graph together
-   * with an enclosing rectangle some of the nodes may not stretch over.
+   * Initializes this demo by configuring the input mode and the model item lookup and creating an example graph
+   * together with an enclosing rectangle some of the nodes may not stretch over.
    */
   public void initialize() {
     // setup the help text on the right side.
@@ -110,8 +136,8 @@ public class ReshapeHandleProviderDemo extends DemoApplication {
     initializeInputMode();
 
     // Create the rectangle that limits the movement of some nodes
-    Rectangle boundaryRectangle = new Rectangle(20, 20, 480, 400);
-    // and add it to the GraphComponent using a black border and a transparent fill
+    Rectangle boundaryRectangle = new Rectangle(20, 20, 480, 550);
+    // and add it to the GraphControl using a black border and a transparent fill
     new Pen(Color.BLACK, 2).styleShape(boundaryRectangle);
     boundaryRectangle.setFill(Color.TRANSPARENT);
     graphControl.getRootGroup().addChild(boundaryRectangle, ICanvasObjectDescriptor.VISUAL);
@@ -122,8 +148,7 @@ public class ReshapeHandleProviderDemo extends DemoApplication {
     createSampleGraph(graphControl.getGraph());
 
     // enable Undo/Redo for all edits after the initial graph has been constructed
-    DefaultGraph defaultGraph = graphControl.getGraph().lookup(DefaultGraph.class);
-    defaultGraph.setUndoEngineEnabled(true);
+    graphControl.getGraph().setUndoEngineEnabled(true);
   }
 
   private void initializeInputMode() {
@@ -139,6 +164,12 @@ public class ReshapeHandleProviderDemo extends DemoApplication {
 
     graphControl.setInputMode(mode);
   }
+  
+  @Override
+  public void onLoaded() {
+    graphControl.fitGraphBounds();
+  }
+  
   /**
    * Creates the sample graph with four nodes. Each node has a different color that indicates which {@link
    * IReshapeHandleProvider} is used.
@@ -146,8 +177,10 @@ public class ReshapeHandleProviderDemo extends DemoApplication {
   private void createSampleGraph(IGraph graph) {
     createNode(graph, new RectD(80, 100, 140, 30), Color.FIREBRICK, Color.WHITESMOKE, "Fixed Size");
     createNode(graph, new RectD(300, 100, 140, 30), Color.FORESTGREEN, Color.WHITESMOKE, "Keep Aspect Ratio");
-    createNode(graph, new RectD(80, 260, 140, 30), Color.DARKORANGE, Color.BLACK, "Limited to Rectangle");
-    createNode(graph, new RectD(300, 250, 150, 50), Color.ROYALBLUE, Color.WHITESMOKE,
+    createNode(graph, new RectD(80, 250, 140, 50), Color.GRAY, Color.WHITESMOKE, "Keep Center");
+    createNode(graph, new RectD(300, 250, 140, 50), Color.PURPLE, Color.WHITESMOKE, "Keep Aspect Ratio\nat corners");
+    createNode(graph, new RectD(80, 410, 140, 30), Color.DARKORANGE, Color.BLACK, "Limited to Rectangle");
+    createNode(graph, new RectD(300, 400, 140, 50), Color.ROYALBLUE, Color.WHITESMOKE,
         "Limited to Rectangle\nand Keep Aspect Ratio");
   }
 

@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -47,13 +47,14 @@
     <Text GridPane.columnIndex="0" GridPane.rowIndex="0" text="Content Margins Top"/>
     <NumbersOnlyTextField fx:id="contentMarginsTop" GridPane.columnIndex="1" GridPane.rowIndex="0" text="50" prefColumnCount="4"/>
 
-    <Text GridPane.columnIndex="0" GridPane.rowIndex="1" text="Content Margins Right"/>
-    <NumbersOnlyTextField fx:id="contentMarginsRight" GridPane.columnIndex="1" GridPane.rowIndex="1" text="0" prefColumnCount="4"/>
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="1" text="Content Margins Bottom"/>
+    <NumbersOnlyTextField fx:id="contentMarginsBottom" GridPane.columnIndex="1" GridPane.rowIndex="1" text="50" prefColumnCount="4"/>
 
-    <Text GridPane.columnIndex="0" GridPane.rowIndex="2" text="Content Margins Bottom"/>
-    <NumbersOnlyTextField fx:id="contentMarginsBottom" GridPane.columnIndex="1" GridPane.rowIndex="2" text="50" prefColumnCount="4"/>
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="2" text="Content Margins Left"/>
+    <NumbersOnlyTextField fx:id="contentMarginsLeft" GridPane.columnIndex="1" GridPane.rowIndex="2" text="10" prefColumnCount="4"/>
 
-    <Text GridPane.columnIndex="0" GridPane.rowIndex="3" text="Content Margins Left"/>
-    <NumbersOnlyTextField fx:id="contentMarginsLeft" GridPane.columnIndex="1" GridPane.rowIndex="3" text="0" prefColumnCount="4"/>
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="3" text="Content Margins Right"/>
+    <NumbersOnlyTextField fx:id="contentMarginsRight" GridPane.columnIndex="1" GridPane.rowIndex="3" text="10" prefColumnCount="4"/>
+
   </GridPane>
 </TitledPane>

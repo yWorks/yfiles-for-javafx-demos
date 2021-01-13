@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -147,7 +147,7 @@
     </data>
     <node id="n0">
       <data key="d1">
-        <y:RectD Height="40.0" Width="40.0" X="-80.0" Y="96.5"/>
+        <y:RectD Height="40.0" Width="40.0" X="-80.0" Y="146.5"/>
       </data>
       <data key="d3">
         <y:GraphMLReference ResourceKey="2"/>
@@ -160,7 +160,7 @@
     </node>
     <node id="n1">
       <data key="d1">
-        <y:RectD Height="40.0" Width="40.0" X="-10.0" Y="96.5"/>
+        <y:RectD Height="40.0" Width="40.0" X="-10.0" Y="146.5"/>
       </data>
       <data key="d3">
         <y:GraphMLReference ResourceKey="2"/>
@@ -179,13 +179,13 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" PreferredSize="53.0,18.0" Style="{y:GraphMLReference 3}">
+          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 3}">
             <y:Label.Text><![CDATA[Group 1]]></y:Label.Text>
           </y:Label>
         </x:List>
       </data>
       <data key="d1">
-        <y:RectD Height="138.0" Width="120.0" X="-40.0" Y="-76.5"/>
+        <y:RectD Height="138.0" Width="120.0" X="-40.0" Y="-226.5"/>
       </data>
       <data key="d3">
         <y:GraphMLReference ResourceKey="4"/>
@@ -193,7 +193,7 @@
       <graph id="n2:">
         <node id="n2::n0">
           <data key="d1">
-            <y:RectD Height="40.0" Width="40.0" X="0.0" Y="-58.5"/>
+            <y:RectD Height="40.0" Width="40.0" X="0.0" Y="-208.5"/>
           </data>
           <data key="d3">
             <y:GraphMLReference ResourceKey="2"/>
@@ -216,7 +216,7 @@
         </node>
         <node id="n2::n1">
           <data key="d1">
-            <y:RectD Height="40.0" Width="40.0" X="35.0" Y="16.5"/>
+            <y:RectD Height="40.0" Width="40.0" X="35.0" Y="-133.5"/>
           </data>
           <data key="d3">
             <y:GraphMLReference ResourceKey="2"/>
@@ -229,7 +229,7 @@
         </node>
         <node id="n2::n2">
           <data key="d1">
-            <y:RectD Height="40.0" Width="40.0" X="-35.0" Y="16.5"/>
+            <y:RectD Height="40.0" Width="40.0" X="-35.0" Y="-133.5"/>
           </data>
           <data key="d3">
             <y:GraphMLReference ResourceKey="2"/>
@@ -253,8 +253,8 @@
         <edge id="n2::e0" source="n2::n0" sourceport="p0" target="n2::n1" targetport="p0">
           <data key="d5">
             <x:List>
-              <y:Bend Location="33.33,-3.5"/>
-              <y:Bend Location="55.0,-3.5"/>
+              <y:Bend Location="33.33,-153.5"/>
+              <y:Bend Location="55.0,-153.5"/>
             </x:List>
           </data>
           <data key="d6">
@@ -264,8 +264,8 @@
         <edge id="n2::e1" source="n2::n0" sourceport="p1" target="n2::n2" targetport="p0">
           <data key="d5">
             <x:List>
-              <y:Bend Location="6.670000000000002,-3.5"/>
-              <y:Bend Location="-15.0,-3.5"/>
+              <y:Bend Location="6.670000000000002,-153.5"/>
+              <y:Bend Location="-15.0,-153.5"/>
             </x:List>
           </data>
           <data key="d6">

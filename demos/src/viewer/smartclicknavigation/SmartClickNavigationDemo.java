@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -61,6 +61,11 @@ import java.util.TimerTask;
 public class SmartClickNavigationDemo extends DemoApplication {
   public GraphControl graphControl;
   public WebView helpView;
+  
+  /**
+   * A timer that is scheduled to clear highlights after some time.
+   */
+  private Timer clearHighlightsTimer;
 
   /**
    * Initializes the graph and the input modes.
@@ -139,6 +144,13 @@ public class SmartClickNavigationDemo extends DemoApplication {
    */
   private void updateHighlight(IModelItem item) {
     HighlightIndicatorManager<IModelItem> manager = graphControl.getHighlightIndicatorManager();
+
+    if (clearHighlightsTimer != null) {
+      // a timer for clearing highlights is still running - cancel it and clear highlights now
+      clearHighlightsTimer.cancel();
+      manager.clearHighlights();
+    }
+
     if (item instanceof IEdge) {
       manager.addHighlight(item);
       manager.addHighlight(((IEdge) item).getSourceNode());
@@ -148,10 +160,11 @@ public class SmartClickNavigationDemo extends DemoApplication {
     }
 
     // clear highlights after one second
-    Timer timer = new Timer();
-    timer.schedule(new TimerTask() {
+    clearHighlightsTimer = new Timer();
+    clearHighlightsTimer.schedule(new TimerTask() {
       @Override
       public void run() {
+        clearHighlightsTimer = null;
         manager.clearHighlights();
       }
     }, 1000);

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -323,10 +323,10 @@ public class RotatedNodeLayoutStage extends AbstractLayoutStage {
   }
 
   /**
-   * Fix the <see cref="PortSide"/> of the given edge's port constraints
+   * Fix the {@link PortSide} of the given edge's port constraints
    * for the oriented rectangles rotation.
    *
-   * If the oriented rectangle is rotated 180° the port sides will be flipped, e.g.
+   * If the oriented rectangle is rotated 180 degrees the port sides will be flipped, e.g.
    * The port constraints will be replaced.
    * @param portConstraints The data provider for source or target constraints.
    * @param edge The edge to fix the port constraints for.

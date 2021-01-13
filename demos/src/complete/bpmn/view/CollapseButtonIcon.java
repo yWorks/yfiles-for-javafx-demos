@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -41,22 +41,28 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.paint.Paint;
 import javafx.scene.transform.Translate;
+
 
 class CollapseButtonIcon extends AbstractIcon {
 
   private static final String STYLESHEET_COLLAPSE_BUTTON = CollapseButtonIcon.class.getPackage().getName().replace(".","/")+"/CollapseButton.css";
   private static final String STYLE_CLASS_COLLAPSE_BUTTON = "collapse-button";
 
+  private final IIcon collapsedIcon;
 
-  private static final IIcon COLLAPSED_ICON;
+  private final IIcon expandedIcon;
 
-  private static final IIcon EXPANDED_ICON;
-
+  private final Paint iconBrush;
+  
   private INode node;
 
-  public CollapseButtonIcon( INode node ) {
+  public CollapseButtonIcon( INode node, Paint iconBrush ) {
     this.node = node;
+    this.iconBrush = iconBrush;
+    collapsedIcon = IconFactory.createStaticSubState(SubState.COLLAPSED, iconBrush);
+    expandedIcon = IconFactory.createStaticSubState(SubState.EXPANDED, iconBrush);
   }
 
   @Override
@@ -95,8 +101,8 @@ class CollapseButtonIcon extends AbstractIcon {
   }
 
   private void updateButton(IRenderContext context, Button toggleButton) {
-    COLLAPSED_ICON.setBounds(new RectD(PointD.ORIGIN, getBounds().toSizeD()));
-    EXPANDED_ICON.setBounds(new RectD(PointD.ORIGIN, getBounds().toSizeD()));
+    collapsedIcon.setBounds(new RectD(PointD.ORIGIN, getBounds().toSizeD()));
+    expandedIcon.setBounds(new RectD(PointD.ORIGIN, getBounds().toSizeD()));
     updateButtonGraphic(context, toggleButton, isExpanded(context, node));
   }
 
@@ -121,11 +127,11 @@ class CollapseButtonIcon extends AbstractIcon {
 
     if (group == null || group.getChildren().size() != 1) {
       group = new Group();
-      Node icon = expanded ? EXPANDED_ICON.createVisual(context) : COLLAPSED_ICON.createVisual(context);
+      Node icon = expanded ? expandedIcon.createVisual(context) : collapsedIcon.createVisual(context);
       group.getChildren().add(icon);
       button.setGraphic(group);
     } else {
-      Node newIcon = expanded ? EXPANDED_ICON.createVisual(context) : COLLAPSED_ICON.createVisual(context);
+      Node newIcon = expanded ? expandedIcon.createVisual(context) : collapsedIcon.createVisual(context);
       group.getChildren().set(0, newIcon);
     }
     Translate layout;
@@ -136,10 +142,5 @@ class CollapseButtonIcon extends AbstractIcon {
     }
     layout.setX(getBounds().getX());
     layout.setY(getBounds().getY());
-  }
-
-  static {
-    COLLAPSED_ICON = IconFactory.createStaticSubState(SubState.COLLAPSED);
-    EXPANDED_ICON = IconFactory.createStaticSubState(SubState.EXPANDED);
   }
 }

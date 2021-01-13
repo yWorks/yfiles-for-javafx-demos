@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -50,6 +50,7 @@ import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.VisualGroup;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 
 /**
@@ -61,30 +62,27 @@ import javafx.scene.text.TextAlignment;
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 @GraphML(contentProperty = "TableNodeStyle", singletonContainers = {PoolNodeStyle.class})
 public class PoolNodeStyle extends AbstractNodeStyle {
-
-  private static final IIcon MULTIPLE_INSTANCE_ICON;
+  private IIcon multipleInstanceIcon;
 
   private static TableNodeStyle createDefaultTableNodeStyle( boolean vertical ) {
     // create a new table
     Table table = new Table();
     TableNodeStyle tns = new TableNodeStyle();
+    AlternatingLeafStripeStyle alternatingLeafStripeStyle = new AlternatingLeafStripeStyle();
 
     StripeDescriptor evenStripeDescriptor = new StripeDescriptor();
-    evenStripeDescriptor.setBackgroundPaint(BpmnConstants.Paints.POOL_NODE_EVEN_LEAF_BACKGROUND);
-    evenStripeDescriptor.setInsetPaint(BpmnConstants.Paints.POOL_NODE_EVEN_LEAF_INSET);
+    evenStripeDescriptor.setBackgroundPaint(BpmnConstants.DEFAULT_POOL_NODE_EVEN_LEAF_BACKGROUND);
+    evenStripeDescriptor.setInsetPaint(BpmnConstants.DEFAULT_POOL_NODE_EVEN_LEAF_INSET);
+    alternatingLeafStripeStyle.setEvenLeafDescriptor(evenStripeDescriptor);
 
     StripeDescriptor oddStripeDescriptor = new StripeDescriptor();
-    oddStripeDescriptor.setBackgroundPaint(BpmnConstants.Paints.POOL_NODE_ODD_LEAF_BACKGROUND);
-    oddStripeDescriptor.setInsetPaint(BpmnConstants.Paints.POOL_NODE_ODD_LEAF_INSET);
+    oddStripeDescriptor.setBackgroundPaint(BpmnConstants.DEFAULT_POOL_NODE_ODD_LEAF_BACKGROUND);
+    oddStripeDescriptor.setInsetPaint(BpmnConstants.DEFAULT_POOL_NODE_ODD_LEAF_INSET);
+    alternatingLeafStripeStyle.setOddLeafDescriptor(oddStripeDescriptor);
 
     StripeDescriptor parentStripeDescriptor = new StripeDescriptor();
-    parentStripeDescriptor.setBackgroundPaint(BpmnConstants.Paints.POOL_NODE_PARENT_BACKGROUND);
-    parentStripeDescriptor.setInsetPaint(BpmnConstants.Paints.POOL_NODE_PARENT_INSET);
-
-    // we'd like to use a special stripe style
-    AlternatingLeafStripeStyle alternatingLeafStripeStyle = new AlternatingLeafStripeStyle();
-    alternatingLeafStripeStyle.setEvenLeafDescriptor(evenStripeDescriptor);
-    alternatingLeafStripeStyle.setOddLeafDescriptor(oddStripeDescriptor);
+    parentStripeDescriptor.setBackgroundPaint(BpmnConstants.DEFAULT_POOL_NODE_PARENT_BACKGROUND);
+    parentStripeDescriptor.setInsetPaint(BpmnConstants.DEFAULT_POOL_NODE_PARENT_INSET);
     alternatingLeafStripeStyle.setParentDescriptor(parentStripeDescriptor);
 
     if (vertical) {
@@ -115,13 +113,11 @@ public class PoolNodeStyle extends AbstractNodeStyle {
       tns.setTableRenderingOrder(TableRenderingOrder.ROWS_FIRST);
     }
     ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle();
-    shapeNodeStyle.setPaint(BpmnConstants.Paints.POOL_NODE_BACKGROUND);
+    shapeNodeStyle.setPaint(BpmnConstants.DEFAULT_POOL_NODE_BACKGROUND);
     tns.setBackgroundStyle(shapeNodeStyle);
     tns.setTable(table);
     return tns;
   }
-
-
 
   private boolean multipleInstance;
 
@@ -159,6 +155,38 @@ public class PoolNodeStyle extends AbstractNodeStyle {
     this.vertical = value;
   }
 
+  private Paint iconColor = BpmnConstants.DEFAULT_ICON_COLOR;
+
+  /**
+   * Gets the color for the icon.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return iconColor;
+  }
+
+  /**
+   * Sets the color for the icon.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    if (iconColor != value) {
+      iconColor = value;
+      updateIcon();
+    }
+  }
+
+  private void updateIcon() {
+    IIcon multipleIcon = IconFactory.createLoopCharacteristic(LoopCharacteristic.PARALLEL, getIconColor());
+    multipleInstanceIcon = new PlacedIcon(multipleIcon, BpmnConstants.POOL_NODE_MARKER_PLACEMENT, BpmnConstants.MARKER_SIZE);
+  }
+
   private TableNodeStyle tableNodeStyle;
 
   /**
@@ -181,7 +209,6 @@ public class PoolNodeStyle extends AbstractNodeStyle {
     tableNodeStyle = value;
   }
 
-
   /**
    * Creates a new instance for a horizontal pool.
    */
@@ -195,10 +222,10 @@ public class PoolNodeStyle extends AbstractNodeStyle {
    */
   public PoolNodeStyle( boolean vertical ) {
     setVertical(vertical);
+    updateIcon();
   }
 
   @Override
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public PoolNodeStyle clone() {
     PoolNodeStyle newInstance = (PoolNodeStyle) super.clone();
     newInstance.setTableNodeStyle(getTableNodeStyle().clone());
@@ -210,8 +237,8 @@ public class PoolNodeStyle extends AbstractNodeStyle {
     VisualGroup container = new VisualGroup();
     container.add(getTableNodeStyle().getRenderer().getVisualCreator(node, getTableNodeStyle()).createVisual(context));
     if (isMultipleInstance()) {
-      MULTIPLE_INSTANCE_ICON.setBounds(node.getLayout());
-      container.add(MULTIPLE_INSTANCE_ICON.createVisual(context));
+      multipleInstanceIcon.setBounds(node.getLayout());
+      container.add(multipleInstanceIcon.createVisual(context));
     }
     context.registerForChildrenIfNecessary(container, this::disposeChildren);
     return container;
@@ -248,8 +275,8 @@ public class PoolNodeStyle extends AbstractNodeStyle {
 
     Node oldMultipleVisual = container.getNullableChildren().size() > 1 ? container.getNullableChildren().get(1) : null;
     if (isMultipleInstance()) {
-      MULTIPLE_INSTANCE_ICON.setBounds(node.getLayout());
-      Node newMultipleVisual = MULTIPLE_INSTANCE_ICON.updateVisual(context, oldMultipleVisual);
+      multipleInstanceIcon.setBounds(node.getLayout());
+      Node newMultipleVisual = multipleInstanceIcon.updateVisual(context, oldMultipleVisual);
       if (oldMultipleVisual != newMultipleVisual) {
         if (oldMultipleVisual != null) {
           container.getNullableChildren().remove(oldMultipleVisual);
@@ -284,10 +311,6 @@ public class PoolNodeStyle extends AbstractNodeStyle {
       }
     }
 
-  }
-
-  static {
-    MULTIPLE_INSTANCE_ICON = new PlacedIcon(IconFactory.createLoopCharacteristic(LoopCharacteristic.PARALLEL), BpmnConstants.Placements.POOL_NODE_MARKER, BpmnConstants.Sizes.MARKER);
   }
 
 }

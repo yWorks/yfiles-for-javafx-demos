@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -141,7 +141,7 @@ public class FilteringDemo extends DemoApplication {
     // create the filtered graph
     FilteredGraphWrapper filteredGraph = createFilterGraph(fullGraph);
 
-    // assign the filtered graph to the graph component
+    // assign the filtered graph to the graph control
     graphControl.setGraph(filteredGraph);
 
     // initializes the input modes
@@ -167,7 +167,25 @@ public class FilteringDemo extends DemoApplication {
     // enable the undo functionality
     fullGraph.setUndoEngineEnabled(true);
 
+    // update the reset filter button depending on the current graph state
+    fullGraph.getUndoEngine().addUnitUndoneListener((source, evt) -> updateState());
+    fullGraph.getUndoEngine().addUnitRedoneListener((source, evt) -> updateState());
+
     return fullGraph;
+  }
+
+  /**
+   * Updates the 'Reset Filter' button state based on the current graph state.
+   */
+  private void updateState() {
+    final FilteredGraphWrapper filteredGraph = (FilteredGraphWrapper) graphControl.getGraph();
+    filteredGraph.nodePredicateChanged();
+    filteredGraph.edgePredicateChanged();
+
+    final IGraph fullGraph = getFullGraph();
+    boolean hasFilteredItems = fullGraph.getNodes().stream().anyMatch(node -> node.getTag() != null && node.getTag() == "filtered") ||
+        fullGraph.getEdges().stream().anyMatch(edge -> edge.getTag() != null && edge.getTag() == "filtered");
+    resetButton.setDisable(!hasFilteredItems);
   }
 
   /**

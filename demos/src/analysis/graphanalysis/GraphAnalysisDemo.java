@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,6 +35,7 @@ import analysis.graphanalysis.algorithms.ConnectivityConfig;
 import analysis.graphanalysis.algorithms.CyclesConfig;
 import analysis.graphanalysis.algorithms.MinimumSpanningTreeConfig;
 import analysis.graphanalysis.algorithms.PathsConfig;
+import analysis.graphanalysis.algorithms.SubstructuresConfig;
 import com.yworks.yfiles.graph.AdjacencyTypes;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IEdge;
@@ -69,6 +70,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -98,6 +101,9 @@ public class GraphAnalysisDemo extends DemoApplication {
   @FXML private Button generateEdgeLabelsButton;
   @FXML private Button deleteEdgeLabelsButton;
   @FXML private Button layoutButton;
+
+  @FXML private Spinner<Integer> kCoreSpinner;
+  @FXML private Label kCoreLabel;
 
   private Mapper<INode, Boolean> incrementalElements;
   private Mapper<INode, Boolean> incrementalNodesMapper;
@@ -166,6 +172,7 @@ public class GraphAnalysisDemo extends DemoApplication {
         new NamedEntry("Sample: Biconnected Components", "connectivity"),
         new NamedEntry("Sample: Strongly Connected Components", "connectivity"),
         new NamedEntry("Sample: Reachability", "connectivity"),
+        new NamedEntry("Sample: k-Cores", "kcore"),
         new NamedEntry("Sample: Shortest Paths", "paths"),
         new NamedEntry("Sample: All Paths", "paths"),
         new NamedEntry("Sample: All Chains", "paths"),
@@ -175,7 +182,14 @@ public class GraphAnalysisDemo extends DemoApplication {
         new NamedEntry("Sample: Weight Centrality", "centrality"),
         new NamedEntry("Sample: Graph Centrality", "centrality"),
         new NamedEntry("Sample: Node Edge Betweeness Centrality", "centrality"),
-        new NamedEntry("Sample: Closeness Centrality", "centrality")
+        new NamedEntry("Sample: Closeness Centrality", "centrality"),
+        new NamedEntry("Sample: Eigenvector Centrality", "centrality"),
+        new NamedEntry("Sample: Page Rank", "centrality"),
+        new NamedEntry("Sample: Chain Substructures", "substructures"),
+        new NamedEntry("Sample: Cycle Substructures", "substructures"),
+        new NamedEntry("Sample: Star Substructures", "substructures"),
+        new NamedEntry("Sample: Tree Substructures", "substructures"),
+        new NamedEntry("Sample: Clique Substructures", "cliques")
    );
 
     sampleComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
@@ -198,6 +212,8 @@ public class GraphAnalysisDemo extends DemoApplication {
             new ConnectivityConfig(ConnectivityConfig.AlgorithmType.STRONGLY_CONNECTED_COMPONENTS)),
         new NamedEntry("Algorithm: Reachability",
             new ConnectivityConfig(ConnectivityConfig.AlgorithmType.REACHABILITY)),
+        new NamedEntry("Algorithm: k-Core",
+            new ConnectivityConfig(ConnectivityConfig.AlgorithmType.KCORE)),
         new NamedEntry("Algorithm: Shortest Paths",
             new PathsConfig(PathsConfig.AlgorithmType.ALGORITHM_TYPE_SHORTEST_PATHS)),
         new NamedEntry("Algorithm: All Paths",
@@ -217,7 +233,21 @@ public class GraphAnalysisDemo extends DemoApplication {
         new NamedEntry("Algorithm: Node Edge Betweeness Centrality",
             new CentralityConfig(CentralityConfig.AlgorithmType.NODE_EDGE_BETWEENESS_CENTRALITY)),
         new NamedEntry("Algorithm: Closeness Centrality",
-            new CentralityConfig(CentralityConfig.AlgorithmType.CLOSENESS_CENTRALITY))
+            new CentralityConfig(CentralityConfig.AlgorithmType.CLOSENESS_CENTRALITY)),
+        new NamedEntry("Algorithm: Eigenvector Centrality",
+            new CentralityConfig(CentralityConfig.AlgorithmType.EIGENVECTOR_CENTRALITY)),
+        new NamedEntry("Algorithm: Page Rank",
+            new CentralityConfig(CentralityConfig.AlgorithmType.PAGERANK)),
+        new NamedEntry("Algorithm: Chains",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CHAIN_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Cycles",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CYCLE_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Stars",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.STAR_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Trees",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.TREE_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Cliques",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CLIQUE_SUBSTRUCTERS))
     );
 
     algorithmComboBox.getSelectionModel().selectFirst();
@@ -234,6 +264,7 @@ public class GraphAnalysisDemo extends DemoApplication {
     AlgorithmConfiguration config = (AlgorithmConfiguration) entry.value;
     config.setDirected(useDirectedEdges());
     config.setUseUniformWeights(useUniformEdgeWeights());
+    config.setkCore(kCoreSpinner.getValue());
     return config;
   }
 
@@ -400,6 +431,11 @@ public class GraphAnalysisDemo extends DemoApplication {
     // populate combo boxes
     configureSampleComboBox();
     configureAlgorithmComboBox();
+    configureKCoreSpinner();
+  }
+
+  private void configureKCoreSpinner() {
+    kCoreSpinner.valueProperty().addListener((observable, oldValue, newValue) -> runLayout(true, false, true));
   }
 
   @Override
@@ -623,8 +659,15 @@ public class GraphAnalysisDemo extends DemoApplication {
    * Handles a selection change in the algorithm combo box.
    */
   private void onAlgorithmChanged() {
-    directionCheckBox.setDisable(!getAlgorithmConfig().supportsDirectedEdges());
-    edgeWeightsCheckBox.setDisable(!getAlgorithmConfig().supportsEdgeWeights());
+    AlgorithmConfiguration algorithmConfig = getAlgorithmConfig();
+    directionCheckBox.setDisable(!algorithmConfig.supportsDirectedEdges());
+    edgeWeightsCheckBox.setDisable(!algorithmConfig.supportsEdgeWeights());
+
+    boolean kCoreUIEnabled = (algorithmConfig instanceof ConnectivityConfig)
+        && ((ConnectivityConfig) algorithmConfig).algorithmType  == ConnectivityConfig.AlgorithmType.KCORE;
+
+    kCoreSpinner.setDisable(!kCoreUIEnabled);
+    kCoreLabel.setDisable(!kCoreUIEnabled);
 
     resetStyles();
 

@@ -15,8 +15,8 @@
 |[LabelHandleProvider](../../src/input/labelhandleprovider/)| Enable interactive rotating and resizing labels. |
 |[OrthogonalEdges](../../src/input/orthogonaledges/)| Customize orthogonal edge editing. |
 |[PortCandidateProvider](../../src/input/portcandidateprovider/)| Customize the ports at which edges connect to nodes. |
-|[PositionHandler](../../src/input/positionhandler/)| Demo code that shows how to customize the movement behavior of INodes. |
+|[PositionHandler](../../src/input/positionhandler/)| Demo code that shows how to customize the movement behavior of `INode` s. |
 |[ReparentHandler](../../src/input/reparenthandler/)| Demo code that shows how to customize the reparent gesture in a grouped graph. |
-|[ReshapeHandleProvider](../../src/input/reshapehandleprovider/)| Demo code that shows how to customize the resize behavior of INodes. |
+|[ReshapeHandleProvider](../../src/input/reshapehandleprovider/)| Customize the reshape behavior of nodes. |
 |[SingleSelection](../../src/input/singleselection/)| Configure the `GraphEditorInputMode` for single selection mode. |
-|[SizeConstraintProvider](../../src/input/sizeconstraintprovider/)| Demo code that shows how to customize the resizing behavior of INodes. |
+|[SizeConstraintProvider](../../src/input/sizeconstraintprovider/)| Demo code that shows how to customize the resizing behavior of `INode` s. |

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -102,7 +102,7 @@ public class MyDefaultLabelStyle extends AbstractLabelStyle {
   protected Node createVisual(IRenderContext context, ILabel label) {
     LabelVisual labelVisual = new LabelVisual(context, label);
     labelVisual.update(label.getLayout(), label.getText(), getFont());
-    arrangeByLayout(labelVisual, label.getLayout(), true);
+    arrangeByLayout(context, labelVisual, label.getLayout(), true);
     return labelVisual;
   }
 
@@ -114,7 +114,7 @@ public class MyDefaultLabelStyle extends AbstractLabelStyle {
   protected Node updateVisual(IRenderContext context, Node oldVisual, ILabel label) {
     LabelVisual visual = (LabelVisual) oldVisual;
     visual.update(label.getLayout(), label.getText(), getFont());
-    arrangeByLayout(visual, label.getLayout(), true);
+    arrangeByLayout(context, visual, label.getLayout(), true);
     return oldVisual;
   }
 

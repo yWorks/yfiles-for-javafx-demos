@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -115,7 +115,7 @@ public class SizeConstraintProviderDemo extends DemoApplication {
 
     // Create the rectangle that limits the movement of some nodes
     Rectangle boundaryRectangle = new Rectangle(210, 350, 30, 30);
-    // and add a Visual to the GraphComponent to represent the rectangle using a black border and a transparent fill
+    // and add a Visual to the GraphControl to represent the rectangle using a black border and a transparent fill
     new Pen(Color.BLACK, 2).styleShape(boundaryRectangle);
     boundaryRectangle.setFill(Color.TRANSPARENT);
     graphControl.getRootGroup().addChild(boundaryRectangle, ICanvasObjectDescriptor.VISUAL);

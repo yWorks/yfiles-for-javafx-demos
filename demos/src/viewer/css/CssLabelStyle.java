@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -111,7 +111,7 @@ public class CssLabelStyle extends AbstractLabelStyle {
     String text = label.getText();
     update(group, size, text);
 
-    arrangeByLayout(group, label.getLayout(), true);
+    arrangeByLayout(context, group, label.getLayout(), true);
     return group;
   }
 
@@ -131,7 +131,7 @@ public class CssLabelStyle extends AbstractLabelStyle {
       update(group, size, text);
     }
 
-    arrangeByLayout(group, label.getLayout(), true);
+    arrangeByLayout(context, group, label.getLayout(), true);
     return group;
   }
 

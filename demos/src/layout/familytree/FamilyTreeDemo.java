@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -167,7 +167,7 @@ public class FamilyTreeDemo extends DemoApplication {
         if (labelText.contains("*")) {
           graph.setStyle(label, dateStyle);
           graph.setLabelLayoutParameter(label, InteriorLabelModel.SOUTH_WEST);
-        } else if (labelText.contains("✝")) {
+        } else if (labelText.contains("\u271D")) {
           graph.setStyle(label, dateStyle);
           graph.setLabelLayoutParameter(label, InteriorLabelModel.SOUTH_EAST);
         } else {

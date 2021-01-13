@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -139,7 +139,7 @@
     <node id="n0">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" PreferredSize="44.0,20.0" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" Style="{y:GraphMLReference 2}">
             <y:Label.Text><![CDATA[Node 4]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -159,7 +159,7 @@
     <node id="n1">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" PreferredSize="44.0,20.0" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" Style="{y:GraphMLReference 2}">
             <y:Label.Text><![CDATA[Node 5]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -184,7 +184,7 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" PreferredSize="48.0,20.0" Style="{y:GraphMLReference 4}">
+          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 4}">
             <y:Label.Text><![CDATA[Group 1]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -199,7 +199,7 @@
         <node id="n2::n0">
           <data key="d0">
             <x:List>
-              <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" PreferredSize="44.0,20.0" Style="{y:GraphMLReference 2}">
+              <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" Style="{y:GraphMLReference 2}">
                 <y:Label.Text><![CDATA[Node 1]]></y:Label.Text>
               </y:Label>
             </x:List>
@@ -229,7 +229,7 @@
         <node id="n2::n1">
           <data key="d0">
             <x:List>
-              <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" PreferredSize="44.0,20.0" Style="{y:GraphMLReference 2}">
+              <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" Style="{y:GraphMLReference 2}">
                 <y:Label.Text><![CDATA[Node 2]]></y:Label.Text>
               </y:Label>
             </x:List>
@@ -249,7 +249,7 @@
         <node id="n2::n2">
           <data key="d0">
             <x:List>
-              <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" PreferredSize="44.0,20.0" Style="{y:GraphMLReference 2}">
+              <y:Label LayoutParameter="{x:Static y:ExteriorLabelModel.South}" Style="{y:GraphMLReference 2}">
                 <y:Label.Text><![CDATA[Node 3]]></y:Label.Text>
               </y:Label>
             </x:List>
@@ -279,7 +279,7 @@
         <edge id="n2::e0" source="n2::n0" sourceport="p0" target="n2::n1" targetport="p0">
           <data key="d4">
             <x:List>
-              <y:Label PreferredSize="41.0,20.0" Style="{y:GraphMLReference 6}">
+              <y:Label Style="{y:GraphMLReference 6}">
                 <y:Label.LayoutParameter>
                   <y:EdgeSegmentLabelModelParameter SegmentIndex="2">
                     <y:EdgeSegmentLabelModelParameter.Model>
@@ -304,7 +304,7 @@
         <edge id="n2::e1" source="n2::n0" sourceport="p1" target="n2::n2" targetport="p0">
           <data key="d4">
             <x:List>
-              <y:Label PreferredSize="41.0,20.0" Style="{y:GraphMLReference 6}">
+              <y:Label Style="{y:GraphMLReference 6}">
                 <y:Label.LayoutParameter>
                   <y:EdgeSegmentLabelModelParameter SegmentIndex="2">
                     <y:EdgeSegmentLabelModelParameter.Model>
@@ -331,7 +331,7 @@
     <edge id="e0" source="n2::n2" sourceport="p1" target="n0" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="41.0,20.0" Style="{y:GraphMLReference 6}">
+          <y:Label Style="{y:GraphMLReference 6}">
             <y:Label.LayoutParameter>
               <y:EdgeSegmentLabelModelParameter SegmentIndex="2">
                 <y:EdgeSegmentLabelModelParameter.Model>
@@ -356,7 +356,7 @@
     <edge id="e1" source="n2::n2" sourceport="p2" target="n1" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="41.0,20.0" Style="{y:GraphMLReference 6}">
+          <y:Label Style="{y:GraphMLReference 6}">
             <y:Label.LayoutParameter>
               <y:EdgeSegmentLabelModelParameter SegmentIndex="2">
                 <y:EdgeSegmentLabelModelParameter.Model>
@@ -383,7 +383,7 @@
     <edge id="e2" source="n2::n0" sourceport="p2" target="n1" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="41.0,20.0" Style="{y:GraphMLReference 6}">
+          <y:Label Style="{y:GraphMLReference 6}">
             <y:Label.LayoutParameter>
               <y:EdgeSegmentLabelModelParameter>
                 <y:EdgeSegmentLabelModelParameter.Model>

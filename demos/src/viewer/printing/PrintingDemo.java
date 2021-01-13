@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -86,6 +86,9 @@ import java.util.Arrays;
 public class PrintingDemo extends DemoApplication {
   public static final int PAGE_HEADER_INSET = 50;
   public static final int PAGE_FOOTER_INSET = 50;
+
+  public static final int PAGE_SIDE_INITIAL_INSET = 10;
+
   public static double SCREEN_TO_PRINT_DPI = 72d / 96d;
 
   public GraphControl graphControl;
@@ -104,7 +107,7 @@ public class PrintingDemo extends DemoApplication {
   private MutableRectangle printRectangle;
   private PrinterJob job = PrinterJob.createPrinterJob();
 
-  // the canvas object that represents the print rectangle in the GraphComponent.l
+  // the canvas object that represents the print rectangle in the GraphControl.
   private ICanvasObject printRectangleCanvasObject;
   // the InputModes that controls the handles that can be used to resize the print rectangle
   private HandleInputMode handleInputMode;
@@ -133,13 +136,13 @@ public class PrintingDemo extends DemoApplication {
     canvasPrinter = new CanvasPrinter(graphControl);
 
     // set content margins: these margins are used to place the header and footer in between the page margins and the content to print
-    contentMarginsInputFieldController.setContentMargins(InsetsD.fromLTRB(0, PAGE_HEADER_INSET, 0, PAGE_FOOTER_INSET));
+    contentMarginsInputFieldController.setContentMargins(InsetsD.fromLTRB(PAGE_SIDE_INITIAL_INSET, PAGE_HEADER_INSET, PAGE_SIDE_INITIAL_INSET, PAGE_FOOTER_INSET));
 
     // bind the properties of the CanvasPrinter to the various input control values and link the other ui parts to this one
     canvasPrinter.scalingUpToFitPageEnabledProperty().bind(settingsController.scaleUpToFitPageSelectedProperty());
     canvasPrinter.scalingDownToFitPageEnabledProperty().bind(settingsController.scaleDownToFitPageSelectedProperty());
     canvasPrinter.centeringContentEnabledProperty().bind(settingsController.centerContentSelectedProperty());
-    canvasPrinter.scaleProperty().bind(settingsController.scaleProperty());
+    canvasPrinter.scaleProperty().bind(settingsController.scaleProperty().multiply(graphControl.zoomProperty()));
     canvasPrinter.contentMarginsProperty().bind(contentMarginsInputFieldController.contentMarginsProperty());
     canvasPrinter.pageMarkPrintingEnabledProperty().bind(settingsController.printPageMarksSelectedProperty());
     pageLayoutInputFieldController.setJob(job);
@@ -149,6 +152,7 @@ public class PrintingDemo extends DemoApplication {
     // prepare the transformations for the header and footer of the printed pages
     Scale screenDPIScaling = Transform.scale(SCREEN_TO_PRINT_DPI, SCREEN_TO_PRINT_DPI);
     pageHeader.getTransforms().add(screenDPIScaling);
+    pageHeader.getTransforms().add(new Translate());
     pageFooter.getTransforms().add(screenDPIScaling);
     pageFooter.getTransforms().add(new Translate());
 
@@ -162,16 +166,25 @@ public class PrintingDemo extends DemoApplication {
         double printableWidth = pageLayout.getPrintableWidth();
         double printableHeight = pageLayout.getPrintableHeight();
 
+        InsetsD contentMargins = contentMarginsInputFieldController.getContentMargins();
+        double marginedWidth = printableWidth - contentMargins.getLeft() - contentMargins.getRight();
+
         if (!container.getChildren().contains(pageHeader)) {
-          pageHeader.setWidth(printableWidth / SCREEN_TO_PRINT_DPI);
+          pageHeader.setWidth(marginedWidth / SCREEN_TO_PRINT_DPI);
+
+          // translate header considering content margin
+          Translate translate = (Translate) pageHeader.getTransforms().get(1);
+          translate.setY((contentMargins.top) / SCREEN_TO_PRINT_DPI);
+          translate.setX((contentMargins.left) / SCREEN_TO_PRINT_DPI);
           container.add(pageHeader);
         }
         if (!container.getChildren().contains(pageFooter)) {
-          pageFooter.setWidth(printableWidth / SCREEN_TO_PRINT_DPI);
+          pageFooter.setWidth(marginedWidth / SCREEN_TO_PRINT_DPI);
 
           // translate footer to the bottom
           Translate translate = (Translate) pageFooter.getTransforms().get(1);
-          translate.setY((printableHeight - 40) / SCREEN_TO_PRINT_DPI);
+          translate.setY((printableHeight - contentMargins.bottom - 40) / SCREEN_TO_PRINT_DPI);
+          translate.setX((contentMargins.left) / SCREEN_TO_PRINT_DPI);
           container.add(pageFooter);
         }
 
@@ -363,7 +376,7 @@ public class PrintingDemo extends DemoApplication {
     if (settingsController.usePrintRectangleSelectedProperty().get()) {
       canvasPrinter.setPrintRectangle(printRectangle.toRectD());
     } else {
-      graphControl.fitGraphBounds();
+      graphControl.updateContentRect(InsetsD.EMPTY, graphControl.getContentGroup());
       canvasPrinter.setPrintRectangle(graphControl.getContentRect());
     }
 
@@ -373,6 +386,7 @@ public class PrintingDemo extends DemoApplication {
       // reuse the page layout for the new printer job
       PageLayout oldPageLayout = job.getJobSettings().getPageLayout();
       job = PrinterJob.createPrinterJob();
+      pageLayoutInputFieldController.setJob(job);
       job.getJobSettings().setPageLayout(oldPageLayout);
     }
     return true;

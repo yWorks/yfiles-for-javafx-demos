@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -226,9 +226,9 @@ public class MySimpleEdgeStyle extends AbstractEdgeStyle {
     // we acquire the CanvasComponent instance from the render context and
     // fetch an IGraphSelection instance using its lookup. We can be sure
     // that those instances actually exist in this demo because we know that
-    // our canvas is a GraphComponent.
-    // This is equivalent to casting the canvas to GraphComponent and calling
-    // the method GraphComponent#getSelection() from it.
+    // our canvas is a GraphControl.
+    // This is equivalent to casting the canvas to GraphControl and calling
+    // the method GraphControl#getSelection() from it.
     IGraphSelection selection = context.getCanvasControl().lookup(IGraphSelection.class);
     return selection.isSelected(edge);
   }

@@ -29,7 +29,9 @@ library to execute the code.
 |[SimpleEditor](demos/src/complete/simpleeditor/)| Shows a graph editor which demonstrates the editing features of yFiles for JavaFX. |
 |[OrgChart](demos/src/complete/orgchart/)| View and manipulate an organization chart. |
 |[RotatableNodes](demos/src/complete/rotatablenodes/)| Shows how support for rotated node visualizations can be implemented on top of the yFiles library. |
+|[AggregateGraphWrapper](demos/src/complete/aggregategraphwrapper/)| Shows how to analyze a graph by __aggregating groups of nodes__ . |
 |[CollapsibleTree](demos/src/complete/collapse/)| Interactively collapse and expand subgraphs. |
+|[IsometricDrawing](demos/src/complete/isometric/)| Displays graphs in an isometric fashion to create an impression of a 3-dimensional view. |
 |[LogicGate](demos/src/complete/logicgate/)| An editor for networks of logic gates with dedicated ports for incoming and outgoing connections. |
 |[BpmnEditor](demos/src/complete/bpmn/)| Create and edit Business Process Diagrams. |
 |[HierarchicGrouping](demos/src/complete/hierarchicgrouping/)| Organize subgraphs in groups and folders and interactively expand and collapse them. |
@@ -47,11 +49,13 @@ library to execute the code.
 |[HierarchicLayout](demos/src/layout/hierarchiclayout/)| Showcase of one of our central layout algorithms, the HierarchicLayout. |
 |[InteractiveOrganicLayout](demos/src/layout/interactiveorganic/)| Use InteractiveOrganicLayout for organic layout in interactive environments. |
 |[FamilyTree](demos/src/layout/familytree/)| This demo shows how genealogical graphs (family trees) can be visualized. |
+|[MarqueeClearAreaLayout](demos/src/layout/cleararea/)| Shows how to interactively move graph elements around a marquee rectangle in a given graph layout so that the modifications in the graph are minimal. |
 |[CriticalPaths](demos/src/layout/criticalpaths/)| This demo shows how to emphazise important paths with hierarchic and tree layout algorithms. |
 |[EdgeBundling](demos/src/layout/edgebundling/)| Demonstrates edge bundling for different layout styles. |
 |[EdgeGrouping](demos/src/layout/edgegrouping/)| Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout. |
+|[FillAreaAfterDeletion](demos/src/layout/fillarea/)| Shows howto fill free space in the graph after deleting nodes. |
 |[PartialLayout](demos/src/layout/partiallayout/)| Shows how to arrange some elements in a graph while keeping other elements fixed. |
-|[PartitionGrid](demos/src/layout/partitiongrid/)| Demonstrates the usage of a *PartitionGrid* for hierarchic and organic layout calculations. |
+|[PartitionGrid](demos/src/layout/partitiongrid/)| Demonstrates the usage of a `PartitionGrid` for hierarchic and organic layout calculations. |
 |[Sankey](demos/src/layout/sankey/)| Uses Hierarchic Layout to arrange Sankey diagrams. |
 |[SplitEdges](demos/src/layout/splitedges/)| Shows how to align edges at group nodes using RecursiveGroupLayout together with HierarchicLayout. |
 |[TreeLayout](demos/src/layout/treelayout/)| Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children. |
@@ -74,11 +78,11 @@ library to execute the code.
 |[LabelHandleProvider](demos/src/input/labelhandleprovider/)| Enable interactive rotating and resizing labels. |
 |[OrthogonalEdges](demos/src/input/orthogonaledges/)| Customize orthogonal edge editing. |
 |[PortCandidateProvider](demos/src/input/portcandidateprovider/)| Customize the ports at which edges connect to nodes. |
-|[PositionHandler](demos/src/input/positionhandler/)| Demo code that shows how to customize the movement behavior of INodes. |
+|[PositionHandler](demos/src/input/positionhandler/)| Demo code that shows how to customize the movement behavior of `INode` s. |
 |[ReparentHandler](demos/src/input/reparenthandler/)| Demo code that shows how to customize the reparent gesture in a grouped graph. |
-|[ReshapeHandleProvider](demos/src/input/reshapehandleprovider/)| Demo code that shows how to customize the resize behavior of INodes. |
+|[ReshapeHandleProvider](demos/src/input/reshapehandleprovider/)| Customize the reshape behavior of nodes. |
 |[SingleSelection](demos/src/input/singleselection/)| Configure the `GraphEditorInputMode` for single selection mode. |
-|[SizeConstraintProvider](demos/src/input/sizeconstraintprovider/)| Demo code that shows how to customize the resizing behavior of INodes. |
+|[SizeConstraintProvider](demos/src/input/sizeconstraintprovider/)| Demo code that shows how to customize the resizing behavior of `INode` s. |
   
 ## [Integration Demos](demos/src/integration/)
 
@@ -110,6 +114,7 @@ library to execute the code.
 |[Filtering](demos/src/viewer/filtering/)| Shows how to temporarily remove nodes or edges from the graph. |
 |[FilteringWithFolding](demos/src/viewer/filteringandfolding/)| Shows how to combine yFiles [filtering](https://docs.yworks.com/yfilesjavafx/doc/api/#/dguide/filtering) and [folding](https://docs.yworks.com/yfilesjavafx/doc/api/#/dguide/folding) features. |
 |[Folding](demos/src/viewer/folding/)| Shows how to use yFiles [folding](https://docs.yworks.com/yfilesjavafx/doc/api/#/dguide/folding) feature. |
+|[GanttChartDemo](demos/src/viewer/ganttchart/)| Shows how to create a "Gantt chart" with yFiles for JavaFX. |
 |[GraphCopy](demos/src/viewer/graphcopy/)| Shows how to copy a graph or sub graph. |
 |[GraphMLCompatibility](demos/src/viewer/graphmlcompatibility/)| Shows how to enable read compatibility for GraphML files from older versions. |
 |[GraphViewer](demos/src/viewer/graphviewer/)| A viewer which demonstrates different kinds of graphs created with yFiles for JavaFX. |
@@ -134,8 +139,9 @@ library to execute the code.
 |[RichTextLabelStyle](demos/src/style/richtextlabelstyle/)| Using the JavaFX 8 Rich Text API in yFiles. |
 |[SimpleCustomStyle](demos/src/style/simplecustomstyle/)| Shows how to implement sophisticated styles for graph objects in yFiles for JavaFX. |
 |[TemplateStyle](demos/src/style/templatestyle/)| Shows how to use `TemplateNodeStyle` and `TemplateLabelStyle` to create complex node and label visualizations using FXML components. |
+|[ZoomInvariantLabelStyleDemo](demos/src/style/zoominvariantlabelstyle/)| Demonstrates zoom-invariant label rendering. |
   
-## [Data Binding Demos](demos/src/databinding/)
+## [Graph Builder Demos](demos/src/builder/)
 
   
 
@@ -143,8 +149,8 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
-|[GraphBuilder](demos/src/databinding/graphbuilder/)| Demonstrates data binding using the `GraphBuilder` class. |
-|[InteractiveNodesGraphBuilder](demos/src/databinding/interactivenodesgraphbuilder/)| Demonstrates data binding using class `AdjacentNodesGraphBuilder` . |
+|[GraphBuilder](demos/src/builder/graphbuilder/)| Demonstrates creating a graph using the `GraphBuilder` class. |
+|[InteractiveNodesGraphBuilder](demos/src/builder/interactivenodesgraphbuilder/)| Demonstrates creating a graph using class `AdjacentNodesGraphBuilder` . |
   
 ## [Analysis Demos](demos/src/analysis/)
 

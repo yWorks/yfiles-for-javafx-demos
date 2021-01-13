@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,7 +29,6 @@
  ***************************************************************************/
 package complete.bpmn.layout;
 
-import com.yworks.yfiles.algorithms.Comparators;
 import com.yworks.yfiles.algorithms.Edge;
 import com.yworks.yfiles.algorithms.IEdgeMap;
 import com.yworks.yfiles.algorithms.INodeMap;

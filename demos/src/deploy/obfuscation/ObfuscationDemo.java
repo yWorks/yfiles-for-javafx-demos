@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -34,16 +34,27 @@ import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import javafx.application.Application;
+import javafx.application.HostServices;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import toolkit.WebViewUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventListener;
+import org.w3c.dom.events.EventTarget;
+import org.w3c.dom.html.HTMLAnchorElement;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * <p>
@@ -101,7 +112,7 @@ public class ObfuscationDemo extends Application {
   @Obfuscation ( exclude = true )
   public void initialize(){
     // setup the help text on the right side.
-    WebViewUtils.initHelp(helpView, this);
+    initHelp(helpView, this);
     yguardDocView.getEngine().load("http://www.yworks.com/products/yguard/yguard_ant_howto.html");
 
     initializeInputModes();
@@ -184,6 +195,65 @@ public class ObfuscationDemo extends Application {
     Scene scene = new Scene(pane, 1365, 768);
     primaryStage.setScene(scene);
     primaryStage.show();
+  }
+
+  public static void initHelp( WebView view, Application application ) {
+    WebEngine engine = view.getEngine();
+    URL helpFile = application.getClass().getResource("help.html");
+    if (helpFile == null) {
+      helpFile = application.getClass().getResource("resources/help.html");
+    }
+    if (helpFile != null) {
+      engine.load(helpFile.toExternalForm());
+    } else {
+      engine.loadContent("Could not resolve help text. Please ensure that your build process or IDE adds the " +
+              "help.html file to the class path.", "text/plain");
+    }
+    engine.getLoadWorker().stateProperty().addListener(
+            new RegisterHyperlinkHandler(engine, application.getHostServices()));
+  }
+
+  private static final class RegisterHyperlinkHandler
+          implements ChangeListener<Worker.State> {
+    final WebEngine engine;
+    final HostServices services;
+
+    RegisterHyperlinkHandler( WebEngine engine, HostServices services ) {
+      this.engine = engine;
+      this.services = services;
+    }
+
+    @Override
+    public void changed(
+            ObservableValue<? extends Worker.State> observable,
+            Worker.State oldValue,
+            Worker.State newValue
+    ) {
+      if (Worker.State.SUCCEEDED == newValue) {
+        Document document = engine.getDocument();
+        NodeList anchors = document.getElementsByTagName("a");
+        HyperlinkHandler handler = new HyperlinkHandler(services);
+        for (int i = 0, n = anchors.getLength(); i < n; ++i) {
+          ((EventTarget) anchors.item(i)).addEventListener("click", handler, false);
+        }
+      }
+    }
+  }
+
+  private static final class HyperlinkHandler implements EventListener {
+    final HostServices services;
+
+    HyperlinkHandler( HostServices services ) {
+      this.services = services;
+    }
+
+    @Override
+    public void handleEvent( Event e ) {
+      String href = ((HTMLAnchorElement) e.getCurrentTarget()).getHref();
+      services.showDocument(href);
+
+      e.preventDefault();
+    }
   }
 
   public static void main(String[] args) {

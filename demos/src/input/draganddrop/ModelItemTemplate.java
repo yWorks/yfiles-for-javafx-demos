@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -119,7 +119,7 @@ public enum ModelItemTemplate {
     node.getPorts().forEach(port ->
         graph.addPort(newNode, port.getLocationParameter(), port.getStyle()));
 
-    // render the graph component in an image
+    // render the graph control in an image
     graphControl.updateContentRect();
     PixelImageExporter pixelImageExporter = new PixelImageExporter(graphControl.getContentRect().getEnlarged(2));
     pixelImageExporter.setBackgroundFill(Color.TRANSPARENT);

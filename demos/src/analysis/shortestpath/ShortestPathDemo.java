@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -39,6 +39,8 @@ import com.yworks.yfiles.graph.IMapper;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.Mapper;
+import com.yworks.yfiles.graph.styles.Arrow;
+import com.yworks.yfiles.graph.styles.ArrowType;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
@@ -299,7 +301,7 @@ public class ShortestPathDemo extends DemoApplication {
 
     pathEdgeStyle = new PolylineEdgeStyle();
     pathEdgeStyle.setPen(new Pen(Color.RED, 4.0));
-    pathEdgeStyle.setTargetArrow(directed ? IArrow.DEFAULT : IArrow.NONE);
+    pathEdgeStyle.setTargetArrow(directed ? new Arrow(ArrowType.DEFAULT, new Pen(Color.RED), Color.RED)  : IArrow.NONE);
 
     graphControl.getGraph().getNodeDefaults().setStyle(defaultNodeStyle);
     graphControl.getGraph().getNodeDefaults().setSize(new SizeD(30, 30));
@@ -348,7 +350,7 @@ public class ShortestPathDemo extends DemoApplication {
   public void directedComboBoxSelectedIndexChanged() {
     directed = directedComboBox.getSelectionModel().getSelectedIndex() == 0;
     defaultEdgeStyle.setTargetArrow(directed ? IArrow.DEFAULT : IArrow.NONE);
-    pathEdgeStyle.setTargetArrow(directed ? IArrow.DEFAULT : IArrow.NONE);
+    pathEdgeStyle.setTargetArrow(directed ? new Arrow(ArrowType.DEFAULT, new Pen(Color.RED), Color.RED)  : IArrow.NONE);
     calculateShortestPath(graphControl, IEventArgs.EMPTY);
   }
 

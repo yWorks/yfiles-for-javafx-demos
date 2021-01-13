@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -213,6 +213,20 @@ public class CssDemo extends DemoApplication {
    */
   public void onLoaded() {
     themesComboBox.getSelectionModel().select(1);
+    createSampleGraph();
+  }
+
+  /**
+   * Creates an initial sample graph.
+   */
+  private void createSampleGraph() {
+    IGraph graph = graphControl.getGraph();
+    INode node1 = graph.createNode(new PointD(0, 0));
+    INode node2 = graph.createNode(new PointD(-60, 100));
+    INode node3 = graph.createNode(new PointD(60, 100));
+    graph.createEdge(node1, node2);
+    graph.createEdge(node1, node3);
+    graphControl.fitGraphBounds();
   }
 
   /**

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -278,12 +278,12 @@ public class MySimpleArrow implements IArrow, IVisualCreator, IBoundsProvider {
   /**
    * Checks whether or not a given node is a group node.
    */
-  private static boolean isGroupNode(INode node, GraphControl graphComponent) {
-    if (!graphComponent.getGraph().contains(node)) {
+  private static boolean isGroupNode(INode node, GraphControl graphControl) {
+    if (!graphControl.getGraph().contains(node)) {
       // node is a dummy for edge-like connectors from a node to its labels
       return false;
     }
-    IFoldingView foldingView = graphComponent.getGraph().getFoldingView();
+    IFoldingView foldingView = graphControl.getGraph().getFoldingView();
     return foldingView != null && foldingView.getManager().getMasterGraph().isGroupNode(foldingView.getMasterItem(node));
   }
   ////////////////////////////////////////////////////

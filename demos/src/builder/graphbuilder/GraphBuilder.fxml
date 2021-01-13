@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.4.
+  //
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+
+<?import com.yworks.yfiles.view.GraphControl?>
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:id="root">
+  <top>
+    <!--a toolbar that contains only a ComboBox-->
+    <ToolBar>
+      <Label text="Example data:"/>
+      <ComboBox fx:id="exampleComboBox">
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Organization" />
+            <String fx:value="Classes" />
+          </FXCollections>
+        </items>
+        <tooltip><Tooltip text="Select sample data"/></tooltip>
+      </ComboBox>
+    </ToolBar>
+  </top>
+
+  <center>
+    <!--the GraphControl in the center-->
+    <GraphControl fx:id="graphControl"/>
+  </center>
+
+  <right>
+    <!-- on the right: help pane that displays a short instruction for this demo -->
+    <TitledPane collapsible="false" maxHeight="Infinity" text="Description">
+      <WebView fx:id="helpView" prefWidth="300"/>
+    </TitledPane>
+  </right>
+</BorderPane>

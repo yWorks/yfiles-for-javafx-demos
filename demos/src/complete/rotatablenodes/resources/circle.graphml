@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -91,7 +91,7 @@
     <node id="n0">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>90°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -106,7 +106,7 @@
     <node id="n1">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>100°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -131,7 +131,7 @@
     <node id="n2">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>110°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -156,7 +156,7 @@
     <node id="n3">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>120°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -171,7 +171,7 @@
     <node id="n4">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>130°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -186,7 +186,7 @@
     <node id="n5">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>140°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -241,7 +241,7 @@
     <node id="n6">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>150°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -266,7 +266,7 @@
     <node id="n7">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>160°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -281,7 +281,7 @@
     <node id="n8">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>170°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -316,7 +316,7 @@
     <node id="n9">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>180°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -331,7 +331,7 @@
     <node id="n10">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>190°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -346,7 +346,7 @@
     <node id="n11">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>200°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -361,7 +361,7 @@
     <node id="n12">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>210°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -396,7 +396,7 @@
     <node id="n13">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>220°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -431,7 +431,7 @@
     <node id="n14">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>230°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -446,7 +446,7 @@
     <node id="n15">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>240°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -461,7 +461,7 @@
     <node id="n16">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>250°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -486,7 +486,7 @@
     <node id="n17">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>260°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -501,7 +501,7 @@
     <node id="n18">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>270°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -536,7 +536,7 @@
     <node id="n19">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>280°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -561,7 +561,7 @@
     <node id="n20">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>290°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -576,7 +576,7 @@
     <node id="n21">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>300°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -591,7 +591,7 @@
     <node id="n22">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>310°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -606,7 +606,7 @@
     <node id="n23">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>320°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -651,7 +651,7 @@
     <node id="n24">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>330°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -666,7 +666,7 @@
     <node id="n25">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>340°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -681,7 +681,7 @@
     <node id="n26">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="30.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>350°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -696,7 +696,7 @@
     <node id="n27">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="16.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>0°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -741,7 +741,7 @@
     <node id="n28">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>10°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -756,7 +756,7 @@
     <node id="n29">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>20°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -791,7 +791,7 @@
     <node id="n30">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>30°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -816,7 +816,7 @@
     <node id="n31">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>40°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -851,7 +851,7 @@
     <node id="n32">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>50°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -866,7 +866,7 @@
     <node id="n33">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>60°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -891,7 +891,7 @@
     <node id="n34">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>70°</y:Label.Text>
           </y:Label>
         </x:List>
@@ -916,7 +916,7 @@
     <node id="n35">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="23.0,18.71" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
             <y:Label.Text>80°</y:Label.Text>
           </y:Label>
         </x:List>

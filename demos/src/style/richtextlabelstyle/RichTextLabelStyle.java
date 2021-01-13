@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -56,7 +56,7 @@ public class RichTextLabelStyle extends AbstractLabelStyle {
     TextFlow textFlow = MarkdownConverter.convertMarkDownToTextFlow(labelText);
 
     // move visual to correct location
-    arrangeByLayout(textFlow, label.getLayout(), true);
+    arrangeByLayout(renderContext, textFlow, label.getLayout(), true);
 
     // Because the text that the visual now holds maybe different from the original labels text
     // and we want to improve the performance to only recalculate the Markdown when the text actually
@@ -81,13 +81,13 @@ public class RichTextLabelStyle extends AbstractLabelStyle {
           // We do not bother with determining the exact changes and preserving the existing data.
           // We simply discard it and recalculate.
           TextFlow newTextFlow = MarkdownConverter.convertMarkDownToTextFlow(labelText);
-          arrangeByLayout(newTextFlow, label.getLayout(), true);
+          arrangeByLayout(renderContext, newTextFlow, label.getLayout(), true);
           // again, remember the label text with which the TextFlow was created
           newTextFlow.setUserData(labelText);
           return newTextFlow;
         } else {
           // if nothing has changed, we simply adjust the position of the old TextFlow and return it
-          arrangeByLayout(oldTextFlow, label.getLayout(), true);
+          arrangeByLayout(renderContext, oldTextFlow, label.getLayout(), true);
           return oldTextFlow;
         }
       }

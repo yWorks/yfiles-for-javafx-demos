@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,6 +29,7 @@
  ***************************************************************************/
 package viewer.graphmlcompatibility;
 
+import com.yworks.yfiles.graph.FoldingManager;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.view.GraphControl;
@@ -100,6 +101,9 @@ public class GraphMLCompatibilityDemo extends DemoApplication {
 
     WebViewUtils.initHelp(webView, this);
 
+    // initialize folding to support expand/collapse for grouped graphs
+    graphControl.setGraph(new FoldingManager(graphControl.getGraph()).createFoldingView().getGraph());
+
     // the convenience commands for reading graphs from GrapML and writing
     // graphs to GraphML have to be explicitly enabled
     graphControl.setFileIOEnabled(true);
@@ -108,14 +112,19 @@ public class GraphMLCompatibilityDemo extends DemoApplication {
     // note:
     // a GraphMLIOHandler instance configured for reading legacy GraphML
     // files cannot be used for writing yFiles for JavaFX 3.1.x GraphML files.
-    // since a graph component's GraphMLIOHandler is used for both reading
+    // since a graph control's GraphMLIOHandler is used for both reading
     // and writing GraphML files, a legacy reader cannot be set as *the*
-    // graph component's GraphMLIOHandler. Thus a custom command binding for
+    // graph control's GraphMLIOHandler. Thus a custom command binding for
     // reading legacy GraphML files is used.
     GraphViewerInputMode gvim = new GraphViewerInputMode();
     KeyboardInputMode kim = gvim.getKeyboardInputMode();
     kim.addKeyBinding(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN), OPEN_LEGACY);
     kim.addCommandBinding(OPEN_LEGACY, this::executeOpen, this::canExecuteOpen);
+
+    // add support to collapse and expand group nodes
+    gvim.getNavigationInputMode().setCollapseGroupAllowed(true);
+    gvim.getNavigationInputMode().setExpandGroupAllowed(true);
+    gvim.getNavigationInputMode().setUsingCurrentItemForCommandsEnabled(true);
 
     graphControl.setInputMode(gvim);
 
@@ -219,11 +228,11 @@ public class GraphMLCompatibilityDemo extends DemoApplication {
    * {@link #OPEN_LEGACY}.
    * @param parameter an optional parameter for the operation. Ignored for
    * opening GraphML files.
-   * @param source the graph component that will display the read graph.
+   * @param source the graph control that will display the read graph.
    */
   private boolean executeOpen( ICommand command, Object parameter, Object source ) {
     if (source instanceof GraphControl) {
-      // since a graph component's GraphMLIOHandler is used for both reading
+      // since a graph control's GraphMLIOHandler is used for both reading
       // and writing GraphML files, a legacy reader is set only temporarily
       // such that subsequent write operations use a default GraphMLIOHandler
       GraphControl graphControl = (GraphControl) source;
@@ -247,7 +256,7 @@ public class GraphMLCompatibilityDemo extends DemoApplication {
    * {@link #OPEN_LEGACY}.  
    * @param parameter an optional parameter for the operation. Ignored for
    * opening GraphML files.
-   * @param source the graph component that will display the read graph if the
+   * @param source the graph control that will display the read graph if the
    * command is executed.
    */
   private boolean canExecuteOpen( ICommand command, Object parameter, Object source ) {

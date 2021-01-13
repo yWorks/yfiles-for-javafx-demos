@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -84,6 +84,12 @@ public class SampleApplication extends Application {
     // Updates the content rectangle that encloses the graph and adjust the zoom level to show the whole graph in the
     // view.
     updateViewPort();
+
+    ///////////////// New in this Sample /////////////////
+    // Creates a node outside the initial content rectangle
+    IGraph graph = getGraph();
+    INode node4 = graph.createNode(new PointD(-200, -200));
+    ILabel outsiderLabel = graph.addLabel(node4, "Outside initial viewport", ExteriorLabelModel.SOUTH);
   }
   ///////////////////////////////////////////////////////
 
@@ -93,12 +99,6 @@ public class SampleApplication extends Application {
    */
   private void populateGraph() {
     IGraph graph = getGraph();
-
-    ///////////////// New in this Sample /////////////////
-    // Creates a node outside the initial content rectangle
-    INode node4 = graph.createNode(new PointD(-100, -100));
-    ILabel outsiderLabel = graph.addLabel(node4, "Outside initial viewport", ExteriorLabelModel.SOUTH);
-    //////////////////////////////////////////////////////
 
     //////////// Sample node creation ///////////////////
     // Creates two nodes with the default node size

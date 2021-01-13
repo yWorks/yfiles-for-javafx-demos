@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -138,7 +138,7 @@ public class SampleApplication extends Application {
   }
 
   /**
-   * Enables folding - changes the GraphComponent's graph to a managed view that provides the actual collapse/expand state.
+   * Enables folding - changes the GraphControl's graph to a managed view that provides the actual collapse/expand state.
    */
   private void enableFolding() {
     // creates the folding manager and sets its master graph to
@@ -177,7 +177,7 @@ public class SampleApplication extends Application {
   }
 
   /**
-   * Creates the default input mode for the GraphComponent, a {@link com.yworks.yfiles.view.input.GraphEditorInputMode}.
+   * Creates the default input mode for the GraphControl, a {@link com.yworks.yfiles.view.input.GraphEditorInputMode}.
    * @return a new GraphEditorInputMode instance
    */
   private IInputMode createEditorMode() {

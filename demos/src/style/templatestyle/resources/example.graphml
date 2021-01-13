@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -255,7 +255,7 @@
     <edge id="e0" source="n0" sourceport="p0" target="n5" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="100,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13413→8971</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 4}" Product="{y:GraphMLReference 5}"/>
@@ -270,7 +270,7 @@
     <edge id="e1" source="n0" sourceport="p1" target="n6" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="100,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13413→8972</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 4}" Product="{y:GraphMLReference 8}"/>
@@ -285,7 +285,7 @@
     <edge id="e2" source="n0" sourceport="p2" target="n7" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="100,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13413→8973</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 4}" Product="{y:GraphMLReference 10}"/>
@@ -300,7 +300,7 @@
     <edge id="e3" source="n1" sourceport="p0" target="n5" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="105.687,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13414→8971</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 11}" Product="{y:GraphMLReference 5}"/>
@@ -315,7 +315,7 @@
     <edge id="e4" source="n1" sourceport="p1" target="n7" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="103.35,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13414→8973</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 11}" Product="{y:GraphMLReference 10}"/>
@@ -330,7 +330,7 @@
     <edge id="e5" source="n2" sourceport="p0" target="n6" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="100,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13415→8972</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 12}" Product="{y:GraphMLReference 8}"/>
@@ -345,7 +345,7 @@
     <edge id="e6" source="n2" sourceport="p1" target="n7" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="100,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13415→8973</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 12}" Product="{y:GraphMLReference 10}"/>
@@ -360,7 +360,7 @@
     <edge id="e7" source="n3" sourceport="p0" target="n6" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="100,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13416→8972</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 13}" Product="{y:GraphMLReference 8}"/>
@@ -375,7 +375,7 @@
     <edge id="e8" source="n4" sourceport="p0" target="n7" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 6}" PreferredSize="100,39.94" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 7}">
             <y:Label.Text>13417→8973</y:Label.Text>
             <y:Label.Tag>
               <Relation xmlns="http://www.yworks.com/yfiles-for-javafx/demos/TemplateStyles/1.0" Customer="{y:GraphMLReference 14}" Product="{y:GraphMLReference 10}"/>

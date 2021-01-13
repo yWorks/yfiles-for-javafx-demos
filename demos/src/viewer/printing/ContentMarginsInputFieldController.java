@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -48,7 +48,8 @@ public class ContentMarginsInputFieldController {
   public NumbersOnlyTextField contentMarginsLeft;
 
   // the property that backs the content margins object
-  private ObjectProperty<InsetsD> contentMargins = new SimpleObjectProperty<>(this, "contentMargins", new InsetsD(10, 50, 10, 50));
+  private ObjectProperty<InsetsD> contentMargins = new SimpleObjectProperty<>(this, "contentMargins",
+          new InsetsD(PrintingDemo.PAGE_HEADER_INSET, PrintingDemo.PAGE_SIDE_INITIAL_INSET, PrintingDemo.PAGE_FOOTER_INSET, PrintingDemo.PAGE_SIDE_INITIAL_INSET));
 
   // A shortcut for the PrintDecorations property of the SettingsController.
   private BooleanProperty printDecorations = new SimpleBooleanProperty(this, "printDecorations", true);

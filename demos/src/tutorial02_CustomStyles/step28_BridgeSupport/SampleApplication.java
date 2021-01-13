@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -72,7 +72,7 @@ public class SampleApplication extends Application {
     // register the obstacle provider to the BridgeManager. It will query all registered
     // obstacle providers to determine if a bridge must be created.
     bridgeManager.addObstacleProvider(provider);
-    // bind the bridge manager to the GraphComponent...
+    // bind the bridge manager to the GraphControl...
     bridgeManager.setCanvasControl(graphControl);
   }
   ////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ public class SampleApplication extends Application {
     createSampleGraph();
 
     //////////////// New in this sample ////////////////
-    // add bridge support by configuring a BridgeManager and binding it to the graph component
+    // add bridge support by configuring a BridgeManager and binding it to the graph control
     configureBridges();
     ////////////////////////////////////////////////////
   }
@@ -107,7 +107,7 @@ public class SampleApplication extends Application {
   }
 
   /**
-   * Creates the default input mode for the GraphComponent, a {@link com.yworks.yfiles.view.input.GraphEditorInputMode}.
+   * Creates the default input mode for the GraphControl, a {@link com.yworks.yfiles.view.input.GraphEditorInputMode}.
    * @return a new GraphEditorInputMode instance
    */
   private IInputMode createEditorMode() {

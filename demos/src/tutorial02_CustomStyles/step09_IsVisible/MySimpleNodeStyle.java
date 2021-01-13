@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -84,7 +84,7 @@ public class MySimpleNodeStyle extends AbstractNodeStyle {
   /**
    * Overridden to take the edge-like connectors to the labels into account.
    * Otherwise the edge-like connectors might not be painted if the node is
-   * outside of the clipping bounds (i.e. the graph component's view port).
+   * outside of the clipping bounds (i.e. the graph control's view port).
    */
   @Override
   protected boolean isVisible(ICanvasContext context, RectD clip, INode node) {

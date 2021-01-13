@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -30,6 +30,10 @@
 package layout.sankey;
 
 import com.yworks.yfiles.algorithms.Edge;
+import com.yworks.yfiles.geometry.PointD;
+import com.yworks.yfiles.graph.GraphItemTypes;
+import com.yworks.yfiles.graph.NodeDecorator;
+import com.yworks.yfiles.graph.styles.BezierEdgeStyle;
 import com.yworks.yfiles.utils.IEventHandler;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.algorithms.IDataProvider;
@@ -40,7 +44,6 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.IMapper;
 import com.yworks.yfiles.graph.Mapper;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.layout.AbstractLayoutStage;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LabelPlacements;
@@ -56,8 +59,14 @@ import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
 import com.yworks.yfiles.layout.hierarchic.LayoutMode;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.utils.IEnumerable;
+import com.yworks.yfiles.view.input.ConstrainedPositionHandler;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 
+import com.yworks.yfiles.view.input.HandlePositions;
+import com.yworks.yfiles.view.input.IHandle;
+import com.yworks.yfiles.view.input.IInputModeContext;
+import com.yworks.yfiles.view.input.IPositionHandler;
+import com.yworks.yfiles.view.input.IReshapeHandleProvider;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebView;
@@ -74,6 +83,7 @@ import java.time.Duration;
 public class SankeyDemo extends DemoApplication {
   public GraphControl graphControl;
   public WebView helpView;
+  public Button layoutButton;
 
   /** Whether or not the layout algorithm should use the existing drawing as sketch. */
   private boolean fromSketchEnabled = true;
@@ -87,6 +97,9 @@ public class SankeyDemo extends DemoApplication {
 
     // initialize user interaction support
     createInputMode();
+
+    // only allow vertical moving of nodes and no resizing
+    configureNodeMovementAndResize();
 
     // initialize the graph
     initializeGraph();
@@ -107,7 +120,28 @@ public class SankeyDemo extends DemoApplication {
    * Creates the input mode.
    */
   private void createInputMode() {
-    graphControl.setInputMode(new GraphEditorInputMode());
+    GraphEditorInputMode mode = new GraphEditorInputMode();
+    mode.setEditLabelAllowed(false);
+    mode.setCreateNodeAllowed(false);
+    mode.setCreateEdgeAllowed(false);
+    mode.setSelectableItems(GraphItemTypes.NODE);
+    mode.setMarqueeSelectableItems(GraphItemTypes.NONE);
+
+    mode.getMoveInputMode().addDragFinishedListener((dragSource, dragArgs) -> {
+      layoutButton.setDisable(true);
+      applyLayout((eventSource, eventArgs) -> layoutButton.setDisable(false));
+    });
+
+    graphControl.setInputMode(mode);
+  }
+
+  /**
+   * Prevent resizing of nodes and only allow movement along the y-axis.
+   */
+  private void configureNodeMovementAndResize() {
+    NodeDecorator nodeDecorator = graphControl.getGraph().getDecorator().getNodeDecorator();
+    nodeDecorator.getReshapeHandleProviderDecorator().setImplementationWrapper((node, delegateProvider) -> new NoReshapeHandleProvider());
+    nodeDecorator.getPositionHandlerDecorator().setImplementationWrapper((node, delegateHandler) -> new VerticalPositionHandler(delegateHandler));
   }
 
   /**
@@ -153,8 +187,8 @@ public class SankeyDemo extends DemoApplication {
     // edge thickness is determined by the pen thickness stored in the edge styles
     IMapper<IEdge, Double> thicknessMapper = new Mapper<>();
     for (IEdge edge : graph.getEdges()) {
-      if (edge.getStyle() instanceof PolylineEdgeStyle) {
-        double thickness = ((PolylineEdgeStyle) edge.getStyle()).getPen().getThickness();
+      if (edge.getStyle() instanceof BezierEdgeStyle) {
+        double thickness = ((BezierEdgeStyle) edge.getStyle()).getPen().getThickness();
         thicknessMapper.setValue(edge, thickness);
       }
     }
@@ -165,8 +199,8 @@ public class SankeyDemo extends DemoApplication {
     layout.setLayoutOrientation(orientation);
     layout.setLayoutMode(fromSketchEnabled ? LayoutMode.INCREMENTAL : LayoutMode.FROM_SCRATCH);
     layout.setNodeToNodeDistance(50);
-    layout.getEdgeLayoutDescriptor().setMinimumFirstSegmentLength(150);
-    layout.getEdgeLayoutDescriptor().setMinimumLastSegmentLength(150);
+    layout.getEdgeLayoutDescriptor().setMinimumFirstSegmentLength(100);
+    layout.getEdgeLayoutDescriptor().setMinimumLastSegmentLength(100);
 
     // create the layout data
     HierarchicLayoutData layoutData = new HierarchicLayoutData();
@@ -346,5 +380,43 @@ public class SankeyDemo extends DemoApplication {
 
   public static void main( String[] args ) {
     launch(args);
+  }
+
+
+  /**
+   * A {@link IPositionHandler}, that restricts node movement to the y-axis.
+   */
+  private static class VerticalPositionHandler extends ConstrainedPositionHandler {
+    /**
+     * Initializes a new instance of the {@link VerticalPositionHandler} class that delegates to the
+     * {@code wrappedHandler}.
+     * @param wrappedHandler The handler to wrap.
+     */
+    VerticalPositionHandler( IPositionHandler wrappedHandler ) {
+      super(wrappedHandler);
+    }
+
+    @Override
+    protected PointD constrainNewLocation( IInputModeContext context, PointD originalLocation, PointD newLocation ) {
+      return new PointD(originalLocation.getX(), newLocation.getY());
+    }
+  }
+
+  /**
+   * An {@link IReshapeHandleProvider} that doesn't provide any handles, thus preventing
+   * node resizing.
+   */
+  private static class NoReshapeHandleProvider implements IReshapeHandleProvider {
+    /**
+     * Returns the indicator for no valid position.
+     */
+    public HandlePositions getAvailableHandles( IInputModeContext context ) {
+      return HandlePositions.NONE;
+    }
+
+    public IHandle getHandle( IInputModeContext inputModeContext, HandlePositions position ) {
+      // Never called since getAvailableHandles returns no valid position.
+      return null;
+    }
   }
 }

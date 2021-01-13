@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -126,7 +126,7 @@ public class GridSnappingDemo extends DemoApplication {
     gridInfo.setHorizontalSpacing(50);
     gridInfo.setVerticalSpacing(50);
 
-    // creates grid visualization and adds it to graphComponent
+    // creates grid visualization and adds it to GraphControl
     grid = new GridVisualCreator(gridInfo);
     grid.setGridStyle(GridStyle.LINES);
     graphControl.getBackgroundGroup().addChild(grid);
@@ -179,8 +179,8 @@ public class GridSnappingDemo extends DemoApplication {
     // populate the combobox with the possible GridSnapTypes
     gridSnapTypeComboBox.getItems().addAll(
         new NamedEntry("None", GridSnapTypes.NONE, GridStyle.LINES),
-        new NamedEntry("Horizontal Lines", GridSnapTypes.HORIZONTAL_LINES, GridStyle.LINES),
-        new NamedEntry("Vertical Lines", GridSnapTypes.VERTICAL_LINES, GridStyle.LINES),
+        new NamedEntry("Horizontal Lines", GridSnapTypes.HORIZONTAL_LINES, GridStyle.HORIZONTAL_LINES),
+        new NamedEntry("Vertical Lines", GridSnapTypes.VERTICAL_LINES, GridStyle.VERTICAL_LINES),
         new NamedEntry("Lines", GridSnapTypes.LINES, GridStyle.LINES),
         new NamedEntry("Points", GridSnapTypes.GRID_POINTS, GridStyle.DOTS),
         new NamedEntry("All", GridSnapTypes.ALL, GridStyle.LINES)

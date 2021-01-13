@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -263,12 +263,12 @@ public class LayoutStylesDemo extends DemoApplication {
    * Arranges the displayed graph using the layout algorithm corresponding to
    * the given key.
    */
-  private void applyLayoutForKey(String key) {
+  private void applyLayoutForKey(String sampleKey) {
     // center the initial position of the animation
     ICommand.FIT_GRAPH_BOUNDS.execute(null, graphControl);
 
-    // The sample graphs 'Organic' and 'Organic with Substructures' use the same layout configuration
-    String actualKey = "Organic with Substructures".equals(key) ? "Organic" : key;
+    // get the actual key, as there are samples sharing the layout config (e.g. Organic with Substructures and Organic)
+    String actualKey = getLayoutKey(sampleKey);
 
     // get the layout algorithm and use "Hierarchic" if the key is unknown (shouldn't happen in this demo)
     actualKey = availableLayouts != null && availableLayouts.containsKey(actualKey) ? actualKey : HIERARCHIC_LAYOUT_STYLE;
@@ -282,6 +282,18 @@ public class LayoutStylesDemo extends DemoApplication {
     }
     applyLayout(true);
   }
+  
+  private String getLayoutKey(String sampleKey) {
+    //for some special samples, we need to use the correct layout key, because the layout configurations are shared
+    if ("Organic with Substructures".equals(sampleKey)) {
+      return "Organic";
+    } else if ("Hierarchic with Buses".equals(sampleKey) || "Hierarchic Groups".equals(sampleKey)) {
+      return HIERARCHIC_LAYOUT_STYLE;
+    }
+    //... for other samples the layout key corresponds to the sample graph key
+    return sampleKey;
+  }
+  
 
   /**
    * Arranges the displayed graph using the currently selected layout algorithm.
@@ -531,6 +543,12 @@ public class LayoutStylesDemo extends DemoApplication {
     fileName = fileName.replace(" ", "") + ".graphml";
 
     try {
+      if ("Hierarchic with Buses".equals(key)) {
+        //for this specific hierarchic layout sample we make sure to enable the bus structure feature
+        final HierarchicLayoutConfig hlc = (HierarchicLayoutConfig) availableLayouts.get("Hierarchic");
+        hlc.enableBuses();
+      }
+      
       // load the sample graph and start the layout algorithm
       graphControl.importFromGraphML(getClass().getResource(fileName));
       applyLayoutForKey(key);

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -33,8 +33,10 @@ import com.yworks.yfiles.analysis.BetweennessCentrality;
 import com.yworks.yfiles.analysis.ClosenessCentrality;
 import com.yworks.yfiles.analysis.ConnectedComponents;
 import com.yworks.yfiles.analysis.DegreeCentrality;
+import com.yworks.yfiles.analysis.EigenvectorCentrality;
 import com.yworks.yfiles.analysis.GraphCentrality;
 import com.yworks.yfiles.analysis.GraphStructureAnalyzer;
+import com.yworks.yfiles.analysis.PageRank;
 import com.yworks.yfiles.analysis.ResultItemMapping;
 import com.yworks.yfiles.analysis.WeightCentrality;
 import com.yworks.yfiles.geometry.InsetsD;
@@ -48,14 +50,13 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.layout.CopiedLayoutGraph;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.ILayoutStage;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.organic.OrganicRemoveOverlapsStage;
 import com.yworks.yfiles.view.Pen;
 
 import javafx.scene.paint.Color;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -121,36 +122,26 @@ public class CentralityConfig extends AlgorithmConfiguration {
           ClosenessCentrality.Result result = closenessCentrality.run(graph);
           applyNodeCentralityColor(graph, result.getNormalizedNodeCentrality());
         } else {
-          Set<INode> componentsSet = new HashSet<>();
-          FilteredGraphWrapper filteredGraph = new FilteredGraphWrapper(
-              graph,
-              componentsSet::contains,
-              edge -> true
-          );
-
           // if the graph in not connected, the algorithm is run separately for each connected component
           new ConnectedComponents().run(graph)
-              .getComponents()
-              .forEach(component -> {
-            // update the filtered graph so that it contains only the nodes of the current component
-            componentsSet.clear();
-            componentsSet.addAll(component.getNodes().toList());
-            filteredGraph.nodePredicateChanged();
+                  .getComponents()
+                  .forEach(component -> {
+                    ClosenessCentrality closenessCentrality = new ClosenessCentrality();
+                    closenessCentrality.setWeights(this::getEdgeWeight);
+                    closenessCentrality.setDirected(isDirected());
+                    // only use the connected component nodes for centrality calculation
+                    closenessCentrality.setSubgraphNodes(component.getNodes());
 
-            ClosenessCentrality closenessCentrality = new ClosenessCentrality();
-            closenessCentrality.setWeights(this::getEdgeWeight);
-            closenessCentrality.setDirected(isDirected());
+                    ClosenessCentrality.Result result = closenessCentrality.run(graph);
 
-            ClosenessCentrality.Result result = closenessCentrality.run(filteredGraph);
-            applyNodeCentralityColor(filteredGraph, result.getNormalizedNodeCentrality());
-          });
-          // dispose the filtered graph
-          filteredGraph.dispose();
+                    // only apply styling to the components' nodes
+                    applyNodeCentralityColor(new FilteredGraphWrapper(graph, node -> component.getNodes().contains(node)),
+                            result.getNormalizedNodeCentrality());
+                  });
         }
         break;
       }
-      case DEGREE_CENTRALITY:
-      default: {
+      case DEGREE_CENTRALITY: {
         DegreeCentrality degreeCentrality = new DegreeCentrality();
         degreeCentrality.setOutgoingEdgesConsiderationEnabled(true);
         degreeCentrality.setIncomingEdgesConsiderationEnabled(true);
@@ -158,6 +149,22 @@ public class CentralityConfig extends AlgorithmConfiguration {
         DegreeCentrality.Result result = degreeCentrality.run(graph);
         applyNodeCentralityColor(graph, result.getNormalizedNodeCentrality());
         break;
+      }
+      case EIGENVECTOR_CENTRALITY: {
+        EigenvectorCentrality.Result result = new EigenvectorCentrality().run(graph);
+        applyNodeCentralityColor(graph, result.getNodeCentrality());
+        break;
+      }
+      case PAGERANK: {
+        PageRank pageRank = new PageRank();
+        pageRank.setEdgeWeights(this::getEdgeWeight);
+
+        PageRank.Result result = pageRank.run(graph);
+        applyNodeCentralityColor(graph, result.getPageRank());
+        break;
+      }
+      default: {
+        throw new IllegalArgumentException("unsupported algorithm: <" + algorithmType + ">.");
       }
     }
   }
@@ -230,7 +237,7 @@ public class CentralityConfig extends AlgorithmConfiguration {
   }
 
   /**
-   * Returns a {@link LayoutStage} that changes node sizes according to the
+   * Returns a {@link ILayoutStage} that changes node sizes according to the
    * nodes' centrality values.
    * @param coreLayout the core layout algorithm
    * @param directed true if edges should be considered directed, false otherwise
@@ -300,7 +307,9 @@ public class CentralityConfig extends AlgorithmConfiguration {
     WEIGHT_CENTRALITY,
     GRAPH_CENTRALITY,
     NODE_EDGE_BETWEENESS_CENTRALITY,
-    CLOSENESS_CENTRALITY
+    CLOSENESS_CENTRALITY,
+    EIGENVECTOR_CENTRALITY,
+    PAGERANK
   }
 
   private static class CentralityLayoutData extends LayoutData {

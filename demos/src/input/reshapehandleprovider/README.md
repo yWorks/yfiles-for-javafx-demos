@@ -1,2 +1,2 @@
 # Reshape Handle Provider
- Demo code that shows how to customize the resize behavior of INodes by implementing a custom `IReshapeHandleProvider` . 
+ Customize the reshape behavior of nodes by using customized `IReshapeHandleProvider` . 

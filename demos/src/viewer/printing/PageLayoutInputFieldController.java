@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -31,6 +31,7 @@ package viewer.printing;
 
 import javafx.print.PageLayout;
 import javafx.print.PrinterJob;
+import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 
 /**
@@ -61,10 +62,21 @@ public class PageLayoutInputFieldController {
     if (job != null) {
       if (!isPageSetupDialogShowing) {
         isPageSetupDialogShowing = true;
-        if (job.showPageSetupDialog(paperSizeLabel.getScene().getWindow())) {
-          updateTextFields();
+        try {
+          if (job.showPageSetupDialog(paperSizeLabel.getScene().getWindow())) {
+            updateTextFields();
+          }
         }
-        isPageSetupDialogShowing = false;
+        catch (Exception ex) {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Invalid Margins");
+          alert.setHeaderText("Margins must be larger than zero.");
+          alert.setContentText("Zero margins are not allowed. The margins have been reset to their former values.");
+          alert.show();
+        }
+        finally {
+          isPageSetupDialogShowing = false;
+        }
       }
     }
   }

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,6 +35,7 @@ import analysis.graphanalysis.NodeInfo;
 import analysis.graphanalysis.styles.MultiColorNodeStyle;
 import com.yworks.yfiles.analysis.BiconnectedComponents;
 import com.yworks.yfiles.analysis.ConnectedComponents;
+import com.yworks.yfiles.analysis.KCoreComponents;
 import com.yworks.yfiles.analysis.Reachability;
 import com.yworks.yfiles.analysis.ResultItemCollection;
 import com.yworks.yfiles.analysis.ResultItemMapping;
@@ -58,7 +59,7 @@ import java.util.Set;
  * Configuration options for connectivity algorithms.
  */
 public class ConnectivityConfig extends AlgorithmConfiguration {
-  private final AlgorithmType algorithmType;
+  public final AlgorithmType algorithmType;
   private INode markedSource;
 
   /**
@@ -102,8 +103,10 @@ public class ConnectivityConfig extends AlgorithmConfiguration {
         calculateConnectedComponents(graph, true);
         break;
       case CONNECTED_COMPONENTS:
-      default:
         calculateConnectedComponents(graph, false);
+        break;
+      case KCORE:
+        calculateKCoreNodes(graph);
         break;
     }
   }
@@ -227,7 +230,7 @@ public class ConnectivityConfig extends AlgorithmConfiguration {
             components.add(componentIdx);
             color = ModelItemInfo.getColor(edge);
           }
-        };
+        }
 
         node.setTag(new NodeInfo(color, components));
       });
@@ -276,6 +279,30 @@ public class ConnectivityConfig extends AlgorithmConfiguration {
   }
 
   /**
+   * Calculates and visualizes the k-Cores of a graph
+   * @param graph The graph in which the k-Cores are determined.
+   */
+  private void calculateKCoreNodes(IGraph graph) {
+    resetGraph(graph);
+
+    if (graph.getNodes().size() > 0) {
+      ResultItemCollection<INode> result = new KCoreComponents().run(graph).getKCore(getkCore());
+      Color componentColor = getComponentColor(getkCore() + 1);
+
+      result.forEach(node -> {
+        graph.setStyle(node, new MultiColorNodeStyle());
+        node.setTag(new NodeInfo(componentColor, Collections.singletonList(2)));
+      });
+
+      graph.getEdges().forEach(edge -> {
+        if(result.contains(edge.getSourceNode()) && result.contains(edge.getTargetNode()))
+          graph.setStyle(edge, getMarkedEdgeStyle(isDirected(), componentColor));
+          edge.setTag(new EdgeInfo(componentColor));
+      });
+    }
+  }
+
+  /**
    * Returns the first edge with non-negative component index of the given node.
    * @param graph the given graph
    * @param node the given node
@@ -295,7 +322,7 @@ public class ConnectivityConfig extends AlgorithmConfiguration {
    * Adds entries to the context menu to mark the source node for the reachability algorithm.
    * @param contextMenu the context menu to which the entries are added
    * @param item the item that is affected by this context menu
-   * @param graphControl the given graph component
+   * @param graphControl the given graph control
    */
   public void populateContextMenu(ContextMenu contextMenu, IModelItem item, GraphControl graphControl) {
     if (algorithmType == AlgorithmType.REACHABILITY) {
@@ -314,6 +341,7 @@ public class ConnectivityConfig extends AlgorithmConfiguration {
     CONNECTED_COMPONENTS,
     BICONNECTED_COMPONENTS,
     STRONGLY_CONNECTED_COMPONENTS,
-    REACHABILITY
+    REACHABILITY,
+    KCORE
   }
 }

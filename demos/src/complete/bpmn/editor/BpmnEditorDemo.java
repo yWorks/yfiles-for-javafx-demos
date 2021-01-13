@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -97,6 +97,7 @@ import complete.bpmn.di.BpmnDiParser;
 import complete.bpmn.di.BpmnLabelStyle;
 import complete.bpmn.layout.BpmnLayout;
 import complete.bpmn.layout.LayoutOrientation;
+import complete.bpmn.legacy.ActivityNodeStyleExtension;
 import complete.bpmn.view.ActivityNodeStyle;
 import complete.bpmn.view.AnnotationNodeStyle;
 import complete.bpmn.view.BpmnConstants;
@@ -293,9 +294,10 @@ public class BpmnEditorDemo extends DemoApplication {
 
     // map the classes in the bpmn.view package to a separate bpmn namespace
     ioh.addXamlNamespaceMapping(BpmnConstants.YFILES_BPMN_NS, BpmnNodeStyle.class);
+    ioh.addXamlNamespaceMapping(BpmnConstants.YFILES_BPMN_LEGACY_NS, ActivityNodeStyleExtension.class);
     ioh.addNamespace(BpmnConstants.YFILES_BPMN_NS, BpmnConstants.YFILES_BPMN_PREFIX);
 
-    // after loading a sample diagram, the item proerty pane should be cleared
+    // after loading a sample diagram, the item property pane should be cleared
     ioh.addParsedListener((source, args) -> clearOptionPane("No items selected"));
 
     FoldingManager manager = new FoldingManager();
@@ -546,7 +548,7 @@ public class BpmnEditorDemo extends DemoApplication {
   }
 
   /**
-   * Initializes additional input bindings for running the layout, creating an empty graph component and
+   * Initializes additional input bindings for running the layout, creating an empty graph control and
    * applying/resetting the style properties in the Item Properties pane.
    */
   private void initializeInputBindings(KeyboardInputMode kim) {
@@ -1106,7 +1108,7 @@ public class BpmnEditorDemo extends DemoApplication {
       final File fileToOpen = openFileDialog.showOpenDialog(owner);
       if (fileToOpen != null) {
         FileChooser.ExtensionFilter filter = openFileDialog.getSelectedExtensionFilter();
-        if (".bpmn".equals(filter.getExtensions().get(0))) {
+        if ("*.bpmn".equals(filter.getExtensions().get(0))) {
           try {
             new BpmnDiParser().load(graphControl.getGraph(), fileToOpen.getAbsolutePath());
             graphControl.fitGraphBounds();
@@ -1127,8 +1129,8 @@ public class BpmnEditorDemo extends DemoApplication {
   protected FileChooser createOpenFileDialog() {
     FileChooser dialog = new FileChooser();
     final ObservableList<FileChooser.ExtensionFilter> extensionFilters = dialog.getExtensionFilters();
-    extensionFilters.add(new FileChooser.ExtensionFilter("BPMN Files (*.bpmn)", ".bpmn"));
-    extensionFilters.add(new FileChooser.ExtensionFilter("GraphML Files (*.graphml)", ".graphml"));
+    extensionFilters.add(new FileChooser.ExtensionFilter("BPMN Files (*.bpmn)", "*.bpmn"));
+    extensionFilters.add(new FileChooser.ExtensionFilter("GraphML Files (*.graphml)", "*.graphml"));
     dialog.setTitle("Open");
     return dialog;
   }

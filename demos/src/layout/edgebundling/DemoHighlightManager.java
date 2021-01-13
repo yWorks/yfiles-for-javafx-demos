@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -47,11 +47,11 @@ class DemoHighlightManager extends HighlightIndicatorManager<IModelItem> {
   private final ICanvasObjectGroup edgeHighlightGroup;
 
   /**
-   * Initializes a new highlight manager for the given graph component.
+   * Initializes a new highlight manager for the given graph control.
    */
-  DemoHighlightManager( GraphControl graphComponent ) {
-    super(graphComponent);
-    GraphModelManager modelManager = graphComponent.getGraphModelManager();
+  DemoHighlightManager( GraphControl graphControl ) {
+    super(graphControl);
+    GraphModelManager modelManager = graphControl.getGraphModelManager();
     modelManager.setHierarchicNestingPolicy(HierarchicNestingPolicy.NONE);
     edgeHighlightGroup = modelManager.getContentGroup().addGroup();
     edgeHighlightGroup.below(modelManager.getNodeGroup());

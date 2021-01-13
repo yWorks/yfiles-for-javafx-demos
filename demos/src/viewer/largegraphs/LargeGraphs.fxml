@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.3.
+  // This demo file is part of yFiles for JavaFX 3.4.
   //
-  // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -230,7 +230,7 @@
           <TitledPane collapsible="false" text="Information">
             <GridPane>
               <Label text="Zoom level" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
-                <tooltip><Tooltip text="The current zoom level of the graph component"/></tooltip>
+                <tooltip><Tooltip text="The current zoom level of the graph control"/></tooltip>
               </Label>
               <Label fx:id="zoomLbl" text="12" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
 

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -92,7 +92,7 @@ public class FoldingDemo extends DemoApplication {
     // enable abilities for folding
     IGraph viewGraph = enableFolding(masterGraph);
 
-    // assign the folding view graph to the graph component
+    // assign the folding view graph to the graph control
     graphControl.setGraph(viewGraph);
 
     // initializes the input modes

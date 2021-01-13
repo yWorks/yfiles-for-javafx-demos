@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -33,6 +33,8 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.styles.NodeTemplate;
 import com.yworks.yfiles.view.CanvasControl;
 import com.yworks.yfiles.view.GraphControl;
+import com.yworks.yfiles.view.IDisposeVisualCallback;
+import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.input.ICommand;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ObjectProperty;
@@ -66,7 +68,7 @@ import javafx.util.Duration;
  * @see javafx.fxml.FXMLLoader
  * @see "Employee.fxml"
  */
-public class EmployeeController {
+public class EmployeeController implements IDisposeVisualCallback {
 
   public HBox childButtons;
   /**
@@ -113,7 +115,10 @@ public class EmployeeController {
   public void setZoomLevel(ZoomLevel level){ zoomLevel.set(level); }
   public ObjectProperty<ZoomLevel> zoomLevelProperty(){ return zoomLevel; }
 
-  // a local reference to the CanvasControl that is provided by the NodeControl#canvasProperty()
+  // Updates the local zoom property on canvas zoom changes.
+  private ChangeListener<Number> zoomHandler;
+
+  // A local reference to the CanvasControl that is provided by the NodeControl#canvasProperty()
   public CanvasControl canvas;
 
 
@@ -194,24 +199,26 @@ public class EmployeeController {
       }
     });
 
+    zoomHandler = new ChangeListener<Number>() {
+      @Override
+      public void changed( ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue ) {
+        if (!oldValue.equals(newValue)) {
+          double zoom = newValue.doubleValue();
+          ZoomLevel newZoomLevel = zoomToZoomLevel(zoom);
+          if (!newZoomLevel.equals(getZoomLevel())) {
+            setZoomLevel(newZoomLevel);
+          }
+        }
+      }
+    };
+
     // one-time listener that waits for the canvas control to show up and removes itself when this happens.
     root.canvasProperty().addListener(new ChangeListener<CanvasControl>() {
       @Override
       public void changed(ObservableValue<? extends CanvasControl> observableValue, CanvasControl wasNull, CanvasControl initialValue) {
         if (initialValue != null){
           canvas = initialValue;
-          canvas.zoomProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number1) {
-              if(!number.equals(number1)){
-                double zoom = number1.doubleValue();
-                ZoomLevel newZoomLevel = zoomToZoomLevel(zoom);
-                if (!getZoomLevel().equals(newZoomLevel)) {
-                  setZoomLevel(newZoomLevel);
-                }
-              }
-            }
-          });
+          canvas.zoomProperty().addListener(zoomHandler);
           setZoomLevel(zoomToZoomLevel(canvas.getZoom()));
           root.canvasProperty().removeListener(this);
         }
@@ -401,5 +408,20 @@ public class EmployeeController {
    */
   public NodeTemplate getRoot() {
     return root;
+  }
+
+
+  /**
+   * Prevents accumulation of zoom listeners when canvas objects for graph nodes
+   * are removed from and recreated in the graph control's internal scene graph.
+   * This happens e.g. if a node is move out of and back into the current
+   * viewport.
+   */
+  @Override
+  public Node dispose(IRenderContext context, Node removedVisual, boolean dispose) {
+    if (dispose && canvas != null && zoomHandler != null) {
+      canvas.zoomProperty().removeListener(zoomHandler);
+    }
+    return removedVisual;
   }
 }

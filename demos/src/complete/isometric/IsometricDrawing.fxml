@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.4.
+  //
+  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+  <right>
+    <!-- help pane that displays a short instruction for this demo -->
+    <TitledPane animated="false" collapsible="false" expanded="true" maxHeight="Infinity" text="Description">
+      <WebView prefWidth="300.0" fx:id="help" fontScale="1"/>
+    </TitledPane>
+  </right>
+
+  <top>
+    <!-- toolbar that provides controls of this demo -->
+    <ToolBar>
+      <CommandButton fx:id="openButton" command="Open" commandTarget="${graphControl}"/>
+      <Separator orientation="VERTICAL"/>
+      <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+      <Separator orientation="VERTICAL"/>
+      <Button fx:id="hierarchicLayoutButton" text="Hierarchic Layout" onAction="#runHierarchicLayout">
+        <graphic>
+          <IconProvider fx:value="LAYOUT_HIERARCHIC"/>
+        </graphic>
+        <tooltip>
+          <TooltipProvider fx:value="LAYOUT_HIERARCHIC"/>
+        </tooltip>
+      </Button>
+      <Button fx:id="orthogonalLayoutButton" text="Orthogonal Layout" onAction="#runOrthogonalLayout">
+        <graphic>
+          <IconProvider fx:value="LAYOUT_ORTHOGONAL"/>
+        </graphic>
+        <tooltip>
+          <TooltipProvider fx:value="LAYOUT_ORTHOGONAL"/>
+        </tooltip>
+      </Button>
+      <Separator orientation="VERTICAL"/>
+      <Label text="Rotation angle:"/>
+      <Slider fx:id="rotationSlider" min="0" max="360" value="0" majorTickUnit="90" showTickMarks="true"
+              snapToTicks="true"/>
+      <Label fx:id="rotationLabel" text="0&#176;"/>
+    </ToolBar>
+  </top>
+
+  <center>
+    <!-- graph control that will contain the example graph -->
+    <GraphControl fx:id="graphControl"/>
+  </center>
+</BorderPane>

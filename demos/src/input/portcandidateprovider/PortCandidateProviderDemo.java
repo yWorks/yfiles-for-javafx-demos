@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -113,7 +113,7 @@ public class PortCandidateProviderDemo extends DemoApplication {
     inputMode.setFocusableItems(GraphItemTypes.NONE);
     // disable label editing
     inputMode.setEditLabelAllowed(false);
-    // Finally, set the input mode to the graph component.
+    // Finally, set the input mode to the graph control.
     graphControl.setInputMode(inputMode);
   }
 
@@ -135,7 +135,7 @@ public class PortCandidateProviderDemo extends DemoApplication {
     INode blue1 = createNode(graph, new RectD(100, 300, 80, 30), Color.ROYALBLUE, "One   Port");
     graph.addPort(blue1, blue1.getLayout().getCenter(), portStyle).setTag(Color.BLACK);
 
-    INode blue2 = createNode(graph, new RectD(350, 300, 100, 100), Color.ROYALBLUE, "Many Ports");
+    INode blue2 = createNode(graph, new RectD(350, 275, 100, 100), Color.ROYALBLUE, "Many Ports");
     // pre-define a bunch of ports at the outer border of one of the blue nodes
     AbstractPortCandidateProvider portCandidateProvider = IPortCandidateProvider.fromShapeGeometry(blue2, 0, 0.25, 0.5, 0.75);
     portCandidateProvider.setStyle(portStyle);
@@ -156,6 +156,9 @@ public class PortCandidateProviderDemo extends DemoApplication {
 
     INode n2 = createNode(graph, new RectD(350, 540, 100, 100), Color.PURPLE, "Individual\nPort\nConstraints");
     addIndividualPorts(graph, n2);
+
+    // The olive node
+    createNode(graph, new RectD(350, 410, 100, 80), Color.OLIVE, "No\nParallel\nEdges");
   }
 
   /**
@@ -223,6 +226,8 @@ public class PortCandidateProviderDemo extends DemoApplication {
         return new OrangePortCandidateProvider(node);
       } else if (Color.PURPLE.equals(nodeTag)) {
         return new PurplePortCandidateProvider(node);
+      } else if (Color.OLIVE.equals(nodeTag)) {
+        return new OlivePortCandidateProvider(node);
       }
     }
     // otherwise revert to default behavior

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="yFiles-Demos-helper" default="check-fx-sdk" basedir=".">
+  <target name="check-fx-sdk">
+    <condition
+     property="path.to.fx.isset"
+     value="true"
+     else="false">
+      <isset property="path.to.fx"/>
+    </condition>
+    <property name="java.fx.args" value=""/>
+    <script language="javascript">
+    try {
+      load("nashorn:mozilla_compat.js");
+      importClass(javafx.scene.paint.Color);
+      var color = Color.RED;
+      print("FX classes found");
+    } catch(e) {
+      print(e + e.message);
+      print("FX classes not found");
+      if(project.getProperty("path.to.fx.isset").equals("false")) {
+        var fail = project.createTask("fail");
+        fail.setMessage("FX modules could not be found. Please specify the 'path.to.fx' property. See https://openjfx.io/openjfx-docs/#install-javafx for more information.");
+        fail.execute();
+      } else {
+        print("path.to.fx = " + project.getProperty("path.to.fx"));
+        project.setProperty("java.fx.args",
+              "--module-path "
+              + project.getProperty("path.to.fx")
+              + " --add-modules=javafx.fxml,javafx.web,javafx.swing,javafx.swt");
+      }
+    }
+    </script>
+    <echo>java.fx.args = ${java.fx.args}</echo>
+  </target>
+</project>

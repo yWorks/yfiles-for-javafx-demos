@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -334,7 +334,7 @@ public class PathsConfig extends AlgorithmConfiguration {
    * Adds entries to the context menu to mark source and target nodes.
    * @param contextMenu The context menu to extend
    * @param item The item which is affected by the context menu
-   * @param graphControl The current graph component.
+   * @param graphControl The current graph control.
    */
   public void populateContextMenu(ContextMenu contextMenu, IModelItem item, GraphControl graphControl) {
     IGraph graph = graphControl.getGraph();
@@ -376,7 +376,7 @@ public class PathsConfig extends AlgorithmConfiguration {
   /**
    * Updates the selection of the graph so the given node is the only selected node.
    * @param node The only node that should be selected.
-   * @param graphControl The graph component that contains the graph to which the node belongs.
+   * @param graphControl The graph control that contains the graph to which the node belongs.
    */
   private void updateSelection(INode node, GraphControl graphControl) {
     if (node == null) {

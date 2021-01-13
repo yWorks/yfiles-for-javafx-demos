@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.3.
+ ** This demo file is part of yFiles for JavaFX 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -131,7 +131,7 @@ public class PositionHandlerDemo extends DemoApplication {
     // create a visual representation using a black border and a transparent fill
     new Pen(Color.BLACK, 2).styleShape(boundaryRectangle);
     boundaryRectangle.setFill(Color.TRANSPARENT);
-    // and add it to the graph component
+    // and add it to the graph control
     graphControl.getRootGroup().addChild(boundaryRectangle, ICanvasObjectDescriptor.VISUAL);
 
     // initialize the graph
