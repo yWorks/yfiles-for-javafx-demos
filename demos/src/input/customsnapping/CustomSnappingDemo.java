@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -231,6 +231,7 @@ public class CustomSnappingDemo extends DemoApplication {
   private void addFreeSnapLine(double fromX, double fromY, double toX, double toY) {
     // create line and add it to background group
     Line line = new Line(fromX, fromY, toX, toY);
+    line.setStroke(Color.RED);
     graphControl.getBackgroundGroup().addChild(line, ICanvasObjectDescriptor.VISUAL);
     freeSnapLines.add(line);
   }

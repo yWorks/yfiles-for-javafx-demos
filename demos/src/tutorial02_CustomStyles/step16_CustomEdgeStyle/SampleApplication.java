@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -51,7 +51,7 @@ import toolkit.WebViewUtils;
 /**
  * Create a custom edge style which allows to specify the edge thickness by setting a property on
  * the style. The createVisual and updateVisual methods are implemented like in MySimpleNodeStyle and
- * MyDefaultLabelStyle.
+ * MySimpleLabelStyle.
  */
 public class SampleApplication extends Application {
 
@@ -109,8 +109,8 @@ public class SampleApplication extends Application {
     ////////////////////////////////////////////////////
 
     // create a new style and use it as default label style
-    graph.getNodeDefaults().getLabelDefaults().setStyle(new MyDefaultLabelStyle());
-    graph.getEdgeDefaults().getLabelDefaults().setStyle(new MyDefaultLabelStyle());
+    graph.getNodeDefaults().getLabelDefaults().setStyle(new MySimpleLabelStyle());
+    graph.getEdgeDefaults().getLabelDefaults().setStyle(new MySimpleLabelStyle());
     // node labels should be placed below and left of the node by default, so we can see the connector to its node
     graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(ExteriorLabelModel.SOUTH_WEST);
 

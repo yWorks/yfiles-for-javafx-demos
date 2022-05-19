@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -80,10 +80,10 @@ public class ConfigConverter {
   // map a group name to a list of its inner members
   private HashMap<String, ArrayList<Member>> groupMapping = new HashMap<String, ArrayList<Member>>();
 
-  // map for the ShouldDisable functions for properties
+  // map for the Disabled functions for properties
   private HashMap<String, Supplier<Boolean>> isDisabledMapping = new HashMap<String, Supplier<Boolean>>();
 
-  // map for the ShouldHide functions for properties
+  // map for the Hidden functions for properties
   private HashMap<String, Supplier<Boolean>> isHiddenMapping = new HashMap<String, Supplier<Boolean>>();
 
   /**

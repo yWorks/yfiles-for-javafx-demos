@@ -136,7 +136,7 @@
         <di:waypoint x="878" y="479" />
         <di:waypoint x="918" y="479" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="885" y="386" width="26" height="14" />
+          <dc:Bounds x="885" y="386" width="29" height="16" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1brf04k_di" bpmnElement="SequenceFlow_1brf04k">
@@ -154,7 +154,7 @@
         <di:waypoint x="878" y="251" />
         <di:waypoint x="801" y="251" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="884" y="317" width="43" height="27" />
+          <dc:Bounds x="884" y="317" width="43" height="32" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_15kbe7f_di" bpmnElement="SequenceFlow_15kbe7f">

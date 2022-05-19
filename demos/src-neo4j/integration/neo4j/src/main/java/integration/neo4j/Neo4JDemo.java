@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -31,14 +31,14 @@ package integration.neo4j;
 
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.SizeD;
-import com.yworks.yfiles.graph.builder.EdgesSource;
-import com.yworks.yfiles.graph.builder.GraphBuilder;
 import com.yworks.yfiles.graph.GraphDecorator;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.builder.EdgesSource;
+import com.yworks.yfiles.graph.builder.GraphBuilder;
 import com.yworks.yfiles.graph.builder.NodesSource;
 import com.yworks.yfiles.graph.labelmodels.EdgePathLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSides;
@@ -78,18 +78,20 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.neo4j.driver.AccessMode;
+import org.neo4j.driver.AuthToken;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.SessionConfig;
+import org.neo4j.driver.Value;
+import org.neo4j.driver.Values;
 import org.neo4j.driver.internal.value.StringValue;
-import org.neo4j.driver.v1.AccessMode;
-import org.neo4j.driver.v1.AuthTokens;
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.GraphDatabase;
-import org.neo4j.driver.v1.Session;
-import org.neo4j.driver.v1.StatementResult;
-import org.neo4j.driver.v1.Value;
-import org.neo4j.driver.v1.Values;
-import org.neo4j.driver.v1.types.Entity;
-import org.neo4j.driver.v1.types.Node;
-import org.neo4j.driver.v1.types.Relationship;
+import org.neo4j.driver.types.Entity;
+import org.neo4j.driver.types.Node;
+import org.neo4j.driver.types.Relationship;
 import toolkit.WebViewUtils;
 
 import java.time.Duration;
@@ -101,34 +103,46 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 /**
  * Loads data from a Neo4j database and displays it in a {@link GraphControl}.
  */
 public class Neo4JDemo extends Application {
-
   public GraphControl graphControl;
   public WebView help;
 
-  private Driver driver;
+  private Session session;
 
   /**
    * Initializes the application after its user interface has been built up.
    */
   public void initialize() {
-    initializeGraph();
-
+    initializeGraphDefaults();
     initializeHighlighting();
-
     initializeInputMode();
+  }
 
-    initializeDataBase();
+  /**
+   * Initializes the database, loads a graph from it and performs a layouts.
+   */
+  public void onLoaded() {
+    while(true) {
+      try {
+        initializeDataBase();
+        loadGraph();
+        break;
+      } catch (Exception e) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        errorAlert.setHeaderText("Could not load initial graph");
+        errorAlert.showAndWait();
+      }
+    }
+    doLayout();
   }
 
   /**
    * Initializes the graph defaults.
    */
-  private void initializeGraph() {
+  private void initializeGraphDefaults() {
     IGraph graph = graphControl.getGraph();
 
     // set the default style for nodes
@@ -153,7 +167,7 @@ public class Neo4JDemo extends Application {
 
     // and finally specify the placement policy for edge labels.
     ILabelModelParameter labelModelParameter =
-        new EdgePathLabelModel(3, 0, 0, true, EdgeSides.ABOVE_EDGE).createDefaultParameter();
+        new EdgePathLabelModel(3, 0, 0, false, EdgeSides.ABOVE_EDGE).createDefaultParameter();
     graph.getEdgeDefaults().getLabelDefaults().setLayoutParameter(labelModelParameter);
   }
 
@@ -219,9 +233,7 @@ public class Neo4JDemo extends Application {
         manager.addHighlight(args.getItem());
         // and if it is a node, we highlight all connected edges, too
         if (args.getItem() instanceof INode) {
-          graphControl.getGraph().edgesAt((INode) args.getItem()).forEach(edge -> {
-            manager.addHighlight(edge);
-          });
+          graphControl.getGraph().edgesAt((INode) args.getItem()).forEach(manager::addHighlight);
         } else if (args.getItem() instanceof IEdge) {
           // if it is an edge - we highlight the connected nodes
           manager.addHighlight(((IEdge) args.getItem()).getSourceNode());
@@ -235,14 +247,12 @@ public class Neo4JDemo extends Application {
       // the neo4j data is stored in the "tag" property of the item
       // if it contains "properties", show them in a simple list
       IModelItem item = args.getItem();
-
-      Map<String, Object> properties = item != null && item.getTag() instanceof Entity ? ((Entity) item.getTag()).asMap() : null;
+      Entity entity = item != null && item.getTag() instanceof Entity ? ((Entity) item.getTag()) : null;
+      Map<String, Object> properties = entity != null  ? entity.asMap() : null;
       if (properties != null && !properties.isEmpty()) {
-        String tooltipText = "";
-        for (String key : properties.keySet()) {
-          tooltipText += key + " : " + properties.get(key) + "\n";
-        }
-        args.setToolTip(new Tooltip(tooltipText));
+        StringBuilder tooltipText = new StringBuilder();
+        properties.forEach((key, value) -> tooltipText.append(key).append(" : ").append(value).append("\n"));
+        args.setToolTip(new Tooltip(tooltipText.toString()));
       }
     });
 
@@ -260,65 +270,71 @@ public class Neo4JDemo extends Application {
         RadialLayout layout = new RadialLayout();
         layout.setCenterNodesPolicy(CenterNodesPolicy.CUSTOM);
         // now we calculate the layout and morph the results
-        graphControl.morphLayout(layout, Duration.ofSeconds(2), layoutData);
+        graphControl.morphLayout(layout, Duration.ofSeconds(1), layoutData);
       }
     });
 
     graphControl.setInputMode(inputMode);
   }
 
+  /**
+   * Prompt user for credentials and establish a connection with a neo4j instance
+   */
   private void initializeDataBase() {
     Neo4jConfigurationDialog dialog = new Neo4jConfigurationDialog();
-   	Optional<String[]> result = dialog.showAndWait();
-   	result.ifPresent(configuration -> {
-      String url = configuration[0];
-      String user = configuration[1];
-      String password = configuration[2];
-      try {
-        driver = GraphDatabase.driver(url, AuthTokens.basic(user, password) );
-      } catch (Exception e) {
-        String message = "No valid Neo4j data base connection could be established: " + e.getMessage();
-        Alert errorAlert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
-        errorAlert.showAndWait();
-      }
+   	Optional<DBInformation> result = dialog.showAndWait();
+   	result.ifPresent(db -> {
+
+    AuthToken authToken = AuthTokens.basic(db.username, db.password);
+    Driver driver = GraphDatabase.driver(db.url, authToken);
+    SessionConfig.Builder builder = db.name.isEmpty()
+        ? SessionConfig.builder().withDefaultAccessMode(AccessMode.READ)
+        : SessionConfig.builder().withDefaultAccessMode(AccessMode.READ).withDatabase(db.name);
+    session = driver.session(builder.build());
     });
   }
 
   /**
-   * Performs the main graph setup. Will be executed at startup.
+   * Loads the graph from the database.
    */
   private void loadGraph() {
-    if (driver == null) {
-      // no data base connection could be established
-      return;
-    }
-
     // first we query a limited number of arbitrary nodes
     // modify the query to suit your requirement!
-    StatementResult nodeResult = runCypherQuery("MATCH (node) RETURN node LIMIT 25", null);
-
-    // we put the resulting records in a separate array
-    List<Node> nodes = nodeResult.stream().map(record -> record.get("node").asNode()).collect(Collectors.toList());
-    Long[] nodeIds = nodes.stream().map(node -> node.id()).collect(Collectors.toList()).toArray(new Long[nodes.size()]);
+    Result nodeResult = session.run("MATCH (node) RETURN node LIMIT 25");
+    // we put the resulting records in a separate list
+    List<Node> nodes = nodeResult.stream()
+        .map(record -> record.get("node").asNode())
+        .collect(Collectors.toList());
 
     // with the node ids we can query the edges between the nodes
-    StatementResult edgeResult = runCypherQuery(
+    Long[] nodeIds = nodes.stream().map(Entity::id).toArray(Long[]::new);
+    Result edgeResult = session.run(
       "MATCH (n)-[edge]-(m) " +
-          "WHERE id(n) IN {nodes} " +
-          "AND id(m) IN {nodes} " +
+          "WHERE id(n) IN $nodes " +
+          "AND id(m) IN $nodes " +
           "RETURN DISTINCT edge LIMIT 100",
         Values.parameters("nodes", nodeIds)
     );
-    // and store the edges in an array
-    List<Relationship> edges = edgeResult.stream().map(record -> record.get("edge").asRelationship()).collect(Collectors.toList());
+    // and store the edges in a list
+    List<Relationship> edges = edgeResult.stream()
+        .map(record -> record.get("edge").asRelationship())
+        .collect(Collectors.toList());
 
-    final Map<String, ShapeNodeStyle> nodeToStyle = createNodeStyleMapping(nodes);
+    // this triggers the initial construction of the graph
+    GraphBuilder graphBuilder = createGraphBuilder(graphControl.getGraph(), nodes, edges);
+    graphBuilder.buildGraph();
+  }
 
-    // now we create the helper class that will help us build the graph declaratively from the data
-    GraphBuilder graphBuilder = new GraphBuilder(graphControl.getGraph());
+  /**
+   * Returns a GraphBuilder that is configured to work well with Neo4J query results.
+   */
+  private GraphBuilder createGraphBuilder(IGraph graph, List<Node> nodes, List<Relationship> edges) {
+    // now we create the helper class that will help us build the graph from the data
+    GraphBuilder graphBuilder = new GraphBuilder(graph);
 
     // now we pass it the collection of nodes and tell it how to identify the nodes
-    NodesSource<Node> nodesSource = graphBuilder.createNodesSource(nodes, node -> ((Node) node).id());
+    NodesSource<Node> nodesSource = graphBuilder.createNodesSource(nodes, Entity::id);
+    Map<String, ShapeNodeStyle> nodeToStyle = createNodeStyleMapping(nodes);
 
     // whenever a node is created...
     nodesSource.getNodeCreator().setStyleProvider(n4jNode -> {
@@ -332,47 +348,34 @@ public class Neo4JDemo extends Application {
     });
 
     // as well as what text to use as the first label for each node
-    nodesSource.getNodeCreator().createLabelBinding(owner -> {
-      Node node = (Node) owner;
+    nodesSource.getNodeCreator().createLabelBinding(node -> {
       // try to find a suitable node label
       String[] candidates = {"name", "title", "firstName", "lastName", "email", "content"};
       for (String candidate : candidates) {
         if (node.containsKey(candidate)) {
           // trim the label
           Value labelValue = node.get(candidate);
-          String label = labelValue instanceof StringValue ? ((StringValue) labelValue).asString() : labelValue.toString();
+          String label = labelValue instanceof StringValue ? labelValue.asString() : labelValue.toString();
           return label.length() > 30 ? label.substring(0, 30) : label;
         }
       }
-      String labels = "";
-      for (String label : node.labels()) {
-        if (!labels.isEmpty()) {
-          labels += " - ";
-        }
-        labels += label;
-      }
-      return labels.isEmpty() ? null : labels;
+      return String.join(" - ", node.labels());
     });
 
-    // pass the edges, too
-    // tell it how to identify the source and target nodes - this matches the nodeIdBinding above
-    EdgesSource<Relationship> edgesSource = graphBuilder.createEdgesSource(edges,
-        edge -> ((Relationship) edge).startNodeId(), edge -> ((Relationship) edge).endNodeId());
+    // specify how to identify the source and target nodes - this matches the nodeIdBinding above
+    EdgesSource<Relationship> edgesSource = graphBuilder.createEdgesSource(edges, Relationship::startNodeId,
+        Relationship::endNodeId);
     // and we display the label, too, using the type of the relationship
-    edgesSource.getEdgeCreator().createLabelBinding(edge -> ((Relationship) edge).type());
+    edgesSource.getEdgeCreator().createLabelBinding(Relationship::type);
 
-    // this triggers the initial construction of the graph
-    graphBuilder.buildGraph();
-
-    // the graph does not have a layout at this point, so we run a simple radial layout
-    doLayout();
+    return graphBuilder;
   }
 
   /**
    * Creates a mapping between node labels and node styles.
    */
   private Map<String, ShapeNodeStyle> createNodeStyleMapping(List<Node> nodes) {
-    Map<String, Integer> labelCount = new HashMap();
+    Map<String, Integer> labelCount = new HashMap<>();
     List<String> labels = new ArrayList<>();
 
     for (Node n4jNode : nodes) {
@@ -388,17 +391,17 @@ public class Neo4JDemo extends Application {
     // sort unique labels by their frequency
     labels.sort(Comparator.comparingInt(labelCount::get));
     // define some distinct looking styles
-    ArrayList<ShapeNodeStyle> styles = new ArrayList(5);
-    styles.add(newShapeNodeStyle(ShapeNodeShape.TRIANGLE, Color.DARKORANGE));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.DIAMOND, Color.LIMEGREEN));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.RECTANGLE, Color.BLUE));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.HEXAGON, Color.DARKVIOLET));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.ELLIPSE, Color.AZURE));
-
+    ShapeNodeStyle[] styles = {
+        newShapeNodeStyle(ShapeNodeShape.TRIANGLE, Color.DARKORANGE),
+        newShapeNodeStyle(ShapeNodeShape.DIAMOND, Color.LIMEGREEN),
+        newShapeNodeStyle(ShapeNodeShape.RECTANGLE, Color.BLUE),
+        newShapeNodeStyle(ShapeNodeShape.HEXAGON, Color.DARKVIOLET),
+        newShapeNodeStyle(ShapeNodeShape.ELLIPSE, Color.AZURE),
+    };
     // map label names to styles
-    HashMap<String, ShapeNodeStyle> labelToStyle = new HashMap<>();
+    Map<String, ShapeNodeStyle> labelToStyle = new HashMap<>();
     for (int i = 0; i < labels.size(); i++) {
-      labelToStyle.put(labels.get(i), styles.get(i % styles.size()));
+      labelToStyle.put(labels.get(i), styles[i % styles.length]);
     }
     return labelToStyle;
   }
@@ -431,25 +434,13 @@ public class Neo4JDemo extends Application {
     executor.start();
   }
 
-  /**
-   * Executes a query with parameters *and* closes the session afterwards.
-   */
-  private StatementResult runCypherQuery(String query, Value params) {
-    Session session = driver.session(AccessMode.READ);
-    try {
-      return session.run(query, params);
-    } finally {
-      session.close();
-    }
-  }
-
-  private void closeDriver() {
-    if (driver == null) {
+  private void closeSession() {
+    if (session == null) {
       return;
     }
 
     try {
-      driver.close();
+      session.close();
     } catch (Exception ex) {
       ex.printStackTrace();
     }
@@ -458,18 +449,6 @@ public class Neo4JDemo extends Application {
   ///////////////////////////////////////////////////////
   //////////// GUI STUFF ////////////////////////////////
   ///////////////////////////////////////////////////////
-
-  /**
-   * Called right after stage is loaded.
-   * JavaFX nodes do not have a width or height until the stage is displayed and the scene graph is calculated.
-   * As {@link #initialize()} is called right after a node is created, but before it is displayed, we have to
-   * center the graph later.
-   */
-  public void onLoaded() {
-    if (driver != null) {
-      loadGraph();
-    }
-  }
 
   public static void main(String[] args) {
     launch(args);
@@ -484,12 +463,12 @@ public class Neo4JDemo extends Application {
 
     Scene scene = new Scene(root, 1365, 768);
 
-    scene.getStylesheets().add(getClass().getResource("/toolkit/DemoApplication.css").toExternalForm());
+    scene.getStylesheets().add(getClass().getResource("/toolkit/resources/DemoApplication.css").toExternalForm());
 
     // JavaFX nodes do not have a width or height until the stage is shown and the scene graph is calculated.
     // onLoaded does some initialization that needs the correct bounds of the nodes.
     stage.setOnShown(windowEvent -> onLoaded());
-    stage.setOnHidden(windowEvent -> closeDriver());
+    stage.setOnHidden(windowEvent -> closeSession());
 
     stage.setTitle("Neo4j Demo - yFiles for JavaFX");
     stage.getIcons().addAll(

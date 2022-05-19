@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.4.
+  // This demo file is part of yFiles for JavaFX 3.5.
   //
-  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,9 +35,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
@@ -48,7 +45,6 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml" >
 
   <center>
-    <SplitPane orientation="HORIZONTAL">
       <StackPane>
         <!-- A custom rectangle in the background that is bound to match the content rectangle of the GraphControl at any given zoom level -->
         <BackgroundRectangle zoom               = "${graphControl.zoom}"
@@ -65,19 +61,6 @@
         <!-- The GraphControl in the center with a transparent background to see the background rectangle -->
         <GraphControl fx:id="graphControl" style="-fx-background-color: transparent;"/>
       </StackPane>
-
-      <!-- On the right: help pane that displays a short instruction for this demo -->
-      <TitledPane collapsible="false" expanded="true" maxHeight="Infinity" text="Description / Documentation">
-        <TabPane>
-          <Tab text="Demo" closable="false">
-            <WebView fx:id="helpView" prefWidth="300"/>
-          </Tab>
-          <Tab text="yGuard" closable="false">
-            <WebView fx:id="yguardDocView" prefWidth="300"/>
-          </Tab>
-        </TabPane>
-      </TitledPane>
-    </SplitPane>
 
   </center>
 
@@ -104,4 +87,12 @@
       </items>
     </ToolBar>
   </top>
+
+  <right>
+    <!-- help pane that displays a short instruction for this demo -->
+    <TitledPane animated="false" collapsible="false" maxHeight="Infinity" text="Description">
+      <WebView fx:id="helpView" prefWidth="300.0"/>
+    </TitledPane>
+  </right>
+
 </BorderPane>

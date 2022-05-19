@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,175 +29,158 @@
  ***************************************************************************/
 package input.reshapehandleprovider;
 
-import com.yworks.yfiles.geometry.RectD;
+import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.NodeDecorator;
-import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.IPort;
+import com.yworks.yfiles.graph.PortDecorator;
+import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.view.ICanvasObjectDescriptor;
+import com.yworks.yfiles.view.ModifierKeys;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
-import com.yworks.yfiles.view.input.HandlePositions;
-import com.yworks.yfiles.view.input.IEventRecognizer;
 import com.yworks.yfiles.view.input.IReshapeHandleProvider;
-import com.yworks.yfiles.view.input.IReshapeHandler;
-import com.yworks.yfiles.view.input.NodeReshapeHandleProvider;
+import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
 import toolkit.WebViewUtils;
 
+import java.io.IOException;
 
 /**
- * Demo code that shows how to customize the resize behavior of INodes by implementing a custom {@link
- * IReshapeHandleProvider}.
+ * Shows how to implement a custom {@link IReshapeHandleProvider} for {@link IPort IPorts} using a
+ * {@link NodeStylePortStyleAdapter}.
  */
 public class ReshapeHandleProviderDemo extends DemoApplication {
-  public GraphControl graphControl;
-  public WebView help;
+    public GraphControl graphControl;
+    public WebView help;
 
-  /**
-   * Registers a callback function as a decorator that provides a custom {@link IReshapeHandleProvider}
-   * for each node. <p> This callback function is called whenever a node in the graph is queried for its
-   * <code>IReshapeHandleProvider</code>. In this case, the 'node' parameter will be set to that node and the
-   * 'delegateHandler' parameter will be set to the reshape handle provider that would have been returned without
-   * setting this function as a decorator. </p>
-   */
-  private void registerReshapeHandleProvider(Rectangle boundaryRectangle) {
-    NodeDecorator nodeDecorator = graphControl.getGraph().getDecorator().getNodeDecorator();
-    
-    
-    // deactivate reshape handling for the red node
-    nodeDecorator.getReshapeHandleProviderDecorator().hideImplementation(
-        node -> Color.FIREBRICK.equals(node.getTag()));
+    /**
+     * Registers a callback function as decorator that provides a customized {@link IReshapeHandleProvider} for
+     * each port with a {@link NodeStylePortStyleAdapter}.
+     * This callback function is called whenever a port in the graph is queried for its <code>IReshapeHandleProvider</code>.
+     */
+    public void registerReshapeHandleProvider() {
+        PortDecorator portDecorator = graphControl.getGraph().getDecorator().getPortDecorator();
+        portDecorator.getDecoratorFor(IReshapeHandleProvider.class).setFactory(
+                port -> port.getStyle() instanceof NodeStylePortStyleAdapter,
+                port -> {
+                    NodeStylePortStyleAdapter style = (NodeStylePortStyleAdapter) port.getStyle();
+                    PortReshapeHandleProvider provider = new PortReshapeHandleProvider(port, style, ctrlDown);
+                    provider.setMinimumSize(new SizeD(5, 5));
+                    return provider;
+                }
+        );
+    }
 
-    // return customized reshape handle provider for the orange, blue and green node
-    nodeDecorator.getReshapeHandleProviderDecorator().setFactory(
-        node -> Color.DARKORANGE.equals(node.getTag())
-            || Color.ROYALBLUE.equals(node.getTag())
-            || Color.FORESTGREEN.equals(node.getTag())
-            || Color.PURPLE.equals(node.getTag())
-            || Color.GRAY.equals(node.getTag()),
-        node -> {
-          // Obtain the tag from the node
-          Object nodeTag = node.getTag();
-          RectD maximumBoundingArea = new RectD(boundaryRectangle.getX(), boundaryRectangle.getY(),
-              boundaryRectangle.getWidth(), boundaryRectangle.getHeight());
 
-          // Create a default reshape handle provider for nodes
-          IReshapeHandler reshapeHandler = node.lookup(IReshapeHandler.class);
-          NodeReshapeHandleProvider provider = new NodeReshapeHandleProvider(node, reshapeHandler,
-              HandlePositions.BORDER);
+    /**
+     * Initializes this demo by configuring the default styles, input mode, and the model item lookup and creating an example graph
+     * together with an enclosing rectangle some nodes may not stretch over.
+     */
+    public void initialize() {
+        // setup the help text on the right side.
+        WebViewUtils.initHelp(help, this);
 
-          // Customize the handle provider depending on the node's color
-          if (Color.DARKORANGE.equals(nodeTag)) {
-            // Restrict the node bounds to the boundaryRectangle
-            provider.setMaximumBoundingArea(maximumBoundingArea);
-          } else if (Color.FORESTGREEN.equals(nodeTag)) {
-            // Show only handles at the corners and always use aspect ratio resizing
-            provider.setHandlePositions(HandlePositions.CORNERS);
-            provider.setRatioReshapeRecognizer(IEventRecognizer.ALWAYS);
-          } else if (Color.ROYALBLUE.equals(nodeTag)) {
-            // Restrict the node bounds to the boundaryRectangle and
-            // show only handles at the corners and always use aspect ratio resizing
-            provider.setMaximumBoundingArea(maximumBoundingArea);
-            provider.setHandlePositions(HandlePositions.CORNERS);
-            provider.setRatioReshapeRecognizer(IEventRecognizer.ALWAYS);
-          } else if (Color.PURPLE.equals(nodeTag)) {
-            provider = new PurpleNodeReshapeHandleProvider(node, reshapeHandler);
-          } else if (Color.GRAY.equals(nodeTag)) {
-            provider.setHandlePositions(HandlePositions.SOUTH_EAST);
-            provider.setCenterReshapeRecognizer(IEventRecognizer.ALWAYS);
-          }
-          return provider;
+        // initialize the default of the graph
+        initializeGraphDefaults();
+
+        // initialize the GraphEditorInputMode
+        initializeInputMode();
+
+        // register the reshape handle provider for ports
+        registerReshapeHandleProvider();
+
+        // read initial graph from sample file
+        loadGraph();
+    }
+
+    /**
+     * Initializes the graph defaults.
+     */
+    private void initializeGraphDefaults() {
+        IGraph graph = graphControl.getGraph();
+
+        ShapeNodeStyle adaptedStyle = new ShapeNodeStyle();
+        adaptedStyle.setPaint(Color.GREEN);
+        adaptedStyle.setPen(Pen.getTransparent());
+
+        NodeStylePortStyleAdapter portStyleAdapter = new NodeStylePortStyleAdapter(adaptedStyle);
+        portStyleAdapter.setRenderSize(new SizeD(7, 7));
+        graph.getNodeDefaults().getPortDefaults().setStyle(portStyleAdapter);
+        // each port needs its own style instance to have its own render size
+        graph.getNodeDefaults().getPortDefaults().setStyleInstanceSharingEnabled(false);
+        // disable removing ports when all attached edges have been removed
+        graph.getNodeDefaults().getPortDefaults().setAutoCleanUpEnabled(false);
+
+        PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
+        edgeStyle.setPen(new Pen(Color.BLACK, 3));
+        graph.getEdgeDefaults().setStyle(edgeStyle);
+    }
+
+
+    private void initializeInputMode() {
+        // create a default editor input mode
+        GraphEditorInputMode geim = new GraphEditorInputMode();
+
+        // ports are preferred for clicks
+        geim.setClickHitTestOrder(new GraphItemTypes[]{
+                GraphItemTypes.PORT,
+                GraphItemTypes.PORT_LABEL,
+                GraphItemTypes.BEND,
+                GraphItemTypes.EDGE_LABEL,
+                GraphItemTypes.EDGE,
+                GraphItemTypes.NODE,
+                GraphItemTypes.NODE_LABEL,
         });
-  }
+        // enable orthogonal edge editing
+        geim.setOrthogonalEdgeEditingContext(new OrthogonalEdgeEditingContext());
 
-  /**
-   * Initializes this demo by configuring the input mode and the model item lookup and creating an example graph
-   * together with an enclosing rectangle some of the nodes may not stretch over.
-   */
-  public void initialize() {
-    // setup the help text on the right side.
-    WebViewUtils.initHelp(help, this);
+        // PortReshapeHandlerProvider considers pressed Ctrl keys. Whenever Ctrl is pressed or released,
+        // we force GraphEditorInputMode to requery the handles of selected items
+        graphControl.addEventHandler(KeyEvent.KEY_PRESSED, this::updateHandles);
+        graphControl.addEventHandler(KeyEvent.KEY_RELEASED, this::updateHandles);
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.rgb(153, 153, 153));
-    graphControl.getGraph().getNodeDefaults().setStyle(nodeStyle);
+        // finally, set the input mode to the graph control.
+        graphControl.setInputMode(geim);
+    }
 
-    // initialize the input mode
-    initializeInputMode();
+    boolean ctrlDown = false;
 
-    // Create the rectangle that limits the movement of some nodes
-    Rectangle boundaryRectangle = new Rectangle(20, 20, 480, 550);
-    // and add it to the GraphControl using a black border and a transparent fill
-    new Pen(Color.BLACK, 2).styleShape(boundaryRectangle);
-    boundaryRectangle.setFill(Color.TRANSPARENT);
-    graphControl.getRootGroup().addChild(boundaryRectangle, ICanvasObjectDescriptor.VISUAL);
+    private void updateHandles(KeyEvent e) {
+        boolean ctrlWasDown = this.ctrlDown;
+        ctrlDown = e.isControlDown();
+        if (ctrlDown != ctrlWasDown && e.getCode() == KeyCode.CONTROL) {
+            // only update handles if a modifier state changed - not on redispatched pressed events
+            ((GraphEditorInputMode) graphControl.getInputMode()).requeryHandles();
+        }
+    }
 
-    registerReshapeHandleProvider(boundaryRectangle);
 
-    // initialize the graph
-    createSampleGraph(graphControl.getGraph());
+    /**
+     * Loads a sample graph.
+     */
+    private void loadGraph() {
+        try {
+            graphControl.importFromGraphML(getClass().getResource("resources/defaultGraph.graphml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    // enable Undo/Redo for all edits after the initial graph has been constructed
-    graphControl.getGraph().setUndoEngineEnabled(true);
-  }
+    /**
+     * Centers the displayed content in the graph component.
+     */
+    public void onLoaded() {
+        graphControl.fitGraphBounds();
+    }
 
-  private void initializeInputMode() {
-    GraphEditorInputMode mode = new GraphEditorInputMode();
-    // do not allow for moving any graph items
-    mode.setMovableItems(GraphItemTypes.NONE);
-    // disable element creation and deletion
-    mode.setCreateNodeAllowed(false);
-    mode.setCreateEdgeAllowed(false);
-    mode.setDeletableItems(GraphItemTypes.NONE);
-    // disable label editing
-    mode.setEditLabelAllowed(false);
-
-    graphControl.setInputMode(mode);
-  }
-  
-  @Override
-  public void onLoaded() {
-    graphControl.fitGraphBounds();
-  }
-  
-  /**
-   * Creates the sample graph with four nodes. Each node has a different color that indicates which {@link
-   * IReshapeHandleProvider} is used.
-   */
-  private void createSampleGraph(IGraph graph) {
-    createNode(graph, new RectD(80, 100, 140, 30), Color.FIREBRICK, Color.WHITESMOKE, "Fixed Size");
-    createNode(graph, new RectD(300, 100, 140, 30), Color.FORESTGREEN, Color.WHITESMOKE, "Keep Aspect Ratio");
-    createNode(graph, new RectD(80, 250, 140, 50), Color.GRAY, Color.WHITESMOKE, "Keep Center");
-    createNode(graph, new RectD(300, 250, 140, 50), Color.PURPLE, Color.WHITESMOKE, "Keep Aspect Ratio\nat corners");
-    createNode(graph, new RectD(80, 410, 140, 30), Color.DARKORANGE, Color.BLACK, "Limited to Rectangle");
-    createNode(graph, new RectD(300, 400, 140, 50), Color.ROYALBLUE, Color.WHITESMOKE,
-        "Limited to Rectangle\nand Keep Aspect Ratio");
-  }
-
-  /**
-   * Creates a sample node for this demo.
-   */
-  private static void createNode(IGraph graph, RectD bounds, Color fillColor, Color textColor, String labelText) {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(fillColor);
-    INode node = graph.createNode(bounds, nodeStyle, fillColor);
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setFont(Font.font("System", FontWeight.BOLD, 12));
-    labelStyle.setTextPaint(textColor);
-    graph.addLabel(node, labelText, InteriorLabelModel.CENTER, labelStyle);
-  }
-
-  public static void main(String[] args) {
-    launch(args);
-  }
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

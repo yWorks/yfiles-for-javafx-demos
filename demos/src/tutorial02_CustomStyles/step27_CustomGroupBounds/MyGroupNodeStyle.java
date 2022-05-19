@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -429,7 +429,7 @@ public class MyGroupNodeStyle extends AbstractNodeStyle {
       if (!color.equals(this.color) || !size.equals(this.size) || collapsed != this.collapsed) {
         // update outer paths
         Paint outerFill = new LinearGradient(0, 0, 0, 1, true, CycleMethod.REPEAT,
-            new Stop(0, ImageSupport.mix(color, Color.WHITE, 0.5)),
+            new Stop(0, mix(color, Color.WHITE, 0.5)),
             new Stop(1, color));
         createOuterPath(size).updatePath(outerPath, IDENTITY);
         outerPath.setFill(outerFill);
@@ -437,7 +437,7 @@ public class MyGroupNodeStyle extends AbstractNodeStyle {
         //////////////// New in this sample ////////////////
         // update inner path only in expanded state
         if (!collapsed) {
-          Paint innerFill = ImageSupport.mix(color, Color.WHITE, 0.1);
+          Paint innerFill = mix(color, Color.WHITE, 0.1);
           createInnerPath(size).updatePath(innerPath, IDENTITY);
           innerPath.setFill(innerFill);
           if (!this.getChildren().contains(innerPath)) {
@@ -459,6 +459,18 @@ public class MyGroupNodeStyle extends AbstractNodeStyle {
         this.size = size;
         this.collapsed = collapsed;
       }
+    }
+
+    /**
+     * Mixes two colors using the provided ratio.
+     */
+    public static final Color mix( Color color0, Color color1, double ratio ) {
+      double iratio = 1 - ratio;
+      double a = Math.min(1, Math.max(0, color0.getOpacity() * ratio + color1.getOpacity() * iratio));
+      double r = Math.min(1, Math.max(0, color0.getRed() * ratio + color1.getRed() * iratio));
+      double g = Math.min(1, Math.max(0, color0.getGreen() * ratio + color1.getGreen() * iratio));
+      double b = Math.min(1, Math.max(0, color0.getBlue() * ratio + color1.getBlue() * iratio));
+      return Color.color(r, g, b, a);
     }
   }
 }

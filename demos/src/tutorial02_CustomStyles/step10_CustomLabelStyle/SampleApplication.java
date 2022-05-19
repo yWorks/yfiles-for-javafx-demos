@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -104,7 +104,7 @@ public class SampleApplication extends Application {
     // create a new style and use it as default label style
 
     //////////////// New in this sample ////////////////
-    ILabelStyle labelStyle = new MyDefaultLabelStyle();
+    ILabelStyle labelStyle = new MySimpleLabelStyle();
     ////////////////////////////////////////////////////
 
     graph.getNodeDefaults().getLabelDefaults().setStyle(labelStyle);

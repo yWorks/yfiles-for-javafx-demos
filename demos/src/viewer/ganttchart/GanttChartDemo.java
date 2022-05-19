@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -60,6 +60,7 @@ import com.yworks.yfiles.view.MouseWheelBehaviors;
 import com.yworks.yfiles.view.NodeStyleDecorationInstaller;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.TextWrapping;
+import com.yworks.yfiles.view.ViewportChanges;
 import com.yworks.yfiles.view.input.CreateEdgeInputMode;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
@@ -316,9 +317,9 @@ public class GanttChartDemo extends DemoApplication {
 
     if (animate && !animations.isEmpty()){
       // create a composite animation that executes all node transitions at the same time
-      IAnimation compositAnimation = IAnimation.createParallelAnimation(animations);
+      IAnimation compositeAnimation = IAnimation.createParallelAnimation(animations);
       // start the animation
-      new Animator(graphControl).animate(compositAnimation, ( sender, args ) -> onDone.run());
+      new Animator(graphControl).animate(compositeAnimation).thenRun(onDone);
     } else {
       onDone.run();
     }
@@ -830,7 +831,7 @@ public class GanttChartDemo extends DemoApplication {
     component.setHorizontalScrollBarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     component.setMouseWheelBehavior(MouseWheelBehaviors.SCROLL);
     component.setMouseWheelScrollFactor(20.0);
-    component.setScrollCommandAnimationEnabled(false);
+    component.setAnimatedViewportChanges(component.getAnimatedViewportChanges().and((ViewportChanges.SCROLL_COMMAND.inverse())));
     component.viewPointProperty().addListener(this::synchronizeComponents);
 
     // install a viewport limiter so it's impossible to scroll out of the graph area

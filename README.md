@@ -54,6 +54,8 @@ library to execute the code.
 |[EdgeBundling](demos/src/layout/edgebundling/)| Demonstrates edge bundling for different layout styles. |
 |[EdgeGrouping](demos/src/layout/edgegrouping/)| Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout. |
 |[FillAreaAfterDeletion](demos/src/layout/fillarea/)| Shows howto fill free space in the graph after deleting nodes. |
+|[NodeTypes](demos/src/layout/nodetypes/)| A demo that shows how different layout algorithms handle nodes with types. |
+|[OrganicSubstructures](demos/src/layout/organicsubstructures/)| Shows how [OrganicLayout](http://docs.yworks.com/yfilesjavafx/doc/api/#/api/com.yworks.yfiles.layout.organic.OrganicLayout) handles substructures and node types. |
 |[PartialLayout](demos/src/layout/partiallayout/)| Shows how to arrange some elements in a graph while keeping other elements fixed. |
 |[PartitionGrid](demos/src/layout/partitiongrid/)| Demonstrates the usage of a `PartitionGrid` for hierarchic and organic layout calculations. |
 |[Sankey](demos/src/layout/sankey/)| Uses Hierarchic Layout to arrange Sankey diagrams. |
@@ -76,11 +78,13 @@ library to execute the code.
 |[DragAndDrop](demos/src/input/draganddrop/)| Shows the drag and drop support provided by yFiles for JavaFX. |
 |[EdgeReconnectionPortCandidateProvider](demos/src/input/edgereconnection/)| Demo code that shows how to customize the reconnection behavior for existing edges. |
 |[LabelHandleProvider](demos/src/input/labelhandleprovider/)| Enable interactive rotating and resizing labels. |
+|[LensInputMode](demos/src/input/lensinputmode/)| This demo shows how to use a specialized LensInputMode to display the part of the graph the pointer is hovering over in a kind of magnifying glass. |
 |[OrthogonalEdges](demos/src/input/orthogonaledges/)| Customize orthogonal edge editing. |
 |[PortCandidateProvider](demos/src/input/portcandidateprovider/)| Customize the ports at which edges connect to nodes. |
 |[PositionHandler](demos/src/input/positionhandler/)| Demo code that shows how to customize the movement behavior of `INode` s. |
 |[ReparentHandler](demos/src/input/reparenthandler/)| Demo code that shows how to customize the reparent gesture in a grouped graph. |
-|[ReshapeHandleProvider](demos/src/input/reshapehandleprovider/)| Customize the reshape behavior of nodes. |
+|[ReshapeHandleProvider](demos/src/input/reshapehandleprovider/)| Implements a custom `IReshapeHandleProvider` . |
+|[ReshapeHandleProviderConfiguration](demos/src/input/reshapehandleproviderconfiguration/)| Customize the reshape behavior of nodes. |
 |[SingleSelection](demos/src/input/singleselection/)| Configure the `GraphEditorInputMode` for single selection mode. |
 |[SizeConstraintProvider](demos/src/input/sizeconstraintprovider/)| Demo code that shows how to customize the resizing behavior of `INode` s. |
   
@@ -116,7 +120,6 @@ library to execute the code.
 |[Folding](demos/src/viewer/folding/)| Shows how to use yFiles [folding](https://docs.yworks.com/yfilesjavafx/doc/api/#/dguide/folding) feature. |
 |[GanttChartDemo](demos/src/viewer/ganttchart/)| Shows how to create a "Gantt chart" with yFiles for JavaFX. |
 |[GraphCopy](demos/src/viewer/graphcopy/)| Shows how to copy a graph or sub graph. |
-|[GraphMLCompatibility](demos/src/viewer/graphmlcompatibility/)| Shows how to enable read compatibility for GraphML files from older versions. |
 |[GraphViewer](demos/src/viewer/graphviewer/)| A viewer which demonstrates different kinds of graphs created with yFiles for JavaFX. |
 |[GridSnapping](demos/src/viewer/gridsnapping/)| Demonstrates how to enable grid snapping functionality for graph elements. |
 |[ImageExport](demos/src/viewer/imageexport/)| Export a graph as a bitmap image. |
@@ -136,6 +139,7 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
+|[CompositeNodeStyle](demos/src/style/compositenodestyle/)| This demo shows how to combine several node styles into one. |
 |[RichTextLabelStyle](demos/src/style/richtextlabelstyle/)| Using the JavaFX 8 Rich Text API in yFiles. |
 |[SimpleCustomStyle](demos/src/style/simplecustomstyle/)| Shows how to implement sophisticated styles for graph objects in yFiles for JavaFX. |
 |[TemplateStyle](demos/src/style/templatestyle/)| Shows how to use `TemplateNodeStyle` and `TemplateLabelStyle` to create complex node and label visualizations using FXML components. |
@@ -162,6 +166,7 @@ library to execute the code.
 |------|-------------|
 |[GraphAnalysis](demos/src/analysis/graphanalysis/)| Algorithms to analyse the structure of a graph in yFiles for JavaFX. |
 |[ShortestPath](demos/src/analysis/shortestpath/)| Usage and visualization of shortest path algorithms in yFiles for JavaFX. |
+|[NetworkFlows](demos/src/analysis/networkflows/)| Usage and visualization of network flow algorithms in yFiles for JavaFX. |
   
 ## [Deployment Demos](demos/src/deploy/)
 
@@ -171,6 +176,8 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
+|[GradleDemo](demos/src-gradle/deploy/gradledemo/)| Demonstrates how to setup a basic yFiles for JavaFX project using Gradle. |
+|[MavenDemo](demos/src-maven/deploy/mavendemo/)| Demonstrates howto setup a basic yFiles for JavaFX project using Apache Maven. |
 |[ObfuscationDemo](demos/src/deploy/obfuscation/)| Demonstrates the obfuscation of an yFiles for JavaFX application via yGuard. |
   
 # Tutorials

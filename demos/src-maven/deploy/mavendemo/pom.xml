@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.5.
+  //
+  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.yworks</groupId>
+  <artifactId>mavendemo</artifactId>
+  <version>1.0.0</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>11.0.2</version>
+      <scope>provided</scope> 
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>11.0.2</version>
+      <scope>provided</scope> 
+    </dependency>
+    <dependency>
+      <groupId>com.yworks.yfiles</groupId>
+      <artifactId>yfiles-for-javafx-complete</artifactId>
+      <version>3.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.yworks</groupId>
+      <artifactId>yguard</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <!--
+  Set property "javafx.jar.classifier" used to build the path to the system dependend openJFX jar files
+  that need to be declared as "externalclasses" in the yGuard obfuscation configuration.
+ -->
+  <profiles>
+    <profile>
+      <id>Linux</id>
+      <activation>
+        <os>
+          <family>unix</family>
+          <name>Linux</name>
+        </os>
+      </activation>
+      <properties>
+        <javafx.jar.classifier>linux</javafx.jar.classifier>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>macOS</id>
+      <activation>
+        <os>
+          <family>mac</family>
+        </os>
+      </activation>
+      <properties>
+        <javafx.jar.classifier>mac</javafx.jar.classifier>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>Windows</id>
+      <activation>
+        <os>
+          <family>windows</family>
+        </os>
+      </activation>
+      <properties>
+        <javafx.jar.classifier>win</javafx.jar.classifier>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+
+      <!-- Used to obtain paths to the system _independend_ openJFX jar files. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Build properties that hold the system _dependend_ openJFX jar paths. -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <id>regex-properties</id>
+            <goals>
+              <goal>regex-properties</goal>
+            </goals>
+            <configuration>
+              <regexPropertySettings>
+                <regexPropertySetting>
+                  <name>javafx.base.jar.path</name>
+                  <value>${org.openjfx:javafx-base:jar}</value>
+                  <regex>\.jar$</regex>
+                  <replacement>-${javafx.jar.classifier}.jar</replacement>
+                  <failIfNoMatch>true</failIfNoMatch>
+                </regexPropertySetting>
+                <regexPropertySetting>
+                  <name>javafx.fxml.jar.path</name>
+                  <value>${org.openjfx:javafx-fxml:jar}</value>
+                  <regex>\.jar$</regex>
+                  <replacement>-${javafx.jar.classifier}.jar</replacement>
+                  <failIfNoMatch>true</failIfNoMatch>
+                </regexPropertySetting>
+                <regexPropertySetting>
+                  <name>javafx.graphics.jar.path</name>
+                  <value>${org.openjfx:javafx-graphics:jar}</value>
+                  <regex>\.jar$</regex>
+                  <replacement>-${javafx.jar.classifier}.jar</replacement>
+                  <failIfNoMatch>true</failIfNoMatch>
+                </regexPropertySetting>
+                <regexPropertySetting>
+                  <name>javafx.controls.jar.path</name>
+                  <value>${org.openjfx:javafx-controls:jar}</value>
+                  <regex>\.jar$</regex>
+                  <replacement>-${javafx.jar.classifier}.jar</replacement>
+                  <failIfNoMatch>true</failIfNoMatch>
+                </regexPropertySetting>
+              </regexPropertySettings>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <release>11</release>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <configuration>
+          <mainClass>mavendemo/mavendemo.MavenDemo</mainClass>
+          <launcher>MavenDemo</launcher>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>mavendemo.MavenDemo</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <id>obfuscate</id>
+            <configuration>
+              <target>
+                <!-- use the compile classpath here, as otherwise the yGuard dependency
+                is not available, as it has been declared as "provided" above -->
+                <property name="runtime_classpath" refid="maven.compile.classpath"/>
+                <taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpath="${runtime_classpath}"/>
+                <yguard>
+                  <inoutpair in="${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar"
+                             out="${project.build.directory}/${project.build.finalName}-jar-with-dependencies_obfuscated.jar"/>
+
+                  <externalclasses>
+                    <pathelement location="${javafx.base.jar.path}"/>
+                    <pathelement location="${javafx.fxml.jar.path}"/>
+                    <pathelement location="${javafx.graphics.jar.path}"/>
+                    <pathelement location="${javafx.controls.jar.path}"/>
+                  </externalclasses>
+
+                  <!-- specifies the obfuscation task and the obfuscation options -->
+                  <rename logfile="target/obfuscation.log" replaceClassNameStrings="true"
+                          mainclass="mavendemo.MavenDemo" annotationclass="com.yworks.yfiles.utils.Obfuscation">
+
+                    <keep>
+                      <class classes="private" methods="private" fields="private">
+                        <patternset>
+                          <include name="mavendemo.**"/>
+                        </patternset>
+                      </class>
+                    </keep>
+                    <!--
+                      make sure that the .properties files are renamed according to their
+                      corresponding class files, yFiles needs this to function properly when obfuscated
+                    -->
+                    <adjust replaceName="true">
+                      <include name="**/*.properties"/>
+                    </adjust>
+                    <!-- replace names in fxml files -->
+                    <adjust replacecontent="true">
+                      <include name="**/*.fxml"/>
+                    </adjust>
+                  </rename>
+                </yguard>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+</project>

@@ -8,3 +8,4 @@
 |------|-------------|
 |[GraphAnalysis](../../src/analysis/graphanalysis/)| Algorithms to analyse the structure of a graph in yFiles for JavaFX. |
 |[ShortestPath](../../src/analysis/shortestpath/)| Usage and visualization of shortest path algorithms in yFiles for JavaFX. |
+|[NetworkFlows](../../src/analysis/networkflows/)| Usage and visualization of network flow algorithms in yFiles for JavaFX. |

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -57,19 +57,17 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
+ * Sample application that demonstrates how to obfuscate a yFiles for JavaFX application.
  * <p>
- *   Obfuscation demo that contains a small sample program and shows how to obfuscate a yFiles for JavaFX application.
- *   For an explanation of the annotation mechanism that is used here, have a look at the yGuard manual at
- *
- *                     https://www.yworks.com/products/yguard/yguard_ant_howto.html#annotation
- *
- *   You can also read this anytime in the demo in the help panel on the right.
- *
- *   Information regarding the build and obfuscation process itself, yGuard and the used mechanisms in this demo
- *   can be found in the description in the build.xml file.
+ * For an explanation of the annotation mechanism demonstrated here, have a look at the yGuard manual at
+ * </p><p>
+ * <a href="https://yworks.github.io/yGuard/task_documentation/#controlling-obfuscation-exclusion-with-annotations">
+ * https://yworks.github.io/yGuard/task_documentation/#controlling-obfuscation-exclusion-with-annotations
+ * </a>
+ * </p><p>
+ * Information regarding the build and obfuscation process itself, yGuard and the used mechanisms in this demo
+ * can be found in the description in the build.xml file.
  * </p>
- *
- * This application class is excluded from obfuscation by declaring it as the main class.
  */
 public class ObfuscationDemo extends Application {
 
@@ -86,13 +84,6 @@ public class ObfuscationDemo extends Application {
    */
   @Obfuscation ( exclude = true )
   public WebView helpView;
-
-  /**
-   * This field is assigned in fxml and therefore needs to be named like this in runtime.
-   * Thus, prevent obfuscation.
-   */
-  @Obfuscation ( exclude = true )
-  public WebView yguardDocView;
 
 
   /**
@@ -113,7 +104,6 @@ public class ObfuscationDemo extends Application {
   public void initialize(){
     // setup the help text on the right side.
     initHelp(helpView, this);
-    yguardDocView.getEngine().load("http://www.yworks.com/products/yguard/yguard_ant_howto.html");
 
     initializeInputModes();
   }

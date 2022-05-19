@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -51,7 +51,7 @@ import java.net.URL;
  * </p>
  */
 public abstract class DemoApplication extends Application {
-  private static final String DEFAULT_CSS_FILE_NAME = "toolkit/DemoApplication.css";
+  private static final String DEFAULT_CSS_FILE_NAME = "toolkit/resources/DemoApplication.css";
 
   @Override
   public void start(Stage primaryStage) throws IOException {

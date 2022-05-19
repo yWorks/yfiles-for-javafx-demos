@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -73,11 +73,14 @@ import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.IPortStyle;
 import com.yworks.yfiles.utils.IEnumerable;
+import com.yworks.yfiles.utils.IList;
 import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.utils.ItemEventArgs;
 import com.yworks.yfiles.view.input.IPositionHandler;
 import com.yworks.yfiles.view.input.IReshapeHandler;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Function;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;

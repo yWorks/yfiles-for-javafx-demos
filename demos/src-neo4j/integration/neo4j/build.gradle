@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -30,6 +30,8 @@
 plugins {
   id 'java'
   id 'application'
+//  for JDK version 17:
+//  id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 version '1.0'
@@ -52,19 +54,22 @@ sourceSets {
       include 'integration/neo4j/**.*'
       include 'resources/logo*.*'
       include 'resources/**.css'
-      include 'toolkit/**.css'
+      include 'toolkit/**/**.css'
       include 'com.yworks.yfiles.javafx.developmentlicense.xml'
     }
   }
 }
 
 application {
-  mainClassName = 'integration.neo4j.Neo4JDemo'
+  mainClass = 'integration.neo4j.Neo4JDemo'
 }
-
 
 dependencies {
-  compile files('../../../../lib/yfiles-for-javafx.jar')
-  compile 'org.neo4j.driver:neo4j-java-driver:1.7.2'
+  implementation files('../../../../lib/yfiles-for-javafx.jar')
+  implementation 'org.neo4j.driver:neo4j-java-driver:4.4.2'
 }
-
+//  for JDK version 17:
+//javafx {
+//  version = "17"
+//  modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.web' ]
+//}

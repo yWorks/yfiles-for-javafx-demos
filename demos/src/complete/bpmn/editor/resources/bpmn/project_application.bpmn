@@ -189,7 +189,7 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_09irfnt_di" bpmnElement="ExclusiveGateway_09irfnt" isMarkerVisible="true">
         <dc:Bounds x="328" y="913" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="310" y="868" width="83" height="40" />
+          <dc:Bounds x="310" y="868" width="94" height="45" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0xwlrm4_di" bpmnElement="SequenceFlow_0xwlrm4">
@@ -239,7 +239,7 @@
       <bpmndi:BPMNShape id="EndEvent_0agkc7r_di" bpmnElement="EndEvent_1qci7d4">
         <dc:Bounds x="1856" y="781" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1835" y="754" width="79" height="27" />
+          <dc:Bounds x="1835" y="754" width="88" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1fy5f9x_di" bpmnElement="SequenceFlow_1fy5f9x">
@@ -260,7 +260,7 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_040cg9l_di" bpmnElement="ExclusiveGateway_040cg9l" isMarkerVisible="true">
         <dc:Bounds x="1571" y="774" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1544" y="754" width="89" height="27" />
+          <dc:Bounds x="1544" y="754" width="99" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1tdw6ts_di" bpmnElement="SequenceFlow_1tdw6ts">
@@ -314,7 +314,7 @@
       <bpmndi:BPMNShape id="IntermediateThrowEvent_07szbwv_di" bpmnElement="IntermediateThrowEvent_07szbwv">
         <dc:Bounds x="582" y="573" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="579" y="536" width="43" height="40" />
+          <dc:Bounds x="579" y="536" width="46" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_02bexrh_di" bpmnElement="Task_02bexrh">
@@ -349,7 +349,7 @@
         <di:waypoint x="795" y="457" />
         <di:waypoint x="850" y="457" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="797" y="415" width="43" height="40" />
+          <dc:Bounds x="797" y="415" width="49" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_09zlc7k_di" bpmnElement="SequenceFlow_09zlc7k">
@@ -357,13 +357,13 @@
         <di:waypoint x="770" y="373" />
         <di:waypoint x="787" y="373" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="707" y="393" width="50" height="40" />
+          <dc:Bounds x="707" y="393" width="56" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateThrowEvent_0c24qin_di" bpmnElement="IntermediateThrowEvent_10chxs3">
         <dc:Bounds x="787" y="355" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="834" y="346" width="52" height="53" />
+          <dc:Bounds x="834" y="346" width="58" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_0qy8pxx_di" bpmnElement="ExclusiveGateway_0qy8pxx" isMarkerVisible="true">
@@ -381,13 +381,13 @@
       <bpmndi:BPMNShape id="IntermediateThrowEvent_0qk7e76_di" bpmnElement="IntermediateThrowEvent_0kvejo4">
         <dc:Bounds x="1316" y="356" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1364" y="355" width="46" height="53" />
+          <dc:Bounds x="1364" y="355" width="54" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_08bcoha_di" bpmnElement="IntermediateThrowEvent_16zlw8t">
         <dc:Bounds x="787" y="148" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="721" y="142" width="52" height="66" />
+          <dc:Bounds x="721" y="142" width="58" height="66" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_06jcy8t_di" bpmnElement="Task_06jcy8t">
@@ -404,7 +404,7 @@
       <bpmndi:BPMNShape id="EndEvent_1y3oj8d_di" bpmnElement="EndEvent_03ijqyl">
         <dc:Bounds x="986" y="148" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1035" y="139" width="52" height="53" />
+          <dc:Bounds x="1035" y="139" width="58" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_0z0frto_di" bpmnElement="Task_0z0frto">
@@ -417,7 +417,7 @@
       <bpmndi:BPMNShape id="IntermediateCatchEvent_1j2xedb_di" bpmnElement="IntermediateThrowEvent_038ey5b">
         <dc:Bounds x="986" y="356" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="979" y="392" width="52" height="53" />
+          <dc:Bounds x="979" y="392" width="58" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1j75dpg_di" bpmnElement="SequenceFlow_1j75dpg">

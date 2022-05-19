@@ -60,7 +60,7 @@
       <bpmndi:BPMNShape id="StartEvent_10d39u7_di" bpmnElement="StartEvent_10d39u7">
         <dc:Bounds x="168" y="199" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="156" y="242" width="60" height="27" />
+          <dc:Bounds x="156" y="242" width="69" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1472ql1_di" bpmnElement="SequenceFlow_1472ql1">
@@ -80,7 +80,7 @@
       <bpmndi:BPMNShape id="EndEvent_13f0tbg_di" bpmnElement="EndEvent_13f0tbg">
         <dc:Bounds x="1364" y="199" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1355" y="242" width="55" height="27" />
+          <dc:Bounds x="1355" y="242" width="63" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0qr2xgh_di" bpmnElement="SequenceFlow_0qr2xgh">
@@ -90,7 +90,7 @@
       <bpmndi:BPMNShape id="StartEvent_1618iuj_di" bpmnElement="StartEvent_1618iuj">
         <dc:Bounds x="325" y="204" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="313" y="247" width="60" height="27" />
+          <dc:Bounds x="313" y="247" width="69" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0yyhkhz_di" bpmnElement="SequenceFlow_0yyhkhz">
@@ -100,7 +100,7 @@
       <bpmndi:BPMNShape id="EndEvent_1vz8dfm_di" bpmnElement="EndEvent_1vz8dfm">
         <dc:Bounds x="561" y="204" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="552" y="247" width="55" height="27" />
+          <dc:Bounds x="552" y="247" width="63" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1kmfr1k_di" bpmnElement="SequenceFlow_1kmfr1k">
@@ -110,7 +110,7 @@
       <bpmndi:BPMNShape id="StartEvent_06r7nvj_di" bpmnElement="StartEvent_06r7nvj">
         <dc:Bounds x="744" y="187" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="732" y="230" width="60" height="27" />
+          <dc:Bounds x="732" y="230" width="69" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1pzqx4c_di" bpmnElement="SequenceFlow_1pzqx4c">
@@ -123,13 +123,13 @@
       <bpmndi:BPMNShape id="EndEvent_1lbvixv_di" bpmnElement="EndEvent_1lbvixv">
         <dc:Bounds x="1238" y="187" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1229" y="230" width="55" height="27" />
+          <dc:Bounds x="1229" y="230" width="63" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_0bv54lm_di" bpmnElement="StartEvent_0bv54lm">
         <dc:Bounds x="847" y="188" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="835" y="231" width="60" height="27" />
+          <dc:Bounds x="835" y="231" width="69" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0psjxjv_di" bpmnElement="SequenceFlow_0psjxjv">
@@ -139,7 +139,7 @@
       <bpmndi:BPMNShape id="EndEvent_1vra3tx_di" bpmnElement="EndEvent_1vra3tx">
         <dc:Bounds x="1083" y="188" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1074" y="231" width="55" height="27" />
+          <dc:Bounds x="1074" y="231" width="63" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0xh78iq_di" bpmnElement="SequenceFlow_0xh78iq">

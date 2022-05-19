@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -53,9 +53,9 @@ import com.yworks.yfiles.layout.ComponentLayout;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LabelPlacements;
 import com.yworks.yfiles.layout.LayoutData;
-import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.PreferredPlacementDescriptor;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
+import com.yworks.yfiles.layout.labeling.LabelingData;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
 import com.yworks.yfiles.layout.organic.OrganicLayoutData;
 import com.yworks.yfiles.layout.organic.Scope;
@@ -239,15 +239,15 @@ public class GraphAnalysisDemo extends DemoApplication {
         new NamedEntry("Algorithm: Page Rank",
             new CentralityConfig(CentralityConfig.AlgorithmType.PAGERANK)),
         new NamedEntry("Algorithm: Chains",
-            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CHAIN_SUBSTRUCTERS)),
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CHAIN_SUBSTRUCTURES)),
         new NamedEntry("Algorithm: Cycles",
-            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CYCLE_SUBSTRUCTERS)),
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CYCLE_SUBSTRUCTURES)),
         new NamedEntry("Algorithm: Stars",
-            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.STAR_SUBSTRUCTERS)),
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.STAR_SUBSTRUCTURES)),
         new NamedEntry("Algorithm: Trees",
-            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.TREE_SUBSTRUCTERS)),
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.TREE_SUBSTRUCTURES)),
         new NamedEntry("Algorithm: Cliques",
-            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CLIQUE_SUBSTRUCTERS))
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CLIQUE_SUBSTRUCTURES))
     );
 
     algorithmComboBox.getSelectionModel().selectFirst();
@@ -395,21 +395,14 @@ public class GraphAnalysisDemo extends DemoApplication {
         mapper.setValue(label, preferredPlacementDescriptor);
       }
     });
-    graph.getMapperRegistry().addMapper(
-        ILabel.class,
-        PreferredPlacementDescriptor.class,
-        LayoutGraphAdapter.EDGE_LABEL_LAYOUT_PREFERRED_PLACEMENT_DESCRIPTOR_DPKEY,
-        mapper
-    );
 
-    graphControl.morphLayout(genericLabeling, Duration.ofMillis(200), (source, args) -> {
+    LabelingData labelingData = new LabelingData();
+    labelingData.setEdgeLabelPreferredPlacement(mapper);
+
+    graphControl.morphLayout(genericLabeling, Duration.ofMillis(200), labelingData, (source, args) -> {
       if (clearUndo) {
         graph.getUndoEngine().clear();
       }
-
-      // clean up data provider
-      graph.getMapperRegistry().removeMapper(OrganicLayout.AFFECTED_NODES_DPKEY);
-      graph.getMapperRegistry().removeMapper(LayoutGraphAdapter.EDGE_LABEL_LAYOUT_PREFERRED_PLACEMENT_DESCRIPTOR_DPKEY);
       incrementalNodesMapper.clear();
 
       enableUI(true);

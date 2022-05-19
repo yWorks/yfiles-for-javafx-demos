@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -90,6 +90,7 @@ import com.yworks.yfiles.view.input.PortCandidateValidity;
 import com.yworks.yfiles.view.input.ReparentNodeHandler;
 import com.yworks.yfiles.view.input.ReparentStripeHandler;
 import com.yworks.yfiles.view.input.SelectionEventArgs;
+import com.yworks.yfiles.view.input.StripeDropInputMode;
 import com.yworks.yfiles.view.input.StripeSubregion;
 import com.yworks.yfiles.view.input.StripeSubregionTypes;
 import com.yworks.yfiles.view.input.TableEditorInputMode;
@@ -873,28 +874,24 @@ public class BpmnEditorDemo extends DemoApplication {
       Dragboard db = container.startDragAndDrop(TransferMode.ANY);
       Map<DataFormat, Object> contentMap = new HashMap<>();
 
-      // we use the nodes string representation as key. that is a good enough estimate for this use case.
-      // On the Stripe- respectively NodeDropInputMode we map this drop id to the IStripe/INode instance
-      String key = item.toString();
       if (item.getTag() instanceof IStripe){
-
         // If the dummy node has a stripe as its tag, we use the stripe directly
         // This allows StripeDropInputMode to take over
+        String key = item.getTag().toString();
         tableEditorInputMode.getStripeDropInputMode().getDropDataMap().put(key, item.getTag());
-
+        // store the key with the data format of the StripeDropInputMode in the content map that is set on the dragboard.
+        contentMap.put(StripeDropInputMode.DATA_FORMAT_DROP_ID, key);
       } else {
-
         // Otherwise, we use a copy of the node and let (hopefully) NodeDropInputMode take over
+        String key = item.toString();
         SimpleNode value = new SimpleNode();
         value.setLayout(item.getLayout());
         value.setStyle((INodeStyle) item.getStyle().clone());
         value.setTag(item.getTag());
         nodeDropInputMode.getDropDataMap().put(key, value);
-
+        // store the key with the data format of the NodeDropInputMode in the content map that is set on the dragboard.
+        contentMap.put(NodeDropInputMode.DATA_FORMAT_DROP_ID, key);
       }
-      // store the key with the data format of the NodeDropInputMode in the content map that is set on the dragboard.
-      contentMap.put(NodeDropInputMode.DATA_FORMAT_DROP_ID, key);
-
       db.setContent(contentMap);
       // to prevent a semi-transparent paper appears above the dragged node on MacOSX,
       // we set the drag view to a blank image
@@ -1034,7 +1031,7 @@ public class BpmnEditorDemo extends DemoApplication {
     layoutExecutor.getTableLayoutConfigurator().setHorizontalLayoutEnabled(true);
     layoutExecutor.getTableLayoutConfigurator().setFromSketchEnabled(true);
     // The BpmnLayoutData provides information about the BPMN node and edge types to the layout algorithm.
-    layoutExecutor.setLayoutData(new BpmnLayoutData());
+    layoutExecutor.setLayoutData(new BpmnLayoutData().create(graphControl.getGraph(), graphControl.getSelection(), bpmnLayout.getScope()));
     layoutExecutor.addLayoutFinishedListener((source, args) -> setUIEnabled(true));
 
     layoutExecutor.start();

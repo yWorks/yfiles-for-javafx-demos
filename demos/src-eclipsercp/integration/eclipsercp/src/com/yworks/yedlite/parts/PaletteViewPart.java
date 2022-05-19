@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -200,7 +200,7 @@ public class PaletteViewPart {
 
       GraphControl control = new GraphControl();
       IGraph graph = control.getGraph();
-      ContextConfigurator cc = new ContextConfigurator(null);
+      ContextConfigurator cc = new ContextConfigurator(RectD.EMPTY);
 
       // each displayed button is assigned a unique identifier
       // (the button's data) in the loop below; additionally, this

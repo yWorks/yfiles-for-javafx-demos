@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -33,12 +33,12 @@ import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.graphml.GraphML;
 
 /**
- * A wrapper for {@link Employee} that holds several additional information about the
- * Employee:
+ * A wrapper for {@link Employee} that holds several additional information
+ * about the employee:
  * <ul>
- *   <li>If he is an assistant</li>
- *   <li>If he is vacant.</li>
- *   <li>The {@link EmployeeLayout} to use for the Employee</li>
+ *   <li>If the employee is an assistant</li>
+ *   <li>If employee is vacant.</li>
+ *   <li>The {@link EmployeeLayout} to use for the employee</li>
  * </ul>
  */
 @GraphML(contentProperty = "Employee")

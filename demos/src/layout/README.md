@@ -15,6 +15,8 @@
 |[EdgeBundling](../../src/layout/edgebundling/)| Demonstrates edge bundling for different layout styles. |
 |[EdgeGrouping](../../src/layout/edgegrouping/)| Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout. |
 |[FillAreaAfterDeletion](../../src/layout/fillarea/)| Shows howto fill free space in the graph after deleting nodes. |
+|[NodeTypes](../../src/layout/nodetypes/)| A demo that shows how different layout algorithms handle nodes with types. |
+|[OrganicSubstructures](../../src/layout/organicsubstructures/)| Shows how [OrganicLayout](http://docs.yworks.com/yfilesjavafx/doc/api/#/api/com.yworks.yfiles.layout.organic.OrganicLayout) handles substructures and node types. |
 |[PartialLayout](../../src/layout/partiallayout/)| Shows how to arrange some elements in a graph while keeping other elements fixed. |
 |[PartitionGrid](../../src/layout/partitiongrid/)| Demonstrates the usage of a `PartitionGrid` for hierarchic and organic layout calculations. |
 |[Sankey](../../src/layout/sankey/)| Uses Hierarchic Layout to arrange Sankey diagrams. |

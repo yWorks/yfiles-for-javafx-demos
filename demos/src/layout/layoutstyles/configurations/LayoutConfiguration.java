@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -32,7 +32,9 @@ package layout.layoutstyles.configurations;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.labelmodels.FreeEdgeLabelModel;
+import com.yworks.yfiles.layout.GenericLayoutData;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.ItemMapping;
 import com.yworks.yfiles.layout.LabelAngleReferences;
 import com.yworks.yfiles.layout.LabelPlacements;
 import com.yworks.yfiles.layout.LayoutData;
@@ -40,6 +42,7 @@ import com.yworks.yfiles.layout.LayoutEventArgs;
 import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.MinimumNodeSizeStage;
+import com.yworks.yfiles.layout.PortAdjustmentPolicy;
 import com.yworks.yfiles.layout.PreferredPlacementDescriptor;
 import com.yworks.yfiles.utils.IEventHandler;
 import com.yworks.yfiles.view.GraphControl;
@@ -48,6 +51,9 @@ import javafx.scene.control.Alert;
 import layout.LayoutFinishedListeners;
 
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.function.Function;
 
 /**
  * Abstract base class for configurations that can be displayed in an option editor.
@@ -73,24 +79,34 @@ public abstract class LayoutConfiguration {
    * @param graphControl The {@code GraphControl} to apply the configuration on.
    * @param doneHandler A callback that is called after the configuration is applied. Can be {@code null}
    */
-  public void apply( final GraphControl graphControl, final Runnable doneHandler ) {
+  public CompletionStage apply( final GraphControl graphControl, final Runnable doneHandler ) {
     if (layoutRunning) {
-      Platform.runLater(doneHandler);
-      return;
+      CompletableFuture future = new CompletableFuture();
+      Platform.runLater(() -> {
+        doneHandler.run();
+        future.complete(null);
+      });
+      return future;
     }
 
     ILayoutAlgorithm layout = createConfiguredLayout(graphControl);
     if (layout == null) {
-      Platform.runLater(doneHandler);
-      return;
+      CompletableFuture future = new CompletableFuture();
+      Platform.runLater(() -> {
+        doneHandler.run();
+        future.complete(null);
+      });
+      return future;
     }
 
     LayoutData layoutData = createConfiguredLayoutData(graphControl, layout);
 
     // configure the LayoutExecutor
     LayoutExecutor layoutExecutor = new LayoutExecutor(graphControl, new MinimumNodeSizeStage(layout));
-    layoutExecutor.setDuration(Duration.ofSeconds(1));
+    layoutExecutor.setDuration(Duration.ofMillis(750));
     layoutExecutor.setViewportAnimationEnabled(true);
+    layoutExecutor.setEasedAnimationEnabled(true);
+    layoutExecutor.setPortAdjustmentPolicy(PortAdjustmentPolicy.LENGTHEN);
     // set the cancel duration for the layout computation to 20s
     layoutExecutor.getAbortHandler().setCancelDuration(Duration.ofSeconds(20));
 
@@ -99,16 +115,16 @@ public abstract class LayoutConfiguration {
       layoutExecutor.setLayoutData(layoutData);
     }
 
-    layoutExecutor.addLayoutFinishedListener(new IEventHandler<LayoutEventArgs>(){
-      public void onEvent( Object sender, LayoutEventArgs args ) {
-        layoutRunning = false;
-        postProcess(graphControl);
-        doneHandler.run();
-      }
+    layoutExecutor.addLayoutFinishedListener((sender, args) -> {
+      layoutRunning = false;
+      postProcess(graphControl);
+      // clean up mapperRegistry
+      graphControl.getGraph().getMapperRegistry().removeMapper(LayoutGraphAdapter.EDGE_LABEL_LAYOUT_PREFERRED_PLACEMENT_DESCRIPTOR_DPKEY);
+      doneHandler.run();
     });
 
     // start the LayoutExecutor
-    layoutExecutor.start();
+    return layoutExecutor.start();
   }
 
   /**
@@ -143,22 +159,30 @@ public abstract class LayoutConfiguration {
    * given graph. In addition, sets the label model of all edge labels to free since that model can realizes any label
    * placement calculated by a layout algorithm.
    */
-  public static final void addPreferredPlacementDescriptor( IGraph graph, EnumLabelPlacementAlongEdge placeAlongEdge, EnumLabelPlacementSideOfEdge sideOfEdge, EnumLabelPlacementOrientation orientation, double distanceToEdge ) {
+  public final LayoutData createLabelingLayoutData( IGraph graph, EnumLabelPlacementAlongEdge placeAlongEdge, EnumLabelPlacementSideOfEdge sideOfEdge, EnumLabelPlacementOrientation orientation, double distanceToEdge ) {
+    final PreferredPlacementDescriptor descriptor = createPreferredPlacementDescriptor(placeAlongEdge, sideOfEdge, orientation, distanceToEdge);
 
+    // change to a free edge label model to support integrated edge labeling
     FreeEdgeLabelModel model = new FreeEdgeLabelModel();
-    PreferredPlacementDescriptor descriptor = createPreferredPlacementDescriptor(placeAlongEdge, sideOfEdge, orientation, distanceToEdge);
-
-    graph.getMapperRegistry().createConstantMapper(ILabel.class, PreferredPlacementDescriptor.class, LayoutGraphAdapter.EDGE_LABEL_LAYOUT_PREFERRED_PLACEMENT_DESCRIPTOR_DPKEY, descriptor);
 
     for (ILabel label : graph.getEdgeLabels()) {
-      graph.setLabelLayoutParameter(label, model.findBestParameter(label, model, label.getLayout()));
+      if (!(label.getLayoutParameter().getModel() instanceof FreeEdgeLabelModel)) {
+        graph.setLabelLayoutParameter(label, model.findBestParameter(label, model, label.getLayout()));
+      }
     }
+
+    GenericLayoutData layoutData = new GenericLayoutData();
+    ItemMapping<ILabel, PreferredPlacementDescriptor> preferredPlacementDescriptorMapping = new ItemMapping<>();
+    preferredPlacementDescriptorMapping.setConstant(descriptor);
+    layoutData.addItemMapping(PreferredPlacementDescriptor.class, LayoutGraphAdapter.EDGE_LABEL_LAYOUT_PREFERRED_PLACEMENT_DESCRIPTOR_DPKEY, preferredPlacementDescriptorMapping);
+
+    return layoutData;
   }
 
   /**
    * Creates a new {@link PreferredPlacementDescriptor} that matches the given settings.
    */
-  public static final PreferredPlacementDescriptor createPreferredPlacementDescriptor( EnumLabelPlacementAlongEdge placeAlongEdge, EnumLabelPlacementSideOfEdge sideOfEdge, EnumLabelPlacementOrientation orientation, double distanceToEdge ) {
+  public final PreferredPlacementDescriptor createPreferredPlacementDescriptor( EnumLabelPlacementAlongEdge placeAlongEdge, EnumLabelPlacementSideOfEdge sideOfEdge, EnumLabelPlacementOrientation orientation, double distanceToEdge ) {
     PreferredPlacementDescriptor descriptor = new PreferredPlacementDescriptor();
 
     switch (sideOfEdge) {
@@ -214,13 +238,39 @@ public abstract class LayoutConfiguration {
         descriptor.setAngleReference(LabelAngleReferences.ABSOLUTE);
         break;
       case VERTICAL:
-        descriptor.setAngle(90.0d);
+        descriptor.setAngle(Math.PI / 2);
         descriptor.setAngleReference(LabelAngleReferences.ABSOLUTE);
         break;
     }
 
     descriptor.setDistanceToEdge(distanceToEdge);
     return descriptor;
+  }
+
+  public enum EdgeLabeling {
+    NONE(0),
+
+    INTEGRATED(1),
+
+    GENERIC(2);
+
+    private final int value;
+
+    private EdgeLabeling( final int value ) {
+      this.value = value;
+    }
+
+    public int value() {
+      return this.value;
+    }
+
+    public static final EdgeLabeling fromOrdinal( int ordinal ) {
+      for (EdgeLabeling current : values()) {
+        if (ordinal == current.value) return current;
+      }
+      throw new IllegalArgumentException("Enum has no value " + ordinal);
+    }
+
   }
 
   /**

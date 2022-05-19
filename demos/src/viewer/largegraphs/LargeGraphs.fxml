@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.4.
+  // This demo file is part of yFiles for JavaFX 3.5.
   //
-  // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -216,7 +216,7 @@
           <CheckBox fx:id="customSelectionDecorationCB" text="Enable custom selection decoration" selected="true" onAction="#applyState">
             <tooltip><Tooltip text="Uses faster implementations for the selection decoration"/> </tooltip>
           </CheckBox>
-          <CheckBox fx:id="labelModelBakingCB" text="Enable label model baking" onAction="#applyState">
+          <CheckBox fx:id="fixLabelPositionsCB" text="Fix Label Positions" onAction="#applyState">
             <tooltip><Tooltip text="Fixes the position of labels on the canvas which makes calculating their position much cheaper"/> </tooltip>
           </CheckBox>
         </VBox>

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -39,35 +39,37 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 /**
- * Configuration Dialog for the Neo4j data base.
+ * Configuration Dialog for the Neo4j database.
  */
-public class Neo4jConfigurationDialog extends Dialog<String[]> {
+public class Neo4jConfigurationDialog extends Dialog<DBInformation> {
 
   public Neo4jConfigurationDialog() {
     try {
-      DialogPane dialog = (DialogPane) FXMLLoader.load(getClass().getResource("Neo4jConfigurationDialog.fxml"));
-      dialog.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+      DialogPane dialog = FXMLLoader.load(getClass().getResource("Neo4jConfigurationDialog.fxml"));
+      dialog.getButtonTypes().addAll(ButtonType.OK);
       setDialogPane(dialog);
       setTitle("Neo4j configuration");
 
-      final TextField urlFld = (TextField) dialog.lookup("#urlField");
-      final TextField usernameFld = (TextField) dialog.lookup("#usernameField");
-      final TextField passwordFld = (TextField) dialog.lookup("#passwordField");
-      // return the configuration as String[]
+      TextField dbUrlFld = (TextField) dialog.lookup("#dbUrlField");
+      TextField dbNameFld = (TextField) dialog.lookup("#dbNameField");
+      TextField usernameFld = (TextField) dialog.lookup("#usernameField");
+      TextField passwordFld = (TextField) dialog.lookup("#passwordField");
+
       setResultConverter((buttonType) -> {
         if (buttonType != ButtonType.OK) {
           return null;
         }
-        String url = urlFld.getText();
+        String dbUrl = dbUrlFld.getText();
+        String dbName = dbNameFld.getText();
         String userName = usernameFld.getText();
         String password = passwordFld.getText();
-        if (url.length() > 0 && userName.length() > 0 && password.length() > 0) {
-          return new String[]{url, userName, password};
+        if (dbUrl.length() > 0 && userName.length() > 0 && password.length() > 0) {
+          return new DBInformation(dbUrl, dbName, userName, password);
         } else {
           return null;
         }
       });
-      Platform.runLater(() -> passwordFld.requestFocus());
+      Platform.runLater(passwordFld::requestFocus);
     } catch (IOException e) {
       throw new IllegalStateException("Could not initialize Neo4jConfigurationDialog.", e);
     }

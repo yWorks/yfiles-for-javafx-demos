@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -139,8 +139,6 @@ public class OrthogonalLayoutConfig extends LayoutConfiguration {
     layout.setTreeSize(getTreeSubstructureSizeItem());
     layout.setTreeOrientation(getTreeSubstructureOrientationItem());
 
-    addPreferredPlacementDescriptor(graphControl.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
-
     return layout;
   }
 
@@ -152,7 +150,8 @@ public class OrthogonalLayoutConfig extends LayoutConfiguration {
     } else {
       layoutData.setDirectedEdges(edge -> false);
     }
-    return layoutData;
+
+    return layoutData.combineWith(createLabelingLayoutData(graphControl.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
   }
 
   @Label("Description")

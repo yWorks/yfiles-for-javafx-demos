@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -376,14 +376,14 @@ public class DragAndDropDemo extends DemoApplication {
       // when the user starts dragging a node in the palette, setup the DnD information
       cell.setOnDragDetected(event -> {
         // start the drag
-        Dragboard db = palette.startDragAndDrop(TransferMode.ANY);
+        Dragboard db = cell.startDragAndDrop(TransferMode.ANY);
         Map<DataFormat, Object> contentMap = new HashMap<>();
 
         // use the name of the selected template as content.
         contentMap.put(DropInputMode.DATA_FORMAT_DROP_ID, palette.getSelectionModel().getSelectedItem().name());
         db.setContent(contentMap);
-        // to prevent a semi-transparent paper appears above the dragged node on MacOSX,
-        // we set the drag view to a blank image
+        // to prevent a semi-transparent paper from appearing above the dragged
+        // node on MacOSX, we set the drag view to a blank image
         db.setDragView(EMPTY_IMAGE);
         event.consume();
       });

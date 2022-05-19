@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -106,11 +106,11 @@ public class SimpleCustomStyleDemo extends DemoApplication {
     graph.getEdgeDefaults().getPortDefaults().setStyle(new MySimplePortStyle());
 
     // create a new style and use it as default label style
-    graph.getNodeDefaults().getLabelDefaults().setStyle(new MyDefaultLabelStyle());
+    graph.getNodeDefaults().getLabelDefaults().setStyle(new MySimpleLabelStyle());
     ExteriorLabelModel labelModel = new ExteriorLabelModel();
     labelModel.setInsets(new InsetsD(15));
     graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(labelModel.createParameter(ExteriorLabelModel.Position.NORTH));
-    graph.getEdgeDefaults().getLabelDefaults().setStyle(new MyDefaultLabelStyle());
+    graph.getEdgeDefaults().getLabelDefaults().setStyle(new MySimpleLabelStyle());
 
     // create a new style and use it as default port style
     graph.getNodeDefaults().getPortDefaults().setStyle(new MySimplePortStyle());

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -62,7 +62,7 @@ import com.yworks.yfiles.layout.PortSide;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
-import com.yworks.yfiles.layout.router.polyline.PolylineEdgeRouterData;
+import com.yworks.yfiles.layout.router.polyline.EdgeRouterData;
 import com.yworks.yfiles.view.CanvasControl;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.Pen;
@@ -461,7 +461,7 @@ public class LogicGateDemo extends DemoApplication {
     EdgeRouter er = new EdgeRouter();
     er.setNodeLabelConsiderationEnabled(true);
 
-    PolylineEdgeRouterData erData = new PolylineEdgeRouterData();
+    EdgeRouterData erData = new EdgeRouterData();
     configurePortConstraints(erData);
 
     applyLayout(er, erData, false);
@@ -486,8 +486,8 @@ public class LogicGateDemo extends DemoApplication {
       HierarchicLayoutData hlData = (HierarchicLayoutData) layoutData;
       hlData.setSourcePortConstraints(sourceFunction);
       hlData.setTargetPortConstraints(targetFunction);
-    } else if (layoutData instanceof PolylineEdgeRouterData) {
-      PolylineEdgeRouterData erData = (PolylineEdgeRouterData) layoutData;
+    } else if (layoutData instanceof EdgeRouterData) {
+      EdgeRouterData erData = (EdgeRouterData) layoutData;
       erData.setSourcePortConstraints(sourceFunction);
       erData.setTargetPortConstraints(targetFunction);
     }

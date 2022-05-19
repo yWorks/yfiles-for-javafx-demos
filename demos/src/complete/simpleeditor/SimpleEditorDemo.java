@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -75,6 +75,8 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.print.PrinterJob;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
@@ -512,6 +514,10 @@ public class SimpleEditorDemo extends DemoApplication {
   private boolean executePrintCommand(ICommand command, Object param, Object sender) {
     CanvasPrinter canvasPrinter = new CanvasPrinter(graphControl);
     PrinterJob job = PrinterJob.createPrinterJob();
+    if (job == null) {
+      new Alert(Alert.AlertType.WARNING, "Could not print.", ButtonType.CLOSE).show();
+      return false;
+    }
     boolean success = canvasPrinter.print(job, true);
     if (success) {
       job.endJob();
@@ -525,7 +531,7 @@ public class SimpleEditorDemo extends DemoApplication {
   private boolean canExecutePrintCommand(ICommand command, Object param, Object sender) {
     // don't allow printing empty graphs
     IGraph graph = graphControl.getGraph();
-    return !waitInputMode.isWaiting() && graph != null && graph.getNodes().size() != 0 && PrinterJob.createPrinterJob() != null;
+    return !waitInputMode.isWaiting() && graph != null && graph.getNodes().size() != 0;
   }
 
 

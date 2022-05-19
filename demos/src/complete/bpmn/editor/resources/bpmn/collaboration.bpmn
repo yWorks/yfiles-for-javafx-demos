@@ -207,7 +207,7 @@
         <di:waypoint x="336" y="181" />
         <di:waypoint x="336" y="270" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="346" y="220" width="56" height="14" />
+          <dc:Bounds x="346" y="220" width="58" height="15" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_1vosnxz_di" bpmnElement="MessageFlow_1vosnxz">
@@ -221,35 +221,35 @@
         <di:waypoint x="637" y="270" />
         <di:waypoint x="637" y="181" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="642" y="220" width="45" height="14" />
+          <dc:Bounds x="642" y="220" width="52" height="15" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_0c3b78d_di" bpmnElement="MessageFlow_0c3b78d">
         <di:waypoint x="764" y="269" />
         <di:waypoint x="764" y="181" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="715" y="217" width="46" height="14" />
+          <dc:Bounds x="715" y="217" width="50" height="15" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_1pgw8o5_di" bpmnElement="MessageFlow_1pgw8o5">
         <di:waypoint x="807" y="181" />
         <di:waypoint x="807" y="270" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="814" y="219" width="43" height="14" />
+          <dc:Bounds x="814" y="219" width="43" height="15" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_1kszyaz_di" bpmnElement="MessageFlow_1kszyaz">
         <di:waypoint x="937" y="270" />
         <di:waypoint x="937" y="181" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="942" y="204" width="62" height="40" />
+          <dc:Bounds x="942" y="204" width="70" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_0r2ml3e_di" bpmnElement="MessageFlow_0r2ml3e">
         <di:waypoint x="1086" y="181" />
         <di:waypoint x="1086" y="270" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1093" y="200" width="62" height="53" />
+          <dc:Bounds x="1093" y="200" width="70" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

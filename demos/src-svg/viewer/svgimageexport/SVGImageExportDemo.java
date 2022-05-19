@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -39,7 +39,6 @@ import com.yworks.yfiles.view.ContextConfigurator;
 
 import org.apache.batik.dom.svg.SVGDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
-import org.apache.batik.util.XMLConstants;
 import org.jfxconverter.JFXConverter;
 import org.jfxconverter.drivers.svg.ConvertorSVGGraphics2D;
 import org.w3c.dom.svg.SVGDocument;
@@ -92,7 +91,7 @@ import org.w3c.dom.Element;
  * <p>
  * The demo uses patched versions of the Batik SVG, JFXConverter and MDIUtilities libraries available on the yFiles website:
  * <ul>
- *   <li><a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.0.0.1/batik.jar">Batik</a></li>
+ *   <li><a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.5/batik.jar">Batik</a></li>
  *   <li><a href="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/JFXConverter.jar">JFXConverter</a></li>
  *   <li><a href="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/MDIUtilities-core-LGPL.jar">MDIUtilities-core-LGPL</a></li>
  *   <li><a href="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/MDIUtilities-ui-LGPL.jar">MDIUtilities-ui-LGPL</a></li>
@@ -229,8 +228,8 @@ public class SVGImageExportDemo extends AbstractImageExportDemo {
     svgGraphics2D.dispose();
 
     Element svgRoot = svgGraphics2D.getRoot(doc.getDocumentElement());
-    svgRoot.setAttributeNS(XMLConstants.XMLNS_NAMESPACE_URI, XMLConstants.XMLNS_PREFIX + ":"
-        + XMLConstants.XLINK_PREFIX, XMLConstants.XLINK_NAMESPACE_URI);
+    svgRoot.setAttributeNS(
+      "http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
     svgRoot.setAttribute("width", "" + cnfg.getViewWidth());
     svgRoot.setAttribute("height", "" + cnfg.getViewHeight());
     return svgRoot;

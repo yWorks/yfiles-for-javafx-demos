@@ -1,13 +1,18 @@
 <html>
 <head>
-  <link rel="stylesheet" href="../../../resources/help.css"/>
+  <link rel="stylesheet" href="./resources/help.css"/>
 </head>
 <body class="demo-description">
 <p>
-  This demo shows how to obfuscate an yFiles for JavaFX application.
-  The obfuscation is done using yGuard, the free
-  bytecode obfuscator that is available at
-  <a href="https://www.yworks.com/products/yguard">https://www.yworks.com/products/yguard</a>.
+  This demo shows how to obfuscate a yFiles for JavaFX application.
+  <br>
+  The obfuscation is done using yGuard, the free bytecode obfuscator that is
+  available at
+  <a href="https://github.com/yWorks/yGuard">github.com/yWorks/yGuard</a>.
+  <br>
+  Please see the yGuard documentation hosted at
+  <a href="https://yworks.github.io/yGuard/">yworks.github.io/yGuard</a>
+  for further information on how to configure and use yGuard.
 </p>
 
 <h2>Obfuscation</h2>
@@ -28,8 +33,9 @@
   Since some names need to be kept at runtime in order for Java(FX)
   applications to work, yGuard provides several mechanisms to control
   the obfuscation process. In this demo, annotations are used for this.
-  For a fully documentation of the annotation mechanism click
-  on the <i>yGuard</i> tab above or visit our website at <a href="https://www.yworks.com">www.yworks.com</a>.
+  Please see
+  <a href="https://yworks.github.io/yGuard/task_documentation/#controlling-obfuscation-exclusion-with-annotations">Controlling obfuscation exclusion with annotations</a>
+  in the yGuard documentation for further information.
 </p>
 
 <h2>The Demo Application</h2>
@@ -37,7 +43,7 @@
   A simple <code>GraphControl</code> is shown
   that has a JavaFX rectangle in the background. The rectangle
   is positioned and sized to match the content rectangle of the
-  GraphControl. This is entirely done using fxml and data binding.
+  GraphControl. This is entirely done using FXML and data binding.
 </p>
 <h2>Things to try</h2>
 <ul>
@@ -45,7 +51,7 @@
     Create new nodes and see how the background rectangle resizes and repositions accordingly.
   </li>
   <li>
-    Pan and zoom in the GraphControl to see that that the background rectangle also zooms and
+    Pan and zoom in the GraphControl to see that the background rectangle also zooms and
     repositions accordingly.
   </li>
   <li>
@@ -54,9 +60,6 @@
   </li>
   <li>
     Run the <code>show</code> ant task to inspect the obfuscation.
-  </li>
-  <li>
-    Switch to the <i>yGuard</i> tab to have a look at the yGuard documentation.
   </li>
 </ul>
 </body>

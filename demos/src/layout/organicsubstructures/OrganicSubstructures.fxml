@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.5.
+  //
+  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<?import com.yworks.yfiles.layout.organic.CycleSubstructureStyle?>
+<?import com.yworks.yfiles.layout.organic.ChainSubstructureStyle?>
+<?import com.yworks.yfiles.layout.organic.StarSubstructureStyle?>
+<?import com.yworks.yfiles.layout.organic.ParallelSubstructureStyle?>
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import toolkit.CommandButton?>
+<?import toolkit.IconProvider?>
+<?import toolkit.TooltipProvider?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+<?import java.lang.Double?>
+<?import java.lang.Integer?>
+<?import java.lang.String?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+  <fx:define>
+    <Double fx:id="sectionOffsetY" fx:value="20"/>
+    <Double fx:id="itemOffsetY" fx:value="2"/>
+    <Double fx:id="labelOffsetX" fx:value="5"/>
+    <Integer fx:id="labelIdx" fx:value="0"/>
+    <Integer fx:id="styleEditorIdx" fx:value="2"/>
+    <Integer fx:id="flagEditorIdx" fx:value="2"/>
+  </fx:define>
+
+  <left>
+    <TitledPane
+          VBox.vgrow="ALWAYS"
+          animated="false"
+          collapsible="false"
+          maxHeight="Infinity"
+          text="Layout Settings">
+      <VBox>
+        <BorderPane.margin>
+          <Insets left="5" bottom="5" right="5"/>
+        </BorderPane.margin>
+
+        <Label
+         text="Sample Graph"
+         style="-fx-font-size: 14.0; -fx-font-weight: bold;">
+        </Label>
+        <ComboBox
+         fx:id="samples"
+         maxWidth="Infinity">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="mixed_large"/>
+              <String fx:value="mixed_small"/>
+              <String fx:value="parallel"/>
+              <String fx:value="star"/>
+              <String fx:value="computer_network"/>
+            </FXCollections>
+          </items>
+          <value>
+            <String fx:value="mixed_large"/>
+          </value>
+        </ComboBox>
+
+
+        <Label
+         text="Substructure Layout"
+         style="-fx-font-size: 14.0; -fx-font-weight: bold;">
+          <VBox.margin>
+            <Insets top="$sectionOffsetY"/>
+          </VBox.margin>
+        </Label>
+
+        <GridPane>
+          <Label
+           text="Cycles"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="0">
+            <GridPane.margin>
+              <Insets right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <Pane
+           GridPane.columnIndex="1"
+           GridPane.rowIndex="0"
+           GridPane.hgrow="ALWAYS"/>
+          <ComboBox
+           fx:id="cycleStyles"
+           maxWidth="Infinity"
+           GridPane.columnIndex="$styleEditorIdx"
+           GridPane.rowIndex="0">
+            <GridPane.margin>
+              <Insets/>
+            </GridPane.margin>
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <CycleSubstructureStyle fx:value="NONE"/>
+                <CycleSubstructureStyle fx:value="CIRCULAR"/>
+                <CycleSubstructureStyle fx:value="CIRCULAR_NESTED"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+
+          <Label
+           text="Chains"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="1">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY" right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <ComboBox
+           fx:id="chainStyles"
+           maxWidth="Infinity"
+           GridPane.columnIndex="$styleEditorIdx"
+           GridPane.rowIndex="1">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY"/>
+            </GridPane.margin>
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <ChainSubstructureStyle fx:value="NONE"/>
+                <ChainSubstructureStyle fx:value="RECTANGULAR"/>
+                <ChainSubstructureStyle fx:value="RECTANGULAR_NESTED"/>
+                <ChainSubstructureStyle fx:value="STRAIGHT_LINE"/>
+                <ChainSubstructureStyle fx:value="STRAIGHT_LINE_NESTED"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+
+          <Label
+           text="Star"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="2">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY" right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <ComboBox
+           fx:id="starStyles"
+           maxWidth="Infinity"
+           GridPane.columnIndex="$styleEditorIdx"
+           GridPane.rowIndex="2">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY"/>
+            </GridPane.margin>
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <StarSubstructureStyle fx:value="NONE"/>
+                <StarSubstructureStyle fx:value="RADIAL"/>
+                <StarSubstructureStyle fx:value="RADIAL_NESTED"/>
+                <StarSubstructureStyle fx:value="SEPARATED_RADIAL"/>
+                <StarSubstructureStyle fx:value="CIRCULAR"/>
+                <StarSubstructureStyle fx:value="CIRCULAR_NESTED"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+
+          <Label
+           text="Parallel"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="3">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY" right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <ComboBox
+           fx:id="parallelStyles"
+           maxWidth="Infinity"
+           GridPane.columnIndex="$styleEditorIdx"
+           GridPane.rowIndex="3">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY"/>
+            </GridPane.margin>
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <ParallelSubstructureStyle fx:value="NONE"/>
+                <ParallelSubstructureStyle fx:value="RECTANGULAR"/>
+                <ParallelSubstructureStyle fx:value="RADIAL"/>
+                <ParallelSubstructureStyle fx:value="STRAIGHT_LINE"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+        </GridPane>
+
+        <GridPane>
+          <Label
+           text="Use Edge Grouping"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="0">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY" right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <Pane
+           GridPane.columnIndex="1"
+           GridPane.rowIndex="0"
+           GridPane.hgrow="ALWAYS"/>
+          <CheckBox
+           fx:id="useEdgeGrouping"
+           GridPane.columnIndex="$flagEditorIdx"
+           GridPane.rowIndex="0">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY"/>
+            </GridPane.margin>
+          </CheckBox>
+
+          <Label
+           text="Node Types"
+           style="-fx-font-size: 14.0; -fx-font-weight: bold;"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.columnSpan="3"
+           GridPane.rowIndex="1">
+            <GridPane.margin>
+              <Insets top="$sectionOffsetY"/>
+            </GridPane.margin>
+          </Label>
+
+          <Label
+           text="Consider Node Types"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="2">
+            <GridPane.margin>
+              <Insets right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <Pane
+           GridPane.columnIndex="1"
+           GridPane.rowIndex="2"
+           GridPane.hgrow="ALWAYS"/>
+          <CheckBox
+           fx:id="considerNodeTypes"
+           GridPane.columnIndex="$flagEditorIdx"
+           GridPane.rowIndex="2"/>
+
+          <Label
+           text="Separate Parallel Structures by Type"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="3">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY" right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <CheckBox
+           fx:id="separateParallel"
+           GridPane.columnIndex="$flagEditorIdx"
+           GridPane.rowIndex="3">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY"/>
+            </GridPane.margin>
+          </CheckBox>
+
+          <Label
+           text="Separate Star Structures by Type"
+           GridPane.columnIndex="$labelIdx"
+           GridPane.rowIndex="4">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY" right="$labelOffsetX"/>
+            </GridPane.margin>
+          </Label>
+          <CheckBox
+           fx:id="separateStar"
+           GridPane.columnIndex="$flagEditorIdx"
+           GridPane.rowIndex="4">
+            <GridPane.margin>
+              <Insets top="$itemOffsetY"/>
+            </GridPane.margin>
+          </CheckBox>
+        </GridPane>
+
+        <Pane
+         maxWidth="1"
+         maxHeight="Infinity"
+         VBox.vgrow="ALWAYS"/>
+
+        <Button
+         fx:id="applyLayout"
+         text="Apply Layout"
+         maxWidth="Infinity"/>
+      </VBox>
+    </TitledPane>
+  </left>
+
+  <right>
+    <!-- help pane on the right side that displays a short instruction for this demo -->
+    <TitledPane
+            VBox.vgrow="ALWAYS"
+            animated="false"
+            collapsible="false"
+            maxHeight="Infinity"
+            text="Description">
+      <WebView prefWidth="300.0" fx:id="helpView"/>
+    </TitledPane>
+  </right>
+
+  <top>
+    <!-- toolbar that provides controls of this demo -->
+    <ToolBar>
+      <!-- buttons to adjust zoom level -->
+      <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+      <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+        <commandParameter><Double fx:value="1.0"></Double></commandParameter>
+        <graphic><IconProvider fx:value="ZOOM_RESET"/></graphic>
+        <tooltip><TooltipProvider fx:value="ZOOM_RESET"/></tooltip>
+      </CommandButton>
+      <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+    </ToolBar>
+  </top>
+
+  <center>
+    <!-- graph control that will contain the example graph -->
+    <GraphControl fx:id="graphControl"/>
+  </center>
+
+</BorderPane>

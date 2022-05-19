@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -1057,7 +1057,7 @@ public class AdjacentNodesGraphBuilder<TNode, TGroup> {
     graphBuilderHelper.removeNodeUpdatedListener(nodeUpdatedEvent);
   }
 
-  private IEventHandler.Delegate<GraphBuilderItemEventArgs<IEdge, Object>> edgeCreatedEvent;
+  private IEventHandler<GraphBuilderItemEventArgs<IEdge, Object>> edgeCreatedEvent;
 
   /**
    * Adds the given listener for the {@code EdgeCreated} event that occurs when an edge has been created.
@@ -1075,8 +1075,7 @@ public class AdjacentNodesGraphBuilder<TNode, TGroup> {
    * @see #removeEdgeCreatedListener(IEventHandler)
    */
   public final void addEdgeCreatedListener(IEventHandler<GraphBuilderItemEventArgs<IEdge, Object>> edgeCreatedEvent) {
-    this.edgeCreatedEvent = AbstractDelegate.combine(this.edgeCreatedEvent,
-        IEventHandler.Delegate.create(edgeCreatedEvent));
+    this.edgeCreatedEvent = edgeCreatedEvent;
   }
 
   /**
@@ -1096,11 +1095,10 @@ public class AdjacentNodesGraphBuilder<TNode, TGroup> {
    */
   public final void removeEdgeCreatedListener(
       IEventHandler<GraphBuilderItemEventArgs<IEdge, Object>> edgeCreatedEvent) {
-    this.edgeCreatedEvent = AbstractDelegate.remove(this.edgeCreatedEvent,
-        IEventHandler.Delegate.create(edgeCreatedEvent));
+    this.edgeCreatedEvent = null;
   }
 
-  private IEventHandler.Delegate<GraphBuilderItemEventArgs<IEdge, Object>> edgeUpdatedEvent;
+  private IEventHandler<GraphBuilderItemEventArgs<IEdge, Object>> edgeUpdatedEvent;
 
   /**
    * Adds the given listener for the {@code EdgeUpdated} event that occurs when an edge has been updated.
@@ -1123,8 +1121,7 @@ public class AdjacentNodesGraphBuilder<TNode, TGroup> {
    * @see #removeEdgeUpdatedListener(IEventHandler)
    */
   public final void addEdgeUpdatedListener(IEventHandler<GraphBuilderItemEventArgs<IEdge, Object>> edgeUpdatedEvent) {
-    this.edgeUpdatedEvent = AbstractDelegate.combine(this.edgeUpdatedEvent,
-        IEventHandler.Delegate.create(edgeUpdatedEvent));
+    this.edgeUpdatedEvent = edgeUpdatedEvent;
   }
 
   /**
@@ -1149,8 +1146,7 @@ public class AdjacentNodesGraphBuilder<TNode, TGroup> {
    */
   public final void removeEdgeUpdatedListener(
       IEventHandler<GraphBuilderItemEventArgs<IEdge, Object>> edgeUpdatedEvent) {
-    this.edgeUpdatedEvent = AbstractDelegate.remove(this.edgeUpdatedEvent,
-        IEventHandler.Delegate.create(edgeUpdatedEvent));
+    this.edgeUpdatedEvent = null;
   }
 
   /**

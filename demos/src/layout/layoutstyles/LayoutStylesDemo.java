@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -66,7 +66,9 @@ import layout.layoutstyles.configurations.BalloonLayoutConfig;
 import layout.layoutstyles.configurations.BusEdgeRouterConfig;
 import layout.layoutstyles.configurations.ChannelEdgeRouterConfig;
 import layout.layoutstyles.configurations.CircularLayoutConfig;
+import layout.layoutstyles.configurations.ClassicTreeLayoutConfig;
 import layout.layoutstyles.configurations.ComponentLayoutConfig;
+import layout.layoutstyles.configurations.GraphTransformerConfig;
 import layout.layoutstyles.configurations.HierarchicLayoutConfig;
 import layout.layoutstyles.configurations.LabelingConfig;
 import layout.layoutstyles.configurations.LayoutConfiguration;
@@ -78,6 +80,7 @@ import layout.layoutstyles.configurations.PartialLayoutConfig;
 import layout.layoutstyles.configurations.PolylineEdgeRouterConfig;
 import layout.layoutstyles.configurations.RadialLayoutConfig;
 import layout.layoutstyles.configurations.SeriesParallelLayoutConfig;
+import layout.layoutstyles.configurations.TabularLayoutConfig;
 import layout.layoutstyles.configurations.TreeLayoutConfig;
 import toolkit.DemoApplication;
 import toolkit.DemoGroupNodeStyle;
@@ -202,17 +205,23 @@ public class LayoutStylesDemo extends DemoApplication {
   private void initializeLayoutAlgorithms() {
     availableLayouts = new HashMap<>();
 
-    availableLayouts.put(HIERARCHIC_LAYOUT_STYLE, new HierarchicLayoutConfig());
+    HierarchicLayoutConfig hierarchicLayoutConfig = new HierarchicLayoutConfig();
+    hierarchicLayoutConfig.enableSubComponents();
+    availableLayouts.put(HIERARCHIC_LAYOUT_STYLE, hierarchicLayoutConfig);
     OrganicLayoutConfig organicLayoutConfig = new OrganicLayoutConfig();
     organicLayoutConfig.enableSubstructures();
     availableLayouts.put("Organic", organicLayoutConfig);
-    availableLayouts.put("Orthogonal", new OrthogonalLayoutConfig());
+    OrthogonalLayoutConfig orthogonalLayoutConfig = new OrthogonalLayoutConfig();
+    orthogonalLayoutConfig.enableSubstructures();
+    availableLayouts.put("Orthogonal", orthogonalLayoutConfig);
     availableLayouts.put("Circular", new CircularLayoutConfig());
     availableLayouts.put("Tree", new TreeLayoutConfig());
+    availableLayouts.put("Classic Tree", new ClassicTreeLayoutConfig());
     availableLayouts.put("Balloon", new BalloonLayoutConfig());
     availableLayouts.put("Radial", new RadialLayoutConfig());
     availableLayouts.put("Series-Parallel", new SeriesParallelLayoutConfig());
-    availableLayouts.put("Polyline Router", new PolylineEdgeRouterConfig());
+    availableLayouts.put("Tabular", new TabularLayoutConfig());
+    availableLayouts.put("Edge Router", new PolylineEdgeRouterConfig());
     availableLayouts.put("Channel Router", new ChannelEdgeRouterConfig());
     availableLayouts.put("Bus Router", new BusEdgeRouterConfig());
     availableLayouts.put("Organic Router", new OrganicEdgeRouterConfig());
@@ -220,6 +229,7 @@ public class LayoutStylesDemo extends DemoApplication {
     availableLayouts.put("Labeling", new LabelingConfig());
     availableLayouts.put("Components", new ComponentLayoutConfig());
     availableLayouts.put("Partial", new PartialLayoutConfig());
+    availableLayouts.put("Graph Transform", new GraphTransformerConfig());
   }
 
   /**
@@ -249,9 +259,6 @@ public class LayoutStylesDemo extends DemoApplication {
 
     // set the default style for edges
     PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    Color edgeColor = Color.rgb(51, 102, 153);
-    edgeStyle.setPen(new Pen(edgeColor));
-    edgeStyle.setTargetArrow(new Arrow(ArrowType.DEFAULT, edgeColor));
     graphControl.getGraph().getEdgeDefaults().setStyle(edgeStyle);
   }
 
@@ -285,10 +292,14 @@ public class LayoutStylesDemo extends DemoApplication {
   
   private String getLayoutKey(String sampleKey) {
     //for some special samples, we need to use the correct layout key, because the layout configurations are shared
-    if ("Organic with Substructures".equals(sampleKey)) {
+    if (sampleKey.startsWith("Organic")) {
       return "Organic";
-    } else if ("Hierarchic with Buses".equals(sampleKey) || "Hierarchic Groups".equals(sampleKey)) {
+    } else if (sampleKey.startsWith("Hierarchic")) {
       return HIERARCHIC_LAYOUT_STYLE;
+    } else if (sampleKey.startsWith("Orthogonal")) {
+      return "Orthogonal";
+    } else if (sampleKey.startsWith("Edge Router")) {
+      return "Edge Router";
     }
     //... for other samples the layout key corresponds to the sample graph key
     return sampleKey;
@@ -546,7 +557,13 @@ public class LayoutStylesDemo extends DemoApplication {
       if ("Hierarchic with Buses".equals(key)) {
         //for this specific hierarchic layout sample we make sure to enable the bus structure feature
         final HierarchicLayoutConfig hlc = (HierarchicLayoutConfig) availableLayouts.get("Hierarchic");
-        hlc.enableBuses();
+        hlc.enableAutomaticBusRouting();
+      } else if ("Edge Router with Buses".equals(key)) {
+        final PolylineEdgeRouterConfig edgeRouterConfig = (PolylineEdgeRouterConfig) availableLayouts.get("Edge Router");
+        edgeRouterConfig.setBusRoutingItem(PolylineEdgeRouterConfig.EnumBusRouting.BY_COLOR);
+      } else if ("Edge Router".equals(key)) {
+        final PolylineEdgeRouterConfig edgeRouterConfig = (PolylineEdgeRouterConfig) availableLayouts.get("Edge Router");
+        edgeRouterConfig.setBusRoutingItem(PolylineEdgeRouterConfig.EnumBusRouting.NONE);
       }
       
       // load the sample graph and start the layout algorithm

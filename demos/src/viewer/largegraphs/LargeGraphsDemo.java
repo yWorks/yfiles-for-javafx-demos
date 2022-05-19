@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.4.
+ ** This demo file is part of yFiles for JavaFX 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,27 +29,26 @@
  ***************************************************************************/
 package viewer.largegraphs;
 
+import com.yworks.yfiles.geometry.IOrientedRectangle;
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.graph.DefaultGraph;
 import com.yworks.yfiles.graph.GraphDecorator;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IEdge;
+import com.yworks.yfiles.graph.IEdgeDefaults;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
+import com.yworks.yfiles.graph.ILabelOwner;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.INodeDefaults;
 import com.yworks.yfiles.graph.IPort;
-import com.yworks.yfiles.graph.labelmodels.DefaultLabelModelParameterFinder;
-import com.yworks.yfiles.graph.labelmodels.EdgeSegmentLabelModel;
-import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
+import com.yworks.yfiles.graph.IPortOwner;
 import com.yworks.yfiles.graph.labelmodels.FreeEdgeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.FreeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
-import com.yworks.yfiles.graph.labelmodels.ILabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameterFinder;
-import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
@@ -59,7 +58,6 @@ import com.yworks.yfiles.graph.styles.VoidLabelStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.graphml.SerializationProperties;
 import com.yworks.yfiles.utils.IEnumerator;
-import com.yworks.yfiles.utils.IEventArgs;
 import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.view.Animator;
 import com.yworks.yfiles.view.EdgeStyleDecorationInstaller;
@@ -163,7 +161,7 @@ public class LargeGraphsDemo extends DemoApplication {
   public DoubleTextField virtualizeNodesTF;
   public CheckBox disableSelectionHandlesCB;
   public CheckBox customSelectionDecorationCB;
-  public CheckBox labelModelBakingCB;
+  public CheckBox fixLabelPositionsCB;
   public Label zoomLbl;
   public Label selectedItemsLbl;
   public Label fpsLbl;
@@ -187,8 +185,8 @@ public class LargeGraphsDemo extends DemoApplication {
       getPerformanceSettings().setSelectionHandlesDisabled(selected);
     } else if (source == customSelectionDecorationCB) {
       getPerformanceSettings().setCustomSelectionDecoratorEnabled(selected);
-    } else if (source == labelModelBakingCB) {
-      getPerformanceSettings().setLabelModelBakingEnabled(selected);
+    } else if (source == fixLabelPositionsCB) {
+      getPerformanceSettings().setFixedLabelPositionsEnabled(selected);
     } else if (source == enablePathRenderOptimizationCB) {
       getPerformanceSettings().setPathRenderOptimizationEnabled(selected);
     } else if (source == disableVirtualizationsCB) {
@@ -360,7 +358,7 @@ public class LargeGraphsDemo extends DemoApplication {
 
     IAnimation animation = new ZoomInAndBackAnimation(graphControl, 10, Duration.ofSeconds(5));
     Animator animator = new Animator(graphControl);
-    animator.animate(animation, this::endAnimation);
+    animator.animate(animation).thenRun(this::endAnimation);
   }
 
   /**
@@ -370,7 +368,7 @@ public class LargeGraphsDemo extends DemoApplication {
     startAnimation();
     IAnimation animation = new CirclePanAnimation(graphControl, 5, Duration.ofSeconds(5));
     Animator animator = new Animator(graphControl);
-    animator.animate(animation, this::endAnimation);
+    animator.animate(animation).thenRun(this::endAnimation);
   }
 
   /**
@@ -386,7 +384,7 @@ public class LargeGraphsDemo extends DemoApplication {
     IAnimation pan = new CirclePanAnimation(graphControl, 14, Duration.ofSeconds(10));
     IAnimation animation = IAnimation.createParallelAnimation(zoom, pan);
     Animator animator = new Animator(graphControl);
-    animator.animate(animation, this::endAnimation);
+    animator.animate(animation).thenRun(this::endAnimation);
   }
 
   /**
@@ -406,8 +404,8 @@ public class LargeGraphsDemo extends DemoApplication {
     IAnimation animation = new CircleNodeAnimation(graphControl.getGraph(), selectedNodes,
         graphControl.getViewport().getWidth() / 10, 10, Duration.ofSeconds(10));
     Animator animator = new Animator(graphControl);
-    animator.animate(animation, (source, args) -> {
-      endAnimation(source, args);
+    animator.animate(animation).thenRun(() -> {
+      endAnimation();
       graphControl.invalidate();
     });
   }
@@ -416,7 +414,7 @@ public class LargeGraphsDemo extends DemoApplication {
     fpsMeter.setRecording(true);
   }
 
-  private void endAnimation(Object source, IEventArgs args) {
+  private void endAnimation() {
     fpsMeter.setRecording(false);
   }
 
@@ -519,7 +517,7 @@ public class LargeGraphsDemo extends DemoApplication {
 
       Platform.runLater(() -> {
         // update and set the graph in the JavaFX Application Thread
-        updateLabelModelBakingSetting(g);
+        updateFixedLabelPositionsSetting(g);
 
         graphChooserBox.setDisable(false);
         updateButtons();
@@ -646,7 +644,7 @@ public class LargeGraphsDemo extends DemoApplication {
 
     disableSelectionHandlesCB.setSelected(performanceSettings.isSelectionHandlesDisabled());
     customSelectionDecorationCB.setSelected(performanceSettings.isCustomSelectionDecoratorEnabled());
-    labelModelBakingCB.setSelected(performanceSettings.isLabelModelBakingEnabled());
+    fixLabelPositionsCB.setSelected(performanceSettings.isFixedLabelPositionsEnabled());
   }
 
   /**
@@ -693,7 +691,7 @@ public class LargeGraphsDemo extends DemoApplication {
       ps3.setVirtualizationDisabled(true);
       ps3.setNodeVirtualizationThreshold(4);
       ps3.setEdgeVirtualizationThreshold(5);
-      ps3.setLabelModelBakingEnabled(true);
+      ps3.setFixedLabelPositionsEnabled(true);
       ps3.setMinimumEdgeLength(10);
       ps3.setEdgeBendThreshold(50);
       ps3.setEdgeLabelVisibilityThreshold(80);
@@ -711,7 +709,7 @@ public class LargeGraphsDemo extends DemoApplication {
       ps4.setVirtualizationDisabled(true);
       ps4.setNodeVirtualizationThreshold(3);
       ps4.setEdgeVirtualizationThreshold(4);
-      ps4.setLabelModelBakingEnabled(true);
+      ps4.setFixedLabelPositionsEnabled(true);
       ps4.setMinimumEdgeLength(10);
       ps4.setEdgeBendThreshold(50);
       ps4.setEdgeLabelVisibilityThreshold(80);
@@ -763,7 +761,7 @@ public class LargeGraphsDemo extends DemoApplication {
       ps7.setVirtualizationDisabled(true);
       ps7.setNodeVirtualizationThreshold(2);
       ps7.setEdgeVirtualizationThreshold(3);
-      ps7.setLabelModelBakingEnabled(true);
+      ps7.setFixedLabelPositionsEnabled(true);
       ps7.setMinimumEdgeLength(10);
       ps7.setEdgeBendThreshold(0);
       ps7.setEdgeLabelVisibilityThreshold(50);
@@ -781,7 +779,7 @@ public class LargeGraphsDemo extends DemoApplication {
       ps8.setVirtualizationDisabled(true);
       ps8.setNodeVirtualizationThreshold(1.2);
       ps8.setEdgeVirtualizationThreshold(1.8);
-      ps8.setLabelModelBakingEnabled(true);
+      ps8.setFixedLabelPositionsEnabled(true);
       ps8.setMinimumEdgeLength(10);
       ps8.setEdgeBendThreshold(0);
       ps8.setEdgeLabelVisibilityThreshold(80);
@@ -825,7 +823,7 @@ public class LargeGraphsDemo extends DemoApplication {
     if (propertyName == null || propertyName.isEmpty()) {
       updateStyles();
       updateSelectionHandlesSetting();
-      updateLabelModelBakingSetting(graphControl.getGraph());
+      updateFixedLabelPositionsSetting(graphControl.getGraph());
       updateOverviewDisabledSetting();
       graphControl.invalidate();
       refreshSelection();
@@ -853,8 +851,8 @@ public class LargeGraphsDemo extends DemoApplication {
       case "CustomSelectionDecoratorEnabled":
         refreshSelection();
         break;
-      case "LabelModelBakingEnabled":
-        updateLabelModelBakingSetting(graphControl.getGraph());
+      case "FixedLabelPositionsEnabled":
+        updateFixedLabelPositionsSetting(graphControl.getGraph());
         break;
       case "OverviewDisabled":
         updateOverviewDisabledSetting();
@@ -1017,16 +1015,17 @@ public class LargeGraphsDemo extends DemoApplication {
   }
 
   /**
-   * Updates all labels in the graph according to the current value of the {@link PerformanceSettings#isLabelModelBakingEnabled()}
-   * setting.
+   * Updates all labels in the graph according to the current value of the
+   * {@link PerformanceSettings#isFixedLabelPositionsEnabled()} setting.
    * <p>
-   * See the {@link PerformanceSettings#isLabelModelBakingEnabled()} for a rationale for this optimization.
+   * See the {@link PerformanceSettings#isFixedLabelPositionsEnabled()} for a rationale for this optimization.
    * </p>
    * <p>
-   * When activating this setting, all labels get a {@link FreeLabelModel}. An {@link ILabelModelParameterFinder}
-   * instance from the label model helps finding the correct parameter so that the labels don't change their positions.
-   * When disabling this setting, the same process is used, just in reverse, that is, the respective label model for
-   * node and edge labels is used and its parameter finder asked for a good parameter.
+   * When activating this setting, all labels get a {@link FreeLabelModel}. The model's
+   * {@link FreeLabelModel#createAbsolute(PointD, double) absolute parameter} is used to ensure the  labels do not
+   * change their positions.
+   * When disabling this setting, all labels are assigned the appropriate default label layout parameter for their
+   * type (i.e. node label, node port label, edge label, or edge port label).
    * </p>
    * <p>
    * Labels using the {@link FreeLabelModel} are positioned absolutely in the canvas. Thus they won't move when their
@@ -1044,34 +1043,47 @@ public class LargeGraphsDemo extends DemoApplication {
    *
    * @param graph The graph whose labels shall be updated.
    */
-  private void updateLabelModelBakingSetting(IGraph graph) {
-    ILabelModel bakedNodeLabelModel;
-    ILabelModel bakedEdgeLabelModel;
-    ILabelModel bakedPortLabelModel;
-    if (getPerformanceSettings().isLabelModelBakingEnabled()) {
-      bakedNodeLabelModel = FreeLabelModel.INSTANCE;
-      bakedEdgeLabelModel = FreeLabelModel.INSTANCE;
-      bakedPortLabelModel = FreeLabelModel.INSTANCE;
-    } else {
-      bakedNodeLabelModel = new InteriorLabelModel();
-      bakedEdgeLabelModel = new EdgeSegmentLabelModel();
-      bakedPortLabelModel = new ExteriorLabelModel();
-    }
-
-    for (ILabel l : graph.getLabels()) {
-      ILabelModel bakedLabelModel = null;
-      if (l.getOwner() instanceof INode) {
-        bakedLabelModel = bakedNodeLabelModel;
-      } else if (l.getOwner() instanceof IEdge) {
-        bakedLabelModel = bakedEdgeLabelModel;
-      } else if (l.getOwner() instanceof IPort) {
-        bakedLabelModel = bakedPortLabelModel;
+  private void updateFixedLabelPositionsSetting(IGraph graph) {
+    if (getPerformanceSettings().isFixedLabelPositionsEnabled()) {
+      // fix the label position at the label's current absolute location
+      FreeLabelModel model = new FreeLabelModel();
+      for (ILabel l : graph.getLabels()) {
+        IOrientedRectangle labelLayout = l.getLayout();
+        graph.setLabelLayoutParameter(l, model.createAbsolute(labelLayout.getAnchorLocation(), getAngle(labelLayout)));
       }
-      ILabelModelParameterFinder finder = bakedLabelModel.lookup(ILabelModelParameterFinder.class);
-      finder = finder != null ? finder : DefaultLabelModelParameterFinder.INSTANCE;
-      ILabelModelParameter param = finder.findBestParameter(l, bakedLabelModel, l.getLayout());
-      graph.setLabelLayoutParameter(l, param);
+    } else {
+      // use default parameters for all labels
+      // with these default parameters, label positions will be relative to their owner geometry
+      INodeDefaults nodeDefaults = graph.getNodeDefaults();
+      ILabelModelParameter nodeLabelParameter = nodeDefaults.getLabelDefaults().getLayoutParameter();
+      ILabelModelParameter nodePortLabelParameter = nodeDefaults.getPortDefaults().getLabelDefaults().getLayoutParameter();
+      IEdgeDefaults edgeDefaults = graph.getEdgeDefaults();
+      ILabelModelParameter edgeLabelParameter = edgeDefaults.getLabelDefaults().getLayoutParameter();
+      ILabelModelParameter edgePortLabelParameter = edgeDefaults.getPortDefaults().getLabelDefaults().getLayoutParameter();
+
+      for (ILabel l : graph.getLabels()) {
+        ILabelOwner owner = l.getOwner();
+        if (owner instanceof INode) {
+          graph.setLabelLayoutParameter(l, nodeLabelParameter);
+        } else if (owner instanceof IEdge) {
+          graph.setLabelLayoutParameter(l, edgeLabelParameter);
+        } else if (owner instanceof IPort) {
+          IPortOwner portOwner = ((IPort) owner).getOwner();
+          if (portOwner instanceof INode) {
+            graph.setLabelLayoutParameter(l, nodePortLabelParameter);
+          } else if (portOwner instanceof IEdge) {
+            graph.setLabelLayoutParameter(l, edgePortLabelParameter);
+          }
+        }
+      }
     }
+  }
+
+  /**
+   * Calculates the rotation angle of the given oriented rectangle.
+   */
+  private static double getAngle( IOrientedRectangle r ) {
+    return Math.atan2(r.getUpX(), -r.getUpY());
   }
 
   /**
