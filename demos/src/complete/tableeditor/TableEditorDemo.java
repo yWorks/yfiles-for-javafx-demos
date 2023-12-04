@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -48,13 +48,7 @@ import com.yworks.yfiles.graph.NodeDecorator;
 import com.yworks.yfiles.graph.SimpleNode;
 import com.yworks.yfiles.graph.StripeTypes;
 import com.yworks.yfiles.graph.Table;
-import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.TableNodeStyle;
-import com.yworks.yfiles.graph.styles.TableRenderingOrder;
-import com.yworks.yfiles.graph.styles.VoidStripeStyle;
+import com.yworks.yfiles.graph.styles.*;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LayoutOrientation;
@@ -95,11 +89,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
-import toolkit.CommandButton;
-import toolkit.DemoApplication;
-import toolkit.IconProvider;
-import toolkit.TooltipProvider;
-import toolkit.WebViewUtils;
+import toolkit.*;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -132,7 +122,7 @@ public class TableEditorDemo extends DemoApplication {
   // the default style for group nodes
   private static final ShapeNodeStyle DEFAULT_GROUP_NODE_STYLE;
   // the default style for normal nodes
-  private static final ShinyPlateNodeStyle DEFAULT_NODE_STYLE;
+  private static final RectangleNodeStyle DEFAULT_NODE_STYLE;
   // the default node size for normal nodes
   private static final SizeD DEFAULT_NODE_SIZE = new SizeD(80, 50);
   // provides graph editing capabilities
@@ -148,9 +138,7 @@ public class TableEditorDemo extends DemoApplication {
     DEFAULT_GROUP_NODE_STYLE.setPen(pen);
     DEFAULT_GROUP_NODE_STYLE.setPaint(Color.TRANSPARENT);
 
-    DEFAULT_NODE_STYLE = new ShinyPlateNodeStyle();
-    DEFAULT_NODE_STYLE.setPaint(Color.ORANGE);
-    DEFAULT_NODE_STYLE.setRadius(0);
+    DEFAULT_NODE_STYLE = DemoStyles.createDemoNodeStyle();
   }
 
   /**

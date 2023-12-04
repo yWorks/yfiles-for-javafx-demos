@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -32,8 +32,7 @@ package integration.swt;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
@@ -67,6 +66,8 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import java.io.IOException;
 import java.net.URI;
@@ -268,7 +269,7 @@ public class SwtDemo {
     // execute the command when the button is selected
     button.addListener(SWT.Selection, event -> command.execute(parameter, target));
 
-    // enable/disable depending of the command's state
+    // enable/disable depending on the command's state
     command.addCanExecuteChangedListener((source, args) -> {
       // avoid accessing SWT control if they are disposed (when exiting the application)
       if (!button.isDisposed()) {
@@ -295,12 +296,12 @@ public class SwtDemo {
     // activate drag and drop from the palette
     dropMode = new SwtNodeDropInputMode();
     // we identify the group nodes during a drag by the type of its style
-    dropMode.setIsGroupNodePredicate(node -> node.getStyle() instanceof PanelNodeStyle);
+    dropMode.setIsGroupNodePredicate(node -> node.getStyle() instanceof GroupNodeStyle);
     dropMode.setTransferMode(TransferMode.COPY);
     // Enables preview during drag operations.
     // Keep in mind that, prior to JDK 8u40, due to an issue in the DnD handling in FXCanvas (RT-37906),
     // using the preview feature of the yFiles library may cause problems when dropping a dragged node
-    // outside of the GraphControl.
+    // outside the GraphControl.
     // To prevent this, the native SWT preview, which shows a simple image, can also be used at this point.
     // To do this, just disable the option here instead (setShowPreview(false);) and adjust the
     // TableHandler.dragStart method.
@@ -326,13 +327,13 @@ public class SwtDemo {
   }
 
   /**
-   *  Populates the context menu for nodes.
+   * Populates the context menu for nodes.
    */
   private void populateNodeContextMenu(Object source, PopulateItemContextMenuEventArgs<IModelItem> args) {
     if (args.getItem() instanceof INode) {
       INode node = (INode) args.getItem();
       // The return type of the following method is Object to be able to support context menus of different Java GUI
-      // toolkits. By default this is an instance of JavaFX ContextMenu, but our SwtContextMenuInputMode specifies
+      // toolkits. By default, this is an instance of JavaFX ContextMenu, but our SwtContextMenuInputMode specifies
       // a SWT Menu to be used as context menu control.
       Menu contextMenu = (Menu) args.getMenu();
       // add menu item to delete the clicked node on SWT event thread
@@ -375,19 +376,18 @@ public class SwtDemo {
    * Enables grouping and undo support, loads a sample graph and initializes the default node style.
    */
   private void initializeGraph() {
-    // enable undo support
-    graphControl.getGraph().setUndoEngineEnabled(true);
+    // set the default node styles
+    DemoStyles.initDemoStyles(graphControl.getGraph(), Themes.PALETTE_LIGHTBLUE);
 
     // load the sample graph
     try {
       String filename = getClass().getResource("resources/example.graphml").toExternalForm();
       graphControl.importFromGraphML(filename);
-      ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-      style.setPaint(Color.ORANGE);
-      graphControl.getGraph().getNodeDefaults().setStyle(style);
     } catch (IOException e) {
       e.printStackTrace();
     }
+    // enable undo support
+    graphControl.getGraph().setUndoEngineEnabled(true);
   }
 
   /**

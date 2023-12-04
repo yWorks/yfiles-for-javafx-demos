@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -33,7 +33,6 @@ import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.partial.ComponentAssignmentStrategy;
@@ -47,6 +46,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.IOException;
@@ -77,9 +77,7 @@ public class FillAreaAfterDeletionDemo extends DemoApplication {
 
     graphControl.getGraph().setUndoEngineEnabled(true);
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graphControl.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphControl.getGraph());
 
     initializeInputModes();
 

@@ -14,6 +14,6 @@
 ## Run the demo using ANT
   
 
- To run the demo using ANT run the target `run-SwtApplication` of the demo build file ( `demos/build.xml` ). An `swt.jar` will automatically be downloaded.   
+ To run the demo using ANT run the target `run-SwtDemo` of the demo build file ( `demos/build.xml` ). An `swt.jar` will automatically be downloaded.   
 
  Alternatively, an `swt.jar` can be placed in the `<yfiles-for-javafx>/lib` folder.   

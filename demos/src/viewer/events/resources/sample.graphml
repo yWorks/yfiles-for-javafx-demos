@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -55,13 +55,31 @@
           <y:InteriorLabelModel/>
         </y:InteriorLabelModelParameter.Model>
       </y:InteriorLabelModelParameter>
-      <yfx:DefaultLabelStyle x:Key="3"/>
-      <yfx:ShinyPlateNodeStyle Paint="Orange" x:Key="4"/>
-      <yfx:PolylineEdgeStyle Pen="Black" TargetArrow="DEFAULT" x:Key="5"/>
-      <yfx:DefaultLabelStyle TextAlignment="RIGHT" x:Key="6"/>
-      <yfx:CollapsibleNodeStyleDecorator ButtonPlacement="{x:Static y:InteriorLabelModel.NorthWest}" x:Key="7">
-        <yfx:PanelNodeStyle Color="{y:GraphMLReference 1}" Insets="5,20,5,5" LabelInsetsColor="{y:GraphMLReference 1}"/>
-      </yfx:CollapsibleNodeStyleDecorator>
+      <yfx:DefaultLabelStyle Font="Dialog;11;PLAIN" BackgroundPaint="#FFFFC499" Insets="2.0,1.0,2.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER" x:Key="3"/>
+      <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="4">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
+      <yfx:PolylineEdgeStyle x:Key="5">
+        <yfx:PolylineEdgeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:PolylineEdgeStyle.Pen>
+        <yfx:PolylineEdgeStyle.TargetArrow>
+          <yfx:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfx:PolylineEdgeStyle.TargetArrow>
+      </yfx:PolylineEdgeStyle>
+      <yfx:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" VerticalTextAlignment="CENTER" x:Key="6"/>
+      <yfx:GroupNodeStyle ContentAreaHitTransparent="True" GroupIcon="MINUS" IconForegroundPaint="#FF0B7189" IconOffset="2.0" TabBackgroundPaint="#FF0B7189" TabHeight="20.0" TabInset="3.0" TabPaint="#FF9DC6D0" TabPosition="TOP_TRAILING" TabWidth="30.0" x:Key="7">
+        <yfx:GroupNodeStyle.Pen>
+          <yfx:Pen Paint="#FF0B7189" Thickness="2.0"/>
+        </yfx:GroupNodeStyle.Pen>
+      </yfx:GroupNodeStyle>
+      <y:GroupNodeLabelModelParameter PlaceOnTab="False" x:Key="8">
+        <y:GroupNodeLabelModelParameter.Model>
+          <y:GroupNodeLabelModel/>
+        </y:GroupNodeLabelModelParameter.Model>
+      </y:GroupNodeLabelModelParameter>
     </y:SharedData>
   </data>
   <graph id="G">
@@ -103,13 +121,13 @@
     <node id="n1">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 6}">
+          <y:Label LayoutParameter="{y:GraphMLReference 8}" Style="{y:GraphMLReference 6}">
             <y:Label.Text>5</y:Label.Text>
           </y:Label>
         </x:List>
       </data>
       <data key="d1">
-        <y:RectD Height="115.0" Width="102.0" X="0.0" Y="75.0"/>
+        <y:RectD Height="135.0" Width="112.0" X="-5.0" Y="65.0"/>
       </data>
       <data key="d3">
         <y:GraphMLReference ResourceKey="7"/>
@@ -217,13 +235,13 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 6}">
+          <y:Label LayoutParameter="{y:GraphMLReference 8}" Style="{y:GraphMLReference 6}">
             <y:Label.Text>11</y:Label.Text>
           </y:Label>
         </x:List>
       </data>
       <data key="d1">
-        <y:RectD Height="175.0" Width="117.0" X="132.0" Y="75.0"/>
+        <y:RectD Height="195.0" Width="127.0" X="127.0" Y="65.0"/>
       </data>
       <data key="d3">
         <y:GraphMLReference ResourceKey="7"/>
@@ -654,13 +672,13 @@
     <node id="n12">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 6}">
+          <y:Label LayoutParameter="{y:GraphMLReference 8}" Style="{y:GraphMLReference 6}">
             <y:Label.Text>24</y:Label.Text>
           </y:Label>
         </x:List>
       </data>
       <data key="d1">
-        <y:RectD Height="115.0" Width="102.0" X="295.5" Y="260.0"/>
+        <y:RectD Height="135.0" Width="112.0" X="290.5" Y="250.0"/>
       </data>
       <data key="d3">
         <y:GraphMLReference ResourceKey="7"/>

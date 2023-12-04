@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -47,13 +47,6 @@ import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.IPortStyle;
 import com.yworks.yfiles.layout.GenericLayoutData;
-import com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor;
-import com.yworks.yfiles.layout.hierarchic.EdgeRoutingStyle;
-import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
-import com.yworks.yfiles.layout.hierarchic.LayerConstraintData;
-import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
-import com.yworks.yfiles.layout.ItemCollection;
-import com.yworks.yfiles.layout.ItemMapping;
 import com.yworks.yfiles.layout.LabelPlacements;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraphAdapter;
@@ -63,6 +56,11 @@ import com.yworks.yfiles.layout.PortConstraint;
 import com.yworks.yfiles.layout.PortConstraintKeys;
 import com.yworks.yfiles.layout.PortSide;
 import com.yworks.yfiles.layout.PreferredPlacementDescriptor;
+import com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor;
+import com.yworks.yfiles.layout.hierarchic.EdgeRoutingStyle;
+import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
+import com.yworks.yfiles.layout.hierarchic.LayerConstraintData;
+import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
 import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.view.ISelectionModel;
 import complete.bpmn.layout.BpmnLayout;
@@ -70,8 +68,6 @@ import complete.bpmn.layout.PortLocationAdjuster;
 import complete.bpmn.layout.Scope;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Specifies custom data for the {@link BpmnLayout}.
@@ -187,8 +183,7 @@ public class BpmnLayoutData {
 
 
     // mark conversations, events and gateways so their port locations are adjusted
-    data.addItemCollection(PortLocationAdjuster.AFFECTED_NODES_DPKEY).setPredicate(node ->
-        node.getStyle() instanceof ConversationNodeStyle || node.getStyle() instanceof EventNodeStyle || node.getStyle() instanceof GatewayNodeStyle);
+    data.addItemCollection(PortLocationAdjuster.AFFECTED_NODES_DPKEY).setPredicate(node -> (node.getStyle() instanceof ConversationNodeStyle || node.getStyle() instanceof EventNodeStyle || node.getStyle() instanceof GatewayNodeStyle));
 
     // add NodeHalos around nodes with event ports or specific exterior labels so the layout keeps space for the event ports and labels as well
     addNodeHalos(data, graph, selection, layoutOnlySelection);
@@ -252,7 +247,7 @@ public class BpmnLayoutData {
     collectLeafNodes(graph, targetNode, targetNodes);
     for (INode source : sourceNodes) {
       for (INode target : targetNodes) {
-        layerConstraintData.placeAbove(target, source, 1, 0);
+        layerConstraintData.placeAbove(target, source);
       }
     }
   }
@@ -275,7 +270,7 @@ public class BpmnLayoutData {
     // after another with a minimum label-to-label distance
      hierarchicLayoutData.setEdgeLayoutDescriptors(edge -> {
       EdgeLayoutDescriptor descriptor = new EdgeLayoutDescriptor();
-      descriptor.setRoutingStyle(new RoutingStyle(EdgeRoutingStyle.ORTHOGONAL, false));
+      descriptor.setRoutingStyle(new RoutingStyle(EdgeRoutingStyle.ORTHOGONAL));
       double minLength = 0;
       for (ILabel label : edge.getLabels()) {
         RectD labelSize = label.getLayout().getBounds();
@@ -402,15 +397,12 @@ public class BpmnLayoutData {
 
   private static void markFixedAndAffectedItems( GenericLayoutData data, HierarchicLayoutData hierarchicLayoutData, final ISelectionModel<IModelItem> graphSelection, boolean layoutOnlySelection ) {
     if (layoutOnlySelection) {
-      final IMapper<IEdge, Boolean> affectedEdges = IMapper.fromFunction(
-              edge -> graphSelection.isSelected(edge) || graphSelection.isSelected(edge.getSourceNode()) || graphSelection.isSelected(edge.getTargetNode()));
+      final IMapper<IEdge, Boolean> affectedEdges = IMapper.fromFunction(edge -> graphSelection.isSelected(edge) || graphSelection.isSelected(edge.getSourceNode()) || graphSelection.isSelected(edge.getTargetNode()));
       data.addItemCollection(LayoutKeys.AFFECTED_EDGES_DPKEY).setMapper(affectedEdges);
 
       // fix ports of unselected edges and edges at event ports
-      data.addItemMapping(PortConstraint.class, PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY).setFunction(
-              edge -> (!affectedEdges.getValue(edge) || edge.getSourcePort().getStyle() instanceof EventPortStyle) ? PortConstraint.create(getSide(edge, true), false) : null);
-      data.addItemMapping(PortConstraint.class, PortConstraintKeys.TARGET_PORT_CONSTRAINT_DPKEY).setFunction(
-              edge -> !affectedEdges.getValue(edge) ? PortConstraint.create(getSide(edge, false), false) : null);
+      data.addItemMapping(PortConstraint.class, PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY).setFunction(edge -> (!affectedEdges.getValue(edge) || edge.getSourcePort().getStyle() instanceof EventPortStyle) ? PortConstraint.create(getSide(edge, true)) : null);
+      data.addItemMapping(PortConstraint.class, PortConstraintKeys.TARGET_PORT_CONSTRAINT_DPKEY).setFunction(edge -> !affectedEdges.getValue(edge) ? PortConstraint.create(getSide(edge, false)) : null);
 
       // give core layout hints that selected nodes and edges should be incremental
       hierarchicLayoutData.getIncrementalHints().setContextBiFunction((item, factory) -> {
@@ -437,8 +429,7 @@ public class BpmnLayoutData {
       });
     } else {
       // fix source port of edges at event ports
-      data.addItemMapping(PortConstraint.class, PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY).setFunction(
-              edge -> edge.getSourcePort().getStyle() instanceof EventPortStyle ? PortConstraint.create(getSide(edge, true), false) : null);
+      data.addItemMapping(PortConstraint.class, PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY).setFunction(edge -> edge.getSourcePort().getStyle() instanceof EventPortStyle ? PortConstraint.create(getSide(edge, true)) : null);
 
       data.addItemCollection(BpmnLayout.AFFECTED_LABELS_DPKEY).setPredicate(label -> {
         ILabelOwner owner = label.getOwner();

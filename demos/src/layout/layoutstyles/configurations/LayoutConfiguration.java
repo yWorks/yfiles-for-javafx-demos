@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -38,13 +38,11 @@ import com.yworks.yfiles.layout.ItemMapping;
 import com.yworks.yfiles.layout.LabelAngleReferences;
 import com.yworks.yfiles.layout.LabelPlacements;
 import com.yworks.yfiles.layout.LayoutData;
-import com.yworks.yfiles.layout.LayoutEventArgs;
 import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.MinimumNodeSizeStage;
 import com.yworks.yfiles.layout.PortAdjustmentPolicy;
 import com.yworks.yfiles.layout.PreferredPlacementDescriptor;
-import com.yworks.yfiles.utils.IEventHandler;
 import com.yworks.yfiles.view.GraphControl;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -53,7 +51,6 @@ import layout.LayoutFinishedListeners;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.function.Function;
 
 /**
  * Abstract base class for configurations that can be displayed in an option editor.
@@ -365,6 +362,39 @@ public abstract class LayoutConfiguration {
 
     public static final EnumLabelPlacementOrientation fromOrdinal( int ordinal ) {
       for (EnumLabelPlacementOrientation current : values()) {
+        if (ordinal == current.value) return current;
+      }
+      throw new IllegalArgumentException("Enum has no value " + ordinal);
+    }
+
+  }
+
+  /**
+   * Specifies constants for the labeling policy of a node label used by layout configurations.
+   */
+  public enum EnumNodeLabelingPolicies {
+    NONE(0),
+
+    HORIZONTAL(1),
+
+    RAYLIKE_LEAVES(2),
+
+    CONSIDER_CURRENT_POSITION(3),
+
+    RAYLIKE(4);
+
+    private final int value;
+
+    private EnumNodeLabelingPolicies( final int value ) {
+      this.value = value;
+    }
+
+    public int value() {
+      return this.value;
+    }
+
+    public static final EnumNodeLabelingPolicies fromOrdinal( int ordinal ) {
+      for (EnumNodeLabelingPolicies current : values()) {
         if (ordinal == current.value) return current;
       }
       throw new IllegalArgumentException("Enum has no value " + ordinal);

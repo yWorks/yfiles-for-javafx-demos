@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,9 +29,9 @@
  ***************************************************************************/
 package deploy.obfuscation;
 
+import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -42,7 +42,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -52,6 +51,7 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLAnchorElement;
+import toolkit.DemoStyles;
 
 import java.io.IOException;
 import java.net.URL;
@@ -82,7 +82,7 @@ public class ObfuscationDemo extends Application {
    * This field is assigned in fxml and therefore needs to be named like this in runtime.
    * Thus, prevent obfuscation.
    */
-  @Obfuscation ( exclude = true )
+  @Obfuscation(exclude = true)
   public WebView helpView;
 
 
@@ -94,15 +94,15 @@ public class ObfuscationDemo extends Application {
   /**
    * A field that is only used in code and thus can be obfuscated. This field exists solely for demonstration purposes.
    */
-  private ShinyPlateNodeStyle nodeStyle;
+  private INodeStyle nodeStyle;
 
   /**
    * This method is called via reflection after loading the fxml file by the {@link javafx.fxml.FXMLLoader}.
    * Thus, this method needs to be kept.
    */
-  @Obfuscation ( exclude = true )
-  public void initialize(){
-    // setup the help text on the right side.
+  @Obfuscation(exclude = true)
+  public void initialize() {
+    // set up the help text on the right side.
     initHelp(helpView, this);
 
     initializeInputModes();
@@ -134,9 +134,9 @@ public class ObfuscationDemo extends Application {
   private void initializeInputModes() {
     inputMode = new GraphEditorInputMode();
     graphControl.setInputMode(inputMode);
-    nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graphControl.getGraph().getNodeDefaults().setStyle(nodeStyle);
+
+    DemoStyles.initDemoStyles(graphControl.getGraph());
+    nodeStyle = graphControl.getGraph().getNodeDefaults().getStyle();
   }
 
   /**

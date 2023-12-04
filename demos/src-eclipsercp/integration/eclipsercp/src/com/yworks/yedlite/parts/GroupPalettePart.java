@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,17 +29,13 @@
  ***************************************************************************/
 package com.yworks.yedlite.parts;
 
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.INodeStyle;
+import javafx.scene.paint.Color;
 import org.eclipse.swt.widgets.Composite;
 
-import com.yworks.yfiles.geometry.InsetsD;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
-import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-
-import javafx.scene.paint.Color;
-
 /**
- * A palette view part that populates its palette with nodes with group node style {@link PanelNodeStyle}.
+ * A palette view part that populates its palette with nodes with group node style {@link GroupNodeStyle}.
  */
 public class GroupPalettePart extends PaletteViewPart {
   
@@ -54,11 +50,8 @@ public class GroupPalettePart extends PaletteViewPart {
   }
 
   private static INodeStyle newGroupNodeStyle(Color color) {
-    PanelNodeStyle style = new PanelNodeStyle();
-    style.setColor(color);
-    style.setInsets(new InsetsD(25, 5, 5, 5));
-    
-    //use decorator to get collapse/expand button for group nodes 
-    return new CollapsibleNodeStyleDecorator(style);
+    GroupNodeStyle style = new GroupNodeStyle();
+    style.setContentAreaPaint(color);
+    return style;
   }
 }

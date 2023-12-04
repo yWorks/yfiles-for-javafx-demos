@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -55,7 +55,11 @@
   <data key="d13">
     <y:SharedData>
       <yfx:ShapeNodeStyle Paint="#FFBBBBBB" Pen="{x:Null}" x:Key="1"/>
-      <yfx:PanelNodeStyle Color="LightGrey" Insets="20.0,20.0,20.0,20.0" x:Key="2"/>
+      <yfx:GroupNodeStyle TabPosition="NONE" TabInset="20" TabBackgroundPaint="TRANSPARENT" x:Key="2">
+        <yfx:GroupNodeStyle.Pen>
+            <yfx:Pen Paint="#AAAAAA" Thickness="3"/>
+        </yfx:GroupNodeStyle.Pen>
+      </yfx:GroupNodeStyle>
       <yfx:Pen Paint="#FFBBBBBB" Thickness="3.0" x:Key="3"/>
       <yfx:Arrow Paint="#FFBBBBBB" x:Key="4">
         <yfx:Arrow.Pen>

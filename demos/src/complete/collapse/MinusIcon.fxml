@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,17 +35,16 @@
 <?import javafx.scene.shape.Path?>
 
 <!-- minus icon for nodes whose children are visible -->
-<Path fx:id="minus" stroke="white" fill="gray" strokeWidth="2"
-      xmlns:fx="http://javafx.com/fxml">
+<Path fx:id="minus" stroke="white" fill="rgb(64,64,64)" xmlns:fx="http://javafx.com/fxml">
   <elements>
-    <MoveTo x="13" y="5"/>
-    <LineTo x="18" y="5"/>
-    <LineTo x="18" y="13"/>
-    <LineTo x="13" y="13"/>
-    <LineTo x="5" y="13"/>
-    <LineTo x="0" y="13"/>
-    <LineTo x="0" y="5"/>
-    <LineTo x="5" y="5"/>
+    <MoveTo x="13" y="6"/>
+    <LineTo x="18" y="6"/>
+    <LineTo x="18" y="12"/>
+    <LineTo x="13" y="12"/>
+    <LineTo x="5" y="12"/>
+    <LineTo x="0" y="12"/>
+    <LineTo x="0" y="6"/>
+    <LineTo x="5" y="6"/>
     <ClosePath/>
   </elements>
 </Path>

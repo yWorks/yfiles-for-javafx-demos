@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -37,7 +37,7 @@ import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.IPortCandidate;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
 import com.yworks.yfiles.view.input.PortCandidateValidity;
-import javafx.scene.paint.Color;
+import toolkit.Themes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,7 +70,7 @@ class GreenPortCandidateProvider extends AbstractPortCandidateProvider {
   @Override
   public Iterable<IPortCandidate> getTargetPortCandidates(IInputModeContext context, IPortCandidate source) {
     // Check if the source node is green
-    if (Color.FORESTGREEN.equals(source.getOwner().getTag())) {
+    if (Themes.PALETTE_GREEN.equals(source.getOwner().getTag())) {
       // if so, return port candidates
       return IPortCandidateProvider.fromNodeCenter(node).getTargetPortCandidates(context, source);
     } else {
@@ -90,7 +90,7 @@ class GreenPortCandidateProvider extends AbstractPortCandidateProvider {
   @Override
   public Iterable<IPortCandidate> getTargetPortCandidates(IInputModeContext context) {
     // Check if the source node is green
-    if (Color.FORESTGREEN.equals(node.getTag())) {
+    if (Themes.PALETTE_GREEN.equals(node.getTag())) {
       // if so, return port candidates
       return IPortCandidateProvider.fromNodeCenter(node).getTargetPortCandidates(context);
     } else {

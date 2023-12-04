@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -30,7 +30,6 @@
 package complete.bpmn.view;
 
 import com.yworks.yfiles.geometry.PointD;
-import com.yworks.yfiles.graph.AdjacencyTypes;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IPort;
@@ -44,7 +43,6 @@ import com.yworks.yfiles.view.input.IEventRecognizer;
 import com.yworks.yfiles.view.input.IInputMode;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.IPortCandidate;
-import com.yworks.yfiles.view.input.PortCandidateValidity;
 import java.util.ArrayList;
 
 /**
@@ -67,7 +65,7 @@ public class BpmnPortCandidateProvider extends AbstractPortCandidateProvider {
 
     // provide existing ports as candidates only if they use EventPortStyle and have no edges attached to them.
     for (IPort port : node.getPorts()) {
-      if (port.getStyle() instanceof EventPortStyle && context.lookup(IGraph.class).edgesAt(port, AdjacencyTypes.ALL).size() == 0) {
+      if (port.getStyle() instanceof EventPortStyle && context.lookup(IGraph.class).edgesAt(port).size() == 0) {
         portCandidates.add(new DefaultPortCandidate(port));
       }
     }
@@ -87,18 +85,18 @@ public class BpmnPortCandidateProvider extends AbstractPortCandidateProvider {
         || nodeStyle instanceof GatewayNodeStyle) {
       double dmax = Math.min(node.getLayout().getWidth() / 2, node.getLayout().getHeight() / 2);
       FreeNodePortLocationModel model = FreeNodePortLocationModel.INSTANCE;
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, -dmax)), PortCandidateValidity.VALID));
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(dmax, 0)), PortCandidateValidity.VALID));
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, dmax)), PortCandidateValidity.VALID));
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(-dmax, 0)), PortCandidateValidity.VALID));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, -dmax))));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(dmax, 0))));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, dmax))));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(-dmax, 0))));
     } else if (nodeStyle instanceof ConversationNodeStyle) {
       double dx = 0.5 * Math.min(node.getLayout().getWidth(), node.getLayout().getHeight() / BpmnConstants.CONVERSATION_WIDTH_HEIGHT_RATIO);
       double dy = dx * BpmnConstants.CONVERSATION_WIDTH_HEIGHT_RATIO;
       FreeNodePortLocationModel model = FreeNodePortLocationModel.INSTANCE;
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, -dy)), PortCandidateValidity.VALID));
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(dx, 0)), PortCandidateValidity.VALID));
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, dy)), PortCandidateValidity.VALID));
-      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(-dx, 0)), PortCandidateValidity.VALID));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, -dy))));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(dx, 0))));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, dy))));
+      portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(-dx, 0))));
     }
     CreateEdgeInputMode ceim = context.getParentInputMode() instanceof CreateEdgeInputMode ? (CreateEdgeInputMode)context.getParentInputMode() : null;
     CanvasControl canvasControl = context.getCanvasControl();

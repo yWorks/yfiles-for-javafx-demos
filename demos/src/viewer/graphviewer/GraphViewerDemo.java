@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -71,6 +71,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.IOException;
@@ -102,6 +103,7 @@ public class GraphViewerDemo extends DemoApplication {
   public void initialize() {
     // enable folding
     final FoldingManager manager = new FoldingManager();
+    DemoStyles.initDemoStyles(manager.getMasterGraph(), true);
     // replace the displayed graph with a managed view
     graphControl.setGraph(manager.createFoldingView().getGraph());
 

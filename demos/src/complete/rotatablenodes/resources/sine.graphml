@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -47,7 +47,6 @@
   <key attr.name="NodeViewState" for="node" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/NodeViewState"/>
   <key attr.name="EdgeLabels" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
   <key attr.name="EdgeGeometry" for="edge" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
-  <key attr.name="EdgeStyle" for="edge" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
   <key attr.name="EdgeViewState" for="edge" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/EdgeViewState"/>
   <key attr.name="PortLabels" for="port" id="d10" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
   <key attr.name="PortLocationParameter" for="port" id="d11" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
@@ -61,13 +60,6 @@
       </demo:RotatablePortLocationModelDecoratorParameter>
     </default>
   </key>
-  <key attr.name="PortStyle" for="port" id="d12" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
-    <default>
-      <yfx:NodeStylePortStyleAdapter>
-        <yfx:ShapeNodeStyle Pen="#FFFF0000" Shape="ELLIPSE"/>
-      </yfx:NodeStylePortStyleAdapter>
-    </default>
-  </key>
   <key attr.name="PortViewState" for="port" id="d13" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/PortViewState"/>
   <key attr.name="SharedData" id="d14" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
   <data key="d14">
@@ -77,22 +69,21 @@
           <demo:RotatableNodeLabelModelDecoratorParameter Model="{x:Null}" Wrapped="{x:Null}"/>
         </demo:RotatableNodeLabelModelDecoratorParameter.Model>
       </demo:RotatableNodeLabelModelDecoratorParameter>
-      <yfx:DefaultLabelStyle AutoFlippingEnabled="False" x:Key="2"/>
-      <yfx:ShinyPlateNodeStyle Paint="Orange" ShadowDrawingEnabled="False" x:Key="3"/>
+      <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="3">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
       <demo:RotatablePortLocationModelDecorator x:Key="4">
         <y:FreeNodePortLocationModel/>
       </demo:RotatablePortLocationModelDecorator>
-      <yfx:NodeStylePortStyleAdapter x:Key="5">
-        <yfx:ShapeNodeStyle Paint="Red" Pen="#FFFF0000" Shape="ELLIPSE"/>
-      </yfx:NodeStylePortStyleAdapter>
-      <yfx:PolylineEdgeStyle x:Key="6"/>
     </y:SharedData>
   </data>
   <graph id="G">
     <node id="n0">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>0°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>0°</sys:String>
@@ -120,7 +111,7 @@
     <node id="n1">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>18°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>18°</sys:String>
@@ -148,7 +139,7 @@
     <node id="n2">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>36°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>36°</sys:String>
@@ -166,7 +157,7 @@
     <node id="n3">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>54°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>54°</sys:String>
@@ -194,7 +185,7 @@
     <node id="n4">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>72°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>72°</sys:String>
@@ -232,7 +223,7 @@
     <node id="n5">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>90°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>90°</sys:String>
@@ -270,7 +261,7 @@
     <node id="n6">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>108°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>108°</sys:String>
@@ -318,7 +309,7 @@
     <node id="n7">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>126°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>126°</sys:String>
@@ -346,7 +337,7 @@
     <node id="n8">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>144°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>144°</sys:String>
@@ -364,7 +355,7 @@
     <node id="n9">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>162°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>162°</sys:String>
@@ -392,7 +383,7 @@
     <node id="n10">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>180°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>180°</sys:String>
@@ -430,7 +421,7 @@
     <node id="n11">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>162°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>162°</sys:String>
@@ -468,7 +459,7 @@
     <node id="n12">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>144°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>144°</sys:String>
@@ -496,7 +487,7 @@
     <node id="n13">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>126°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>126°</sys:String>
@@ -524,7 +515,7 @@
     <node id="n14">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>108°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>108°</sys:String>
@@ -552,7 +543,7 @@
     <node id="n15">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>90°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>90°</sys:String>
@@ -590,7 +581,7 @@
     <node id="n16">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>72°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>72°</sys:String>
@@ -628,7 +619,7 @@
     <node id="n17">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>54°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>54°</sys:String>
@@ -656,7 +647,7 @@
     <node id="n18">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>36°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>36°</sys:String>
@@ -684,7 +675,7 @@
     <node id="n19">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>18°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>18°</sys:String>
@@ -732,7 +723,7 @@
     <node id="n20">
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" Style="{y:GraphMLReference 2}">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Text>0°</y:Label.Text>
             <y:Label.Tag>
               <sys:String>0°</sys:String>
@@ -773,9 +764,6 @@
           <y:Bend Location="871.2653967760309,-162.3215620213719"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e1" source="n3" sourceport="p0" target="n16" targetport="p0">
       <data key="d7">
@@ -784,18 +772,12 @@
           <y:Bend Location="1107.6926562630015,-526.6666666666667"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e2" source="n7" sourceport="p0" target="n4" targetport="p0">
       <data key="d7">
         <x:List>
           <y:Bend Location="304.57411883809397,351.9719533062616"/>
         </x:List>
-      </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
       </data>
     </edge>
     <edge id="e3" source="n5" sourceport="p0" target="n17" targetport="p0">
@@ -804,23 +786,14 @@
           <y:Bend Location="1169.1199157499718,511.3856458059349"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e4" source="n19" sourceport="p1" target="n18" targetport="p0">
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e5" source="n15" sourceport="p0" target="n6" targetport="p0">
       <data key="d7">
         <x:List>
           <y:Bend Location="1060.386368686937,487.20164496561944"/>
         </x:List>
-      </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
       </data>
     </edge>
     <edge id="e6" source="n11" sourceport="p0" target="n6" targetport="p1">
@@ -829,18 +802,12 @@
           <y:Bend Location="791.1391253370657,469.39568500645214"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e7" source="n4" sourceport="p1" target="n10" targetport="p0">
       <data key="d7">
         <x:List>
           <y:Bend Location="281.2678312620295,6.039613253960852E-14"/>
         </x:List>
-      </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
       </data>
     </edge>
     <edge id="e8" source="n0" sourceport="p0" target="n5" targetport="p1">
@@ -849,18 +816,12 @@
           <y:Bend Location="-21.13912533706568,511.38564580593487"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e9" source="n20" sourceport="p0" target="n16" targetport="p1">
       <data key="d7">
         <x:List>
           <y:Bend Location="1421.1391253370657,-469.39568500645225"/>
         </x:List>
-      </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
       </data>
     </edge>
     <edge id="e10" source="n6" sourceport="p2" target="n10" targetport="p1">
@@ -869,18 +830,12 @@
           <y:Bend Location="700.0,451.5897250472849"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e11" source="n20" sourceport="p1" target="n9" targetport="p0">
       <data key="d7">
         <x:List>
           <y:Bend Location="1400.0,144.20793070830885"/>
         </x:List>
-      </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
       </data>
     </edge>
     <edge id="e12" source="n13" sourceport="p0" target="n1" targetport="p0">
@@ -889,9 +844,6 @@
           <y:Bend Location="91.13912533706568,-381.80060847242635"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e13" source="n14" sourceport="p0" target="n15" targetport="p1">
       <data key="d7">
@@ -899,14 +851,8 @@
           <y:Bend Location="1039.613631313063,-399.1073951318035"/>
         </x:List>
       </data>
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
     <edge id="e14" source="n11" sourceport="p1" target="n19" targetport="p2">
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="6"/>
-      </data>
     </edge>
   </graph>
 </graphml>

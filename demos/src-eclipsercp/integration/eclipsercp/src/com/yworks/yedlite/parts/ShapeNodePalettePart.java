@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -56,6 +56,8 @@ public class ShapeNodePalettePart extends PaletteViewPart {
             newShapeNodeStyle(ShapeNodeShape.ELLIPSE, Pen.getBlack(), Color.ORANGE)),
         new NamedStyle<INodeStyle>("Hexagon", "Hexagon",
             newShapeNodeStyle(ShapeNodeShape.HEXAGON, Pen.getBlack(), Color.ORANGE)),
+        new NamedStyle<INodeStyle>("Hexagon2", "Hexagon2",
+            newShapeNodeStyle(ShapeNodeShape.HEXAGON2, Pen.getBlack(), Color.ORANGE)),
         new NamedStyle<INodeStyle>("Octagon", "Octagon",
             newShapeNodeStyle(ShapeNodeShape.OCTAGON, Pen.getBlack(), Color.ORANGE)),
         new NamedStyle<INodeStyle>("ShearedRectangle", "Sheared Rectangle",
@@ -64,6 +66,8 @@ public class ShapeNodePalettePart extends PaletteViewPart {
             newShapeNodeStyle(ShapeNodeShape.SHEARED_RECTANGLE2, Pen.getBlack(), Color.ORANGE)),
         new NamedStyle<INodeStyle>("Star5", "Star",
             newShapeNodeStyle(ShapeNodeShape.STAR5, Pen.getBlack(), Color.ORANGE)),
+        new NamedStyle<INodeStyle>("Star5 Up", "Star Up",
+            newShapeNodeStyle(ShapeNodeShape.STAR5_UP, Pen.getBlack(), Color.ORANGE)),
         new NamedStyle<INodeStyle>("Star6", "Star",
             newShapeNodeStyle(ShapeNodeShape.STAR6, Pen.getBlack(), Color.ORANGE)),
         new NamedStyle<INodeStyle>("Star8", "Star",
@@ -81,7 +85,9 @@ public class ShapeNodePalettePart extends PaletteViewPart {
         new NamedStyle<INodeStyle>("FatArrow2", "Fat Arrow",
             newShapeNodeStyle(ShapeNodeShape.FAT_ARROW2, Pen.getBlack(), Color.ORANGE)),
         new NamedStyle<INodeStyle>("Diamond", "Diamond",
-            newShapeNodeStyle(ShapeNodeShape.DIAMOND, Pen.getBlack(), Color.ORANGE)));
+            newShapeNodeStyle(ShapeNodeShape.DIAMOND, Pen.getBlack(), Color.ORANGE)),
+        new NamedStyle<INodeStyle>("Pill", "Pill",
+            newShapeNodeStyle(ShapeNodeShape.PILL, Pen.getBlack(), Color.ORANGE)));
   }
 
   private static ShapeNodeStyle newShapeNodeStyle(

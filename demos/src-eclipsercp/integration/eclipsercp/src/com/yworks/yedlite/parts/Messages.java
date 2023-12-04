@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -39,20 +39,14 @@ public class Messages {
   public String PropertiesPart_NoItemSelected;
 
   public String PropertiesPart_NodeProperties;
-  public String PropertiesPart_ShinyPlateNode;
+  public String PropertiesPart_GroupNode;
   public String PropertiesPart_FillColor;
   public String PropertiesPart_DropShadow;
   public String PropertiesPart_ShapeNode;
   public String PropertiesPart_Shape;
-  public String PropertiesPart_BevelNode;
   public String PropertiesPart_Inset;
   public String PropertiesPart_Radius;
-  public String PropertiesPart_CollapsibleNode;
-  public String PropertiesPart_PanelNode;
   public String PropertiesPart_LabelInsetsColor;
-  public String PropertiesPart_ButtonLocationModel;
-  public String PropertiesPart_ButtonLocationParameter;
-
   public String PropertiesPart_EdgeProperties;
   public String PropertiesPart_LabelText;
   public String PropertiesPart_Smoothing;

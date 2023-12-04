@@ -129,14 +129,26 @@
     Demonstrates how to enable snapping functionality for graph elements.</echo>
 <echo>run-Tooltips
     Demonstrates how to add tooltips to graph items.</echo>
+<echo>run-ArrowNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for JavaFX.</echo>
 <echo>run-CompositeNodeStyle
     This demo shows how to combine several node styles into one.</echo>
+<echo>run-DefaultLabelStyle
+    Shows the most important configuration options for the built-in DefaultLabelStyle class.</echo>
+<echo>run-GroupNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for JavaFX.</echo>
+<echo>run-RectangleNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for JavaFX.</echo>
 <echo>run-RichTextLabelStyle
     Using the JavaFX 8 Rich Text API in yFiles.</echo>
+<echo>run-ShapeNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for JavaFX.</echo>
 <echo>run-SimpleCustomStyle
     Shows how to implement sophisticated styles for graph objects in yFiles for JavaFX.</echo>
 <echo>run-TemplateStyle
     Shows how to use TemplateNodeStyle and TemplateLabelStyle to create complex node and label visualizations using FXML components.</echo>
+<echo>run-TextWrapping
+    Shows how to use the text wrapping and overrun style feature provided by the DefaultLabelStyle class.</echo>
 <echo>run-ZoomInvariantLabelStyleDemo
     Demonstrates zoom-invariant label rendering.</echo>
 <echo>run-GraphBuilder
@@ -576,14 +588,44 @@
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
+<target name="run-ArrowNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for JavaFX.">
+<java classname="style.arrownodestyle.ArrowNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
 <target name="run-CompositeNodeStyle" depends="compile" description="This demo shows how to combine several node styles into one.">
 <java classname="style.compositenodestyle.CompositeNodeStyleDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>
 </java>
 </target>
+<target name="run-DefaultLabelStyle" depends="compile" description="Shows the most important configuration options for the built-in DefaultLabelStyle class.">
+<java classname="style.defaultlabelstyle.DefaultLabelStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-GroupNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for JavaFX.">
+<java classname="style.groupnodestyle.GroupNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-RectangleNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for JavaFX.">
+<java classname="style.rectanglenodestyle.RectangleNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
 <target name="run-RichTextLabelStyle" depends="compile" description="Using the JavaFX 8 Rich Text API in yFiles.">
 <java classname="style.richtextlabelstyle.RichTextLabelStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-ShapeNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for JavaFX.">
+<java classname="style.shapenodestyle.ShapeNodeStyleDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>
 </java>
@@ -596,6 +638,12 @@
 </target>
 <target name="run-TemplateStyle" depends="compile" description="Shows how to use TemplateNodeStyle and TemplateLabelStyle to create complex node and label visualizations using FXML components.">
 <java classname="style.templatestyle.TemplateStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+<jvmarg line="${java.fx.args}"/>
+</java>
+</target>
+<target name="run-TextWrapping" depends="compile" description="Shows how to use the text wrapping and overrun style feature provided by the DefaultLabelStyle class.">
+<java classname="style.textwrapping.TextWrappingDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 <jvmarg line="${java.fx.args}"/>
 </java>

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -46,13 +46,13 @@ import com.yworks.yfiles.graph.styles.VoidLabelStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.IBoundsProvider;
-import com.yworks.yfiles.view.input.IHitTestable;
-import com.yworks.yfiles.view.input.IMarqueeTestable;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.VisualGroup;
+import com.yworks.yfiles.view.input.IHitTestable;
+import com.yworks.yfiles.view.input.IMarqueeTestable;
 import java.util.Objects;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
@@ -189,7 +189,7 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
 
       ConnectedIconLabelStyle delegateStyle = labelStyle.delegateStyle;
       delegateStyle.setIconStyle(labelStyle.messageStyle);
-      labelStyle.messageStyle.setIcon(IconFactory.createMessage(messageOutline, messageColor, false));
+      labelStyle.messageStyle.setIcon(IconFactory.createMessage(messageOutline, messageColor));
       delegateStyle.setLabelConnectorLocation(north ? FreeNodePortLocationModel.NODE_BOTTOM_ANCHORED : FreeNodePortLocationModel.NODE_TOP_ANCHORED);
       delegateStyle.setNodeConnectorLocation(north ? FreeNodePortLocationModel.NODE_TOP_ANCHORED : FreeNodePortLocationModel.NODE_BOTTOM_ANCHORED);
       return delegateStyle;

@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -34,7 +34,7 @@
   <target name="help">
     <echo>
       This file provides Ant tasks that show how to obfuscate the yFiles classes
-      before they can be deployed as a part of an applet or application.
+      before they are deployed as a part of an applet or application.
       The Ant-based obfuscation will be performed by the freely available
       obfuscator yGuard.
       If you do not have yGuard already, you can either download it from
@@ -51,25 +51,25 @@
       Ant tasks each of which can be initiated by giving its name
       on the commandline.
 
-      compile - compiles all application specific class contained in
+      -compile - compiles all application specific class contained in
       the demo.* packages.
 
-      jar - puts all application specific class files and resources
+      -jar - puts all application specific class files and resources
       into the application jar ObfuscationDemo_unbobfuscated.jar.
       Note that the yFiles classes are not contained in this jar. They still
       reside in yfiles-for-javafx.jar.
 
-      obfuscate-yfiles - obfuscates yfiles-for-javafx.jar and adjusts
+      -obfuscate-yfiles - obfuscates yfiles-for-javafx.jar and adjusts
       ObfuscationDemo_unobfuscated.jar accordingly.
       This task takes as input the yFiles jar file yfiles-for-javafx.jar and
       the application jar file ObfuscationDemo_unobfuscated.jar. The output of
       the task are the obfuscated versions yfilesObf.jar and ObfuscationDemo.jar
       of these jar files.
 
-      obfuscate-completely - obfuscates yfiles-for-javafx.jar,
+      -obfuscate-completely - obfuscates yfiles-for-javafx.jar,
       adjusts ObfuscationDemo_unobfuscated.jar accordingly and obfuscates it.
-      This obfuscation task takes as input the
-      yFiles jar file yfiles-for-javafx.jar and the application jar file
+      This obfuscation task takes as input the yFiles jar file
+      yfiles-for-javafx.jar and the application jar file
       ObfuscationDemo_unobfuscated.jar. The output of the task are the
       obfuscated versions yfilesObf.jar and ObfuscationDemo.jar of these jar
       files.

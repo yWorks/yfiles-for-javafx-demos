@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -39,11 +39,11 @@ import com.yworks.yfiles.graph.styles.NodeStyleLabelStyleAdapter;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.IBoundsProvider;
-import com.yworks.yfiles.view.input.IHitTestable;
-import com.yworks.yfiles.view.input.IMarqueeTestable;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.Pen;
+import com.yworks.yfiles.view.input.IHitTestable;
+import com.yworks.yfiles.view.input.IMarqueeTestable;
 import javafx.scene.paint.Paint;
 
 /**
@@ -182,7 +182,7 @@ public class MessageLabelStyle implements ILabelStyle {
   private void updateIcon() {
     NodeStyleLabelStyleAdapter adapter = renderer.adapter;
     BpmnNodeStyle nodeStyle = (BpmnNodeStyle)adapter.getNodeStyle();
-    nodeStyle.setIcon(IconFactory.createMessage(messagePen, isInitiating() ? getInitiatingColor() : getResponseColor(), false));
+    nodeStyle.setIcon(IconFactory.createMessage(messagePen, isInitiating() ? getInitiatingColor() : getResponseColor()));
     nodeStyle.setModCount(nodeStyle.getModCount() + 1);
   }
 

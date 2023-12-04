@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,24 +29,24 @@
  ***************************************************************************/
 package input.reparenthandler;
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.ILabelStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.utils.IEnumerable;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.ReparentNodeHandler;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import java.util.Arrays;
@@ -104,25 +104,24 @@ public class ReparentHandlerDemo extends DemoApplication {
    * group node.
    */
   private void createSampleGraph(IGraph graph) {
+    DemoStyles.initDemoStyles(graph);
+
     // Create some group nodes
-    INode group1 = createGroupNode(graph, 100, 100, Color.ROYALBLUE, "Only Blue Children");
-    INode group2 = createGroupNode(graph, 160, 130, Color.ROYALBLUE, "Only Blue Children");
-    INode greenGroup = createGroupNode(graph, 100, 350, Color.FORESTGREEN, "Only Green Children");
-    createGroupNode(graph, 400, 350, Color.FORESTGREEN, "Only Green Children");
+    INode group1 = createGroupNode(graph, 100, 100, Themes.PALETTE_LIGHTBLUE, "Only Blue Children");
+    INode group2 = createGroupNode(graph, 160, 130, Themes.PALETTE_LIGHTBLUE, "Only Blue Children");
+    INode greenGroup = createGroupNode(graph, 100, 350, Themes.PALETTE_GREEN, "Only Green Children");
+    createGroupNode(graph, 400, 350, Themes.PALETTE_GREEN, "Only Green Children");
 
     // And some regular nodes
-    ShinyPlateNodeStyle blueStyle = new ShinyPlateNodeStyle();
-    blueStyle.setPaint(Color.ROYALBLUE);
-    INode blueNode = graph.createNode(new RectD(110, 130, 30, 30), blueStyle, Color.ROYALBLUE);
-    ShinyPlateNodeStyle greenStyle = new ShinyPlateNodeStyle();
-    greenStyle.setPaint(Color.FORESTGREEN);
-    INode greenNode = graph.createNode(new RectD(130, 380, 30, 30), greenStyle, Color.FORESTGREEN);
-    ShinyPlateNodeStyle redStyle = new ShinyPlateNodeStyle();
-    redStyle.setPaint(Color.FIREBRICK);
-    graph.createNode(new RectD(400, 100, 30, 30), redStyle, Color.FIREBRICK);
-    graph.createNode(new RectD(500, 100, 30, 30), greenStyle, Color.FORESTGREEN);
-    graph.createNode(new RectD(400, 200, 30, 30), blueStyle, Color.ROYALBLUE);
-    graph.createNode(new RectD(500, 200, 30, 30), redStyle, Color.FIREBRICK);
+    RectangleNodeStyle blueStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_LIGHTBLUE);
+    INode blueNode = graph.createNode(new RectD(110, 130, 30, 30), blueStyle, Themes.PALETTE_LIGHTBLUE);
+    RectangleNodeStyle greenStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_GREEN);
+    INode greenNode = graph.createNode(new RectD(130, 380, 30, 30), greenStyle, Themes.PALETTE_GREEN);
+    RectangleNodeStyle redStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_RED);
+    graph.createNode(new RectD(400, 100, 30, 30), redStyle, Themes.PALETTE_RED);
+    graph.createNode(new RectD(500, 100, 30, 30), greenStyle, Themes.PALETTE_GREEN);
+    graph.createNode(new RectD(400, 200, 30, 30), blueStyle, Themes.PALETTE_LIGHTBLUE);
+    graph.createNode(new RectD(500, 200, 30, 30), redStyle, Themes.PALETTE_RED);
 
     // Add some initial children to the groups
     graph.groupNodes(group1, Arrays.asList(blueNode, group2));
@@ -138,20 +137,13 @@ public class ReparentHandlerDemo extends DemoApplication {
   /**
    * Creates a group node for the sample graph with a specific styling.
    */
-  private static INode createGroupNode(IGraph graph, double x, double y, Color fillColor, String labelText) {
-    PanelNodeStyle groupNodeStyle = new PanelNodeStyle();
-    groupNodeStyle.setInsets(new InsetsD(25, 5, 5, 5));
-    groupNodeStyle.setColor(fillColor);
-    groupNodeStyle.setLabelInsetsColor(fillColor);
-    INode groupNode = graph.createGroupNode(null, new RectD(x, y, 130, 100), groupNodeStyle, fillColor);
+  private static INode createGroupNode(IGraph graph, double x, double y, Palette palette, String labelText) {
+    GroupNodeStyle groupNodeStyle = DemoStyles.createDemoGroupStyle(palette);
+    INode groupNode = graph.createGroupNode(null, new RectD(x, y, 130, 100), groupNodeStyle, palette);
 
     // The label style and placement
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setTextPaint(Color.WHITE);
-    InteriorStretchLabelModel labelModel = new InteriorStretchLabelModel();
-    labelModel.setInsets(new InsetsD(2, 5, 4, 5));
-    ILabelModelParameter modelParameter = labelModel.createParameter(InteriorStretchLabelModel.Position.NORTH);
-    graph.addLabel(groupNode, labelText, modelParameter, labelStyle);
+    ILabelStyle labelStyle = DemoStyles.createDemoGroupLabelStyle(palette);
+    graph.addLabel(groupNode, labelText, null, labelStyle);
 
     return groupNode;
   }
@@ -176,7 +168,7 @@ public class ReparentHandlerDemo extends DemoApplication {
      */
     @Override
     public boolean isReparentGesture(IInputModeContext context, INode node) {
-      return super.isReparentGesture(context, node) || Color.FORESTGREEN.equals(node.getTag());
+      return super.isReparentGesture(context, node) || Themes.PALETTE_GREEN.equals(node.getTag());
     }
 
     /**
@@ -189,7 +181,7 @@ public class ReparentHandlerDemo extends DemoApplication {
      */
     @Override
     public boolean shouldReparent(IInputModeContext context, INode node) {
-      return !Color.FIREBRICK.equals(node.getTag());
+      return !Themes.PALETTE_RED.equals(node.getTag());
     }
 
     /**
@@ -210,8 +202,8 @@ public class ReparentHandlerDemo extends DemoApplication {
         // Newly created nodes or nodes without a tag in general can be reparented freely
         return true;
       }
-      // Otherwise allow nodes to be moved only if their tags are the same color
-      if (nodeTag instanceof Color && parentTag instanceof Color) {
+      // Otherwise, allow nodes to be moved only if their tags are the same color
+      if (nodeTag instanceof Palette && parentTag instanceof Palette) {
         return nodeTag.equals(parentTag);
       }
       // Finally, if there is no new parent, this is ok, too

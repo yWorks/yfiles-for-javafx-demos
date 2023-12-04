@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -59,11 +59,11 @@
       <java:Color xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Value="#FFFFCC00" x:Key="1"/>
       <yfx:DefaultLabelStyle x:Key="2"/>
       <java:Color xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Value="#FFBDB992" x:Key="3"/>
-      <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 3}" x:Key="4">
-        <yfx:ShinyPlateNodeStyle.Pen>
+      <yfx:RectangleNodeStyle Paint="{y:GraphMLReference 3}" CornerSize="3.5" x:Key="4">
+        <yfx:RectangleNodeStyle.Pen>
           <yfx:Pen Paint="{y:GraphMLReference 3}"/>
-        </yfx:ShinyPlateNodeStyle.Pen>
-      </yfx:ShinyPlateNodeStyle>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
       <yfx:PolylineEdgeStyle SourceArrow="DEFAULT" x:Key="5">
         <yfx:PolylineEdgeStyle.Pen>
           <yfx:Pen DashStyle="Dash"/>
@@ -71,6 +71,11 @@
       </yfx:PolylineEdgeStyle>
       <yfx:PolylineEdgeStyle Pen="Black" x:Key="6"/>
       <yfx:PolylineEdgeStyle Pen="DarkBlue" TargetArrow="DEFAULT" x:Key="7"/>
+      <yfx:RectangleNodeStyle Paint="{y:GraphMLReference 1}" CornerSize="3.5" x:Key="8">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="{y:GraphMLReference 1}"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
     </y:SharedData>
   </data>
   <graph id="G">
@@ -94,11 +99,7 @@ getPhone()]]></y:Label.Text>
         <y:RectD Height="116.0" Width="131.0" X="504.5" Y="-28.0"/>
       </data>
       <data key="d4">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}">
-          <yfx:ShinyPlateNodeStyle.Pen>
-            <yfx:Pen Paint="{y:GraphMLReference 1}"/>
-          </yfx:ShinyPlateNodeStyle.Pen>
-        </yfx:ShinyPlateNodeStyle>
+        <y:GraphMLReference ResourceKey="8"/>
       </data>
       <port name="p0">
         <data key="d10">

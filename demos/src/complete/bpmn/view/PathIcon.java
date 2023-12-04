@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -31,7 +31,6 @@ package complete.bpmn.view;
 
 import com.yworks.yfiles.geometry.GeneralPath;
 import com.yworks.yfiles.geometry.Matrix2D;
-import com.yworks.yfiles.geometry.MatrixOrder;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.VisualGroup;
@@ -76,7 +75,7 @@ class PathIcon extends AbstractIcon {
     VisualGroup container = new VisualGroup();
 
     Matrix2D matrix2D = new Matrix2D();
-    matrix2D.scale(Math.max(0, getBounds().getWidth()), Math.max(0, getBounds().getHeight()), MatrixOrder.PREPEND);
+    matrix2D.scale(Math.max(0, getBounds().getWidth()), Math.max(0, getBounds().getHeight()));
 
     Path visual = getPath().createPath(matrix2D);
     if (getPaint() != null) {

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -156,7 +156,8 @@ public class EdgeBundlingDemo extends DemoApplication {
     graph.getDecorator().getEdgeDecorator().getSelectionDecorator().hideImplementation();
 
     // initialize the edge highlight manager
-    graphControl.setHighlightIndicatorManager(new DemoHighlightManager(graphControl));
+    DemoHighlightManager highlightManager = new DemoHighlightManager();
+    graphControl.setHighlightIndicatorManager(highlightManager);
 
     // when a node is selected, select also the adjacent edges
     graphControl.getSelection().addItemSelectionChangedListener(( sender, args ) -> {

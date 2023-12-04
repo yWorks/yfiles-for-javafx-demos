@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -178,6 +178,7 @@ class IconArrow implements IArrow, IVisualCreator, IBoundsProvider {
     icon.setBounds(new RectD(-getBounds().width, -getBounds().height / 2, getBounds().width, getBounds().height));
     VisualGroup visualGroup = new VisualGroup();
     visualGroup.add(icon.createVisual(context));
+
     // Rotate arrow and move it to correct position
     visualGroup.getTransforms().clear();
     visualGroup.getTransforms().add(new Affine(direction.x, -direction.y, anchor.x, direction.y, direction.x, anchor.y));

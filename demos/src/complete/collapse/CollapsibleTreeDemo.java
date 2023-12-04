@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -40,7 +40,6 @@ import com.yworks.yfiles.graph.IMapper;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.Mapper;
 import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.TemplateNodeStyle;
 import com.yworks.yfiles.layout.FixNodeLayoutData;
 import com.yworks.yfiles.layout.FixNodeLayoutStage;
@@ -72,9 +71,10 @@ import java.util.Random;
 /**
  * Demonstrates the wrapping and decorating of {@link com.yworks.yfiles.graph.IGraph} instances.
  * <p>
- *   This demo shows a collapsible tree structure. Subtrees can be collapsed or expanded by clicking on
- *   their root nodes.
+ * This demo shows a collapsible tree structure. Subtrees can be collapsed or expanded by clicking on
+ * their root nodes.
  * </p>
+ *
  * @see com.yworks.yfiles.graph.FilteredGraphWrapper
  */
 public class CollapsibleTreeDemo extends DemoApplication {
@@ -105,7 +105,7 @@ public class CollapsibleTreeDemo extends DemoApplication {
   private final Random random = new Random(666);
 
   public void initialize() {
-    // setup the help text on the right side.
+    // set up the help text on the right side.
     WebViewUtils.initHelp(webView, this);
 
     // initialize demo
@@ -138,13 +138,10 @@ public class CollapsibleTreeDemo extends DemoApplication {
     // create the graph instance that will hold the complete graph.
     fullGraph = new DefaultGraph();
 
-    // Create a nice default style for the nodes...
+    // Create a nice default style for the nodes
     fullGraph.getNodeDefaults().setStyle(new TemplateNodeStyle(resolver.getResource("InnerNodeStyle.fxml")));
     fullGraph.getNodeDefaults().setSize(new SizeD(60, 30));
     fullGraph.getNodeDefaults().setStyleInstanceSharingEnabled(false);
-
-    // ...and a style for the labels
-    fullGraph.getNodeDefaults().getLabelDefaults().setStyle(new DefaultLabelStyle());
 
     // now build a simple sample tree
     buildTree(fullGraph, 3, 3, 3);
@@ -233,7 +230,7 @@ public class CollapsibleTreeDemo extends DemoApplication {
   /**
    * Called when the ToggleChildren command has been executed.
    * <p>
-   *   Note: Toggles the visibility of the node's children.
+   * Note: Toggles the visibility of the node's children.
    * </p>
    */
   private boolean toggleChildrenExecuted(ICommand command, Object parameter, Object source) {

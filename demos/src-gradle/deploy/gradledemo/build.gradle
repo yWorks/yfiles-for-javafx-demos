@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,7 +29,7 @@
  ***************************************************************************/
 plugins {
    id 'application'
-   id 'org.openjfx.javafxplugin' version '0.0.11'
+   id 'org.openjfx.javafxplugin' version '0.1.0'
    // The shadow plugin is used to generate an "uber"-jar containing the yFiles for JavaFX dependencies
    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
@@ -73,7 +73,7 @@ run {
 
 
 javafx {
-  version = "11.0.2"
+  version = "17"
   modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 

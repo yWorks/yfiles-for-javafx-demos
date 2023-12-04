@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -40,8 +40,6 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
@@ -50,6 +48,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.util.function.Predicate;
@@ -159,7 +158,7 @@ public class FilteringDemo extends DemoApplication {
     IGraph fullGraph = new DefaultGraph();
 
     // set default styles for newly created graph elements
-    initializeDefaults(fullGraph);
+    DemoStyles.initDemoStyles(fullGraph);
 
     // create an initial sample graph
     createInitialGraph(fullGraph);
@@ -186,31 +185,6 @@ public class FilteringDemo extends DemoApplication {
     boolean hasFilteredItems = fullGraph.getNodes().stream().anyMatch(node -> node.getTag() != null && node.getTag() == "filtered") ||
         fullGraph.getEdges().stream().anyMatch(edge -> edge.getTag() != null && edge.getTag() == "filtered");
     resetButton.setDisable(!hasFilteredItems);
-  }
-
-  /**
-   * Initializes the defaults for the styles.
-   */
-  private void initializeDefaults(IGraph graph) {
-    // configure defaults for normal nodes
-    ShinyPlateNodeStyle defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Color.DARKORANGE);
-    graph.getNodeDefaults().setStyle(defaultNodeStyle);
-    graph.getNodeDefaults().setSize(new SizeD(40, 40));
-
-    // configure defaults for group nodes and their labels
-    PanelNodeStyle panelNodeStyle = new PanelNodeStyle();
-    Color groupNodeColor = Color.rgb(214, 229, 248);
-    panelNodeStyle.setColor(groupNodeColor);
-    panelNodeStyle.setInsets(new InsetsD(23, 5, 5, 5));
-    panelNodeStyle.setLabelInsetsColor(groupNodeColor);
-    graph.getGroupNodeDefaults().setStyle(panelNodeStyle);
-
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
-    defaultLabelStyle.setTextAlignment(TextAlignment.RIGHT);
-    graph.getGroupNodeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
-
-    graph.getGroupNodeDefaults().getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
   }
 
   /**

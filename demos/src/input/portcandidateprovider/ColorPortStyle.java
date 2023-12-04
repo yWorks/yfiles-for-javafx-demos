@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -36,8 +36,11 @@ import com.yworks.yfiles.graph.styles.AbstractPortStyle;
 import com.yworks.yfiles.view.ICanvasContext;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.Pen;
+import toolkit.Palette;
+
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 
 /**
@@ -59,7 +62,8 @@ class ColorPortStyle extends AbstractPortStyle {
 
   @Override
   protected Node createVisual(IRenderContext context, IPort port) {
-    Color color = port.getTag() instanceof Color ? (Color) port.getTag() : Color.WHITE;
+    Object tag = port.getTag();
+    Paint color = tag instanceof Palette ? ((Palette) tag).getBackgroundPaint() : Color.WHITE;
     IPoint location = port.getLocation();
     Ellipse ellipse = new Ellipse(location.getX(), location.getY(), renderSizeHalf, renderSizeHalf);
     ellipse.setFill(color);

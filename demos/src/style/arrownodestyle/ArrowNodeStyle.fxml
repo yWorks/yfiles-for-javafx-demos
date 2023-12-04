@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /////////////////////////////////////////////////////////////////////////////
+  //
+  // This demo file is part of yFiles for JavaFX 3.6.
+  //
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // 72070 Tuebingen, Germany. All rights reserved.
+  //
+  // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
+  // of demo resource files, with or without modification, is not permitted.
+  // Owners of a valid software license for a yFiles for JavaFX version that this
+  // demo is shipped with are allowed to use the resource file as basis for
+  // their own yFiles for JavaFX powered applications. Use of such programs is
+  // governed by the rights and conditions as set out in the yFiles for JavaFX
+  // license agreement.
+  //
+  // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+  // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+  // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+  // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  /////////////////////////////////////////////////////////////////////////////
+-->
+
+<!-- Basic demo structure containing toolbar and graph control -->
+<?import com.yworks.yfiles.view.GraphControl?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+<?import toolkit.*?>
+<?import java.lang.Double?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Slider?>
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+
+  <right>
+    <!-- help pane that displays a short instruction for this demo -->
+    <TitledPane animated="false" collapsible="false" expanded="true" maxHeight="Infinity"
+                text="Description">
+      <content>
+        <WebView prefWidth="300.0" fx:id="help" fontScale="1"/>
+      </content>
+    </TitledPane>
+  </right>
+
+  <left>
+    <!-- option pane that displays the style settings of the selected node -->
+    <VBox style="-fx-background-color: lightgray;">
+      <TitledPane collapsible="false" text="ArrowNodeStyle properties" prefWidth="300">
+        <GridPane hgap="5" vgap="5">
+          <Label GridPane.rowIndex="0" GridPane.columnIndex="0" text="Basic Shape:"/>
+          <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity" fx:id="shapeBox"/>
+          <Label GridPane.rowIndex="1" GridPane.columnIndex="0" text="Shape Direction:"/>
+          <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity" fx:id="directionBox" />
+          <Label GridPane.rowIndex="2" GridPane.columnIndex="0" text="Angle (°):"/>
+          <Slider GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"
+                  GridPane.halignment="RIGHT" fx:id="angleSlider"
+                  min="-180" max="180" value="90" majorTickUnit="90" minorTickCount="90"
+                  showTickLabels="true" showTickMarks="true" snapToTicks="true"/>
+          <Label GridPane.rowIndex="3" GridPane.columnIndex="0" text="Shaft Ratio (%):"/>
+          <Slider GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"
+                  GridPane.halignment="RIGHT" fx:id="shaftRatioSlider"
+                  min="0" max="100" value="30" majorTickUnit="25" minorTickCount="25"
+                  showTickLabels="true" showTickMarks="true" snapToTicks="true"/>
+        </GridPane>
+      </TitledPane>
+    </VBox>
+  </left>
+
+  <top>
+    <!-- toolbar that provides controls of this demo -->
+    <ToolBar>
+      <items>
+        <!-- buttons to adjust zoom level -->
+        <CommandButton command="IncreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="DecreaseZoom" commandTarget="${graphControl}"/>
+        <CommandButton command="Zoom" commandTarget="${graphControl}" text="">
+          <commandParameter>
+            <Double fx:value="1.0"></Double>
+          </commandParameter>
+          <graphic>
+            <IconProvider fx:value="ZOOM_RESET"/>
+          </graphic>
+          <tooltip>
+            <TooltipProvider fx:value="ZOOM_RESET"/>
+          </tooltip>
+        </CommandButton>
+        <CommandButton command="FitGraphBounds" commandTarget="${graphControl}"/>
+      </items>
+    </ToolBar>
+  </top>
+
+  <center>
+    <!-- graph control that will contain the example graph -->
+    <GraphControl fx:id="graphControl"/>
+  </center>
+</BorderPane>

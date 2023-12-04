@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -67,6 +67,7 @@ import com.yworks.yfiles.graph.styles.VoidStripeStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.view.GraphControl;
+import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.ISelectionModel;
 import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.input.DefaultPortCandidate;
@@ -861,11 +862,12 @@ public class BpmnEditorDemo extends DemoApplication {
     // create the visual representation using the node's style renderer
     INodeStyle style = item.getStyle();
     IVisualCreator nodeVisualCreator = style.getRenderer().getVisualCreator(item, style);
-    container.getChildren().add(nodeVisualCreator.createVisual(graphControl.createRenderContext()));
+    IRenderContext renderContext = graphControl.createRenderContext();
+    container.getChildren().add(nodeVisualCreator.createVisual(renderContext));
 
     // add labels if there are any
     item.getLabels().stream()
-        .map(label -> label.getStyle().getRenderer().getVisualCreator(label, label.getStyle()).createVisual(null))
+        .map(label -> label.getStyle().getRenderer().getVisualCreator(label, label.getStyle()).createVisual(renderContext))
         .forEach(container.getChildren()::add);
 
     // When the user starts dragging a node in the palette, setup the information about the dragging.

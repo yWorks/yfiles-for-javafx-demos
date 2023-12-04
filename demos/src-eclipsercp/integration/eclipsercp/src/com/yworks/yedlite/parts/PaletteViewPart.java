@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,14 +29,27 @@
  ***************************************************************************/
 package com.yworks.yedlite.parts;
 
+import com.yworks.yedlite.ContextUtils;
+import com.yworks.yedlite.dragdrop.DragAndDropDataManager;
+import com.yworks.yfiles.geometry.IRectangle;
+import com.yworks.yfiles.geometry.RectD;
+import com.yworks.yfiles.graph.DefaultGraph;
+import com.yworks.yfiles.graph.IEdge;
+import com.yworks.yfiles.graph.IGraph;
+import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.IEdgeStyle;
+import com.yworks.yfiles.graph.styles.INodeStyle;
+import com.yworks.yfiles.view.ContextConfigurator;
+import com.yworks.yfiles.view.GraphControl;
+import com.yworks.yfiles.view.IRenderContext;
+import com.yworks.yfiles.view.IVisualCreator;
 import javafx.embed.swt.SWTFXUtils;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -54,23 +67,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
-import com.yworks.yedlite.dragdrop.DragAndDropDataManager;
-import com.yworks.yedlite.ContextUtils;
-import com.yworks.yfiles.geometry.IRectangle;
-import com.yworks.yfiles.geometry.RectD;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
-import com.yworks.yfiles.graph.styles.IEdgeStyle;
-import com.yworks.yfiles.graph.IEdge;
-import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.DefaultGraph;
-import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.view.ContextConfigurator;
-import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.view.IRenderContext;
-import com.yworks.yfiles.view.IVisualCreator;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  * A view that depicts a palette. Several differently styled nodes are listed and the user can drag
@@ -242,7 +240,7 @@ public class PaletteViewPart {
   }
 
   private boolean isGroupNodeStyle(INodeStyle style) {
-    return style instanceof CollapsibleNodeStyleDecorator;
+    return style instanceof GroupNodeStyle;
   }
 
   /**
@@ -306,7 +304,7 @@ public class PaletteViewPart {
       // since our GraphControl has its own.
       // Keep in mind that, prior to JDK 8u40, due to an issue in the DnD handling in FXCanvas (RT-37906),
       // using the preview feature of the yFiles library may cause problems when dropping a dragged node
-      // outside of the GraphControl.
+      // outside the GraphControl.
       // To prevent this, the native SWT preview, which shows a simple image, can also be used at this point.
       // To do this, simply do not set the image here to a blank image and set the NodePreviewShowingEnabled
       // property of the SwtNodeDropInputMode to false.

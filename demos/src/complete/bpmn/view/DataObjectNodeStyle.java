@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -32,7 +32,6 @@ package complete.bpmn.view;
 import com.yworks.yfiles.geometry.GeneralPath;
 import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.Matrix2D;
-import com.yworks.yfiles.geometry.MatrixOrder;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
@@ -244,7 +243,7 @@ public class DataObjectNodeStyle extends BpmnNodeStyle {
     IRectangle layout = node.getLayout().toRectD();
     double cornerSize = Math.min(layout.getWidth(), layout.getHeight()) * 0.4;
 
-    GeneralPath path = new GeneralPath(16);
+    GeneralPath path = new GeneralPath();
     path.moveTo(0, 0);
     path.lineTo(layout.getWidth() - cornerSize, 0);
     path.lineTo(layout.getWidth(), cornerSize);
@@ -253,7 +252,7 @@ public class DataObjectNodeStyle extends BpmnNodeStyle {
     path.close();
 
     Matrix2D transform = new Matrix2D();
-    transform.translate(layout.getTopLeft(), MatrixOrder.PREPEND);
+    transform.translate(layout.getTopLeft());
     path.transform(transform);
     return path;
   }

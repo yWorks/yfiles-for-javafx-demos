@@ -26,7 +26,7 @@ and
 
 ```groovy
 dependencies {
-  yfiles 'com.yworks.yfiles:yfiles-for-javafx-complete:3.5'
+  yfiles 'com.yworks.yfiles:yfiles-for-javafx-complete:3.6'
   yguard 'com.yworks:yguard:3.1.0'
 }
 ```
@@ -34,7 +34,7 @@ dependencies {
 The yFiles library can be installed into the local Maven repository as follows: In the `lib` folder of the package run:
 
 ```shell
-mvn install:install-file -Dfile="yfiles-for-javafx.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-javafx-complete" -Dversion="3.5" -Dpackaging="jar"
+mvn install:install-file -Dfile="yfiles-for-javafx.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-javafx-complete" -Dversion="3.6" -Dpackaging="jar"
 ```
 
 ## Running

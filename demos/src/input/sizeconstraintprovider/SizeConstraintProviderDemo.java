@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -37,8 +37,8 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.NodeDecorator;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.Pen;
@@ -47,10 +47,12 @@ import com.yworks.yfiles.view.input.INodeSizeConstraintProvider;
 import com.yworks.yfiles.view.input.NodeSizeConstraintProvider;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 /**
@@ -82,11 +84,11 @@ public class SizeConstraintProviderDemo extends DemoApplication {
 
           // Check if it is a known tag and choose the respective implementation.
           // Fallback to the default behavior otherwise.
-          if (Color.ROYALBLUE.equals(nodeTag)) {
+          if (Themes.PALETTE_LIGHTBLUE.equals(nodeTag)) {
             return blueSizeConstraintProvider;
-          } else if (Color.FORESTGREEN.equals(nodeTag)) {
+          } else if (Themes.PALETTE_GREEN.equals(nodeTag)) {
             return new GreenSizeConstraintProvider();
-          } else if (Color.DARKORANGE.equals(nodeTag)) {
+          } else if (Themes.PALETTE_ORANGE.equals(nodeTag)) {
             return new NodeSizeConstraintProvider(
                 new SizeD(50, 50),
                 new SizeD(300, 300),
@@ -106,9 +108,7 @@ public class SizeConstraintProviderDemo extends DemoApplication {
     // setup the help text on the right side.
     WebViewUtils.initHelp(help, this);
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.rgb(153, 153, 153));
-    graphControl.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphControl.getGraph());
 
     // Initialize the input mode
     initializeInputMode();
@@ -147,24 +147,21 @@ public class SizeConstraintProviderDemo extends DemoApplication {
    * Creates the sample graph of this demo.
    */
   private void createSampleGraph(IGraph graph) {
-    createNode(graph, new RectD(100, 100, 100, 60), Color.ROYALBLUE, Color.WHITESMOKE, "Never Shrink\n(Max 3x)");
-    createNode(graph, new RectD(300, 100, 160, 30), Color.ROYALBLUE, Color.WHITESMOKE, "Never Shrink (Max 3x)");
-    createNode(graph, new RectD(100, 215, 100, 30), Color.FORESTGREEN, Color.WHITESMOKE, "Enclose Label");
-    createNode(graph, new RectD(300, 200, 140, 80), Color.FORESTGREEN, Color.WHITESMOKE, "Enclose Label,\nEven Large Ones");
-    createNode(graph, new RectD(200, 340, 140, 140), Color.DARKORANGE, Color.BLACK, "Encompass Rectangle,\nMin and Max Size");
+    createNode(graph, new RectD(100, 100, 100, 60), Themes.PALETTE_LIGHTBLUE, "Never Shrink\n(Max 3x)");
+    createNode(graph, new RectD(300, 100, 160, 30), Themes.PALETTE_LIGHTBLUE, "Never Shrink (Max 3x)");
+    createNode(graph, new RectD(100, 215, 100, 30), Themes.PALETTE_GREEN, "Enclose Label");
+    createNode(graph, new RectD(300, 200, 140, 80), Themes.PALETTE_GREEN, "Enclose Label,\nEven Large Ones");
+    createNode(graph, new RectD(200, 340, 140, 140), Themes.PALETTE_ORANGE, "Encompass Rectangle,\nMin and Max Size");
   }
 
   /**
    * Creates a sample node for this demo.
    */
-  private static void createNode(IGraph graph, RectD bounds, Color fillColor, Color textColor, String labelText) {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(fillColor);
-    INode node = graph.createNode(bounds, nodeStyle, fillColor);
+  private static void createNode(IGraph graph, RectD bounds, Palette palette, String labelText) {
+    RectangleNodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(palette);
+    INode node = graph.createNode(bounds, nodeStyle, palette);
 
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setFont(Font.font("System", FontWeight.BOLD, 12));
-    labelStyle.setTextPaint(textColor);
+    DefaultLabelStyle labelStyle = DemoStyles.createDemoNodeLabelStyle(palette);
     graph.addLabel(node, labelText, InteriorLabelModel.CENTER, labelStyle);
   }
 

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -40,7 +40,7 @@ import com.yworks.yfiles.graph.IPort;
 import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.PixelImageExporter;
 import javafx.scene.Node;
@@ -48,6 +48,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import toolkit.DemoStyles;
 
 /**
  * An enum for {@link IModelItem} templates to populate the palette with and
@@ -62,7 +63,7 @@ public enum ModelItemTemplate {
   EDGE_LABEL(DragAndDropDemo.createLabel(getGraph(), "Edge Label", FreeNodeLabelModel.INSTANCE.createDefaultParameter())),
   PORT(DragAndDropDemo.createPort(getGraph(), FreeNodePortLocationModel.NODE_CENTER_ANCHORED));
 
-  private static final int MAX_SIZE = 70;
+  private static final int MAX_SIZE = 80;
   // the graph in which the template nodes live
   private static IGraph graph;
 
@@ -78,6 +79,7 @@ public enum ModelItemTemplate {
   static IGraph getGraph() {
     if (graph == null) {
       graph = new DefaultGraph();
+      DemoStyles.initDemoStyles(graph);
     }
     return graph;
   }
@@ -141,7 +143,7 @@ public enum ModelItemTemplate {
     INode templateNode = getNode();
     graph.setStyle(node, templateNode.getStyle());
     graph.setNodeLayout(node, RectD.fromCenter(location, templateNode.getLayout().toSizeD()));
-    graph.setIsGroupNode(node, templateNode.getStyle() instanceof PanelNodeStyle);
+    graph.setIsGroupNode(node, templateNode.getStyle() instanceof GroupNodeStyle);
     node.setTag(templateNode.getTag());
     templateNode.getLabels().forEach(
         label -> graph.addLabel(node, label.getText(), label.getLayoutParameter(), label.getStyle()));

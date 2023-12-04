@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,9 +29,7 @@
  ***************************************************************************/
 package viewer.filteringandfolding;
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.PointD;
-import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.DefaultGraph;
 import com.yworks.yfiles.graph.FilteredGraphWrapper;
 import com.yworks.yfiles.graph.FoldingManager;
@@ -40,20 +38,13 @@ import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.util.function.Predicate;
@@ -90,15 +81,11 @@ public class FilteringAndFoldingDemo extends DemoApplication {
     // create a folding view that manages the folded graph
     IFoldingView foldingView = manager.createFoldingView();
 
+    // create undo units for expand/collapse and enter/exit, too
+    foldingView.setNavigationalUndoUnitsEnqueuingEnabled(true);
+
     // return the view graph of the foldingView
     return foldingView.getGraph();
-  }
-
-  private void wrapGroupNodeStyle(IGraph fullGraph) {
-    // add a collapse/expand button to the group node style default
-    INodeStyle groupNodeStyle = fullGraph.getGroupNodeDefaults().getStyle();
-    CollapsibleNodeStyleDecorator decoratedStyle = new CollapsibleNodeStyleDecorator(groupNodeStyle);
-    fullGraph.getGroupNodeDefaults().setStyle(decoratedStyle);
   }
 
   private FilteredGraphWrapper getFilteredGraph() {
@@ -173,7 +160,7 @@ public class FilteringAndFoldingDemo extends DemoApplication {
     DefaultGraph fullGraph = new DefaultGraph();
 
     // configure the fullGraph
-    initializeDefaults(fullGraph);
+    DemoStyles.initDemoStyles(fullGraph, true);
 
     // create an initial sample graph
     createInitialGraph(fullGraph);
@@ -200,34 +187,6 @@ public class FilteringAndFoldingDemo extends DemoApplication {
     boolean hasFilteredItems = fullGraph.getNodes().stream().anyMatch(node -> node.getTag() != null && node.getTag() == "filtered") ||
         fullGraph.getEdges().stream().anyMatch(edge -> edge.getTag() != null && edge.getTag() == "filtered");
     resetButton.setDisable(!hasFilteredItems);
-  }
-
-  /**
-   * Initializes the defaults for the styles.
-   */
-  private void initializeDefaults(IGraph graph) {
-    // configure defaults for normal nodes
-    ShinyPlateNodeStyle defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Color.DARKORANGE);
-    graph.getNodeDefaults().setStyle(defaultNodeStyle);
-    graph.getNodeDefaults().setSize(new SizeD(40, 40));
-
-    // configure defaults for group nodes and their labels
-    PanelNodeStyle panelNodeStyle = new PanelNodeStyle();
-    Color groupNodeColor = Color.rgb(214, 229, 248);
-    panelNodeStyle.setColor(groupNodeColor);
-    panelNodeStyle.setInsets(new InsetsD(23, 5, 5, 5));
-    panelNodeStyle.setLabelInsetsColor(groupNodeColor);
-    graph.getGroupNodeDefaults().setStyle(panelNodeStyle);
-
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
-    defaultLabelStyle.setTextAlignment(TextAlignment.RIGHT);
-    graph.getGroupNodeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
-
-    graph.getGroupNodeDefaults().getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
-
-    // wrap group node style to provie +/- buttons to expand/collapse the group
-    wrapGroupNodeStyle(graph);
   }
 
   /**

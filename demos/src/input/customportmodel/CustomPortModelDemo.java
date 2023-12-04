@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,7 +35,6 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.INodeDefaults;
 import com.yworks.yfiles.graph.IPort;
@@ -49,6 +48,8 @@ import com.yworks.yfiles.view.input.IInputMode;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
 import com.yworks.yfiles.view.input.PortsHandleProvider;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import javafx.application.Platform;
@@ -110,20 +111,17 @@ public class CustomPortModelDemo extends DemoApplication {
   }
 
   /**
-   * Sets a custom node port model parameter instance for newly created node ports in the graph, creates a example nodes
-   * with a ports using the our model and an edge to connect the ports.
+   * Sets a custom node port model parameter instance for newly created node ports in the graph, creates example nodes
+   * with ports using our model and an edge to connect the ports.
    */
   private void initializeGraph(IGraph graph) {
+    DemoStyles.initDemoStyles(graph);
+
     INodeDefaults nodeDefaults = graph.getNodeDefaults();
     nodeDefaults.getPortDefaults().setLocationParameter(new MyNodePortLocationModel().createParameter(PortLocation.CENTER));
-    ShapeNodeStyle innerPortNodeStyle = new ShapeNodeStyle();
-    innerPortNodeStyle.setShape(ShapeNodeShape.ELLIPSE);
-    innerPortNodeStyle.setPaint(Color.RED);
+    ShapeNodeStyle innerPortNodeStyle = DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, Themes.PALETTE_LIGHTBLUE);
     nodeDefaults.getPortDefaults().setStyle(new NodeStylePortStyleAdapter(innerPortNodeStyle));
     nodeDefaults.setSize(new SizeD(50, 50));
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    nodeDefaults.setStyle(nodeStyle);
 
     NodeDecorator nodeDecorator = graph.getDecorator().getNodeDecorator();
     // for selected nodes show the handles

@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -36,7 +36,6 @@
   <key attr.name="EdgeLabels" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
   <key attr.name="EdgeGeometry" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
   <key attr.name="EdgeStyle" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
-  <key attr.name="GraphSettings" for="graph" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/GraphSettings"/>
   <key attr.name="PortLabels" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
   <key attr.name="PortLocationParameter" for="port" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
     <default>
@@ -51,104 +50,23 @@
   <key attr.name="SharedData" id="d11" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
   <data key="d11">
     <y:SharedData>
-      <yfx:DefaultLabelStyle x:Key="1"/>
-      <yfx:ShapeNodeStyle Paint="DarkOrange" x:Key="2">
-        <yfx:ShapeNodeStyle.Pen>
-          <yfx:Pen Paint="White" Thickness="0.0"/>
-        </yfx:ShapeNodeStyle.Pen>
-      </yfx:ShapeNodeStyle>
+      <yfx:DefaultLabelStyle x:Key="1" BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER"/>
+      <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="2">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
       <yfx:PolylineEdgeStyle x:Key="3">
         <yfx:PolylineEdgeStyle.Pen>
-          <yfx:Pen/>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
         </yfx:PolylineEdgeStyle.Pen>
         <yfx:PolylineEdgeStyle.TargetArrow>
-          <yfx:Arrow Paint="Black"/>
+          <yfx:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
         </yfx:PolylineEdgeStyle.TargetArrow>
       </yfx:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G">
-    <data key="d7">
-      <y:GraphSettings>
-        <y:GraphSettings.EdgeDefaults>
-          <y:EdgeDefaults Style="{y:GraphMLReference 3}">
-            <y:EdgeDefaults.Ports>
-              <y:PortDefaults LocationParameter="{x:Static y:BendAnchoredPortLocationModel.FirstBend}" Style="{x:Static y:VoidPortStyle.Instance}">
-                <y:PortDefaults.Labels>
-                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                    <y:LabelDefaults.LayoutParameter>
-                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
-                    </y:LabelDefaults.LayoutParameter>
-                    <y:LabelDefaults.Style>
-                      <yfx:DefaultLabelStyle/>
-                    </y:LabelDefaults.Style>
-                  </y:LabelDefaults>
-                </y:PortDefaults.Labels>
-              </y:PortDefaults>
-            </y:EdgeDefaults.Ports>
-            <y:EdgeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                <y:LabelDefaults.LayoutParameter>
-                  <y:EdgeSegmentLabelModelParameter>
-                    <y:EdgeSegmentLabelModelParameter.Model>
-                      <y:EdgeSegmentLabelModel AutoRotationEnabled="False"/>
-                    </y:EdgeSegmentLabelModelParameter.Model>
-                  </y:EdgeSegmentLabelModelParameter>
-                </y:LabelDefaults.LayoutParameter>
-                <y:LabelDefaults.Style>
-                  <yfx:DefaultLabelStyle/>
-                </y:LabelDefaults.Style>
-              </y:LabelDefaults>
-            </y:EdgeDefaults.Labels>
-          </y:EdgeDefaults>
-        </y:GraphSettings.EdgeDefaults>
-        <y:GraphSettings.GroupNodeDefaults>
-          <y:NodeDefaults Size="30.0,30.0">
-            <y:NodeDefaults.Ports>
-              <y:PortDefaults LocationParameter="{x:Static y:FreeNodePortLocationModel.NodeCenterAnchored}" Style="{x:Static y:VoidPortStyle.Instance}">
-                <y:PortDefaults.Labels>
-                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                    <y:LabelDefaults.LayoutParameter>
-                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
-                    </y:LabelDefaults.LayoutParameter>
-                    <y:LabelDefaults.Style>
-                      <yfx:DefaultLabelStyle/>
-                    </y:LabelDefaults.Style>
-                  </y:LabelDefaults>
-                </y:PortDefaults.Labels>
-              </y:PortDefaults>
-            </y:NodeDefaults.Ports>
-            <y:NodeDefaults.Style>
-              <yfx:ShapeNodeStyle Paint="LightGrey"/>
-            </y:NodeDefaults.Style>
-            <y:NodeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorLabelModel.Center}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 1}"/>
-            </y:NodeDefaults.Labels>
-          </y:NodeDefaults>
-        </y:GraphSettings.GroupNodeDefaults>
-        <y:GraphSettings.NodeDefaults>
-          <y:NodeDefaults Size="30.0,30.0" Style="{y:GraphMLReference 2}">
-            <y:NodeDefaults.Ports>
-              <y:PortDefaults LocationParameter="{x:Static y:FreeNodePortLocationModel.NodeCenterAnchored}" Style="{x:Static y:VoidPortStyle.Instance}">
-                <y:PortDefaults.Labels>
-                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                    <y:LabelDefaults.LayoutParameter>
-                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
-                    </y:LabelDefaults.LayoutParameter>
-                    <y:LabelDefaults.Style>
-                      <yfx:DefaultLabelStyle/>
-                    </y:LabelDefaults.Style>
-                  </y:LabelDefaults>
-                </y:PortDefaults.Labels>
-              </y:PortDefaults>
-            </y:NodeDefaults.Ports>
-            <y:NodeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorLabelModel.Center}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 1}"/>
-            </y:NodeDefaults.Labels>
-          </y:NodeDefaults>
-        </y:GraphSettings.NodeDefaults>
-      </y:GraphSettings>
-    </data>
     <node id="n0">
       <data key="d0">
         <x:List>

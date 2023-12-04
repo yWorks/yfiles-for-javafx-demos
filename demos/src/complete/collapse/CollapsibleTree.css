@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -27,21 +27,22 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-/* inner nodes with visible children are colored with a blue gradient */
+/* inner nodes with visible children are colored blue */
 .innerNodeStyle {
     -fx-background-radius: 5;
-    -fx-background-color: linear-gradient(to bottom, lightskyblue, cornflowerblue);
-}
+    -fx-background-color: rgb(153, 204, 255);
+    -fx-border-width: 0;
+}}
 
-/* inner nodes with hidden children are colored with an orange gradient */
+/* inner nodes with hidden children are colored orange */
 .innerNodeStyle:selected {
     -fx-background-radius: 5;
-    -fx-background-color: linear-gradient(to bottom, gold, orange);
+    -fx-background-color: rgb(255, 153, 0);
     -fx-border-width: 0;
 }
 
-/* leaves are colored with a green gradient */
+/* leaves are colored green */
 .leafNodeStyle {
     -fx-background-radius: 5;
-    -fx-background-color: linear-gradient(to bottom, greenyellow, yellowgreen);
+    -fx-background-color: rgb(153, 204, 51);
 }

@@ -60,7 +60,6 @@
             <children xsi:type="basic:PartSashContainer" xmi:id="_D_qboFQUEeayx9ktpHee8Q" elementId="yed-lite-eclipse-rcp.partsashcontainer.2" containerData="2000">
               <children xsi:type="basic:PartStack" xmi:id="_HLf94lMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.partstack.palette" containerData="1000">
                 <children xsi:type="basic:Part" xmi:id="_HLf941MJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.palette.shapes" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ShapeNodePalettePart" label="%part.label.palette_shape_nodes" tooltip="%part.tooltip.palette_shape_nodes"/>
-                <children xsi:type="basic:Part" xmi:id="_HLf95FMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.nodes.modern" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.ModernNodesPart" label="%part.label.palette_modern_nodes" tooltip="%part.tooltip.palette_modern_nodes"/>
                 <children xsi:type="basic:Part" xmi:id="_HLf95VMJEea9mo3tJ3bKEQ" elementId="yed-lite-eclipse-rcp.part.palette.groups" contributionURI="bundleclass://com.yworks.yEdLite/com.yworks.yedlite.parts.GroupPalettePart" label="%part.label.palette_group_nodes" tooltip="%part.tooltip.palette_group_nodes"/>
               </children>
               <children xsi:type="basic:PartStack" xmi:id="_Ie1VoFQUEeayx9ktpHee8Q" elementId="yed-lite-eclipse-rcp.partstack.3" containerData="750">

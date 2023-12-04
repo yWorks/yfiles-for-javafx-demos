@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -42,17 +42,11 @@ import com.yworks.yfiles.graph.builder.AdjacencyNodesSource;
 import com.yworks.yfiles.graph.builder.EdgeCreator;
 import com.yworks.yfiles.graph.builder.LabelCreator;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
 import com.yworks.yfiles.layout.hierarchic.LayoutMode;
 import com.yworks.yfiles.utils.ICloneable;
 import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.ShowFocusPolicy;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import com.yworks.yfiles.view.input.IInputMode;
@@ -64,12 +58,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import java.time.Duration;
@@ -163,35 +155,22 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
    */
   @Override
   protected void onLoaded() {
+    DemoStyles.initDemoStyles(graphControl.getGraph(), Themes.PALETTE31);
+
     // configure the graph builder and its data sources
     nodesData = createInitialBusinessData();
     nodesView.setItems(nodesData);
     graphBuilder = new AdjacencyGraphBuilder(graphControl.getGraph());
-
-    // create and configure NodesSource
     nodesSource = graphBuilder.createNodesSource(nodesData);
-
-    ShapeNodeStyle nodeStyle = new ShapeNodeStyle();
-    nodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    nodeStyle.setPaint(Color.rgb(255, 237, 204));
-    nodeStyle.setPen(Pen.getDarkOrange());
-    nodesSource.getNodeCreator().getDefaults().setStyle(nodeStyle);
 
     // define and configure successor/predecessor
     EdgeCreator<BusinessData> edgeCreator = new EdgeCreator<>();
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setSmoothingLength(20);
-    edgeStyle.setTargetArrow(IArrow.DEFAULT);
-    edgeCreator.getDefaults().setStyle(edgeStyle);
     nodesSource.addSuccessorsSource(BusinessData::getSuccessors, nodesSource, edgeCreator);
     nodesSource.addPredecessorsSource(BusinessData::getPredecessors, nodesSource, edgeCreator);
 
     // add labels to nodes
     LabelCreator<BusinessData> nodeLabelCreator = nodesSource.getNodeCreator().createLabelBinding(
         BusinessData::getNodeName);
-    DefaultLabelStyle nodeLabelStyle = new DefaultLabelStyle();
-    nodeLabelStyle.setFont(Font.font("System", FontWeight.NORMAL, FontPosture.REGULAR, 13));
-    nodeLabelCreator.getDefaults().setStyle(nodeLabelStyle);
     nodeLabelCreator.getDefaults().setLayoutParameter(InteriorLabelModel.CENTER);
 
     // ensure that nodes are large enough to hold their labels
@@ -213,6 +192,7 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
 
   /**
    * Creates the node source.
+   *
    * @return A list of {@link BusinessData} items.
    */
   private static ObservableList<BusinessData> createInitialBusinessData() {
@@ -254,7 +234,7 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
    * in the {@code nodesView} list has changed.
    */
   private void selectedValueChanged(
-          ObservableValue<? extends BusinessData> observable, BusinessData oldValue, BusinessData newValue
+      ObservableValue<? extends BusinessData> observable, BusinessData oldValue, BusinessData newValue
   ) {
     if (currentItem != newValue) {
       IGraph graph = graphControl.getGraph();
@@ -270,9 +250,10 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
 
   /**
    * Set the current item and update the successor and predecessor list.
+   *
    * @param selected The item to select.
    */
-  private void setCurrentItem( BusinessData selected ) {
+  private void setCurrentItem(BusinessData selected) {
     if (currentItem == selected) {
       return;
     }
@@ -294,7 +275,7 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
    * Updates the current item and the successor and predecessor lists.
    */
   private void currentItemChanged(
-          ObservableValue<? extends IModelItem> observable, IModelItem oldValue, IModelItem newValue
+      ObservableValue<? extends IModelItem> observable, IModelItem oldValue, IModelItem newValue
   ) {
     BusinessData item = newValue == null ? null : (BusinessData) newValue.getTag();
     if (this.currentItem != item) {
@@ -309,10 +290,11 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
 
   /**
    * Updates the graph after changes to the business data.
-   * @param incremental Whether to keep the unchanged parts of the graph stable.
+   *
+   * @param incremental      Whether to keep the unchanged parts of the graph stable.
    * @param incrementalNodes The nodes which have changed.
    */
-  public void update( boolean incremental, BusinessData... incrementalNodes ) {
+  public void update(boolean incremental, BusinessData... incrementalNodes) {
     graphBuilder.updateGraph();
     applyLayout(incremental, incrementalNodes);
   }
@@ -321,10 +303,11 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
    * Applies the layout. Uses a {@link HierarchicLayout}. If single graph items
    * are created or removed, the incremental mode of this layout algorithm is
    * used to keep most of the current layout of the graph unchanged.
-   * @param incremental if set to {@code true} incremental.
+   *
+   * @param incremental      if set to {@code true} incremental.
    * @param incrementalNodes the incremental nodes.
    */
-  private void applyLayout( boolean incremental, BusinessData... incrementalNodes ) {
+  private void applyLayout(boolean incremental, BusinessData... incrementalNodes) {
     HierarchicLayout layout = new HierarchicLayout();
     HierarchicLayoutData layoutData = null;
     if (!incremental) {
@@ -434,6 +417,7 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
    * If a name has been entered and OK has been clicked a new BusinessData
    * object is returned. If no name has been entered or Cancel has been clicked
    * {@code null} is returned.
+   *
    * @return A newly created business object or {@code null}.
    */
   private BusinessData addNewItem() {
@@ -448,7 +432,7 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
   }
 
 
-  public static void main( String[] args ) {
+  public static void main(String[] args) {
     launch();
   }
 
@@ -465,7 +449,7 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
       this("Unnamed");
     }
 
-    public BusinessData( String name ) {
+    public BusinessData(String name) {
       nodeName = name;
       successors = FXCollections.observableArrayList();
       predecessors = FXCollections.observableArrayList();
@@ -475,7 +459,7 @@ public class InteractiveNodesGraphBuilderDemo extends DemoApplication {
       return nodeName;
     }
 
-    public void setNodeName( String nodeName ) {
+    public void setNodeName(String nodeName) {
       this.nodeName = nodeName;
     }
 

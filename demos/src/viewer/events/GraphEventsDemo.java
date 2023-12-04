@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -63,8 +63,6 @@ import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.IPortStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.utils.IEnumerable;
 import com.yworks.yfiles.utils.IEventArgs;
@@ -119,6 +117,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.IOException;
@@ -230,20 +229,7 @@ public class GraphEventsDemo extends DemoApplication {
 
   private void initializeGraph() {
     IGraph graph = graphControl.getGraph();
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-
-    PanelNodeStyle groupStyle = new PanelNodeStyle();
-    groupStyle.setColor(Color.rgb(214, 229, 248, 1));
-    groupStyle.setLabelInsetsColor(Color.rgb(214, 229, 248, 1));
-    groupStyle.setInsets(new InsetsD(18, 5, 5, 5));
-    INodeDefaults groupNodeDefaults = graph.getGroupNodeDefaults();
-    groupNodeDefaults.setStyle(new CollapsibleNodeStyleDecorator(groupStyle));
-    groupNodeDefaults.getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setTextAlignment(TextAlignment.RIGHT);
-    groupNodeDefaults.getLabelDefaults().setStyle(labelStyle);
+    DemoStyles.initDemoStyles(graph);
   }
 
   private void initializeInputModes() {

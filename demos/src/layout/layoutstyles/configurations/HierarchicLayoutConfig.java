@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -41,6 +41,11 @@ import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
+import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.LayoutData;
+import com.yworks.yfiles.layout.LayoutOrientation;
+import com.yworks.yfiles.layout.OrientationLayout;
+import com.yworks.yfiles.layout.SimpleProfitModel;
 import com.yworks.yfiles.layout.hierarchic.AsIsLayerer;
 import com.yworks.yfiles.layout.hierarchic.BusDescriptor;
 import com.yworks.yfiles.layout.hierarchic.ComponentArrangementPolicy;
@@ -60,14 +65,10 @@ import com.yworks.yfiles.layout.hierarchic.PortAssignmentMode;
 import com.yworks.yfiles.layout.hierarchic.RecursiveEdgeStyle;
 import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
 import com.yworks.yfiles.layout.hierarchic.SimplexNodePlacer;
+import com.yworks.yfiles.layout.hierarchic.SubcomponentDescriptor;
 import com.yworks.yfiles.layout.hierarchic.TopLevelGroupToSwimlaneStage;
-import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
-import com.yworks.yfiles.layout.LayoutData;
-import com.yworks.yfiles.layout.LayoutOrientation;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
-import com.yworks.yfiles.layout.OrientationLayout;
-import com.yworks.yfiles.layout.SimpleProfitModel;
 import com.yworks.yfiles.layout.tree.LeftRightNodePlacer;
 import com.yworks.yfiles.layout.tree.TreeLayout;
 import com.yworks.yfiles.utils.Obfuscation;
@@ -76,12 +77,11 @@ import com.yworks.yfiles.view.IGraphSelection;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Stack;
+import java.util.function.Predicate;
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -144,7 +144,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     //  mark incremental elements if required
     boolean fromSketch = isUsingDrawingAsSketchItem();
     boolean incrementalLayout = isPlacingSelectedElementsIncrementallyItem();
-    boolean selectedElements = graphControl.getSelection().getSelectedEdges().size() != 0 || graphControl.getSelection().getSelectedNodes().size() != 0;
+    boolean selectedElements = graphControl.getSelection().getSelectedEdges().size() > 0 || graphControl.getSelection().getSelectedNodes().size() > 0;
 
     if (incrementalLayout && selectedElements) {
       layout.setLayoutMode(LayoutMode.INCREMENTAL);
@@ -170,7 +170,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
 
     layout.setAutomaticEdgeGroupingEnabled(isAutomaticEdgeGroupingEnabledItem());
 
-    eld.setRoutingStyle(new RoutingStyle(getEdgeRoutingItem(), false));
+    eld.setRoutingStyle(new RoutingStyle(getEdgeRoutingItem()));
     eld.getRoutingStyle().setCurveShortcutsAllowed(isCurveShortcutsItem());
     eld.getRoutingStyle().setCurveUTurnSymmetry(getCurveUTurnSymmetryItem());
     eld.setMinimumFirstSegmentLength(getMinimumFirstSegmentLengthItem());
@@ -308,15 +308,11 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     }
 
     if (isConsideringEdgeDirectednessItem()) {
-      layoutData.setEdgeDirectedness(new Function<IEdge, Double>(){
-        final Double one = Double.valueOf(1.0);
-        final Double zero = Double.valueOf(0.0);
-        public Double apply( IEdge edge ) {
-          IEdgeStyle style = edge.getStyle();
-          return style instanceof PolylineEdgeStyle &&
-                 ((PolylineEdgeStyle) style).getTargetArrow() != IArrow.NONE
-                 ? one : zero;
-        }
+      layoutData.setEdgeDirectedness( edge -> {
+        IEdgeStyle style = edge.getStyle();
+        return style instanceof PolylineEdgeStyle &&
+               ((PolylineEdgeStyle) style).getTargetArrow() != IArrow.NONE
+               ? Double.valueOf(1.0) : Double.valueOf(0.0);
       });
     }
 
@@ -332,20 +328,20 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
       TreeLayout treeLayout = new TreeLayout();
       treeLayout.setDefaultNodePlacer(new LeftRightNodePlacer());
       for (Collection<INode> listOfNodes : findSubComponents(graphControl.getGraph(), "TL")) {
-        layoutData.getSubComponents().add(treeLayout).setItems(listOfNodes);
+        layoutData.getSubcomponents().add(new SubcomponentDescriptor(treeLayout)).setItems(listOfNodes);
       }
       // layout all siblings with label 'HL' separately with hierarchical layout
       HierarchicLayout hierarchicLayout = new HierarchicLayout();
       hierarchicLayout.setLayoutOrientation(LayoutOrientation.LEFT_TO_RIGHT);
       for (Collection<INode> listOfNodes : findSubComponents(graphControl.getGraph(), "HL")) {
-        layoutData.getSubComponents().add(hierarchicLayout).setItems(listOfNodes);
+        layoutData.getSubcomponents().add(new SubcomponentDescriptor(hierarchicLayout)).setItems(listOfNodes);
       }
       // layout all siblings with label 'OL' separately with organic layout
       OrganicLayout organicLayout = new OrganicLayout();
       organicLayout.setPreferredEdgeLength(100);
       organicLayout.setDeterministicModeEnabled(true);
       for (Collection<INode> listOfNodes : findSubComponents(graphControl.getGraph(), "OL")) {
-        layoutData.getSubComponents().add(organicLayout).setItems(listOfNodes);
+        layoutData.getSubcomponents().add(new SubcomponentDescriptor(organicLayout)).setItems(listOfNodes);
       }
     }
 
@@ -355,20 +351,14 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
       // feedback edges and self loops have to be excluded here
       final FeedbackEdgeSet.Result feedbackEdgeSetResult = new FeedbackEdgeSet().run(graphControl.getGraph());
       LongestPath longestPath2 = new LongestPath();
-      longestPath2.getSubgraphEdges().getExcludes().setPredicate(new Predicate<IEdge>(){
-        public boolean test( IEdge edge ) {
-          return feedbackEdgeSetResult.getFeedbackEdgeSet().contains(edge) || edge.isSelfloop();
-        }
-      });
+      longestPath2.getSubgraphEdges().getExcludes().setPredicate(edge -> feedbackEdgeSetResult.getFeedbackEdgeSet().contains(edge) || edge.isSelfloop());
       final LongestPath.Result longestPath = longestPath2.run(graphControl.getGraph());
       if (longestPath.getEdges().size() > 0) {
-        layoutData.getCriticalEdgePriorities().setFunction(new Function<IEdge, Integer>(){
-          public Integer apply( IEdge edge ) {
-            if (longestPath.getEdges().contains(edge)) {
-              return 10;
-            }
-            return 1;
+        layoutData.getCriticalEdgePriorities().setFunction(edge -> {
+          if (longestPath.getEdges().contains(edge)) {
+            return 10;
           }
+          return 1;
         });
       }
     }
@@ -493,6 +483,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   public final void enableCurvedRouting() {
     setEdgeRoutingItem(EdgeRoutingStyle.CURVED);
   }
+
   @Label("Description")
   @OptionGroupAnnotation(name = "RootGroup", position = 5)
   @ComponentType(ComponentTypes.OPTION_GROUP)

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -75,7 +75,7 @@ import javafx.scene.layout.BorderPane;
  * The main view that contains the GraphControl and provides interactive
  * features. The view resembles the main features of the SimpleEditorDemo: The
  * graph is editable by common means (mouse and keyboard shortcuts) and the
- * tool-bar provides access to common features like cut/copy/paste, grouping,
+ * toolbar provides access to common features like cut/copy/paste, grouping,
  * snapping, performing a layout calculation and so on.
  */
 public class GraphViewerPart {
@@ -130,7 +130,7 @@ public class GraphViewerPart {
 
   /**
    * We override the createPartControl method in FXViewPart canvas to hook our
-   * tool-bar and menu into the view.
+   * toolbar and menu into the view.
    */
   @PostConstruct
   public void initPart(Composite parent) {

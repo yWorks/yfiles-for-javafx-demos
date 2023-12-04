@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,7 +35,7 @@ import com.yworks.yfiles.view.input.DefaultPortCandidate;
 import com.yworks.yfiles.view.input.IEdgeReconnectionPortCandidateProvider;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.IPortCandidate;
-import javafx.scene.paint.Color;
+import toolkit.Themes;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +59,7 @@ class GreenEdgeReconnectionPortCandidateProvider implements IEdgeReconnectionPor
       // add dynamic NodeScaled parameters for all green nodes in the graph
       // holding down shift allows for exact positioning of the edges.
       List<IPortCandidate> list = graph.getNodes().stream()
-          .filter(node -> Color.FORESTGREEN.equals(node.getTag()))
+          .filter(node -> Themes.PALETTE_GREEN.equals(node.getTag()))
           .map(node -> new DefaultPortCandidate(node, FreeNodePortLocationModel.INSTANCE))
           .collect(Collectors.toList());
       return list;

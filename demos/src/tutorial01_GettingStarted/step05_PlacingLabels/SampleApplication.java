@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,18 +29,6 @@
  ***************************************************************************/
 package tutorial01_GettingStarted.step05_PlacingLabels;
 
-import com.yworks.yfiles.graph.labelmodels.EdgeSegmentLabelModel;
-import com.yworks.yfiles.graph.labelmodels.EdgeSides;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.labelmodels.InsideOutsidePortLabelModel;
-import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
@@ -51,6 +39,21 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IPort;
+import com.yworks.yfiles.graph.labelmodels.EdgeSegmentLabelModel;
+import com.yworks.yfiles.graph.labelmodels.EdgeSides;
+import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
+import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
+import com.yworks.yfiles.graph.labelmodels.InsideOutsidePortLabelModel;
+import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
+import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
+import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
+import com.yworks.yfiles.graph.styles.Arrow;
+import com.yworks.yfiles.graph.styles.ArrowType;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.ShapeNodeShape;
+import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
+import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.Pen;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -142,25 +145,21 @@ public class SampleApplication extends Application {
   private void setDefaultStyles() {
     IGraph graph = getGraph();
     // Sets the default style for nodes
-    // Creates a nice ShinyPlateNodeStyle instance, using an orange color.
+    // Creates a nice ShapeNodeStyle instance, using an orange color.
     // Sets this style as the default for all nodes that don't have another
     // style assigned explicitly
-    ShinyPlateNodeStyle defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Color.ORANGE);
+    ShapeNodeStyle defaultNodeStyle = new ShapeNodeStyle();
+    defaultNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
+    defaultNodeStyle.setPaint(Color.rgb(255, 108, 0));
+    defaultNodeStyle.setPen(new Pen(Color.rgb(102, 43, 0), 1.5));
     graph.getNodeDefaults().setStyle(defaultNodeStyle);
 
     // Sets the default style for edges:
-    // Creates an edge style that will apply a gray pen with thickness 1
-    // to the entire line using PolyLineEdgeStyle,
-    // which draws a polyline determined by the edge's control points (bends)
+    // Creates a PolylineEdgeStyle which will be used as default for all edges
+    // that don't have another style assigned explicitly
     PolylineEdgeStyle defaultEdgeStyle = new PolylineEdgeStyle();
-    defaultEdgeStyle.setPen(Pen.getGray());
-
-    // Sets the source and target arrows on the edge style instance
-    // (Actually: no source arrow)
-    // Note that IEdgeStyle itself does not have these properties
-    // Also note that by default there are no arrows
-    defaultEdgeStyle.setTargetArrow(IArrow.DEFAULT);
+    defaultEdgeStyle.setPen(new Pen(Color.rgb(102, 43, 0), 1.5));
+    defaultEdgeStyle.setTargetArrow(new Arrow(ArrowType.TRIANGLE, Color.rgb(102, 43, 0)));
 
     // Sets the defined edge style as the default for all edges that don't have
     // another style assigned explicitly:
@@ -170,7 +169,7 @@ public class SampleApplication extends Application {
     // Creates a label style with the label text color set to dark red
     DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
     defaultLabelStyle.setFont(Font.font(12));
-    defaultLabelStyle.setTextPaint(Color.DARKRED);
+    defaultLabelStyle.setTextPaint(Color.BLACK);
 
     // Sets the defined style as the default for both edge and node labels:
     graph.getEdgeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
@@ -228,10 +227,14 @@ public class SampleApplication extends Application {
     //////////// Sample label creation ///////////////////
     // Adds labels to several graph elements
     graph.addLabel(node1, "N 1");
-    graph.addLabel(node2, "N 2");
+    ILabel n2Label = graph.addLabel(node2, "N 2");
     ILabel n3Label = graph.addLabel(node3, "N 3");
     graph.addLabel(edgeAtPorts, "Edge at Ports");
-    graph.addLabel(port1AtNode3, "Port at Node");
+
+    InteriorStretchLabelModel model = new InteriorStretchLabelModel();
+    model.setInsets(new InsetsD(3));
+    graph.setLabelLayoutParameter(n2Label, model.createParameter(InteriorStretchLabelModel.Position.SOUTH));
+
     /////////////////////////////////////////////////////
 
     ///////////////// New in this Sample /////////////////
@@ -241,7 +244,7 @@ public class SampleApplication extends Application {
     ExteriorLabelModel exteriorLabelModel = new ExteriorLabelModel();
 
     // We use some extra insets from the label to the node bounds
-    exteriorLabelModel.setInsets(new InsetsD(5));
+    exteriorLabelModel.setInsets(new InsetsD(20));
 
     // We assign this label a specific symbolic position out of the eight possible
     // external locations valid for ExteriorLabelModel

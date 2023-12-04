@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -49,17 +49,17 @@
   <key attr.name="SharedData" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
   <data key="d9">
     <y:SharedData>
-      <java:Color xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Value="DarkOrange" x:Key="1"/>
-      <yfx:PanelNodeStyle Color="LightBlue" x:Key="2"/>
+        <yfx:GroupNodeStyle x:Key="2" ContentAreaHitTransparent="True" ContentAreaInsets="8.0" CornerRadius="8.0" FolderIcon="CHEVRON_UP" GroupIcon="CHEVRON_DOWN" IconBackgroundShape="CIRCLE" IconForegroundPaint="White" TabPaint="#FF242265">
+          <yfx:GroupNodeStyle.Pen>
+            <yfx:Pen Paint="#FF242265" Thickness="2.0"/>
+          </yfx:GroupNodeStyle.Pen>
+        </yfx:GroupNodeStyle>
     </y:SharedData>
   </data>
   <graph id="G">
     <node id="n0">
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="264.74211" Y="42.153807"/>
-      </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
       </data>
       <port name="p0"/>
       <port name="p1"/>
@@ -69,9 +69,6 @@
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="140.473869" Y="377.497731"/>
       </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-      </data>
       <port name="p0"/>
       <port name="p1"/>
     </node>
@@ -79,18 +76,12 @@
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="90.713904" Y="389.689484"/>
       </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-      </data>
       <port name="p0"/>
       <port name="p1"/>
     </node>
     <node id="n3">
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="343.744481" Y="179.694922"/>
-      </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
       </data>
       <port name="p0"/>
       <port name="p1"/>
@@ -101,9 +92,6 @@
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="237.955361" Y="205.426008"/>
       </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-      </data>
       <port name="p0"/>
       <port name="p1"/>
       <port name="p2"/>
@@ -112,17 +100,11 @@
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="427.972811" Y="399.137711"/>
       </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-      </data>
       <port name="p0"/>
     </node>
     <node id="n6">
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="100.448913" Y="354.671891"/>
-      </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
       </data>
       <port name="p0"/>
     </node>
@@ -130,17 +112,11 @@
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="221.743293" Y="10.70982"/>
       </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-      </data>
       <port name="p0"/>
     </node>
     <node id="n8">
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="293.902266" Y="327.839986"/>
-      </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
       </data>
       <port name="p0"/>
       <port name="p1"/>
@@ -149,17 +125,11 @@
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="56.555905" Y="364.144623"/>
       </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-      </data>
       <port name="p0"/>
     </node>
     <node id="n10">
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="442.516876" Y="339.598841"/>
-      </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
       </data>
       <port name="p0"/>
       <port name="p1"/>
@@ -168,17 +138,11 @@
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="455.017867" Y="395.175077"/>
       </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-      </data>
       <port name="p0"/>
     </node>
     <node id="n12">
       <data key="d1">
         <y:RectD Height="40.0" Width="40.0" X="21.441964" Y="51.990936"/>
-      </data>
-      <data key="d3">
-        <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
       </data>
       <port name="p0"/>
       <port name="p1"/>
@@ -188,15 +152,12 @@
         <y:RectD Height="471.030642" Width="414.130361" X="595.544822" Y="-22.605425"/>
       </data>
       <data key="d3">
-        <yfx:CollapsibleNodeStyleDecorator ButtonPlacement="{x:Static y:InteriorLabelModel.NorthWest}" Wrapped="{y:GraphMLReference 2}"/>
+        <y:GraphMLReference ResourceKey="2"/>
       </data>
       <graph id="n13:">
         <node id="n13::n0">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="964.675183" Y="251.025023"/>
-          </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
           </data>
           <port name="p0"/>
         </node>
@@ -204,17 +165,11 @@
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="714.94175" Y="288.619264"/>
           </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-          </data>
           <port name="p0"/>
         </node>
         <node id="n13::n2">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="616.942747" Y="127.808584"/>
-          </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
           </data>
           <port name="p0"/>
           <port name="p1"/>
@@ -225,9 +180,6 @@
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="652.814553" Y="142.235958"/>
           </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-          </data>
           <port name="p0"/>
           <port name="p1"/>
           <port name="p2"/>
@@ -235,9 +187,6 @@
         <node id="n13::n4">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="600.544822" Y="403.425217"/>
-          </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
           </data>
           <port name="p0"/>
           <port name="p1"/>
@@ -248,18 +197,12 @@
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="827.33928" Y="7.394575"/>
           </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-          </data>
           <port name="p0"/>
           <port name="p1"/>
         </node>
         <node id="n13::n6">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="750.466375" Y="177.707445"/>
-          </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
           </data>
           <port name="p0"/>
         </node>
@@ -300,15 +243,12 @@
         <y:RectD Height="422.630008" Width="268.899373" X="277.726212" Y="-447.326347"/>
       </data>
       <data key="d3">
-        <yfx:CollapsibleNodeStyleDecorator ButtonPlacement="{x:Static y:InteriorLabelModel.NorthWest}" Wrapped="{y:GraphMLReference 2}"/>
+        <y:GraphMLReference ResourceKey="2"/>
       </data>
       <graph id="n14:">
         <node id="n14::n0">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="290.081889" Y="-69.696339"/>
-          </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
           </data>
           <port name="p0"/>
           <port name="p1"/>
@@ -320,18 +260,12 @@
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="501.625585" Y="-187.042585"/>
           </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-          </data>
           <port name="p0"/>
           <port name="p1"/>
         </node>
         <node id="n14::n2">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="483.490336" Y="-211.534707"/>
-          </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
           </data>
           <port name="p0"/>
           <port name="p1"/>
@@ -341,9 +275,6 @@
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="363.221527" Y="-144.199746"/>
           </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-          </data>
           <port name="p0"/>
           <port name="p1"/>
           <port name="p2"/>
@@ -352,26 +283,17 @@
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="282.726212" Y="-417.326347"/>
           </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-          </data>
           <port name="p0"/>
         </node>
         <node id="n14::n5">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="496.855863" Y="-222.529933"/>
           </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
-          </data>
           <port name="p0"/>
         </node>
         <node id="n14::n6">
           <data key="d1">
             <y:RectD Height="40.0" Width="40.0" X="435.141653" Y="-341.521739"/>
-          </data>
-          <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 1}"/>
           </data>
           <port name="p0"/>
           <port name="p1"/>

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -44,7 +44,6 @@ import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.SmartEdgeLabelModel;
 import com.yworks.yfiles.graph.styles.IShapeGeometry;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.GridInfo;
@@ -71,6 +70,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.IOException;
@@ -231,7 +231,8 @@ public class CustomSnappingDemo extends DemoApplication {
   private void addFreeSnapLine(double fromX, double fromY, double toX, double toY) {
     // create line and add it to background group
     Line line = new Line(fromX, fromY, toX, toY);
-    line.setStroke(Color.RED);
+    line.setStroke(Color.rgb(0xCA, 0x0C, 0x3B));
+    line.setStrokeWidth(2);
     graphControl.getBackgroundGroup().addChild(line, ICanvasObjectDescriptor.VISUAL);
     freeSnapLines.add(line);
   }
@@ -241,20 +242,14 @@ public class CustomSnappingDemo extends DemoApplication {
    */
   private void initializeGraphDefaults() {
     IGraph graph = graphControl.getGraph();
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setBackgroundPen(Pen.getBlack());
 
-    graph.getNodeDefaults().getLabelDefaults().setStyle(labelStyle);
-    graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(FreeNodeLabelModel.INSTANCE.createParameter(
-            new PointD(0.5, 0.0), new PointD(0, -10), new PointD(0.5, 1.0), PointD.ORIGIN, 0.0));
+    DemoStyles.initDemoStyles(graph);
 
-    graph.getEdgeDefaults().getLabelDefaults().setStyle(labelStyle);
-    graph.getEdgeDefaults().getLabelDefaults().setLayoutParameter(
-        new SmartEdgeLabelModel().createParameterFromSource(0, 0, 0.5));
+    graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(
+            FreeNodeLabelModel.INSTANCE.createParameter(
+                    new PointD(0.5, 0.0), new PointD(0, -10), new PointD(0.5, 1.0), PointD.ORIGIN, 0.0));
+    graph.getEdgeDefaults().getLabelDefaults().setLayoutParameter(new SmartEdgeLabelModel().createParameterFromSource(0, 0, 0.5));
 
-    ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-    style.setPaint(Color.DARKORANGE);
-    graph.getNodeDefaults().setStyle(style);
     graph.getNodeDefaults().setSize(new SizeD(50, 50));
   }
 

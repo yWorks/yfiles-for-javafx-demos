@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -53,9 +53,7 @@
   <key id="d10" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" />
   <data key="d10">
     <y:SharedData>
-      <yfx:DefaultLabelStyle x:Key="3" />
       <y:PortAnchoredLabelModelParameter x:Key="5" LocationOffset="5,-3" LabelRatio="0,1" />
-      <yfx:DefaultLabelStyle x:Key="7" />
       <y:PortAnchoredLabelModelParameter x:Key="10" LocationOffset="5,-3" LabelRatio="0,1" />
       <y:PortAnchoredLabelModelParameter x:Key="12" LocationOffset="-5,-3" LabelRatio="1,1" />
       <y:PortAnchoredLabelModelParameter x:Key="14" LocationOffset="-5,3" LabelRatio="1,0" />
@@ -85,7 +83,7 @@
     <node id="n0">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>AND</y:Label.Text>
           </y:Label>
         </x:List>
@@ -96,7 +94,7 @@
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>in1</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -120,7 +118,7 @@
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>in2</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -144,7 +142,7 @@
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 5}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -162,7 +160,7 @@
     <node id="n1">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NAND</y:Label.Text>
           </y:Label>
         </x:List>
@@ -173,7 +171,7 @@
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>in1</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -197,7 +195,7 @@
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>in2</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -221,7 +219,7 @@
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 10}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 10}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -239,7 +237,7 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NOR</y:Label.Text>
           </y:Label>
         </x:List>
@@ -250,7 +248,7 @@
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 12}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 12}">
               <y:Label.Text>in1</y:Label.Text>
             </y:Label>
           </x:List>
@@ -267,7 +265,7 @@
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 14}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 14}">
               <y:Label.Text>in2</y:Label.Text>
             </y:Label>
           </x:List>
@@ -284,7 +282,7 @@
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 16}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 16}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -302,7 +300,7 @@
     <node id="n3">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NOT</y:Label.Text>
           </y:Label>
         </x:List>
@@ -313,7 +311,7 @@
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>in</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -337,7 +335,7 @@
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 19}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 19}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -355,7 +353,7 @@
     <node id="n4">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NOT</y:Label.Text>
           </y:Label>
         </x:List>
@@ -366,7 +364,7 @@
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 22}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 22}">
               <y:Label.Text>in</y:Label.Text>
             </y:Label>
           </x:List>
@@ -383,7 +381,7 @@
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 19}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 19}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -401,7 +399,7 @@
     <node id="n5">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NOR</y:Label.Text>
           </y:Label>
         </x:List>
@@ -412,7 +410,7 @@
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 12}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 12}">
               <y:Label.Text>in1</y:Label.Text>
             </y:Label>
           </x:List>
@@ -429,7 +427,7 @@
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 14}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 14}">
               <y:Label.Text>in2</y:Label.Text>
             </y:Label>
           </x:List>
@@ -446,7 +444,7 @@
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 16}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 16}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -464,7 +462,7 @@
     <node id="n6">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>555</y:Label.Text>
           </y:Label>
         </x:List>
@@ -482,7 +480,7 @@
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 24}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 24}">
               <y:Label.Text>gnd</y:Label.Text>
             </y:Label>
           </x:List>
@@ -499,7 +497,7 @@
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 24}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 24}">
               <y:Label.Text>trig</y:Label.Text>
             </y:Label>
           </x:List>
@@ -516,7 +514,7 @@
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 24}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 24}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -533,7 +531,7 @@
       <port name="p3">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 24}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 24}">
               <y:Label.Text>rst</y:Label.Text>
             </y:Label>
           </x:List>
@@ -550,7 +548,7 @@
       <port name="p4">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>Vcc</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -574,7 +572,7 @@
       <port name="p5">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 24}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 24}">
               <y:Label.Text>dis</y:Label.Text>
             </y:Label>
           </x:List>
@@ -591,7 +589,7 @@
       <port name="p6">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 24}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 24}">
               <y:Label.Text>thr</y:Label.Text>
             </y:Label>
           </x:List>
@@ -608,7 +606,7 @@
       <port name="p7">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 24}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 24}">
               <y:Label.Text>ctrl</y:Label.Text>
             </y:Label>
           </x:List>
@@ -626,7 +624,7 @@
     <node id="n7">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text><![CDATA[2-bit A/D
 Converter]]></y:Label.Text>
           </y:Label>
@@ -645,7 +643,7 @@ Converter]]></y:Label.Text>
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 33}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 33}">
               <y:Label.Text>Vin</y:Label.Text>
             </y:Label>
           </x:List>
@@ -662,7 +660,7 @@ Converter]]></y:Label.Text>
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>gnd</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -686,7 +684,7 @@ Converter]]></y:Label.Text>
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 33}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 33}">
               <y:Label.Text>Vref</y:Label.Text>
             </y:Label>
           </x:List>
@@ -703,7 +701,7 @@ Converter]]></y:Label.Text>
       <port name="p3">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>clk</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -727,7 +725,7 @@ Converter]]></y:Label.Text>
       <port name="p4">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 33}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 33}">
               <y:Label.Text>d1</y:Label.Text>
             </y:Label>
           </x:List>
@@ -744,7 +742,7 @@ Converter]]></y:Label.Text>
       <port name="p5">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 33}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 33}">
               <y:Label.Text>d2</y:Label.Text>
             </y:Label>
           </x:List>
@@ -761,7 +759,7 @@ Converter]]></y:Label.Text>
       <port name="p6">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 33}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 33}">
               <y:Label.Text>sign</y:Label.Text>
             </y:Label>
           </x:List>
@@ -779,7 +777,7 @@ Converter]]></y:Label.Text>
     <node id="n8">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NOR</y:Label.Text>
           </y:Label>
         </x:List>
@@ -790,7 +788,7 @@ Converter]]></y:Label.Text>
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>in1</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>
@@ -814,7 +812,7 @@ Converter]]></y:Label.Text>
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 14}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 14}">
               <y:Label.Text>in2</y:Label.Text>
             </y:Label>
           </x:List>
@@ -831,7 +829,7 @@ Converter]]></y:Label.Text>
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 16}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 16}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -849,7 +847,7 @@ Converter]]></y:Label.Text>
     <node id="n9">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NOT</y:Label.Text>
           </y:Label>
         </x:List>
@@ -860,7 +858,7 @@ Converter]]></y:Label.Text>
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 22}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 22}">
               <y:Label.Text>in</y:Label.Text>
             </y:Label>
           </x:List>
@@ -877,7 +875,7 @@ Converter]]></y:Label.Text>
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 19}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 19}">
               <y:Label.Text>out</y:Label.Text>
             </y:Label>
           </x:List>
@@ -895,7 +893,7 @@ Converter]]></y:Label.Text>
     <node id="n10">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 7}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Text>NAND</y:Label.Text>
           </y:Label>
         </x:List>
@@ -906,7 +904,7 @@ Converter]]></y:Label.Text>
       <port name="p0">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 42}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 42}">
               <y:Label.Text>in1</y:Label.Text>
             </y:Label>
           </x:List>
@@ -923,7 +921,7 @@ Converter]]></y:Label.Text>
       <port name="p1">
         <data key="d7">
           <x:List>
-            <y:Label LayoutParameter="{y:GraphMLReference 43}" Style="{y:GraphMLReference 3}">
+            <y:Label LayoutParameter="{y:GraphMLReference 43}">
               <y:Label.Text>in2</y:Label.Text>
             </y:Label>
           </x:List>
@@ -940,7 +938,7 @@ Converter]]></y:Label.Text>
       <port name="p2">
         <data key="d7">
           <x:List>
-            <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label>
               <y:Label.Text>out</y:Label.Text>
               <y:Label.LayoutParameter>
                 <y:InsideOutsidePortLabelModelParameter>

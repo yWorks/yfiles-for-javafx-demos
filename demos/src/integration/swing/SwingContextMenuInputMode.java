@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -40,7 +40,7 @@ import java.awt.Component;
 
 /**
  * An implementation of {@link com.yworks.yfiles.view.input.AbstractContextMenuInputMode} interface that will
- * display a {@link javax.swing.JPopupMenu Swing context menu} when the user right clicks on the {@link
+ * display a {@link javax.swing.JPopupMenu Swing context menu} when the user right-clicks on the {@link
  * CanvasControl} or presses the menu key.
  * <p>
  * Note: the Swing context menu must be accessed and changed on the EDT.
@@ -49,7 +49,7 @@ class SwingContextMenuInputMode extends AbstractContextMenuInputMode<JPopupMenu>
   // the handler that invokes a callback as soon as the menu is closed
   private PopupMenuListener closedHandler;
   // the component in whose space the context menu is to appear
-  private Component parent;
+  private final Component parent;
 
   /**
    * Initializes a new <code>SwingContextMenuInputMode</code> instance with a component in that the context menu is to

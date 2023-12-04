@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -30,9 +30,6 @@
 package tutorial01_GettingStarted.step02_CreatingGraphElements;
 
 
-import com.yworks.yfiles.graph.labelmodels.InsideOutsidePortLabelModel;
-import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.IBend;
@@ -40,6 +37,9 @@ import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IPort;
+import com.yworks.yfiles.graph.labelmodels.InsideOutsidePortLabelModel;
+import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
+import com.yworks.yfiles.view.GraphControl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

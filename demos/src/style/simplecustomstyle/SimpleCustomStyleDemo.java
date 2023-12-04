@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -41,6 +41,7 @@ import com.yworks.yfiles.view.input.IInputMode;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import java.util.Random;
@@ -134,16 +135,16 @@ public class SimpleCustomStyleDemo extends DemoApplication {
     INode n8 = graph.createNode(new PointD(119, 308));
     INode n9 = graph.createNode(new PointD(185, 398));
 
-    n0.setTag(Color.rgb(108, 0, 255, 1));
-    n1.setTag(Color.rgb(210, 255, 0, 1));
-    n2.setTag(Color.rgb(0, 72, 255, 1));
-    n3.setTag(Color.rgb(255, 0, 84, 1));
-    n4.setTag(Color.rgb(255, 30, 0, 1));
-    n5.setTag(Color.rgb(0, 42, 255, 1));
-    n6.setTag(Color.rgb(114, 255, 0, 1));
-    n7.setTag(Color.rgb(216, 0, 255, 1));
-    n8.setTag(Color.rgb(36, 255, 0, 1));
-    n9.setTag(Color.rgb(216, 0, 255, 1));
+    n0.setTag(Themes.PALETTE11.getBackgroundPaint());
+    n1.setTag(Themes.PALETTE12.getBackgroundPaint());
+    n2.setTag(Themes.PALETTE13.getBackgroundPaint());
+    n3.setTag(Themes.PALETTE14.getBackgroundPaint());
+    n4.setTag(Themes.PALETTE15.getBackgroundPaint());
+    n5.setTag(Themes.PALETTE21.getBackgroundPaint());
+    n6.setTag(Themes.PALETTE22.getBackgroundPaint());
+    n7.setTag(Themes.PALETTE23.getBackgroundPaint());
+    n8.setTag(Themes.PALETTE24.getBackgroundPaint() );
+    n9.setTag(Themes.PALETTE25.getBackgroundPaint());
 
     ExteriorLabelModel labelModel = new ExteriorLabelModel();
     labelModel.setInsets(new InsetsD(15));

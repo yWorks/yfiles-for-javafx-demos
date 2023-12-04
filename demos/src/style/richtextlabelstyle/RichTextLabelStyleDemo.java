@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -30,7 +30,6 @@
 package style.richtextlabelstyle;
 
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
@@ -44,6 +43,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.util.Optional;
@@ -100,11 +100,8 @@ public class RichTextLabelStyleDemo extends DemoApplication {
    */
   private void initializeGraph() {
     IGraph graph = graphControl.getGraph();
+    DemoStyles.initDemoStyles(graph);
 
-    // use shiny plates as default node style
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ALICEBLUE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
     PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
     edgeStyle.setPen(new Pen(Color.rgb(0, 0, 0, 0.3)));
     graph.getEdgeDefaults().setStyle(edgeStyle);

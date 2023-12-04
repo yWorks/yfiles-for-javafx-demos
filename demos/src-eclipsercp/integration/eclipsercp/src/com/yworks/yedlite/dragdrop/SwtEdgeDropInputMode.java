@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -175,7 +175,7 @@ public class SwtEdgeDropInputMode extends ItemDropInputMode<IEdge> {
    */
   private static class NodeHitTestable implements IHitTestable {
     /**
-     * Determines whether or not the given coordinates lie within a node
+     * Determines whether the given coordinates lie within a node
      * that is displayed in the graph control associated to the given context.
      */
     @Override

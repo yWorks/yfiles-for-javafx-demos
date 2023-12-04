@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,18 +29,10 @@
  ***************************************************************************/
 package layout.layoutstyles;
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabelOwner;
-import com.yworks.yfiles.graph.INodeDefaults;
-import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.styles.Arrow;
-import com.yworks.yfiles.graph.styles.ArrowType;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
 import com.yworks.yfiles.view.input.ICommand;
@@ -58,15 +50,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import layout.layoutstyles.configurations.BalloonLayoutConfig;
 import layout.layoutstyles.configurations.BusEdgeRouterConfig;
 import layout.layoutstyles.configurations.ChannelEdgeRouterConfig;
 import layout.layoutstyles.configurations.CircularLayoutConfig;
 import layout.layoutstyles.configurations.ClassicTreeLayoutConfig;
+import layout.layoutstyles.configurations.CompactDiskLayoutConfig;
 import layout.layoutstyles.configurations.ComponentLayoutConfig;
 import layout.layoutstyles.configurations.GraphTransformerConfig;
 import layout.layoutstyles.configurations.HierarchicLayoutConfig;
@@ -83,8 +73,7 @@ import layout.layoutstyles.configurations.SeriesParallelLayoutConfig;
 import layout.layoutstyles.configurations.TabularLayoutConfig;
 import layout.layoutstyles.configurations.TreeLayoutConfig;
 import toolkit.DemoApplication;
-import toolkit.DemoGroupNodeStyle;
-import toolkit.DemoNodeStyle;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 import toolkit.optionhandler.OptionEditor;
 
@@ -186,7 +175,7 @@ public class LayoutStylesDemo extends DemoApplication {
 
     // enable grouping operations such as grouping selected or nodes moving nodes into group nodes
     mode.setGroupingOperationsAllowed(true);
-    
+
     KeyboardInputMode kim = mode.getKeyboardInputMode();
     kim.addCommandBinding(ICommand.NEW, this::executeNewCommand, this::canExecuteNewCommand);
     kim.addCommandBinding(APPLY_SETTINGS, this::executeApplySettingsCommand, this::canExecuteChangeCommand);
@@ -219,6 +208,7 @@ public class LayoutStylesDemo extends DemoApplication {
     availableLayouts.put("Classic Tree", new ClassicTreeLayoutConfig());
     availableLayouts.put("Balloon", new BalloonLayoutConfig());
     availableLayouts.put("Radial", new RadialLayoutConfig());
+    availableLayouts.put("Compact Disk", new CompactDiskLayoutConfig());
     availableLayouts.put("Series-Parallel", new SeriesParallelLayoutConfig());
     availableLayouts.put("Tabular", new TabularLayoutConfig());
     availableLayouts.put("Edge Router", new PolylineEdgeRouterConfig());
@@ -239,27 +229,8 @@ public class LayoutStylesDemo extends DemoApplication {
     // enable undo support
     graphControl.getGraph().setUndoEngineEnabled(true);
 
-    // set the default style for normal nodes
-    graphControl.getGraph().getNodeDefaults().setStyle(new DemoNodeStyle());
-
-    // set the default style for group nodes
-    INodeDefaults groupNodeDefaults = graphControl.getGraph().getGroupNodeDefaults();
-    groupNodeDefaults.setStyle(new DemoGroupNodeStyle());
-
-    // use a custom style and layout parameter for group node labels
-    InteriorLabelModel interiorLabelModel = new InteriorLabelModel();
-    interiorLabelModel.setInsets(new InsetsD(2));
-    groupNodeDefaults.getLabelDefaults().setLayoutParameter(
-            interiorLabelModel.createParameter(InteriorLabelModel.Position.NORTH_WEST));
-
-    DefaultLabelStyle groupNodeLabelStyle = new DefaultLabelStyle();
-    groupNodeLabelStyle.setFont(Font.font("System", FontWeight.BOLD, 12));
-    groupNodeLabelStyle.setTextPaint(Color.WHITE);
-    groupNodeDefaults.getLabelDefaults().setStyle(groupNodeLabelStyle);
-
-    // set the default style for edges
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    graphControl.getGraph().getEdgeDefaults().setStyle(edgeStyle);
+    // set some nice default styles
+    DemoStyles.initDemoStyles(graphControl.getGraph());
   }
 
   // endregion
@@ -289,7 +260,7 @@ public class LayoutStylesDemo extends DemoApplication {
     }
     applyLayout(true);
   }
-  
+
   private String getLayoutKey(String sampleKey) {
     //for some special samples, we need to use the correct layout key, because the layout configurations are shared
     if (sampleKey.startsWith("Organic")) {
@@ -304,13 +275,11 @@ public class LayoutStylesDemo extends DemoApplication {
     //... for other samples the layout key corresponds to the sample graph key
     return sampleKey;
   }
-  
 
   /**
    * Arranges the displayed graph using the currently selected layout algorithm.
    *
-   * @param clearUndo Specifies whether or not the undo queue should be cleared
-   * after the layout calculation.
+   * @param clearUndo Specifies whether the undo queue should be cleared after the layout calculation.
    */
   private void applyLayout(boolean clearUndo) {
     LayoutConfiguration config = (LayoutConfiguration) builder.getConfiguration();
@@ -503,7 +472,7 @@ public class LayoutStylesDemo extends DemoApplication {
    */
   public static final ICommand APPLY_SETTINGS = ICommand.createCommand("Apply");
 
-  private boolean executeApplySettingsCommand( ICommand command, Object parameter, Object sender) {
+  private boolean executeApplySettingsCommand(ICommand command, Object parameter, Object sender) {
     applyLayout(false);
     return true;
   }
@@ -514,7 +483,7 @@ public class LayoutStylesDemo extends DemoApplication {
    */
   public static final ICommand RESET_SETTINGS = ICommand.createCommand("Reset");
 
-  private boolean executeResetSettingsCommand( ICommand command, Object parameter, Object sender) {
+  private boolean executeResetSettingsCommand(ICommand command, Object parameter, Object sender) {
     builder.resetEditor((Parent) editorPane.getChildren().get(0));
     return true;
   }
@@ -565,7 +534,7 @@ public class LayoutStylesDemo extends DemoApplication {
         final PolylineEdgeRouterConfig edgeRouterConfig = (PolylineEdgeRouterConfig) availableLayouts.get("Edge Router");
         edgeRouterConfig.setBusRoutingItem(PolylineEdgeRouterConfig.EnumBusRouting.NONE);
       }
-      
+
       // load the sample graph and start the layout algorithm
       graphControl.importFromGraphML(getClass().getResource(fileName));
       applyLayoutForKey(key);
@@ -586,9 +555,10 @@ public class LayoutStylesDemo extends DemoApplication {
    * <p>
    * Existing labels will be deleted before adding the new labels.
    * </p>
+   *
    * @param items The collection of items the labels are generated for.
    */
-  private <T extends ILabelOwner> void onGenerateItemLabels(IListEnumerable<T> items)  {
+  private <T extends ILabelOwner> void onGenerateItemLabels(IListEnumerable<T> items) {
     int wordCountMin = 1;
     int wordCountMax = 3;
     double labelPercMin = 0.2;
@@ -604,19 +574,19 @@ public class LayoutStylesDemo extends DemoApplication {
 
     //remove all existing item labels
     items.stream()
-         // gather all labels of the given items
-         .flatMap(item -> item.getLabels().stream())
-         // copy them into a list to avoid concurrent modification
-         .collect(Collectors.toList())
-         // remove them from the graph
-         .forEach(graph::remove);
+        // gather all labels of the given items
+        .flatMap(item -> item.getLabels().stream())
+        // copy them into a list to avoid concurrent modification
+        .collect(Collectors.toList())
+        // remove them from the graph
+        .forEach(graph::remove);
 
     //add random item labels
     String[] loremList = getLoremIpsum();
     for (int i = 0; i < labelCount; i++) {
       String label = "";
       int wordCount = rnd.nextInt(wordCountMax - wordCountMin + 1) + wordCountMin;
-      for(int j = 0; j < wordCount; j++) {
+      for (int j = 0; j < wordCount; j++) {
         int k = rnd.nextInt(loremList.length);
         label += (j == 0) ? "" : " ";
         label = label + loremList[k];
@@ -632,67 +602,67 @@ public class LayoutStylesDemo extends DemoApplication {
   }
 
   private static String[] getLoremIpsum() {
-    return new String[] {
-            "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "donec", "felis", "erat"
-            , "malesuada", "quis", "ipsum", "et", "condimentum",
-            "ultrices", "orci", "nullam", "interdum", "vestibulum", "eros", "sed", "porta", "donec", "ac",
-            "eleifend", "dolor", "at", "dictum", "ipsum", "pellentesque", "vel", "suscipit", "mi", "nullam",
-            "aliquam", "turpis", "et", "dolor", "porttitor", "varius", "nullam", "vel", "arcu", "rutrum", "iaculis"
-            , "est", "sit", "amet", "rhoncus", "turpis", "vestibulum", "lacinia", "sollicitudin",
-            "urna", "nec", "vestibulum", "nulla", "id", "lacinia", "metus", "etiam", "ac", "felis", "rutrum",
-            "sollicitudin", "erat", "vitae", "egestas", "tortor", "curabitur", "quis", "libero", "aliquet",
-            "mattis", "mauris", "nec", "tempus", "nibh", "in", "at", "lectus", "luctus", "mattis", "urna",
-            "pretium", "eleifend", "lacus", "sed", "interdum", "sapien", "nec", "justo", "vestibulum", "non",
-            "scelerisque",
-            "nibh", "sollicitudin", "interdum", "et", "malesuada", "fames", "ac", "ante", "ipsum", "primis", "in",
-            "faucibus", "vivamus", "congue", "tristique", "magna", "quis", "elementum", "phasellus", "sit", "amet",
-            "tristique", "massa", "vestibulum", "eu", "leo", "vitae", "quam", "dictum", "venenatis", "eu", "id",
-            "nibh", "donec", "eget", "eleifend", "felis", "nulla", "ac", "suscipit", "ante", "et", "sollicitudin",
-            "dui", "mauris",
-            "in", "pulvinar", "tortor", "vestibulum", "pulvinar", "arcu", "vel", "tellus", "maximus", "blandit",
-            "morbi", "sed", "sem", "vehicula", "fermentum", "nisi", "eu", "fringilla", "metus", "duis", "ut", "quam",
-            "eget",
-            "odio", "hendrerit", "finibus", "ut", "a", "lectus", "cras", "ullamcorper", "turpis", "in", "purus",
-            "facilisis", "vestibulum", "donec", "maximus", "ac", "tortor", "tempus", "egestas", "aenean", "est", "diam",
-            "dictum", "et", "sodales", "vel", "efficitur", "ac", "libero", "vivamus", "vehicula", "ligula", "eu",
-            "diam", "auctor", "at", "dapibus", "nulla", "pellentesque", "morbi", "et", "dapibus", "dolor", "quis",
-            "auctor",
-            "turpis", "nunc", "sed", "pretium", "diam", "quisque", "non", "massa", "consectetur", "tempor", "augue"
-            , "vel", "volutpat", "ex", "vivamus", "vestibulum", "dolor", "risus", "quis", "mollis", "urna", "fermentum",
-            "sed",
-            "sed", "porttitor", "venenatis", "volutpat", "nulla", "facilisi", "donec", "aliquam", "mi", "vitae",
-            "ligula", "dictum", "ornare", "suspendisse", "finibus", "ligula", "vitae", "congue", "iaculis", "donec",
-            "vestibulum", "erat", "vel", "tortor", "iaculis", "tempor", "vivamus", "et", "purus", "eu", "ipsum",
-            "rhoncus", "pretium", "sit", "amet", "nec", "nisl", "nunc", "molestie", "consectetur", "rhoncus", "duis",
-            "ex",
-            "nunc", "interdum", "at", "molestie", "quis", "blandit", "quis", "diam", "nunc", "imperdiet", "lorem",
-            "vel", "scelerisque", "facilisis", "eros", "massa", "auctor", "nisl", "vitae", "efficitur", "leo", "diam",
-            "vel",
-            "felis", "aliquam", "tincidunt", "dapibus", "arcu", "in", "pulvinar", "metus", "tincidunt", "et",
-            "etiam", "turpis", "ligula", "sodales", "a", "eros", "vel", "fermentum", "imperdiet", "purus", "fusce",
-            "mollis",
-            "enim", "sed", "volutpat", "blandit", "arcu", "orci", "iaculis", "est", "non", "iaculis", "lorem",
-            "sapien", "sit", "amet", "est", "morbi", "ut", "porttitor", "elit", "aenean", "ac", "sodales", "lectus",
-            "morbi", "ut",
-            "bibendum", "arcu", "maecenas", "tincidunt", "erat", "vel", "maximus", "pellentesque", "ut", "placerat",
-            "quam", "sem", "a", "auctor", "ligula", "imperdiet", "quis", "pellentesque", "gravida", "consectetur",
-            "urna", "suspendisse", "vitae", "nisl", "et", "ante", "ornare", "vulputate", "sed", "a", "est", "lorem",
-            "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "eu", "facilisis", "lectus",
-            "nullam",
-            "iaculis", "dignissim", "eros", "eget", "tincidunt", "metus", "viverra", "at", "donec", "nec", "justo",
-            "vitae", "risus", "eleifend", "imperdiet", "eget", "ut", "ante", "ut", "arcu", "ex", "convallis", "in",
-            "lobortis",
-            "at", "mattis", "sed", "velit", "ut", "viverra", "ultricies", "lacus", "suscipit", "feugiat", "eros",
-            "luctus", "et", "vestibulum", "et", "aliquet", "mauris", "quisque", "convallis", "purus", "posuere",
-            "aliquam",
-            "nulla", "sit", "amet", "posuere", "orci", "nullam", "sed", "iaculis", "mauris", "ut", "volutpat",
-            "est", "suspendisse", "in", "vestibulum", "felis", "nullam", "gravida", "nulla", "at", "varius",
-            "fringilla", "ipsum",
-            "ipsum", "finibus", "lectus", "nec", "vestibulum", "lorem", "arcu", "ut", "magna", "aliquam", "aliquam"
-            , "erat", "erat", "ac", "euismod", "orci", "iaculis", "blandit", "morbi", "tincidunt", "posuere", "mi",
-            "non",
-            "eleifend", "vivamus", "accumsan", "dolor", "magna", "in", "cursus", "eros", "malesuada", "eu", "sed",
-            "auctor", "consectetur", "tempus", "maecenas", "luctus", "turpis", "a"
+    return new String[]{
+        "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "donec", "felis", "erat"
+        , "malesuada", "quis", "ipsum", "et", "condimentum",
+        "ultrices", "orci", "nullam", "interdum", "vestibulum", "eros", "sed", "porta", "donec", "ac",
+        "eleifend", "dolor", "at", "dictum", "ipsum", "pellentesque", "vel", "suscipit", "mi", "nullam",
+        "aliquam", "turpis", "et", "dolor", "porttitor", "varius", "nullam", "vel", "arcu", "rutrum", "iaculis"
+        , "est", "sit", "amet", "rhoncus", "turpis", "vestibulum", "lacinia", "sollicitudin",
+        "urna", "nec", "vestibulum", "nulla", "id", "lacinia", "metus", "etiam", "ac", "felis", "rutrum",
+        "sollicitudin", "erat", "vitae", "egestas", "tortor", "curabitur", "quis", "libero", "aliquet",
+        "mattis", "mauris", "nec", "tempus", "nibh", "in", "at", "lectus", "luctus", "mattis", "urna",
+        "pretium", "eleifend", "lacus", "sed", "interdum", "sapien", "nec", "justo", "vestibulum", "non",
+        "scelerisque",
+        "nibh", "sollicitudin", "interdum", "et", "malesuada", "fames", "ac", "ante", "ipsum", "primis", "in",
+        "faucibus", "vivamus", "congue", "tristique", "magna", "quis", "elementum", "phasellus", "sit", "amet",
+        "tristique", "massa", "vestibulum", "eu", "leo", "vitae", "quam", "dictum", "venenatis", "eu", "id",
+        "nibh", "donec", "eget", "eleifend", "felis", "nulla", "ac", "suscipit", "ante", "et", "sollicitudin",
+        "dui", "mauris",
+        "in", "pulvinar", "tortor", "vestibulum", "pulvinar", "arcu", "vel", "tellus", "maximus", "blandit",
+        "morbi", "sed", "sem", "vehicula", "fermentum", "nisi", "eu", "fringilla", "metus", "duis", "ut", "quam",
+        "eget",
+        "odio", "hendrerit", "finibus", "ut", "a", "lectus", "cras", "ullamcorper", "turpis", "in", "purus",
+        "facilisis", "vestibulum", "donec", "maximus", "ac", "tortor", "tempus", "egestas", "aenean", "est", "diam",
+        "dictum", "et", "sodales", "vel", "efficitur", "ac", "libero", "vivamus", "vehicula", "ligula", "eu",
+        "diam", "auctor", "at", "dapibus", "nulla", "pellentesque", "morbi", "et", "dapibus", "dolor", "quis",
+        "auctor",
+        "turpis", "nunc", "sed", "pretium", "diam", "quisque", "non", "massa", "consectetur", "tempor", "augue"
+        , "vel", "volutpat", "ex", "vivamus", "vestibulum", "dolor", "risus", "quis", "mollis", "urna", "fermentum",
+        "sed",
+        "sed", "porttitor", "venenatis", "volutpat", "nulla", "facilisi", "donec", "aliquam", "mi", "vitae",
+        "ligula", "dictum", "ornare", "suspendisse", "finibus", "ligula", "vitae", "congue", "iaculis", "donec",
+        "vestibulum", "erat", "vel", "tortor", "iaculis", "tempor", "vivamus", "et", "purus", "eu", "ipsum",
+        "rhoncus", "pretium", "sit", "amet", "nec", "nisl", "nunc", "molestie", "consectetur", "rhoncus", "duis",
+        "ex",
+        "nunc", "interdum", "at", "molestie", "quis", "blandit", "quis", "diam", "nunc", "imperdiet", "lorem",
+        "vel", "scelerisque", "facilisis", "eros", "massa", "auctor", "nisl", "vitae", "efficitur", "leo", "diam",
+        "vel",
+        "felis", "aliquam", "tincidunt", "dapibus", "arcu", "in", "pulvinar", "metus", "tincidunt", "et",
+        "etiam", "turpis", "ligula", "sodales", "a", "eros", "vel", "fermentum", "imperdiet", "purus", "fusce",
+        "mollis",
+        "enim", "sed", "volutpat", "blandit", "arcu", "orci", "iaculis", "est", "non", "iaculis", "lorem",
+        "sapien", "sit", "amet", "est", "morbi", "ut", "porttitor", "elit", "aenean", "ac", "sodales", "lectus",
+        "morbi", "ut",
+        "bibendum", "arcu", "maecenas", "tincidunt", "erat", "vel", "maximus", "pellentesque", "ut", "placerat",
+        "quam", "sem", "a", "auctor", "ligula", "imperdiet", "quis", "pellentesque", "gravida", "consectetur",
+        "urna", "suspendisse", "vitae", "nisl", "et", "ante", "ornare", "vulputate", "sed", "a", "est", "lorem",
+        "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "eu", "facilisis", "lectus",
+        "nullam",
+        "iaculis", "dignissim", "eros", "eget", "tincidunt", "metus", "viverra", "at", "donec", "nec", "justo",
+        "vitae", "risus", "eleifend", "imperdiet", "eget", "ut", "ante", "ut", "arcu", "ex", "convallis", "in",
+        "lobortis",
+        "at", "mattis", "sed", "velit", "ut", "viverra", "ultricies", "lacus", "suscipit", "feugiat", "eros",
+        "luctus", "et", "vestibulum", "et", "aliquet", "mauris", "quisque", "convallis", "purus", "posuere",
+        "aliquam",
+        "nulla", "sit", "amet", "posuere", "orci", "nullam", "sed", "iaculis", "mauris", "ut", "volutpat",
+        "est", "suspendisse", "in", "vestibulum", "felis", "nullam", "gravida", "nulla", "at", "varius",
+        "fringilla", "ipsum",
+        "ipsum", "finibus", "lectus", "nec", "vestibulum", "lorem", "arcu", "ut", "magna", "aliquam", "aliquam"
+        , "erat", "erat", "ac", "euismod", "orci", "iaculis", "blandit", "morbi", "tincidunt", "posuere", "mi",
+        "non",
+        "eleifend", "vivamus", "accumsan", "dolor", "magna", "in", "cursus", "eros", "malesuada", "eu", "sed",
+        "auctor", "consectetur", "tempus", "maecenas", "luctus", "turpis", "a"
     };
   }
 

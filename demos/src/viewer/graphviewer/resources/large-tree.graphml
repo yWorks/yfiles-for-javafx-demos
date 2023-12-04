@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -56,9 +56,20 @@
   <key attr.name="SharedData" id="d13" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
   <data key="d13">
     <y:SharedData>
-      <yfx:DefaultLabelStyle x:Key="1"/>
-      <yfx:ShinyPlateNodeStyle Paint="Orange" x:Key="2"/>
-      <yfx:PolylineEdgeStyle Pen="Black" TargetArrow="DEFAULT" x:Key="3"/>
+      <yfx:DefaultLabelStyle BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER" x:Key="1"/>
+      <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="2">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
+      <yfx:PolylineEdgeStyle x:Key="3">
+        <yfx:PolylineEdgeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:PolylineEdgeStyle.Pen>
+        <yfx:PolylineEdgeStyle.TargetArrow>
+          <yfx:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfx:PolylineEdgeStyle.TargetArrow>
+      </yfx:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G">

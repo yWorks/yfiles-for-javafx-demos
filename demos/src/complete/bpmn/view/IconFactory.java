@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -131,7 +131,7 @@ class IconFactory {
         result = createPlacedIcon(createMessage(Pen.getTransparent(), iconBrush, true), BpmnConstants.ACTIVITY_TASK_TYPE_MESSAGE_PLACEMENT, SizeD.EMPTY);
         break;
       case RECEIVE:
-        result = createPlacedIcon(createMessage((Pen)new Pen(iconBrush, 1), Color.TRANSPARENT, false), BpmnConstants.ACTIVITY_TASK_TYPE_MESSAGE_PLACEMENT, SizeD.EMPTY);
+        result = createPlacedIcon(createMessage((Pen)new Pen(iconBrush, 1), Color.TRANSPARENT), BpmnConstants.ACTIVITY_TASK_TYPE_MESSAGE_PLACEMENT, SizeD.EMPTY);
         break;
       case USER:
         {
@@ -275,15 +275,15 @@ class IconFactory {
           Paint lightBrush = cloneWithOpacity(iconBrush, 0.17);
 
           // top gear
-          icons.add(createGear(0.4, 0.4, 0.4, pen, darkBrush, -2 * Math.PI / 48, 8));
-          icons.add(createGear(0.16, 0.4, 0.4, null, background, -2 * Math.PI / 48, 8)); // background-colored gear to make shading work
-          icons.add(createGear(0.16, 0.4, 0.4, pen, lightBrush, -2 * Math.PI / 48, 8));
+          icons.add(createGear(0.4, 0.4, 0.4, pen, darkBrush));
+          icons.add(createGear(0.16, 0.4, 0.4, null, background)); // background-colored gear to make shading work
+          icons.add(createGear(0.16, 0.4, 0.4, pen, lightBrush));
 
           // bottom gear
-          icons.add(createGear(0.4, 0.6, 0.6, null, background, -2 * Math.PI / 48, 8)); // background-colored gear to make shading work
-          icons.add(createGear(0.4, 0.6, 0.6, pen, darkBrush, -2 * Math.PI / 48, 8));
-          icons.add(createGear(0.16, 0.6, 0.6, null, background, -2 * Math.PI / 48, 8)); // background-colored gear to make shading work
-          icons.add(createGear(0.16, 0.6, 0.6, pen, lightBrush, -2 * Math.PI / 48, 8));
+          icons.add(createGear(0.4, 0.6, 0.6, null, background)); // background-colored gear to make shading work
+          icons.add(createGear(0.4, 0.6, 0.6, pen, darkBrush));
+          icons.add(createGear(0.16, 0.6, 0.6, null, background)); // background-colored gear to make shading work
+          icons.add(createGear(0.16, 0.6, 0.6, pen, lightBrush));
 
           result = BUILDER.combineIcons(icons);
           break;
@@ -337,6 +337,10 @@ class IconFactory {
       TASK_ICONS.put(type, result);
     }
     return result;
+  }
+
+  private static IIcon createGear( double radius, double centerX, double centerY, Pen pen, Paint paint ) {
+    return createGear(radius, centerX, centerY, pen, paint, -2* Math.PI/48, 8);
   }
 
   private static IIcon createGear( double radius, double centerX, double centerY, Pen pen, Paint paint, double start, int count ) {
@@ -946,6 +950,10 @@ class IconFactory {
     }
   }
 
+  public static final IIcon createMessage( Pen pen, Paint paint) {
+    return createMessage(pen, paint, false);
+  }
+
   public static final IIcon createMessage( Pen pen, Paint paint, boolean inverted ) {
     ArrayList<IIcon> icons = new ArrayList<IIcon>();
     if (!inverted) {
@@ -1399,6 +1407,7 @@ class IconFactory {
     if (hasDefaultColor && ARROWS.containsKey(type)) {
       return ARROWS.get(type);
     }
+
     Pen pen = new Pen();
     pen.setPaint(paint);
     pen.setLineCap(StrokeLineCap.ROUND);

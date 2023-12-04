@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -169,7 +169,7 @@
             <y:RectD Height="50.0" Width="80.0" X="0.0" Y="-439.5833333333333"/>
           </data>
           <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+            <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
           </data>
           <port name="p0">
             <data key="d7">
@@ -192,7 +192,7 @@
             <y:RectD Height="50.0" Width="80.0" X="235.0" Y="-443.75"/>
           </data>
           <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+            <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
           </data>
           <port name="p0">
             <data key="d7">
@@ -225,7 +225,7 @@
             <y:RectD Height="50.0" Width="80.0" X="370.0" Y="-300.0"/>
           </data>
           <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+            <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
           </data>
           <port name="p0">
             <data key="d7">
@@ -248,7 +248,7 @@
             <y:RectD Height="50.0" Width="80.0" X="520.0" Y="-460.4166666666667"/>
           </data>
           <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+            <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
           </data>
           <port name="p0">
             <data key="d7">
@@ -266,7 +266,7 @@
             <y:RectD Height="50.0" Width="80.0" X="735.0" Y="-300.0"/>
           </data>
           <data key="d3">
-            <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+            <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
           </data>
           <port name="p0">
             <data key="d7">
@@ -300,7 +300,7 @@
                 <y:RectD Height="50.0" Width="80.0" X="125.0" Y="-184.5"/>
               </data>
               <data key="d3">
-                <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+                <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
               </data>
               <port name="p0">
                 <data key="d7">
@@ -318,7 +318,7 @@
                 <y:RectD Height="50.0" Width="80.0" X="235.0" Y="-184.5"/>
               </data>
               <data key="d3">
-                <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+                <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
               </data>
               <port name="p0">
                 <data key="d7">
@@ -341,7 +341,7 @@
                 <y:RectD Height="50.0" Width="80.0" X="125.0" Y="-264.5"/>
               </data>
               <data key="d3">
-                <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+                <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
               </data>
               <port name="p0">
                 <data key="d7">
@@ -377,7 +377,7 @@
                 <y:RectD Height="50.0" Width="80.0" X="620.0" Y="-184.5"/>
               </data>
               <data key="d3">
-                <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+                <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
               </data>
               <port name="p0">
                 <data key="d7">
@@ -395,7 +395,7 @@
                 <y:RectD Height="50.0" Width="80.0" X="520.0" Y="-184.5"/>
               </data>
               <data key="d3">
-                <yfx:ShinyPlateNodeStyle Paint="{y:GraphMLReference 9}" Radius="0.0"/>
+                <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" />
               </data>
               <port name="p0">
                 <data key="d7">

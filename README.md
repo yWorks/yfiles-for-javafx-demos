@@ -139,10 +139,16 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
+|[ArrowNodeStyle](demos/src/style/arrownodestyle/)| Implement sophisticated styles for graph objects in yFiles for JavaFX. |
 |[CompositeNodeStyle](demos/src/style/compositenodestyle/)| This demo shows how to combine several node styles into one. |
+|[DefaultLabelStyle](demos/src/style/defaultlabelstyle/)| Shows the most important configuration options for the built-in DefaultLabelStyle class. |
+|[GroupNodeStyle](demos/src/style/groupnodestyle/)| Implement sophisticated styles for graph objects in yFiles for JavaFX. |
+|[RectangleNodeStyle](demos/src/style/rectanglenodestyle/)| Implement sophisticated styles for graph objects in yFiles for JavaFX. |
 |[RichTextLabelStyle](demos/src/style/richtextlabelstyle/)| Using the JavaFX 8 Rich Text API in yFiles. |
+|[ShapeNodeStyle](demos/src/style/shapenodestyle/)| Implement sophisticated styles for graph objects in yFiles for JavaFX. |
 |[SimpleCustomStyle](demos/src/style/simplecustomstyle/)| Shows how to implement sophisticated styles for graph objects in yFiles for JavaFX. |
 |[TemplateStyle](demos/src/style/templatestyle/)| Shows how to use `TemplateNodeStyle` and `TemplateLabelStyle` to create complex node and label visualizations using FXML components. |
+|[TextWrapping](demos/src/style/textwrapping/)| Shows how to use the text wrapping and overrun style feature provided by the `DefaultLabelStyle` class. |
 |[ZoomInvariantLabelStyleDemo](demos/src/style/zoominvariantlabelstyle/)| Demonstrates zoom-invariant label rendering. |
   
 ## [Graph Builder Demos](demos/src/builder/)
@@ -176,8 +182,8 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
-|[GradleDemo](demos/src-gradle/deploy/gradledemo/)| Demonstrates how to setup a basic yFiles for JavaFX project using Gradle. |
-|[MavenDemo](demos/src-maven/deploy/mavendemo/)| Demonstrates howto setup a basic yFiles for JavaFX project using Apache Maven. |
+|[GradleDemo](demos/src-gradle/deploy/gradledemo/)| Demonstrates how to set up a basic yFiles for JavaFX project using Gradle. |
+|[MavenDemo](demos/src-maven/deploy/mavendemo/)| Demonstrates howto set up a basic yFiles for JavaFX project using Apache Maven. |
 |[ObfuscationDemo](demos/src/deploy/obfuscation/)| Demonstrates the obfuscation of an yFiles for JavaFX application via yGuard. |
   
 # Tutorials

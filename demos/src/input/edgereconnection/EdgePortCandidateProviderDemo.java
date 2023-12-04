@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -40,11 +40,10 @@ import com.yworks.yfiles.graph.ITagOwner;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.AbstractPortCandidateProvider;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.IEdgeReconnectionPortCandidateProvider;
@@ -54,6 +53,9 @@ import com.yworks.yfiles.view.input.PortCandidateValidity;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 
@@ -71,7 +73,7 @@ public class EdgePortCandidateProviderDemo extends DemoApplication {
    * the GraphControl instance is initialized.
    */
   public void initialize() {
-    // setup the help text on the right side.
+    // set up the help text on the right side.
     WebViewUtils.initHelp(help, this);
 
     // set up our InputMode for this demo.
@@ -92,7 +94,7 @@ public class EdgePortCandidateProviderDemo extends DemoApplication {
 
     IGraph graph = graphControl.getGraph();
 
-    // switch automatic cleanup of unconnected ports off so we can move them around more freely.
+    // switch automatic cleanup of unconnected ports off, so we can move them around more freely.
     graph.getNodeDefaults().getPortDefaults().setAutoCleanUpEnabled(false);
     // set a port style that makes the pre-defined ports visible.
     ShapeNodeStyle roundNodeStyle = new ShapeNodeStyle();
@@ -122,12 +124,12 @@ public class EdgePortCandidateProviderDemo extends DemoApplication {
     NodeStylePortStyleAdapter blackPortStyle = new NodeStylePortStyleAdapter(roundNodeStyle);
     blackPortStyle.setRenderSize(new SizeD(3, 3));
 
-    createSubgraph(graph, Color.FIREBRICK, 0);
-    createSubgraph(graph, Color.DARKORANGE, 200);
-    createSubgraph(graph, Color.FORESTGREEN, 600);
+    createSubgraph(graph, Themes.PALETTE_RED, 0);
+    createSubgraph(graph, Themes.PALETTE_ORANGE, 200);
+    createSubgraph(graph, Themes.PALETTE_GREEN, 600);
 
     // the blue nodes have some additional ports besides the ones used by the edge
-    INode[] nodes = createSubgraph(graph, Color.ROYALBLUE, 400);
+    INode[] nodes = createSubgraph(graph, Themes.PALETTE_LIGHTBLUE, 400);
     graph.addPort(nodes[0], FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.2), PointD.ORIGIN), blackPortStyle);
     graph.addPort(nodes[0], FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.8), PointD.ORIGIN), blackPortStyle);
 
@@ -148,16 +150,14 @@ public class EdgePortCandidateProviderDemo extends DemoApplication {
    * @param color  the color to fill the node with
    * @param yOffset the offset by which the positions of the nodes should be shifted
    */
-  private static INode[] createSubgraph(IGraph graph, Color color, double yOffset) {
-    ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-    style.setPaint(color);
-    INode n1 = graph.createNode(new RectD(100, 100 + yOffset, 60, 60), style, color);
-    INode n2 = graph.createNode(new RectD(500, 100 + yOffset, 60, 60), style, color);
-    INode n3 = graph.createNode(new RectD(300, 160 + yOffset, 60, 60), style, color);
+  private static INode[] createSubgraph(IGraph graph, Palette palette, double yOffset) {
+    RectangleNodeStyle style = DemoStyles.createDemoNodeStyle(palette);
+    INode n1 = graph.createNode(new RectD(100, 100 + yOffset, 60, 60), style, palette);
+    INode n2 = graph.createNode(new RectD(500, 100 + yOffset, 60, 60), style, palette);
+    INode n3 = graph.createNode(new RectD(300, 160 + yOffset, 60, 60), style, palette);
 
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setPen(new Pen(color, 1.5));
-    graph.createEdge(n1, n2, edgeStyle, color);
+    PolylineEdgeStyle edgeStyle = DemoStyles.createDemoEdgeStyle(palette);
+    graph.createEdge(n1, n2, edgeStyle, palette);
     return new INode[]{n1, n2, n3};
   }
 
@@ -182,19 +182,19 @@ public class EdgePortCandidateProviderDemo extends DemoApplication {
     Object edgeTag = edge.getTag();
 
     // see if it is a known tag
-    if (edgeTag instanceof Color) {
+    if (edgeTag instanceof Palette) {
       // and decide what implementation to provide
-      if (Color.FIREBRICK.equals(edgeTag)) {
+      if (Themes.PALETTE_RED.equals(edgeTag)) {
         return new RedEdgeReconnectionPortCandidateProvider(edge);
-      } else if (Color.DARKORANGE.equals(edgeTag)) {
+      } else if (Themes.PALETTE_ORANGE.equals(edgeTag)) {
         return new OrangeReconnectionEdgePortCandidateProvider(edge);
-      } else if (Color.ROYALBLUE.equals(edgeTag)) {
+      } else if (Themes.PALETTE_LIGHTBLUE.equals(edgeTag)) {
         return new BlueEdgeReconnectionPortCandidateProvider();
-      } else if (Color.FORESTGREEN.equals(edgeTag)) {
+      } else if (Themes.PALETTE_GREEN.equals(edgeTag)) {
         return new GreenEdgeReconnectionPortCandidateProvider();
       }
     }
-    // otherwise revert to default behavior
+    // otherwise, revert to default behavior
     return null;
   }
 

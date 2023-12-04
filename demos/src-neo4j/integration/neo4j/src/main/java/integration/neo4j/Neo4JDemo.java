@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -65,7 +65,6 @@ import com.yworks.yfiles.view.HighlightIndicatorManager;
 import com.yworks.yfiles.view.NodeStyleDecorationInstaller;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.StyleDecorationZoomPolicy;
-import com.yworks.yfiles.view.TextWrapping;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -92,6 +91,8 @@ import org.neo4j.driver.internal.value.StringValue;
 import org.neo4j.driver.types.Entity;
 import org.neo4j.driver.types.Node;
 import org.neo4j.driver.types.Relationship;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import java.time.Duration;
@@ -145,20 +146,12 @@ public class Neo4JDemo extends Application {
   private void initializeGraphDefaults() {
     IGraph graph = graphControl.getGraph();
 
-    // set the default style for nodes
-    ShapeNodeStyle defaultNodeStyle = new ShapeNodeStyle();
-    defaultNodeStyle.setShape(ShapeNodeShape.ELLIPSE);
-    defaultNodeStyle.setPaint(Color.LIGHTBLUE);
-    graph.getNodeDefaults().setStyle(defaultNodeStyle);
-
-    // and the default size
-    graph.getNodeDefaults().setSize(new SizeD(30, 30));
+    // set the default node styles
+    DemoStyles.initDemoStyles(graph, Themes.PALETTE_LIGHTBLUE);
+    graph.getNodeDefaults().setStyle(DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, Themes.PALETTE_LIGHTBLUE));
 
     // and configure node labels to be truncated if they exceed a certain size
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
-    defaultLabelStyle.setMaximumSize(new SizeD(116, 36));
-    defaultLabelStyle.setTextWrapping(TextWrapping.WRAP);
-    graph.getNodeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
+    ((DefaultLabelStyle) graph.getNodeDefaults().getLabelDefaults().getStyle()).setMaximumSize(new SizeD(116, 36));
 
     ExteriorLabelModel newExteriorLabelModel = new ExteriorLabelModel();
     newExteriorLabelModel.setInsets(new InsetsD(5));
@@ -392,11 +385,11 @@ public class Neo4JDemo extends Application {
     labels.sort(Comparator.comparingInt(labelCount::get));
     // define some distinct looking styles
     ShapeNodeStyle[] styles = {
-        newShapeNodeStyle(ShapeNodeShape.TRIANGLE, Color.DARKORANGE),
-        newShapeNodeStyle(ShapeNodeShape.DIAMOND, Color.LIMEGREEN),
-        newShapeNodeStyle(ShapeNodeShape.RECTANGLE, Color.BLUE),
-        newShapeNodeStyle(ShapeNodeShape.HEXAGON, Color.DARKVIOLET),
-        newShapeNodeStyle(ShapeNodeShape.ELLIPSE, Color.AZURE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.TRIANGLE, Themes.PALETTE_ORANGE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.DIAMOND, Themes.PALETTE_GREEN),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.RECTANGLE, Themes.PALETTE_BLUE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.HEXAGON, Themes.PALETTE_PURPLE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, Themes.PALETTE_LIGHTBLUE),
     };
     // map label names to styles
     Map<String, ShapeNodeStyle> labelToStyle = new HashMap<>();
@@ -404,13 +397,6 @@ public class Neo4JDemo extends Application {
       labelToStyle.put(labels.get(i), styles[i % styles.length]);
     }
     return labelToStyle;
-  }
-
-  private static ShapeNodeStyle newShapeNodeStyle(ShapeNodeShape shape, Color fill) {
-    ShapeNodeStyle style = new ShapeNodeStyle();
-    style.setShape(shape);
-    style.setPaint(fill);
-    return style;
   }
 
   /**

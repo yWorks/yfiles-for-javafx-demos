@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,12 +29,11 @@
  ***************************************************************************/
 package integration.swing;
 
-import com.yworks.yfiles.graph.IModelItem;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.GraphItemTypes;
+import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.PopulateItemContextMenuEventArgs;
@@ -45,7 +44,8 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -117,6 +117,7 @@ public class SwingDemo {
 
   /**
    * Initializes the Swing part of the user interface.
+   *
    * @param fxPanel the panel containing the JavaFX scene
    */
   private void initializeSwing(JFXPanel fxPanel) {
@@ -159,6 +160,7 @@ public class SwingDemo {
 
   /**
    * Creates a {@link javax.swing.JButton} wired up with the given {@link ICommand}.
+   *
    * @param icon      the icon to show on the button
    * @param command   the command to execute when the button is hit
    * @param parameter the parameter for the execution of the command
@@ -175,7 +177,7 @@ public class SwingDemo {
         // JavaFX scene graph which is only allowed on the JavaFX application thread.
         Platform.runLater(() -> command.execute(parameter, target)));
 
-    // enable/disable depending of the command's state
+    // enable/disable depending on the command's state
     command.addCanExecuteChangedListener((source, args) -> {
       // Find out if the command can be executed on the JavaFX thread. Note that it is normally safe
       // to call the canExecute method on the EDT, because in most cases this call will just
@@ -195,8 +197,9 @@ public class SwingDemo {
     try {
       JEditorPane editorPane = url != null
           ? new JEditorPane(url)
-          : new JEditorPane("text/plain", "Could not resolve help text. Please ensure that your build process or IDE adds the " +
-                    "help.html file to the class path.");
+          : new JEditorPane("text/plain",
+          "Could not resolve help text. Please ensure that your build process or IDE adds the " +
+              "help.html file to the class path.");
       editorPane.setEditable(false);
       editorPane.setPreferredSize(new Dimension(300, 250));
       return new JScrollPane(editorPane);
@@ -247,6 +250,7 @@ public class SwingDemo {
 
   /**
    * Initializes the JavaFX part of the user interface.
+   *
    * @param fxPanel the panel to add the scene to
    */
   private void initializeFX(JFXPanel fxPanel) {
@@ -264,7 +268,7 @@ public class SwingDemo {
     // activate drag and drop from the palette
     dropMode = new SwingNodeDropInputMode();
     // we identify the group nodes during a drag by the type of its style
-    dropMode.setIsGroupNodePredicate(node -> node.getStyle() instanceof PanelNodeStyle);
+    dropMode.setIsGroupNodePredicate(node -> node.getStyle() instanceof GroupNodeStyle);
     dropMode.setTransferMode(TransferMode.COPY);
     dropMode.setPreviewEnabled(true);
     dropMode.setEnabled(true);
@@ -291,13 +295,13 @@ public class SwingDemo {
   }
 
   /**
-   *  Populates the context menu for nodes.
+   * Populates the context menu for nodes.
    */
   private void populateNodeContextMenu(Object source, PopulateItemContextMenuEventArgs<IModelItem> args) {
     if (args.getItem() instanceof INode) {
       INode node = (INode) args.getItem();
       // The return type of the following method is Object to be able to support context menus of different Java GUI
-      // toolkits. By default this is an instance of JavaFX ContextMenu, but our SwingContextMenuInputMode specifies
+      // toolkits. By default, this is an instance of JavaFX ContextMenu, but our SwingContextMenuInputMode specifies
       // the Swing JPopupMenu to be used as context menu control.
       JPopupMenu contextMenu = (JPopupMenu) args.getMenu();
       // add an Action tha the Swing context menu on the EDT
@@ -309,6 +313,7 @@ public class SwingDemo {
   /**
    * Adds a {@link javax.swing.Action} to the given {@link javax.swing.JPopupMenu} that enables the
    * user to delete the given node.
+   *
    * @param contextMenu the context menu to add the action
    * @param node        the node to delete with the context menu
    */
@@ -327,19 +332,18 @@ public class SwingDemo {
    * Enables grouping and undo support, loads a sample graph and initializes the default node style.
    */
   private void initializeGraph() {
-    // enable undo support
-    graphControl.getGraph().setUndoEngineEnabled(true);
+    // set the default node styles
+    DemoStyles.initDemoStyles(graphControl.getGraph(), Themes.PALETTE_LIGHTBLUE);
 
     // load the sample graph
     try {
       String filename = getClass().getResource("resources/example.graphml").toExternalForm();
       graphControl.importFromGraphML(filename);
-      ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-      style.setPaint(Color.ORANGE);
-      graphControl.getGraph().getNodeDefaults().setStyle(style);
     } catch (IOException e) {
       e.printStackTrace();
     }
+    // enable undo support
+    graphControl.getGraph().setUndoEngineEnabled(true);
   }
 
   /**

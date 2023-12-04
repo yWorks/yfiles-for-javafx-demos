@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,7 +29,6 @@
  ***************************************************************************/
 package input.draganddrop;
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IGraph;
@@ -43,22 +42,21 @@ import com.yworks.yfiles.graph.SimplePort;
 import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
 import com.yworks.yfiles.graph.labelmodels.FreeEdgeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.VoidNodeStyle;
 import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.GridInfo;
 import com.yworks.yfiles.view.GridVisualCreator;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.DropInputMode;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
@@ -79,9 +77,10 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import java.util.HashMap;
@@ -197,7 +196,7 @@ public class DragAndDropDemo extends DemoApplication {
       ModelItemTemplate template = palette.getSelectionModel().getSelectedItem();
       if (template == null) {
         // there is currently no selected item in the palette,
-        // thus do not create a new node 
+        // thus do not create a new node
         return null;
       }
       if (ModelItemTemplate.EDGE_LABEL == template ||
@@ -250,8 +249,8 @@ public class DragAndDropDemo extends DemoApplication {
     nodeDropInputMode.setEnabled(true);
 
     // The palette provides normal nodes and group nodes. In this sample the
-    // NodeDropInputMode should handle nodes with PanelNodeStyle as group nodes.
-    nodeDropInputMode.setIsGroupNodePredicate(draggedNode -> draggedNode.getStyle() instanceof PanelNodeStyle);
+    // NodeDropInputMode should handle nodes with GroupNodeStyle as group nodes.
+    nodeDropInputMode.setIsGroupNodePredicate(draggedNode -> draggedNode.getStyle() instanceof GroupNodeStyle);
 
     // We allow the NodeDropInputMode to convert a normal node to a group
     // node when a node has been dropped on it
@@ -267,7 +266,7 @@ public class DragAndDropDemo extends DemoApplication {
       INode item = originalItemCreator.createItem(context, graph, draggedItem, dropTarget, dropLocation);
       INode parent = graph.getParent(item);
       // check if the parent of the dropped node has become a group node
-      if (parent != null && !(parent.getStyle() instanceof PanelNodeStyle)) {
+      if (parent != null && !(parent.getStyle() instanceof GroupNodeStyle)) {
         // let it look like a group node
         graph.setStyle(parent, VALID_PARENT_GROUP_NODE_STYLE);
 
@@ -276,9 +275,11 @@ public class DragAndDropDemo extends DemoApplication {
         while (labels.size() > 0) {
           graph.remove(labels.getItem(labels.size() - 1));
         }
-        graph.addLabel(parent, "Group Node", GROUP_NODE_LABEL_MODEL_PARAMETER, GROUP_NODE_LABEL_STYLE);
+        graph.addLabel(parent, "Group Node", null, VALID_PARENT_GROUP_NODE_LABEL_STYLE);
 
-        graph.adjustGroupNodeLayout(parent);
+        for (INode nodeToAdjust : graph.getGroupingSupport().getPathToRoot(parent)) {
+          graph.adjustGroupNodeLayout(nodeToAdjust);
+        }
       }
       return item;
     });
@@ -397,6 +398,7 @@ public class DragAndDropDemo extends DemoApplication {
 
   private void createSampleGraph() {
     IGraph graph = graphControl.getGraph();
+    DemoStyles.initDemoStyles(graph);
 
     // create a group node into which dragged nodes can be dropped
     INode group1 = createGroupNode(graph, 100, 150, true);
@@ -418,43 +420,24 @@ public class DragAndDropDemo extends DemoApplication {
   }
 
   // we can share the styles for this demo.
-  public static final PanelNodeStyle VALID_PARENT_GROUP_NODE_STYLE = new PanelNodeStyle();
-  public static final PanelNodeStyle INVALID_PARENT_GROUP_NODE_STYLE = new PanelNodeStyle();
+  public static final GroupNodeStyle VALID_PARENT_GROUP_NODE_STYLE = DemoStyles.createDemoGroupStyle(Themes.PALETTE_GREEN);
+  public static final GroupNodeStyle INVALID_PARENT_GROUP_NODE_STYLE = DemoStyles.createDemoGroupStyle(Themes.PALETTE_RED);
 
-  public static final ShinyPlateNodeStyle VALID_PARENT_NODE_STYLE = new ShinyPlateNodeStyle();
-  public static final ShinyPlateNodeStyle INVALID_PARENT_NODE_STYLE = new ShinyPlateNodeStyle();
+  public static final RectangleNodeStyle VALID_PARENT_NODE_STYLE = DemoStyles.createDemoNodeStyle(Themes.PALETTE_GREEN);
+  public static final RectangleNodeStyle INVALID_PARENT_NODE_STYLE = DemoStyles.createDemoNodeStyle(Themes.PALETTE_RED);
 
-  public static final DefaultLabelStyle GROUP_NODE_LABEL_STYLE = new DefaultLabelStyle();
-  public static final ILabelModelParameter GROUP_NODE_LABEL_MODEL_PARAMETER;
+  public static final ILabelStyle VALID_PARENT_GROUP_NODE_LABEL_STYLE = DemoStyles.createDemoGroupLabelStyle(Themes.PALETTE_GREEN);
+  public static final ILabelStyle INVALID_PARENT_GROUP_NODE_LABEL_STYLE = DemoStyles.createDemoGroupLabelStyle(Themes.PALETTE_RED);
 
-
-  static {
-    InsetsD groupNodeInsets = new InsetsD(25, 5, 5, 5);
-
-    VALID_PARENT_GROUP_NODE_STYLE.setInsets(groupNodeInsets);
-    VALID_PARENT_GROUP_NODE_STYLE.setColor(Color.FORESTGREEN);
-    VALID_PARENT_GROUP_NODE_STYLE.setLabelInsetsColor(Color.FORESTGREEN);
-
-    INVALID_PARENT_GROUP_NODE_STYLE.setInsets(groupNodeInsets);
-    INVALID_PARENT_GROUP_NODE_STYLE.setColor(Color.FIREBRICK);
-    INVALID_PARENT_GROUP_NODE_STYLE.setLabelInsetsColor(Color.FIREBRICK);
-
-    VALID_PARENT_NODE_STYLE.setPaint(Color.FORESTGREEN);
-    INVALID_PARENT_NODE_STYLE.setPaint(Color.FIREBRICK);
-
-    GROUP_NODE_LABEL_STYLE.setTextPaint(Color.WHITE);
-    InteriorStretchLabelModel labelModel = new InteriorStretchLabelModel();
-    labelModel.setInsets(new InsetsD(2, 5, 4, 5));
-    GROUP_NODE_LABEL_MODEL_PARAMETER = labelModel.createParameter(InteriorStretchLabelModel.Position.NORTH);
-  }
 
   /**
    * Convenience factory method that creates a group node in the given graph with a specific styling.
    */
   static INode createGroupNode(IGraph graph, double x, double y, boolean isValidParent) {
-    PanelNodeStyle groupNodeStyle = isValidParent ? VALID_PARENT_GROUP_NODE_STYLE : INVALID_PARENT_GROUP_NODE_STYLE;
+    GroupNodeStyle groupNodeStyle = isValidParent ? VALID_PARENT_GROUP_NODE_STYLE : INVALID_PARENT_GROUP_NODE_STYLE;
     INode groupNode = graph.createGroupNode(null, new RectD(x, y, 160, 130), groupNodeStyle, isValidParent);
-    graph.addLabel(groupNode, "Group Node", GROUP_NODE_LABEL_MODEL_PARAMETER, GROUP_NODE_LABEL_STYLE);
+    ILabelStyle groupNodeLabelStyle = isValidParent ? VALID_PARENT_GROUP_NODE_LABEL_STYLE : INVALID_PARENT_GROUP_NODE_LABEL_STYLE;
+    graph.addLabel(groupNode, "Group Node", null, groupNodeLabelStyle);
     return groupNode;
   }
 
@@ -462,7 +445,7 @@ public class DragAndDropDemo extends DemoApplication {
    * Convenience factory method that creates a normal node in the given graph with a specific styling.
    */
   static INode createNode(IGraph graph, double x, double y, boolean isValidParent) {
-    ShinyPlateNodeStyle style = isValidParent ? VALID_PARENT_NODE_STYLE : INVALID_PARENT_NODE_STYLE;
+    RectangleNodeStyle style = isValidParent ? VALID_PARENT_NODE_STYLE : INVALID_PARENT_NODE_STYLE;
     return graph.createNode(new RectD(x, y, 40, 40), style, isValidParent);
   }
 
@@ -470,11 +453,7 @@ public class DragAndDropDemo extends DemoApplication {
    * Creates a palette label template in the given graph.
    */
   static ILabel createLabel( IGraph graph, String text, ILabelModelParameter parameter ) {
-    DefaultLabelStyle style = new DefaultLabelStyle();
-    style.setBackgroundPen(new Pen(Color.STEELBLUE.darker()));
-    style.setBackgroundPaint(Color.STEELBLUE);
-    style.setTextPaint(Color.WHITE);
-    style.setInsets(new InsetsD(4, 4, 4, 4));
+    DefaultLabelStyle style = DemoStyles.createDemoNodeLabelStyle();
     INode node = graph.createNode(new RectD(0, 0, 70, 70), VoidNodeStyle.INSTANCE);
     return graph.addLabel(node, text, parameter, style);
   }
@@ -483,10 +462,7 @@ public class DragAndDropDemo extends DemoApplication {
    * Creates a palette port template in the given graph.
    */
   static IPort createPort( IGraph graph, IPortLocationModelParameter parameter ) {
-    ShapeNodeStyle shape = new ShapeNodeStyle();
-    shape.setShape(ShapeNodeShape.ELLIPSE);
-    shape.setPaint(Color.STEELBLUE);
-    shape.setPen(new Pen(Color.STEELBLUE.darker()));
+    ShapeNodeStyle shape = DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, Themes.PALETTE_LIGHTBLUE);
     NodeStylePortStyleAdapter style = new NodeStylePortStyleAdapter();
     style.setNodeStyle(shape);
     style.setRenderSize(new SizeD(8, 8));

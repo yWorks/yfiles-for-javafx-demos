@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -38,7 +38,6 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.utils.ObservableCollection;
 import com.yworks.yfiles.view.ContextConfigurator;
 import com.yworks.yfiles.view.GraphControl;
@@ -58,6 +57,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.File;
@@ -211,7 +211,7 @@ public abstract class AbstractImageExportDemo extends DemoApplication {
   protected void initializeGraph() {
     IGraph graph = graphControl.getGraph();
 
-    initializeGraphDefaults(graph);
+    DemoStyles.initDemoStyles(graph);
 
     // create sample graph
     graph.addLabel(graph.createNode(new PointD(30, 30)), "Node");
@@ -227,21 +227,6 @@ public abstract class AbstractImageExportDemo extends DemoApplication {
     // now fit the graph bounds again to make the whole graph visible
     graphControl.fitGraphBounds();
     // the export rect still encloses the same part of the graph as before
-  }
-
-  /**
-   * Initializes the default node and edge style.
-   */
-  private void initializeGraphDefaults(IGraph graph) {
-    // initialize default node style
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-
-    // initialize default edge style
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setTargetArrow(IArrow.DEFAULT);
-    graph.getEdgeDefaults().setStyle(edgeStyle);
   }
 
   /**

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -30,7 +30,6 @@
 package layout.hierarchiclayout;
 
 import com.yworks.yfiles.geometry.InsetsD;
-import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IBend;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
@@ -39,9 +38,6 @@ import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.LayoutUtilities;
 import com.yworks.yfiles.graph.Mapper;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.layout.PortConstraint;
@@ -53,19 +49,19 @@ import com.yworks.yfiles.utils.IEventArgs;
 import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.utils.ItemEventArgs;
 import com.yworks.yfiles.view.GraphControl;
+import com.yworks.yfiles.view.IAnimation;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.ISelectionModel;
-import com.yworks.yfiles.view.Pen;
-import com.yworks.yfiles.view.IAnimation;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.IHandle;
 import com.yworks.yfiles.view.input.IInputMode;
 import com.yworks.yfiles.view.input.PopulateItemContextMenuEventArgs;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import java.time.Duration;
@@ -397,16 +393,7 @@ public class HierarchicLayoutDemo extends DemoApplication {
     IGraph graph = graphControl.getGraph();
 
     // set some nice defaults
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    graph.getNodeDefaults().setSize(new SizeD(60, 30));
-
-    ShapeNodeStyle groupNodeStyle = new ShapeNodeStyle();
-    groupNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    groupNodeStyle.setPen(new Pen(Color.DARKBLUE, 2));
-    groupNodeStyle.setPaint(null);
-    graph.getGroupNodeDefaults().setStyle(groupNodeStyle);
+    DemoStyles.initDemoStyles(graph, Themes.PALETTE21);
 
     // register a custom PositionHandler for the nodes.
     // this enables interactive layer reassignment with layer preview

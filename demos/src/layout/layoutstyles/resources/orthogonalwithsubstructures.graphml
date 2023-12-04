@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -60,8 +60,8 @@
             <yfx:ShapeNodeStyle x:Key="#FFBA55D3" Pen="#FFFFFFFF" Paint="#FFBA55D3" />
             <yfx:ShapeNodeStyle x:Key="#FF32CD32" Pen="#FFFFFFFF" Paint="#FF32CD32" />
             <yfx:ShapeNodeStyle x:Key="#FF00BFFF" Pen="#FFFFFFFF" Paint="#FF00BFFF" />
-		    <yfx:DefaultLabelStyle x:Key="LabelStyle1" Font="System;12.0;Regular" TextAlignment="CENTER" TextPaint="#FF000000" AutoFlippingEnabled="False"/>
-      <yfx:PolylineEdgeStyle x:Key="EdgeStyle"/>
+            <yfx:DefaultLabelStyle x:Key="LabelStyle1" Font="System;12.0;Regular" TextAlignment="CENTER" TextPaint="#FF000000" AutoFlippingEnabled="False"/>
+            <yfx:PolylineEdgeStyle x:Key="EdgeStyle"/>
     </y:SharedData>
 	</data>
 	<graph id="G" edgedefault="directed">

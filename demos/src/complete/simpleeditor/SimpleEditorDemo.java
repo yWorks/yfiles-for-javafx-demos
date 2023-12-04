@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -33,28 +33,18 @@ import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.graph.FoldingManager;
 import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.ILabelDefaults;
-import com.yworks.yfiles.graph.ILabelOwner;
-import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.LabelDefaults;
-import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.labelmodels.SmartEdgeLabelModel;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
-import com.yworks.yfiles.graph.styles.ILabelStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.circular.CircularLayout;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
 import com.yworks.yfiles.layout.orthogonal.OrthogonalLayout;
+import com.yworks.yfiles.layout.radial.RadialLayout;
 import com.yworks.yfiles.layout.router.OrganicEdgeRouter;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
+import com.yworks.yfiles.layout.router.polyline.EdgeRoutingStyle;
 import com.yworks.yfiles.layout.tree.BalloonLayout;
 import com.yworks.yfiles.layout.tree.TreeLayout;
+import com.yworks.yfiles.layout.tree.TreeReductionStage;
 import com.yworks.yfiles.view.CanvasControl;
 import com.yworks.yfiles.view.CanvasPrinter;
 import com.yworks.yfiles.view.GraphControl;
@@ -71,6 +61,12 @@ import com.yworks.yfiles.view.input.IInputMode;
 import com.yworks.yfiles.view.input.LabelSnapContext;
 import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
 import com.yworks.yfiles.view.input.WaitInputMode;
+import toolkit.BitmapExportHelper;
+import toolkit.CommandMenuItem;
+import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.WebViewUtils;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -85,15 +81,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
-import toolkit.BitmapExportHelper;
-import toolkit.CommandMenuItem;
-import toolkit.DemoApplication;
-import toolkit.WebViewUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -116,7 +105,7 @@ import java.time.Duration;
  </p>
  */
 public class SimpleEditorDemo extends DemoApplication {
-  private static String[] IMAGE_FILE_EXTENSIONS = {"jpg", "jpeg", "jpe", "png", "bmp"};
+  private static final String[] IMAGE_FILE_EXTENSIONS = {".jpg", ".jpeg", ".jpe", ".png", ".bmp"};
 
   private GridVisualCreator grid;
   private GraphSnapContext graphSnapContext;
@@ -178,11 +167,25 @@ public class SimpleEditorDemo extends DemoApplication {
     addCommandMenuItem(layoutMenu, "Organic", new OrganicLayout());
     addCommandMenuItem(layoutMenu, "Orthogonal", new OrthogonalLayout());
     addCommandMenuItem(layoutMenu, "Circular", new CircularLayout());
-    addCommandMenuItem(layoutMenu, "Tree", new TreeLayout());
-    addCommandMenuItem(layoutMenu, "Balloon", new BalloonLayout());
+    // TreeLayout will fail with exception for graphs that are not trees.
+    // If we prepend a TreeReductionStage, those graphs will be reduced
+    // to trees and then those layouts can safely be calculated.
+    TreeLayout treeLayout = new TreeLayout();
+    treeLayout.prependStage(new TreeReductionStage());
+    addCommandMenuItem(layoutMenu, "Tree", treeLayout);
+    // BalloonLayout will fail with exception for graphs that are not trees.
+    // If we prepend a TreeReductionStage, those graphs will be reduced
+    // to trees and then those layouts can safely be calculated.
+    BalloonLayout balloonLayout = new BalloonLayout();
+    balloonLayout.prependStage(new TreeReductionStage());
+    addCommandMenuItem(layoutMenu, "Balloon", balloonLayout);
+    addCommandMenuItem(layoutMenu, "Radial", new RadialLayout());
     layoutMenu.getItems().add(new SeparatorMenuItem());
     addCommandMenuItem(layoutMenu, "Orthogonal Router", new EdgeRouter());
     addCommandMenuItem(layoutMenu, "Organic Router", new OrganicEdgeRouter());
+    EdgeRouter polylineRouter = new EdgeRouter();
+    polylineRouter.getDefaultEdgeLayoutDescriptor().setRoutingStyle(EdgeRoutingStyle.OCTILINEAR);
+    addCommandMenuItem(layoutMenu, "Polyline Router", polylineRouter);
 
     menus.add(layoutMenu);
   }
@@ -309,35 +312,7 @@ public class SimpleEditorDemo extends DemoApplication {
     IGraph masterGraph = view.getManager().getMasterGraph();
     masterGraph.setUndoEngineEnabled(true);
 
-    // configure the group node style.
-    //PanelNodeStyle is a nice style especially suited for group nodes
-    Color groupNodeColor = Color.web("#CFE2F8FF");
-    PanelNodeStyle decoratedStyle = new PanelNodeStyle();
-    decoratedStyle.setColor(groupNodeColor);
-    decoratedStyle.setLabelInsetsColor(groupNodeColor);
-    CollapsibleNodeStyleDecorator groupNodeStyle = new CollapsibleNodeStyleDecorator(decoratedStyle);
-    graph.getGroupNodeDefaults().setStyle(groupNodeStyle);
-
-    // Set a different label style and parameter
-    DefaultLabelStyle groupNodeLabelStyle = new DefaultLabelStyle();
-    groupNodeLabelStyle.setTextAlignment(TextAlignment.RIGHT);
-    graph.getGroupNodeDefaults().getLabelDefaults().setStyle(groupNodeLabelStyle);
-    graph.getGroupNodeDefaults().getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
-
-    // Configure Graph defaults
-    // set the default node style
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.web("#FFA500")); // we use a slightly darker orange
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    DefaultLabelStyle nodeLabelStyle = new DefaultLabelStyle();
-    nodeLabelStyle.setTextAlignment(TextAlignment.LEFT);
-    // use the same label defaults for folder nodes and group nodes but
-    // different label defaults for normal nodes
-    graph.getNodeDefaults().setLabelDefaults(new MultiplexingLabelDefaults(view));
-    graph.getNodeDefaults().getLabelDefaults().setStyle(nodeLabelStyle);
-    graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(new FreeNodeLabelModel().createDefaultParameter());
-    graph.getEdgeDefaults().getLabelDefaults().setStyle(nodeLabelStyle);
-    graph.getEdgeDefaults().getLabelDefaults().setLayoutParameter(new SmartEdgeLabelModel().createDefaultParameter());
+    DemoStyles.initDemoStyles(masterGraph, true);
 
     graphControl.setGraph(graph);
   }
@@ -445,7 +420,7 @@ public class SimpleEditorDemo extends DemoApplication {
    * Handles the {@link #RUN_LAYOUT}.
    */
   private boolean executeLayout(ICommand command, Object parameter, Object sender) {
-    if (parameter != null && parameter instanceof ILayoutAlgorithm) {
+    if (parameter instanceof ILayoutAlgorithm) {
       ILayoutAlgorithm layout = (ILayoutAlgorithm) parameter;
       graphControl.morphLayout(layout, Duration.ofMillis(500));
       return true;
@@ -492,7 +467,7 @@ public class SimpleEditorDemo extends DemoApplication {
       String filePath = file.getPath();
       boolean hasExtension = false;
       for (String extension : IMAGE_FILE_EXTENSIONS) {
-        if (filePath.toLowerCase().endsWith("." + extension)) {
+        if (filePath.toLowerCase().endsWith(extension)) {
           hasExtension = true;
           break;
         }
@@ -532,67 +507,6 @@ public class SimpleEditorDemo extends DemoApplication {
     // don't allow printing empty graphs
     IGraph graph = graphControl.getGraph();
     return !waitInputMode.isWaiting() && graph != null && graph.getNodes().size() != 0;
-  }
-
-
-  /**
-   * Differentiates between normal nodes and folder nodes.
-   * For folder nodes, the label defaults are adopted from the group node label
-   * defaults of the associated {@link IFoldingView}'s view graph.
-   */
-  private static class MultiplexingLabelDefaults extends LabelDefaults {
-    final IFoldingView view;
-
-    MultiplexingLabelDefaults(IFoldingView view) {
-      this.view = view;
-    }
-
-    @Override
-    public ILabelModelParameter getLayoutParameterInstance(ILabelOwner owner) {
-      if (isFolderNode(owner)) {
-        return getGroupLabelDefaults().getLayoutParameterInstance(owner);
-      } else {
-        return super.getLayoutParameterInstance(owner);
-      }
-    }
-
-    @Override
-    public ILabelStyle getStyleInstance(ILabelOwner owner) {
-      if (isFolderNode(owner)) {
-        return getGroupLabelDefaults().getStyleInstance(owner);
-      } else {
-        return super.getStyleInstance(owner);
-      }
-    }
-
-    /**
-     * Determines if the given label owner is a folder node.
-     */
-    private boolean isFolderNode(ILabelOwner owner) {
-      if (owner instanceof INode) {
-        INode node = (INode) owner;
-        IGraph masterGraph = view.getManager().getMasterGraph();
-        if (view.getGraph().contains(node)) {
-          if (!view.getGraph().isGroupNode(node)) {
-            INode masterNode = view.getMasterItem(node);
-            if (masterGraph.isGroupNode(masterNode)) {
-              return true;
-            }
-          }
-        } else if (masterGraph.contains(node)) {
-          return masterGraph.isGroupNode(node);
-        }
-      }
-      return false;
-    }
-
-    /**
-     * Returns the group node label defaults of the associated
-     * {@link IFoldingView}'s view graph.
-     */
-    private ILabelDefaults getGroupLabelDefaults() {
-      return view.getGraph().getGroupNodeDefaults().getLabelDefaults();
-    }
   }
 
   public static void main(String[] args) {

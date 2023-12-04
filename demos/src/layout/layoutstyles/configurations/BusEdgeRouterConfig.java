@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -42,7 +42,6 @@ import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.AbstractLayoutStage;
 import com.yworks.yfiles.layout.GenericLayoutData;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.ItemCollection;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraph;
 import com.yworks.yfiles.layout.router.BusDescriptor;
@@ -53,8 +52,8 @@ import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.IGraphSelection;
-import java.util.function.Predicate;
 import java.util.HashSet;
+import java.util.function.Predicate;
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -167,7 +166,8 @@ public class BusEdgeRouterConfig extends LayoutConfiguration {
             selectedIds.contains(busIds.getValue(edge).getBusId())
         );
         GenericLayoutData hideNonOrthogonalEdgesLayoutData = new GenericLayoutData();
-        hideNonOrthogonalEdgesLayoutData.addItemCollection(HideNonOrthogonalEdgesStage.SELECTED_NODES_DP_KEY, (ItemCollection<INode>)null).setSource(graphSelection.getSelectedNodes());
+        hideNonOrthogonalEdgesLayoutData.addItemCollection(HideNonOrthogonalEdgesStage.SELECTED_NODES_DP_KEY).setSource(graphSelection.getSelectedNodes());
+
         return layoutData.combineWith(hideNonOrthogonalEdgesLayoutData);
     }
 

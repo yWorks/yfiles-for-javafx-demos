@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -57,10 +57,22 @@
   <data key="d13">
     <y:SharedData>
       <yfx:DefaultLabelStyle Font="System;12.0;Regular" FontSmoothingType="{x:Null}" x:Key="1"/>
-      <yfx:ShinyPlateNodeStyle Paint="LightSkyBlue" Pen="LightSkyBlue" x:Key="2"/>
-      <yfx:ShinyPlateNodeStyle Paint="Orange" Pen="Orange" x:Key="3"/>
-      <yfx:ShapeNodeStyle Paint="Black" Pen="Black" Shape="ELLIPSE" x:Key="4"/>
-      <yfx:PolylineEdgeStyle Pen="Black" x:Key="5"/>
+      <yfx:RectangleNodeStyle Paint="#ff6c00" CornerSize="3.5" x:Key="2">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#662b00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
+      <yfx:RectangleNodeStyle Paint="#68b0e3" CornerSize="3.5" x:Key="3">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#662b00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
+      <yfx:ShapeNodeStyle Paint="#662b00" Pen="#662b00" Shape="ELLIPSE" x:Key="4"/>
+      <yfx:PolylineEdgeStyle x:Key="5">
+        <yfx:PolylineEdgeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:PolylineEdgeStyle.Pen>
+      </yfx:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G">

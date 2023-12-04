@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -51,9 +51,9 @@ import java.util.concurrent.FutureTask;
  */
 class NodeTemplateCellRenderer implements javax.swing.ListCellRenderer<NodeTemplate> {
   // renders the list cell
-  private DefaultListCellRenderer renderer;
+  private final DefaultListCellRenderer renderer;
   // holds an icon for each node
-  private WeakHashMap<NodeTemplate, Icon> template2icon;
+  private final WeakHashMap<NodeTemplate, Icon> template2icon;
 
   NodeTemplateCellRenderer() {
     renderer = new DefaultListCellRenderer();
@@ -97,7 +97,7 @@ class NodeTemplateCellRenderer implements javax.swing.ListCellRenderer<NodeTempl
       FutureTask<Image> fxImageQuery = new FutureTask<>(nodeTemplate::createImage);
       Platform.runLater(fxImageQuery);
       try {
-        // convert the the JavaFX image in a Swing image
+        // convert the JavaFX image in a Swing image
         image = SwingFXUtils.fromFXImage(fxImageQuery.get(), null);
       } catch (InterruptedException | ExecutionException e) {
         image = EMPTY_IMAGE;

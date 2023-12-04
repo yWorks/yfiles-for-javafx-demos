@@ -12,7 +12,7 @@ JavaFX/OpenJFX is configured as a Maven dependency. It is therefore not necessar
 
 ## Running during development
 * yFiles is delivered as a single JAR file. To use it in a Maven project, the simplest approach is to install it as a Maven dependency into the local repository.
-  * In the `lib` folder of the package run: `mvn install:install-file -Dfile="yfiles-for-javafx.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-javafx-complete" -Dversion="3.5" -Dpackaging="jar"`
+  * In the `lib` folder of the package run: `mvn install:install-file -Dfile="yfiles-for-javafx.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-javafx-complete" -Dversion="3.6" -Dpackaging="jar"`
 * Copy the license (e.g. `com.yworks.yfiles.javafx.developmentlicense.xml`) into the `src/main/java` folder of the demo.
   * The license is going to be copied during build to the build folder via the `maven-resources-plugin` as configured in the `pom.xml`.
 * Run `mvn javafx:run` in the demo folder.

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -42,6 +42,8 @@ import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.UndoEngine;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.view.input.PopulateItemContextMenuEventArgs;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -61,8 +63,6 @@ import com.yworks.yedlite.dragdrop.SwtNodeDropInputMode;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
 import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.FoldingManager;
 import com.yworks.yfiles.graph.IGraph;
@@ -81,7 +81,7 @@ import javafx.scene.text.TextAlignment;
  * The main view that contains the GraphControl and provides interactive
  * features. The view resembles the main features of the SimpleEditorDemo: The
  * graph is editable by common means (mouse and keyboard shortcuts) and the
- * tool-bar provides access to common features like cut/copy/paste, grouping,
+ * toolbar provides access to common features like cut/copy/paste, grouping,
  * snapping, performing a layout calculation and so on.
  */
 public class GraphEditorPart {
@@ -128,7 +128,7 @@ public class GraphEditorPart {
 
   /**
    * We override the createPartControl method in FXViewPart canvas to hook our
-   * tool-bar and menu into the view.
+   * toolbar and menu into the view.
    */
   @PostConstruct
   public void initPart(Composite parent) {
@@ -222,11 +222,11 @@ public class GraphEditorPart {
 
     // Configure grouping:
     // configure the group node style.
-    // PanelNodeStyle is a nice style especially suited for group nodes
+    // GroupNodeStyle is a nice style especially suited for group nodes
     Color groupNodeColor = Color.web("#CFE2F8FF");
-    PanelNodeStyle decoratedStyle = new PanelNodeStyle();
-    decoratedStyle.setColor(groupNodeColor);
-    decoratedStyle.setLabelInsetsColor(groupNodeColor);
+    GroupNodeStyle decoratedStyle = new GroupNodeStyle();
+    decoratedStyle.setContentAreaPaint(groupNodeColor);
+    decoratedStyle.setTabBackgroundPaint(groupNodeColor);
     CollapsibleNodeStyleDecorator groupStyle = new CollapsibleNodeStyleDecorator(decoratedStyle);
     graph.getGroupNodeDefaults().setStyle(groupStyle);
 
@@ -238,7 +238,7 @@ public class GraphEditorPart {
 
     // Configure graph defaults:
     // set the default node style
-    ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
+    RectangleNodeStyle style = new RectangleNodeStyle();
     style.setPaint(Color.ORANGE);
     graph.getNodeDefaults().setStyle(style);
     graph.getNodeDefaults().setStyleInstanceSharingEnabled(false);

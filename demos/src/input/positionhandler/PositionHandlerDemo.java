@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -36,7 +36,7 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.NodeDecorator;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
@@ -49,6 +49,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 /**
@@ -79,16 +82,16 @@ public class PositionHandlerDemo extends DemoApplication {
 
       // Check if it is a known tag and choose the respective implementation.
       // Fallback to the default behavior otherwise.
-      if (Color.DARKORANGE.equals(nodeTag)) {
+      if (Themes.PALETTE_ORANGE.equals(nodeTag)) {
         // This implementation delegates certain behavior to the default implementation
         return new OrangePositionHandler(boundaryRectangle, node, delegateHandler);
-      } else if (Color.FIREBRICK.equals(nodeTag)) {
+      } else if (Themes.PALETTE_RED.equals(nodeTag)) {
         // A simple implementation that prohibits moving
         return new RedPositionHandler();
-      } else if (Color.ROYALBLUE.equals(nodeTag)) {
+      } else if (Themes.PALETTE_LIGHTBLUE.equals(nodeTag)) {
         // Implementation that uses two levels of delegation to create a combined behavior
         return new OrangePositionHandler(boundaryRectangle, node, new GreenPositionHandler(delegateHandler));
-      } else if (Color.FORESTGREEN.equals(nodeTag)) {
+      } else if (Themes.PALETTE_GREEN.equals(nodeTag)) {
         // Another implementation that delegates certain behavior to the default implementation
         return new GreenPositionHandler(delegateHandler);
       } else {
@@ -105,9 +108,7 @@ public class PositionHandlerDemo extends DemoApplication {
     // setup the help text on the right side.
     WebViewUtils.initHelp(help, this);
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.rgb(153, 153, 153));
-    graphControl.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphControl.getGraph());
 
     // initialize the input mode
     GraphEditorInputMode inputMode = new GraphEditorInputMode();
@@ -150,23 +151,19 @@ public class PositionHandlerDemo extends DemoApplication {
    * IPositionHandler} is used.
    */
   private void createSampleGraph(IGraph graph) {
-    createNode(graph, new RectD(100, 100, 100, 30), Color.FIREBRICK, Color.WHITESMOKE, "Unmovable");
-    createNode(graph, new RectD(300, 100, 100, 30), Color.FORESTGREEN, Color.WHITESMOKE, "One Axis");
-    createNode(graph, new RectD(80, 250, 140, 40), Color.DARKORANGE, Color.BLACK, "Limited to Rectangle");
-    createNode(graph, new RectD(280, 250, 140, 40), Color.ROYALBLUE, Color.WHITESMOKE, "Limited to Rectangle\nand One Axis");
+    createNode(graph, 100, 100, 100, 30, Themes.PALETTE_RED, "Unmovable");
+    createNode(graph, 300, 100, 100, 30, Themes.PALETTE_GREEN, "One Axis");
+    createNode(graph, 80, 250, 140, 40, Themes.PALETTE_ORANGE, "Limited to Rectangle");
+    createNode(graph, 280, 250, 140, 40, Themes.PALETTE_LIGHTBLUE, "Limited to Rectangle\nand One Axis");
   }
 
   /**
    * Creates a sample node for this demo.
    */
-  private static void createNode(IGraph graph, RectD bounds, Color fillColor, Color textColor, String labelText) {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(fillColor);
-    INode node = graph.createNode(bounds, nodeStyle, fillColor);
-
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setFont(Font.font("System", FontWeight.BOLD, 12));
-    labelStyle.setTextPaint(textColor);
+  private static void createNode(IGraph graph, double x, double y, double w, double h, Palette palette, String labelText) {
+    RectangleNodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(palette);
+    INode node = graph.createNode(new RectD(x, y, w, h), nodeStyle, palette);
+    DefaultLabelStyle labelStyle = DemoStyles.createDemoNodeLabelStyle(palette);
     graph.addLabel(node, labelText, InteriorLabelModel.CENTER, labelStyle);
   }
 

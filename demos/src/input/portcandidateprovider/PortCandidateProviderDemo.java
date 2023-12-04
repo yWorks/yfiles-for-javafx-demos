@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,15 +35,14 @@ import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.ITagOwner;
+import com.yworks.yfiles.graph.NodeDecorator;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.styles.IPortStyle;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.AbstractPortCandidateProvider;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
@@ -51,10 +50,11 @@ import com.yworks.yfiles.view.input.IPortCandidate;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
 import com.yworks.yfiles.view.input.PortCandidateValidity;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 /**
@@ -123,25 +123,26 @@ public class PortCandidateProviderDemo extends DemoApplication {
    */
   private void createSampleGraph() {
     IGraph graph = graphControl.getGraph();
+    DemoStyles.initDemoStyles(graph);
 
-    createNode(graph, new RectD(100, 100, 80, 30), Color.FIREBRICK, "No Edge");
-    createNode(graph, new RectD(350, 100, 80, 30), Color.FORESTGREEN, "Green Only");
-    createNode(graph, new RectD(100, 200, 80, 30), Color.FORESTGREEN, "Green Only");
-    createNode(graph, new RectD(350, 200, 80, 30), Color.FIREBRICK, "No Edge");
+    createNode(graph, 100, 100, 80, 30, Themes.PALETTE_RED, "No Edge");
+    createNode(graph, 350, 100, 80, 30, Themes.PALETTE_GREEN, "Green Only");
+    createNode(graph, 100, 200, 80, 30, Themes.PALETTE_GREEN, "Green Only");
+    createNode(graph, 350, 200, 80, 30, Themes.PALETTE_RED, "No Edge");
 
     // The blue nodes have predefined ports
     IPortStyle portStyle = new ColorPortStyle();
 
-    INode blue1 = createNode(graph, new RectD(100, 300, 80, 30), Color.ROYALBLUE, "One   Port");
+    INode blue1 = createNode(graph, 100, 300, 80, 30, Themes.PALETTE_LIGHTBLUE, "One   Port");
     graph.addPort(blue1, blue1.getLayout().getCenter(), portStyle).setTag(Color.BLACK);
 
-    INode blue2 = createNode(graph, new RectD(350, 275, 100, 100), Color.ROYALBLUE, "Many Ports");
+    INode blue2 = createNode(graph, 350, 275, 100, 100, Themes.PALETTE_LIGHTBLUE, "Many Ports");
     // pre-define a bunch of ports at the outer border of one of the blue nodes
     AbstractPortCandidateProvider portCandidateProvider = IPortCandidateProvider.fromShapeGeometry(blue2, 0, 0.25, 0.5, 0.75);
     portCandidateProvider.setStyle(portStyle);
     portCandidateProvider.setTag(Color.BLACK);
     Iterable<IPortCandidate> candidates = portCandidateProvider.getSourcePortCandidates(
-        graphControl.getInputModeContext());
+            graphControl.getInputModeContext());
     candidates.forEach(portCandidate -> {
       if (portCandidate.getValidity() != PortCandidateValidity.DYNAMIC) {
         portCandidate.createPort(graphControl.getInputModeContext());
@@ -149,32 +150,26 @@ public class PortCandidateProviderDemo extends DemoApplication {
     });
 
     // The orange node
-    createNode(graph, new RectD(100, 400, 100, 100), Color.DARKORANGE, "Dynamic Ports");
+    createNode(graph, 100, 400, 100, 100, Themes.PALETTE_ORANGE, "Dynamic Ports");
 
-    INode n = createNode(graph, new RectD(100, 540, 100, 100), Color.PURPLE, "Individual\nPort\nConstraints");
+    INode n = createNode(graph, 100, 540, 100, 100, Themes.PALETTE_PURPLE, "Individual\nPort\nConstraints");
     addIndividualPorts(graph, n);
 
-    INode n2 = createNode(graph, new RectD(350, 540, 100, 100), Color.PURPLE, "Individual\nPort\nConstraints");
+    INode n2 = createNode(graph, 350, 540, 100, 100, Themes.PALETTE_PURPLE, "Individual\nPort\nConstraints");
     addIndividualPorts(graph, n2);
 
     // The olive node
-    createNode(graph, new RectD(350, 410, 100, 80), Color.OLIVE, "No\nParallel\nEdges");
+    createNode(graph, 350, 410, 100, 80, Themes.PALETTE43, "No\nParallel\nEdges");
   }
 
   /**
    * Convenience method to create a node with a label.
    */
-  private INode createNode(IGraph graph, RectD bounds, Color color, String labelText) {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(color);
-    INode node = graph.createNode(bounds, nodeStyle, color);
-
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setFont(Font.font("System", FontWeight.BOLD, 12));
-    labelStyle.setTextPaint(Color.WHITE);
-    graph.addLabel(node, labelText, InteriorLabelModel.CENTER, labelStyle);
+  private INode createNode(IGraph graph, double x, double y, double w, double h, Palette palette, String labelText) {
+    RectangleNodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(palette);
+    INode node = graph.createNode(new RectD(x, y, w, h), nodeStyle, palette);
+    graph.addLabel(node, labelText, InteriorLabelModel.CENTER, DemoStyles.createDemoNodeLabelStyle(palette));
     return node;
-
   }
 
   /**
@@ -182,14 +177,14 @@ public class PortCandidateProviderDemo extends DemoApplication {
    */
   private void addIndividualPorts(IGraph graph, INode node) {
     IPortStyle portStyle = new ColorPortStyle();
-    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.25, 0), PointD.ORIGIN), portStyle, Color.FIREBRICK);
-    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.75, 0), PointD.ORIGIN), portStyle, Color.FORESTGREEN);
+    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.25, 0), PointD.ORIGIN), portStyle, Themes.PALETTE_RED);
+    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.75, 0), PointD.ORIGIN), portStyle, Themes.PALETTE_GREEN);
     graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0, 0.25), PointD.ORIGIN), portStyle, Color.BLACK);
     graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0, 0.75), PointD.ORIGIN), portStyle, Color.BLACK);
-    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.25), PointD.ORIGIN), portStyle, Color.ROYALBLUE);
-    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.75), PointD.ORIGIN), portStyle, Color.DARKORANGE);
-    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.25, 1), PointD.ORIGIN), portStyle, Color.PURPLE);
-    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.75, 1), PointD.ORIGIN), portStyle, Color.PURPLE);
+    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.25), PointD.ORIGIN), portStyle, Themes.PALETTE_LIGHTBLUE);
+    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.75), PointD.ORIGIN), portStyle, Themes.PALETTE_ORANGE);
+    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.25, 1), PointD.ORIGIN), portStyle, Themes.PALETTE_PURPLE);
+    graph.addPort(node, FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(0.75, 1), PointD.ORIGIN), portStyle, Themes.PALETTE_PURPLE);
   }
 
   /**
@@ -200,38 +195,32 @@ public class PortCandidateProviderDemo extends DemoApplication {
    * parameter will be assigned that node.
    */
   private void registerPortCandidateProvider() {
-    graphControl.getGraph().getDecorator().getNodeDecorator().getPortCandidateProviderDecorator().setFactory(this::createPortCandidateProvider);
-  }
+    NodeDecorator nodeDecorator = graphControl.getGraph().getDecorator().getNodeDecorator();
+    nodeDecorator.getPortCandidateProviderDecorator().setFactory(
+            node -> {
+              // obtain the tag from the node
+              Object nodeTag = node.getTag();
 
-  /**
-   * A factory method that can be used for the lookup chain for INodes to provide custom
-   * IPortCandidateProvider implementations depending on the color stored in their
-   * {@link ITagOwner#getTag()}.
-   * @param node the node to create an IPortCandidateProvider for
-   */
-  private IPortCandidateProvider createPortCandidateProvider(INode node) {
-    // obtain the tag from the node
-    Object nodeTag = node.getTag();
-
-    // see if it is a known tag
-    if (nodeTag instanceof Color) {
-      // and decide what implementation to provide
-      if (Color.FIREBRICK.equals(nodeTag)) {
-        return new RedPortCandidateProvider(node);
-      } else if (Color.ROYALBLUE.equals(nodeTag)) {
-        return new BluePortCandidateProvider(node);
-      } else if (Color.FORESTGREEN.equals(nodeTag)) {
-        return new GreenPortCandidateProvider(node);
-      } else if (Color.DARKORANGE.equals(nodeTag)) {
-        return new OrangePortCandidateProvider(node);
-      } else if (Color.PURPLE.equals(nodeTag)) {
-        return new PurplePortCandidateProvider(node);
-      } else if (Color.OLIVE.equals(nodeTag)) {
-        return new OlivePortCandidateProvider(node);
-      }
-    }
-    // otherwise revert to default behavior
-    return null;
+              // see if it is a known tag
+              if (nodeTag instanceof Palette) {
+                // and decide what implementation to provide
+                if (Themes.PALETTE_RED.equals(nodeTag)) {
+                  return new RedPortCandidateProvider(node);
+                } else if (Themes.PALETTE_LIGHTBLUE.equals(nodeTag)) {
+                  return new BluePortCandidateProvider(node);
+                } else if (Themes.PALETTE_GREEN.equals(nodeTag)) {
+                  return new GreenPortCandidateProvider(node);
+                } else if (Themes.PALETTE_ORANGE.equals(nodeTag)) {
+                  return new OrangePortCandidateProvider(node);
+                } else if (Themes.PALETTE_PURPLE.equals(nodeTag)) {
+                  return new PurplePortCandidateProvider(node);
+                } else if (Themes.PALETTE43.equals(nodeTag)) {
+                  return new OlivePortCandidateProvider(node);
+                }
+              }
+              // otherwise, revert to default behavior
+              return null;
+            });
   }
 
   public static void main(String[] args) {

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -32,6 +32,7 @@ package complete.bpmn.view;
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.graph.ILabelOwner;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.Table;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.labelmodels.StretchStripeLabelModel;
 import com.yworks.yfiles.graph.styles.AbstractNodeStyle;
@@ -39,15 +40,14 @@ import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.graph.styles.TableNodeStyle;
 import com.yworks.yfiles.graph.styles.TableRenderingOrder;
-import com.yworks.yfiles.graph.Table;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.graphml.GraphML;
 import com.yworks.yfiles.utils.Obfuscation;
+import com.yworks.yfiles.view.IRenderContext;
+import com.yworks.yfiles.view.VisualGroup;
 import com.yworks.yfiles.view.input.EditLabelHelper;
 import com.yworks.yfiles.view.input.IEditLabelHelper;
 import com.yworks.yfiles.view.input.IInputModeContext;
-import com.yworks.yfiles.view.IRenderContext;
-import com.yworks.yfiles.view.VisualGroup;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
@@ -68,6 +68,8 @@ public class PoolNodeStyle extends AbstractNodeStyle {
     // create a new table
     Table table = new Table();
     TableNodeStyle tns = new TableNodeStyle();
+
+    // we'd like to use a special stripe style
     AlternatingLeafStripeStyle alternatingLeafStripeStyle = new AlternatingLeafStripeStyle();
 
     StripeDescriptor evenStripeDescriptor = new StripeDescriptor();
@@ -112,6 +114,7 @@ public class PoolNodeStyle extends AbstractNodeStyle {
       table.getRowDefaults().setMinimumSize(50);
       tns.setTableRenderingOrder(TableRenderingOrder.ROWS_FIRST);
     }
+
     ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle();
     shapeNodeStyle.setPaint(BpmnConstants.DEFAULT_POOL_NODE_BACKGROUND);
     tns.setBackgroundStyle(shapeNodeStyle);

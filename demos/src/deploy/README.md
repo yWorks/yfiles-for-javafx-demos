@@ -6,6 +6,6 @@
 
 | Demo | Description |
 |------|-------------|
-|[GradleDemo](../../src-gradle/deploy/gradledemo/)| Demonstrates how to setup a basic yFiles for JavaFX project using Gradle. |
-|[MavenDemo](../../src-maven/deploy/mavendemo/)| Demonstrates howto setup a basic yFiles for JavaFX project using Apache Maven. |
+|[GradleDemo](../../src-gradle/deploy/gradledemo/)| Demonstrates how to set up a basic yFiles for JavaFX project using Gradle. |
+|[MavenDemo](../../src-maven/deploy/mavendemo/)| Demonstrates howto set up a basic yFiles for JavaFX project using Apache Maven. |
 |[ObfuscationDemo](../../src/deploy/obfuscation/)| Demonstrates the obfuscation of an yFiles for JavaFX application via yGuard. |

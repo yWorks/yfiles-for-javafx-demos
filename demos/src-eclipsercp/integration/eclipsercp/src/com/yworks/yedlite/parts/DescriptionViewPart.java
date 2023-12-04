@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,15 +29,27 @@
  ***************************************************************************/
 package com.yworks.yedlite.parts;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.yworks.yedlite.ContextUtils;
+import com.yworks.yfiles.geometry.InsetsD;
+import com.yworks.yfiles.graph.IEdge;
+import com.yworks.yfiles.graph.ILabel;
+import com.yworks.yfiles.graph.IModelItem;
+import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.styles.Arrow;
+import com.yworks.yfiles.graph.styles.ArrowType;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.IArrow;
+import com.yworks.yfiles.graph.styles.INodeStyle;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.ShapeNodeShape;
+import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
+import com.yworks.yfiles.utils.IEventHandler;
+import com.yworks.yfiles.utils.ItemEventArgs;
+import com.yworks.yfiles.view.DashStyle;
+import com.yworks.yfiles.view.GraphControl;
+import com.yworks.yfiles.view.Pen;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.contexts.RunAndTrack;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -59,41 +71,19 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Scale;
+import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.Text;
 
-import com.yworks.yedlite.ContextUtils;
-import com.yworks.yfiles.geometry.InsetsD;
-import com.yworks.yfiles.graph.IEdge;
-import com.yworks.yfiles.graph.ILabel;
-import com.yworks.yfiles.graph.IModelItem;
-import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.styles.Arrow;
-import com.yworks.yfiles.graph.styles.ArrowType;
-import com.yworks.yfiles.graph.styles.BevelNodeStyle;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.utils.IEventHandler;
-import com.yworks.yfiles.utils.ItemEventArgs;
-import com.yworks.yfiles.view.DashStyle;
-import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.view.Pen;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A view that depicts the properties of the selected element and enables the user to change them.
@@ -817,11 +807,8 @@ public class DescriptionViewPart {
     private StackLayout nodeStylePropertiesContainerLayout;
 
     private INode node;
-    private ShinyPlateProperties shinyPlateProperties;
     private ShapeNodeProperties shapeNodeProperties;
-    private PanelNodeProperties panelNodeProperties;
-    private BevelNodeProperties bevelNodeProperties;
-    private CollapsibleNodeStyleProperties collapsibleProperties;
+    private GroupNodeStyleProperties groupNodeProperties;
     private Label lblLabel;
 
     public NodeProperties(Composite parent, int style, @Translation Messages messages) {
@@ -873,11 +860,8 @@ public class DescriptionViewPart {
       nodeStylePropertiesContainer.setLayout(nodeStylePropertiesContainerLayout);
       nodeStylePropertiesContainer.setLayoutData(newGridData(true, 3));
 
-      shinyPlateProperties = new ShinyPlateProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
       shapeNodeProperties = new ShapeNodeProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
-      panelNodeProperties = new PanelNodeProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
-      bevelNodeProperties = new BevelNodeProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
-      collapsibleProperties = new CollapsibleNodeStyleProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
+      groupNodeProperties = new GroupNodeStyleProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
     }
 
     public Composite getContainer() {
@@ -895,21 +879,12 @@ public class DescriptionViewPart {
       } else {
         text.setText("");
       }
-      if (node.getStyle() instanceof ShinyPlateNodeStyle) {
-        nodeStylePropertiesContainerLayout.topControl = shinyPlateProperties.getContainer();
-        shinyPlateProperties.setNodeStyle((ShinyPlateNodeStyle)node.getStyle());
-      } else if (node.getStyle() instanceof ShapeNodeStyle) {
+      if (node.getStyle() instanceof ShapeNodeStyle) {
         nodeStylePropertiesContainerLayout.topControl = shapeNodeProperties.getContainer();
         shapeNodeProperties.setNodeStyle((ShapeNodeStyle)node.getStyle());
-      } else if (node.getStyle() instanceof PanelNodeStyle) {
-        nodeStylePropertiesContainerLayout.topControl = panelNodeProperties.getContainer();
-        panelNodeProperties.setNodeStyle((PanelNodeStyle)node.getStyle());
-      } else if (node.getStyle() instanceof BevelNodeStyle) {
-        nodeStylePropertiesContainerLayout.topControl = bevelNodeProperties.getContainer();
-        bevelNodeProperties.setNodeStyle((BevelNodeStyle)node.getStyle());
-      } else if (node.getStyle() instanceof CollapsibleNodeStyleDecorator) {
-        nodeStylePropertiesContainerLayout.topControl = collapsibleProperties.getContainer();
-        collapsibleProperties.setNodeStyle((CollapsibleNodeStyleDecorator)node.getStyle());
+      } else if (node.getStyle() instanceof GroupNodeStyle) {
+        nodeStylePropertiesContainerLayout.topControl = groupNodeProperties.getContainer();
+        groupNodeProperties.setNodeStyle((GroupNodeStyle)node.getStyle());
       }
       doLayout(nodeStylePropertiesContainer);
     }
@@ -918,11 +893,8 @@ public class DescriptionViewPart {
       heading.setText(messages.PropertiesPart_NodeProperties);
       setText(lblLabel, messages.PropertiesPart_LabelText);
 
-      shinyPlateProperties.translate(messages);
       shapeNodeProperties.translate(messages);
-      panelNodeProperties.translate(messages);
-      bevelNodeProperties.translate(messages);
-      collapsibleProperties.translate(messages);
+      groupNodeProperties.translate(messages);
     }
   }
 
@@ -1025,343 +997,21 @@ public class DescriptionViewPart {
     }
   }
 
-  class ShinyPlateProperties implements INodeStyleProperties<ShinyPlateNodeStyle> {
-
-    private ColorFieldEditor colorFieldEditor;
-    private Button dropShadowCheckButton;
-
-    private Group container;
-
-    private ShinyPlateNodeStyle nodeStyle;
-    private Label dropShadowLabel;
-    private Composite colorFieldComposite;
-    private Label colorFieldLabel;
-
-    public ShinyPlateProperties(Composite parent, int style, @Translation Messages messages) {
-      this.container = new Group(parent, style);
-      this.container.setLayout(new GridLayout(3, false));
-      setText(this.container, messages.PropertiesPart_ShinyPlateNode);
-
-      colorFieldLabel = new Label(this.container, SWT.NONE);
-      setText(colorFieldLabel, messages.PropertiesPart_FillColor);
-      colorFieldLabel.setLayoutData(newGridData(true, 2));
-
-      colorFieldComposite = new Composite(container, SWT.NONE);
-      colorFieldComposite.setLayoutData(newGridData(false, 1));
-      colorFieldComposite.setLayout(new GridLayout(2, false));
-
-      colorFieldEditor = new ColorFieldEditor("name", "", colorFieldComposite);
-      colorFieldEditor.getColorSelector().addListener(new IPropertyChangeListener() {
-        @Override
-        public void propertyChange(PropertyChangeEvent event) {
-          RGB newColor = (RGB) event.getNewValue();
-          Paint newPaint = Color.rgb(newColor.red, newColor.green, newColor.blue);
-          nodeStyle.setPaint(newPaint);
-          graphControl.invalidate();
-        }
-      });
-
-      dropShadowLabel = new Label(this.container, SWT.NONE);
-      setText(dropShadowLabel, messages.PropertiesPart_DropShadow);
-      dropShadowLabel.setLayoutData(newGridData(true, 2));
-
-      dropShadowCheckButton = new Button(this.container, SWT.CHECK);
-      dropShadowCheckButton.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          nodeStyle.setShadowDrawingEnabled(dropShadowCheckButton.getSelection());
-          graphControl.invalidate();
-        }
-      });
-      GridData gbc = newGridData(false, 1);
-      gbc.horizontalAlignment = SWT.END;
-      dropShadowCheckButton.setLayoutData(gbc);
-    }
-
-    public Group getContainer() {
-      return container;
-    }
-
-    public ShinyPlateNodeStyle getNodeStyle() {
-      return nodeStyle;
-    }
-
-
-    public void setNodeStyle(ShinyPlateNodeStyle nodeStyle) {
-      if (this.nodeStyle != nodeStyle) {
-        this.nodeStyle = nodeStyle;
-        updateFields();
-      }
-    }
-
-    private void updateFields() {
-      Color paint = (Color)nodeStyle.getPaint();
-      colorFieldEditor.getColorSelector().setColorValue(colorToRGB(paint));
-      dropShadowCheckButton.setSelection(nodeStyle.isShadowDrawingEnabled());
-    }
-
-    void translate(@Translation Messages messages) {
-      setText(container, messages.PropertiesPart_ShinyPlateNode);
-      setText(colorFieldLabel, messages.PropertiesPart_FillColor);
-      setText(dropShadowLabel, messages.PropertiesPart_DropShadow);
-    }
-  }
-
-  class PanelNodeProperties implements INodeStyleProperties<PanelNodeStyle> {
-
-    private ColorFieldEditor colorFieldEditor;
-    private ColorFieldEditor labelColorFieldEditor;
-
-    private Group container;
-
-    private PanelNodeStyle nodeStyle;
-    private Composite colorFieldComposite;
-    private Composite labelcolorFieldComposite;
-    private Label colorFieldLabel;
-    private Label labelColorFieldLabel;
-
-    public PanelNodeProperties(Composite parent, int style, @Translation Messages messages) {
-      this.container = new Group(parent, style);
-      this.container.setLayout(new GridLayout(3, false));
-      setText(this.container, messages.PropertiesPart_PanelNode);
-
-      colorFieldLabel = new Label(this.container, SWT.NONE);
-      setText(colorFieldLabel, messages.PropertiesPart_FillColor);
-      colorFieldLabel.setLayoutData(newGridData(true, 2));
-
-      colorFieldComposite = new Composite(container, SWT.NONE);
-      colorFieldComposite.setLayoutData(newGridData(false, 1));
-      colorFieldComposite.setLayout(new GridLayout(2, false));
-
-      colorFieldEditor = new ColorFieldEditor("name", "", colorFieldComposite);
-      colorFieldEditor.getColorSelector().addListener(new IPropertyChangeListener() {
-        @Override
-        public void propertyChange(PropertyChangeEvent event) {
-          RGB newColor = (RGB) event.getNewValue();
-          Color newPaint = Color.rgb(newColor.red, newColor.green, newColor.blue);
-          nodeStyle.setColor(newPaint);
-          graphControl.invalidate();
-        }
-      });
-
-      labelColorFieldLabel = new Label(this.container, SWT.NONE);
-      setText(labelColorFieldLabel, messages.PropertiesPart_LabelInsetsColor);
-      labelColorFieldLabel.setLayoutData(newGridData(true, 2));
-
-      labelcolorFieldComposite = new Composite(container, SWT.NONE);
-      labelcolorFieldComposite.setLayoutData(newGridData(false, 1));
-      labelcolorFieldComposite.setLayout(new GridLayout(2, false));
-
-      labelColorFieldEditor = new ColorFieldEditor("name", "", labelcolorFieldComposite);
-      labelColorFieldEditor.getColorSelector().addListener(new IPropertyChangeListener() {
-        @Override
-        public void propertyChange(PropertyChangeEvent event) {
-          RGB newColor = (RGB) event.getNewValue();
-          Color newPaint = Color.rgb(newColor.red, newColor.green, newColor.blue);
-          nodeStyle.setLabelInsetsColor(newPaint);
-          graphControl.invalidate();
-        }
-      });
-    }
-
-    public Group getContainer() {
-      return container;
-    }
-
-    public PanelNodeStyle getNodeStyle() {
-      return nodeStyle;
-    }
-
-
-    public void setNodeStyle(PanelNodeStyle nodeStyle) {
-      if (this.nodeStyle != nodeStyle) {
-        this.nodeStyle = nodeStyle;
-        updateFields();
-      }
-    }
-
-    private void updateFields() {
-      colorFieldEditor.getColorSelector().setColorValue(colorToRGB(nodeStyle.getColor()));
-      labelColorFieldEditor.getColorSelector().setColorValue(colorToRGB(nodeStyle.getLabelInsetsColor()));
-    }
-
-    void translate(@Translation Messages messages) {
-      setText(container, messages.PropertiesPart_PanelNode);
-      setText(colorFieldLabel, messages.PropertiesPart_FillColor);
-      setText(labelColorFieldLabel, messages.PropertiesPart_LabelInsetsColor);
-    }
-  }
-
-  class BevelNodeProperties implements INodeStyleProperties<BevelNodeStyle> {
-
-    private ColorFieldEditor colorFieldEditor;
-    private Button dropShadowCheckButton;
-    private Spinner insetSpinner;
-    private Spinner radiusSpinner;
-
-    private Group container;
-
-    private BevelNodeStyle nodeStyle;
-    private Label dropShadowLabel;
-    private Label insetLabel;
-    private Label radiusLabel;;
-    private Composite colorFieldComposite;
-    private Label colorFieldLabel;
-
-    public BevelNodeProperties(Composite parent, int style, @Translation Messages messages) {
-      this.container = new Group(parent, style);
-      this.container.setLayout(new GridLayout(3, false));
-      setText(this.container, messages.PropertiesPart_BevelNode);
-
-      colorFieldLabel = new Label(this.container, SWT.NONE);
-      setText(colorFieldLabel, messages.PropertiesPart_FillColor);
-      colorFieldLabel.setLayoutData(newGridData(true, 2));
-
-      colorFieldComposite = new Composite(container, SWT.NONE);
-      colorFieldComposite.setLayoutData(newGridData(false, 1));
-      colorFieldComposite.setLayout(new GridLayout(2, false));
-
-      colorFieldEditor = new ColorFieldEditor("name", "", colorFieldComposite);
-      colorFieldEditor.getColorSelector().addListener(new IPropertyChangeListener() {
-        @Override
-        public void propertyChange(PropertyChangeEvent event) {
-          RGB newColor = (RGB) event.getNewValue();
-          Color newPaint = Color.rgb(newColor.red, newColor.green, newColor.blue);
-          nodeStyle.setColor(newPaint);
-          graphControl.invalidate();
-        }
-      });
-
-      dropShadowLabel = new Label(this.container, SWT.NONE);
-      setText(dropShadowLabel, messages.PropertiesPart_DropShadow);
-      dropShadowLabel.setLayoutData(newGridData(true, 2));
-
-      dropShadowCheckButton = new Button(this.container, SWT.CHECK);
-      dropShadowCheckButton.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          nodeStyle.setShadowDrawingEnabled(dropShadowCheckButton.getSelection());
-          graphControl.invalidate();
-        }
-      });
-      GridData gbc = newGridData(false, 1);
-      gbc.horizontalAlignment = SWT.END;
-      dropShadowCheckButton.setLayoutData(gbc);
-
-      insetLabel = new Label(this.container, SWT.NONE);
-      setText(insetLabel, messages.PropertiesPart_Inset);
-      insetLabel.setLayoutData(newGridData(false, 1));
-
-      insetSpinner = new Spinner(this.container, SWT.BORDER);
-      insetSpinner.setDigits(1);
-      insetSpinner.setMinimum(0);
-      insetSpinner.setMaximum(200);
-      insetSpinner.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          int selection = insetSpinner.getSelection();
-          nodeStyle.setInset((selection / 10d));
-          graphControl.invalidate();
-        }
-      });
-      insetSpinner.setLayoutData(newGridData(true, 2));
-
-      radiusLabel = new Label(this.container, SWT.NONE);
-      setText(radiusLabel, messages.PropertiesPart_Radius);
-      radiusLabel.setLayoutData(newGridData(false, 1));
-
-      radiusSpinner = new Spinner(this.container, SWT.BORDER);
-      radiusSpinner.setDigits(1);
-      radiusSpinner.setMinimum(0);
-      radiusSpinner.setMaximum(200);
-      radiusSpinner.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          int selection = radiusSpinner.getSelection();
-          nodeStyle.setRadius((selection / 10d));
-          graphControl.invalidate();
-        }
-      });
-      radiusSpinner.setLayoutData(newGridData(true, 2));
-    }
-
-    public Group getContainer() {
-      return container;
-    }
-
-    public BevelNodeStyle getNodeStyle() {
-      return nodeStyle;
-    }
-
-    public void setNodeStyle(BevelNodeStyle nodeStyle) {
-      if (this.nodeStyle != nodeStyle) {
-        this.nodeStyle = nodeStyle;
-        updateFields();
-      }
-    }
-
-    private void updateFields() {
-      colorFieldEditor.getColorSelector().setColorValue(colorToRGB(nodeStyle.getColor()));
-      insetSpinner.setSelection((int)(nodeStyle.getInset()*10));
-      radiusSpinner.setSelection((int)(nodeStyle.getRadius()*10d));
-      dropShadowCheckButton.setSelection(nodeStyle.isShadowDrawingEnabled());
-    }
-
-    void translate(@Translation Messages messages) {
-      setText(container, messages.PropertiesPart_BevelNode);
-      setText(colorFieldLabel, messages.PropertiesPart_FillColor);
-      setText(dropShadowLabel, messages.PropertiesPart_DropShadow);
-      setText(insetLabel, messages.PropertiesPart_Inset);
-      setText(radiusLabel, messages.PropertiesPart_Inset);
-    }
-  }
-
-  class CollapsibleNodeStyleProperties implements INodeStyleProperties<CollapsibleNodeStyleDecorator> {
+  class GroupNodeStyleProperties implements INodeStyleProperties<GroupNodeStyle> {
 
     private Group container;
     private Composite nodeStylePropertiesContainer;
     private StackLayout nodeStylePropertiesContainerLayout;
     private Spinner insetSpinner;
 
-    private CollapsibleNodeStyleDecorator nodeStyle;
+    private GroupNodeStyle nodeStyle;
 
-    private ShinyPlateProperties shinyPlateProperties;
-    private ShapeNodeProperties shapeNodeProperties;
-    private PanelNodeProperties panelNodeProperties;
-    private BevelNodeProperties bevelNodeProperties;
-
-    ILabelModelParameter[] availableInteriorLabelModelParameters = new ILabelModelParameter[] {
-        InteriorLabelModel.NORTH_WEST,
-        InteriorLabelModel.NORTH,
-        InteriorLabelModel.NORTH_EAST,
-        InteriorLabelModel.WEST,
-        InteriorLabelModel.CENTER,
-        InteriorLabelModel.EAST,
-        InteriorLabelModel.SOUTH_WEST,
-        InteriorLabelModel.SOUTH,
-        InteriorLabelModel.SOUTH_EAST
-    };
-
-    ILabelModelParameter[] availableExteriorLabelModelParameters = new ILabelModelParameter[] {
-        ExteriorLabelModel.NORTH_WEST,
-        ExteriorLabelModel.NORTH,
-        ExteriorLabelModel.NORTH_EAST,
-        ExteriorLabelModel.WEST,
-        ExteriorLabelModel.EAST,
-        ExteriorLabelModel.SOUTH_WEST,
-        ExteriorLabelModel.SOUTH,
-        ExteriorLabelModel.SOUTH_EAST
-    };
-    private Combo buttonLocationModelCombo;
-    private Combo buttonLocationParameterCombo;
     private Label insetsLabel;
-    private Label buttonLocationModelLabel;
-    private Label buttonLocationParameterLabel;
 
-    public CollapsibleNodeStyleProperties(Composite parent, int style, @Translation Messages messages) {
+    public GroupNodeStyleProperties(Composite parent, int style, @Translation Messages messages) {
       container = new Group(parent, style);
       container.setLayout(new GridLayout(3, false));
-      setText(container, messages.PropertiesPart_CollapsibleNode);
+      setText(container, messages.PropertiesPart_GroupNode);
 
       insetsLabel = new Label(this.container, SWT.NONE);
       setText(insetsLabel, messages.PropertiesPart_Inset);
@@ -1375,93 +1025,16 @@ public class DescriptionViewPart {
         @Override
         public void widgetSelected(SelectionEvent e) {
           int selection = insetSpinner.getSelection();
-          nodeStyle.setInsets(new InsetsD((selection / 10d)));
+          nodeStyle.setContentAreaInsets(new InsetsD((selection / 10d)));
           graphControl.invalidate();
         }
       });
       insetSpinner.setLayoutData(newGridData(true, 2));
 
-      buttonLocationModelLabel = new Label(this.container, SWT.NONE);
-      setText(buttonLocationModelLabel, messages.PropertiesPart_ButtonLocationModel);
-      buttonLocationModelLabel.setLayoutData(newGridData(false, 1));
-
-      buttonLocationModelCombo = new Combo(this.container, SWT.READ_ONLY);
-      buttonLocationModelCombo.setItems("Interior", "Exterior");
-      buttonLocationModelCombo.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          int selectionIndex = buttonLocationModelCombo.getSelectionIndex();
-          // adjust the content of the other combobox according to the selection
-          fillModelCombo(selectionIndex);
-        }
-      });
-      buttonLocationModelCombo.setLayoutData(newGridData(true, 2));
-
-      buttonLocationParameterLabel = new Label(this.container, SWT.NONE);
-      setText(buttonLocationParameterLabel, messages.PropertiesPart_ButtonLocationParameter);
-      buttonLocationParameterLabel.setLayoutData(newGridData(false, 1));
-
-      buttonLocationParameterCombo = new Combo(this.container, SWT.READ_ONLY);
-      buttonLocationParameterCombo.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          int modelSelectionIndex = buttonLocationModelCombo.getSelectionIndex();
-          int parameterSelectionIndex = buttonLocationParameterCombo.getSelectionIndex();
-          if (modelSelectionIndex == 0) {
-            // 0 means interior
-            nodeStyle.setButtonPlacement(availableInteriorLabelModelParameters[parameterSelectionIndex]);
-          } else if (modelSelectionIndex == 1){
-            // 1 means exterior
-            nodeStyle.setButtonPlacement(availableExteriorLabelModelParameters[parameterSelectionIndex]);
-          }
-          graphControl.invalidate();
-        }
-      });
-      buttonLocationParameterCombo.setLayoutData(newGridData(true, 2));
-
       nodeStylePropertiesContainer = new Composite(container, SWT.NONE);
       nodeStylePropertiesContainerLayout = new StackLayout();
       nodeStylePropertiesContainer.setLayout(nodeStylePropertiesContainerLayout);
       nodeStylePropertiesContainer.setLayoutData(newGridData(true, 3));
-
-      shinyPlateProperties = new ShinyPlateProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
-      shapeNodeProperties = new ShapeNodeProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
-      panelNodeProperties = new PanelNodeProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
-      bevelNodeProperties = new BevelNodeProperties(nodeStylePropertiesContainer, SWT.NONE, messages);
-    }
-
-    private void fillModelCombo(int selectionIndex) {
-      if (selectionIndex == 0) {
-        // 0 means interior
-        buttonLocationParameterCombo.setItems(new String[0]);
-        for (int i = 0; i<availableInteriorLabelModelParameters.length; i++) {
-          buttonLocationParameterCombo.add(availableInteriorLabelModelParameters[i].toString());
-        }
-      } else if (selectionIndex == 1){
-        // 1 means exterior
-        buttonLocationParameterCombo.setItems(new String[0]);
-        for (int i = 0; i<availableExteriorLabelModelParameters.length; i++) {
-          buttonLocationParameterCombo.add(availableExteriorLabelModelParameters[i].toString());
-        }
-      }
-    }
-
-    private void selectParameter(ILabelModelParameter parameter) {
-      ILabelModelParameter[] parameters = null;
-      if (parameter.getModel() instanceof InteriorLabelModel) {
-        parameters = availableInteriorLabelModelParameters;
-      } else if (parameter.getModel() instanceof ExteriorLabelModel) {
-        parameters = availableExteriorLabelModelParameters;
-      }
-      if (parameters != null) {
-        for (int i = 0; i<parameters.length; i++) {
-          if (parameters[i].equals(parameter)) {
-            buttonLocationParameterCombo.select(i);
-            return;
-          }
-        }
-      }
-
     }
 
     @Override
@@ -1470,56 +1043,26 @@ public class DescriptionViewPart {
     }
 
     @Override
-    public CollapsibleNodeStyleDecorator getNodeStyle() {
+    public GroupNodeStyle getNodeStyle() {
       return this.nodeStyle;
     }
 
     @Override
-    public void setNodeStyle(CollapsibleNodeStyleDecorator nodeStyle) {
+    public void setNodeStyle(GroupNodeStyle nodeStyle) {
       if (this.nodeStyle != nodeStyle) {
         this.nodeStyle = nodeStyle;
         updateFields(nodeStyle);
       }
     }
 
-    private void updateFields(CollapsibleNodeStyleDecorator nodeStyle) {
-      insetSpinner.setSelection((int)(nodeStyle.getInsets().getLeft()*10));
-      INodeStyle wrapped = nodeStyle.getWrapped();
-      if (wrapped instanceof ShinyPlateNodeStyle) {
-        nodeStylePropertiesContainerLayout.topControl = shinyPlateProperties.getContainer();
-        shinyPlateProperties.setNodeStyle((ShinyPlateNodeStyle)wrapped);
-      } else if (wrapped instanceof ShapeNodeStyle) {
-        nodeStylePropertiesContainerLayout.topControl = shapeNodeProperties.getContainer();
-        shapeNodeProperties.setNodeStyle((ShapeNodeStyle)wrapped);
-      } else if (wrapped instanceof PanelNodeStyle) {
-        nodeStylePropertiesContainerLayout.topControl = panelNodeProperties.getContainer();
-        panelNodeProperties.setNodeStyle((PanelNodeStyle)wrapped);
-      } else if (wrapped instanceof BevelNodeStyle) {
-        nodeStylePropertiesContainerLayout.topControl = bevelNodeProperties.getContainer();
-        bevelNodeProperties.setNodeStyle((BevelNodeStyle)wrapped);
-      }
-      ILabelModelParameter buttonLocationParameter = nodeStyle.getButtonPlacement();
-      if (buttonLocationParameter.getModel() instanceof InteriorLabelModel && buttonLocationModelCombo.getSelectionIndex() != 0) {
-        buttonLocationModelCombo.select(0);
-        fillModelCombo(0);
-      } else if (buttonLocationParameter.getModel() instanceof ExteriorLabelModel && buttonLocationModelCombo.getSelectionIndex() != 1) {
-        buttonLocationModelCombo.select(1);
-        fillModelCombo(1);
-      }
-      selectParameter(buttonLocationParameter);
+    private void updateFields(GroupNodeStyle nodeStyle) {
+      insetSpinner.setSelection((int)(nodeStyle.getContentAreaInsets().getLeft()*10));
       doLayout(nodeStylePropertiesContainer);
     }
 
     void translate(@Translation Messages messages) {
-      setText(container, messages.PropertiesPart_CollapsibleNode);
+      setText(container, messages.PropertiesPart_GroupNode);
       setText(insetsLabel, messages.PropertiesPart_Inset);
-      setText(buttonLocationModelLabel, messages.PropertiesPart_ButtonLocationModel);
-      setText(buttonLocationParameterLabel, messages.PropertiesPart_ButtonLocationParameter);
-
-      bevelNodeProperties.translate(messages);
-      panelNodeProperties.translate(messages);
-      shapeNodeProperties.translate(messages);
-      shinyPlateProperties.translate(messages);
     }
   }
 }

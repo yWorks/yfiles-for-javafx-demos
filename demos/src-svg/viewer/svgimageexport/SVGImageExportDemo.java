@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -37,7 +37,7 @@ import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.ContextConfigurator;
 
-import org.apache.batik.dom.svg.SVGDOMImplementation;
+import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.jfxconverter.JFXConverter;
 import org.jfxconverter.drivers.svg.ConvertorSVGGraphics2D;
@@ -91,7 +91,7 @@ import org.w3c.dom.Element;
  * <p>
  * The demo uses patched versions of the Batik SVG, JFXConverter and MDIUtilities libraries available on the yFiles website:
  * <ul>
- *   <li><a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.5/batik.jar">Batik</a></li>
+ *   <li><a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.6/batik.jar">Batik</a></li>
  *   <li><a href="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/JFXConverter.jar">JFXConverter</a></li>
  *   <li><a href="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/MDIUtilities-core-LGPL.jar">MDIUtilities-core-LGPL</a></li>
  *   <li><a href="https://www.yworks.com/resources/yfilesjavafx/demos-support/3.0/MDIUtilities-ui-LGPL.jar">MDIUtilities-ui-LGPL</a></li>

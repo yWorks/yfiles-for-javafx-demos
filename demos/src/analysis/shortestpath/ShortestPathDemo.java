@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -41,10 +41,10 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.Mapper;
 import com.yworks.yfiles.graph.styles.Arrow;
 import com.yworks.yfiles.graph.styles.ArrowType;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.IArrow;
+import com.yworks.yfiles.graph.styles.INodeStyle;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
@@ -66,14 +66,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.IconProvider;
+import toolkit.Themes;
 import toolkit.WebViewUtils;
 
 import java.time.Duration;
@@ -109,7 +108,7 @@ public class ShortestPathDemo extends DemoApplication {
   private ILayoutAlgorithm currentLayout;
 
   // the styles to use for source nodes, target nodes, and ordinary nodes
-  private ShinyPlateNodeStyle defaultNodeStyle, targetNodeStyle, sourceNodeStyle, sourceAndTargetNodeStyle;
+  private INodeStyle defaultNodeStyle, targetNodeStyle, sourceNodeStyle, sourceAndTargetNodeStyle;
   // the style to use for ordinary edges and edges that lie on a shortest path
   private PolylineEdgeStyle defaultEdgeStyle, pathEdgeStyle;
   // the current source nodes
@@ -283,21 +282,11 @@ public class ShortestPathDemo extends DemoApplication {
    * Initializes the styles to use for the graph.
    */
   private void initializeStyles() {
-    defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Color.DARKORANGE);
-    sourceNodeStyle = new ShinyPlateNodeStyle();
-    sourceNodeStyle.setPaint(Color.LIMEGREEN);
-    targetNodeStyle = new ShinyPlateNodeStyle();
-    targetNodeStyle.setPaint(Color.ORANGERED);
-
-    Stop[] stops = {new Stop(0.49, Color.GREEN), new Stop(0.51, Color.RED)};
-    LinearGradient paint = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-    sourceAndTargetNodeStyle = new ShinyPlateNodeStyle();
-    sourceAndTargetNodeStyle.setPaint(paint);
-
-    defaultEdgeStyle = new PolylineEdgeStyle();
-    defaultEdgeStyle.setPen(Pen.getBlack());
-    defaultEdgeStyle.setTargetArrow(directed ? IArrow.DEFAULT : IArrow.NONE);
+    defaultNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_ORANGE);
+    sourceNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_GREEN);
+    targetNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_RED);
+    sourceAndTargetNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_BLUE);
+    defaultEdgeStyle = DemoStyles.createDemoEdgeStyle();
 
     pathEdgeStyle = new PolylineEdgeStyle();
     pathEdgeStyle.setPen(new Pen(Color.RED, 4.0));
@@ -349,7 +338,7 @@ public class ShortestPathDemo extends DemoApplication {
   /** Make the graph directed or undirected, respectively, when the selection of <code>directedComboBox</code> changed. */
   public void directedComboBoxSelectedIndexChanged() {
     directed = directedComboBox.getSelectionModel().getSelectedIndex() == 0;
-    defaultEdgeStyle.setTargetArrow(directed ? IArrow.DEFAULT : IArrow.NONE);
+    defaultEdgeStyle.setTargetArrow(directed ? DemoStyles.createDemoEdgeStyle(Themes.PALETTE_ORANGE, true).getTargetArrow() : IArrow.NONE);
     pathEdgeStyle.setTargetArrow(directed ? new Arrow(ArrowType.DEFAULT, new Pen(Color.RED), Color.RED)  : IArrow.NONE);
     calculateShortestPath(graphControl, IEventArgs.EMPTY);
   }

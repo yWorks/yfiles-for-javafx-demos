@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -106,12 +106,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import javafx.geometry.VPos;
 import javafx.scene.text.TextAlignment;
 
@@ -280,14 +279,17 @@ public class BpmnDiParser {
     if (view == null) {
       throw new IllegalArgumentException("Folding must be enabled.");
     }
+
+    // Initialize the default Layout for folded Group Nodes
     MultiLabelFolderNodeConverter multiLabelFolderNodeConverter = new MultiLabelFolderNodeConverter();
     multiLabelFolderNodeConverter.setCopyingFirstLabelEnabled(true);
     multiLabelFolderNodeConverter.setCopyLabels(true);
     multiLabelFolderNodeConverter.setNodeStyleCloningEnabled(true);
     multiLabelFolderNodeConverter.setLabelLayoutParameterCloningEnabled(true);
     multiLabelFolderNodeConverter.setLabelStyle(BpmnLabelStyle.newDefaultInstance());
-    // Initialize the default Layout for folded Group Nodes
     getManager().setFolderNodeConverter(multiLabelFolderNodeConverter);
+
+    // Initialize the Layout for Edges alongside folded Group Nodes
     DefaultFoldingEdgeConverter defaultFoldingEdgeConverter = new DefaultFoldingEdgeConverter();
     defaultFoldingEdgeConverter.setEdgeStyleCloningEnabled(true);
     defaultFoldingEdgeConverter.setCopyingFirstLabelEnabled(true);
@@ -296,7 +298,6 @@ public class BpmnDiParser {
     defaultFoldingEdgeConverter.setReusingMasterPortsEnabled(true);
     defaultFoldingEdgeConverter.setReusingFolderNodePortsEnabled(true);
     defaultFoldingEdgeConverter.setBendsResettingEnabled(false);
-    // Initialize the Layout for Edges alongside folded Group Nodes
     getManager().setFoldingEdgeConverter(defaultFoldingEdgeConverter);
 
     // Clear previous Graph
@@ -1313,7 +1314,7 @@ public class BpmnDiParser {
   // Builds a Group Node
   private void buildGroupNode( BpmnShape shape, RectD bounds ) {
     BpmnElement element = shape.getElement();
-    INode node = getMasterGraph().createGroupNode(element.getParent().getNode(), bounds);
+    INode node = getMasterGraph().createGroupNode(element.getParent().getNode(), bounds, new GroupNodeStyle());
     element.setNode(node);
 
     // Before Adding a Label, we need to get the Label Text, which is located in a categoryValue
@@ -1668,7 +1669,7 @@ public class BpmnDiParser {
     // Create edge on graph
     IEdge iEdge = getMasterGraph().createEdge(sourcePort, targetPort);
     for (PointD point : waypoints) {
-      getMasterGraph().addBend(iEdge, point, -1);
+      getMasterGraph().addBend(iEdge, point);
     }
 
     edge.getElement().setEdge(iEdge);
@@ -1721,7 +1722,7 @@ public class BpmnDiParser {
 
     IEdge iEdge = getMasterGraph().createEdge(sourcePort, targetPort);
     for (PointD point : waypoints) {
-      getMasterGraph().addBend(iEdge, point, -1);
+      getMasterGraph().addBend(iEdge, point);
     }
     edge.getElement().setEdge(iEdge);
 
@@ -1734,7 +1735,7 @@ public class BpmnDiParser {
         model.setSideOfEdge(EdgeSides.ON_EDGE);
         model.setAutoRotationEnabled(false);
         getMasterGraph().setLabelPreferredSize(messageLabel, bpmnMessageSize);
-        getMasterGraph().setLabelLayoutParameter(messageLabel, model.createParameterFromCenter(0.5, EdgeSides.ON_EDGE));
+        getMasterGraph().setLabelLayoutParameter(messageLabel, model.createParameterFromCenter());
         break;
       case NON_INITIATING:
         messageLabel = getMasterGraph().addLabel(iEdge, "");
@@ -1743,7 +1744,7 @@ public class BpmnDiParser {
         model.setSideOfEdge(EdgeSides.ON_EDGE);
         model.setAutoRotationEnabled(false);
         getMasterGraph().setLabelPreferredSize(messageLabel, bpmnMessageSize);
-        getMasterGraph().setLabelLayoutParameter(messageLabel, model.createParameterFromCenter(0.5, EdgeSides.ON_EDGE));
+        getMasterGraph().setLabelLayoutParameter(messageLabel, model.createParameterFromCenter());
         break;
       case UNSPECIFIED:
         break;
@@ -1805,7 +1806,7 @@ public class BpmnDiParser {
         node = parent.getNode();
       } else {
         // table was already initialized for the Process due to a Participant element
-        node = getMasterGraph().createNode(localRoot, layout, null, null);
+        node = getMasterGraph().createNode(localRoot, layout);
         PoolNodeStyle poolStyle = createPoolNodeStyle(isHorizontal);
         poolStyle.setMultipleInstance(multipleInstance);
         getMasterGraph().setStyle(node, poolStyle);
@@ -1914,8 +1915,8 @@ public class BpmnDiParser {
     ITable table = poolNodeStyle.getTableNodeStyle().getTable();
 
     // Create first row & column
-    IColumn col = table.createColumn(shape.getWidth() - table.getRowDefaults().getInsets().left, -1, null, null, null, -1);
-    IRow row = table.createRow(shape.getHeight() - table.getColumnDefaults().getInsets().top, -1, null, null, null, -1);
+    IColumn col = table.createColumn(shape.getWidth() - table.getRowDefaults().getInsets().left);
+    IRow row = table.createRow(shape.getHeight() - table.getColumnDefaults().getInsets().top);
 
     PointD location = new PointD(shape.getX(), shape.getY());
     row.setTag(location);

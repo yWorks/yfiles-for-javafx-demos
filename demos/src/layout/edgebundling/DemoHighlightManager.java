@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -44,17 +44,25 @@ import javafx.scene.paint.Color;
  * that an edge/node highlight is drawn below the node group.
  */
 class DemoHighlightManager extends HighlightIndicatorManager<IModelItem> {
-  private final ICanvasObjectGroup edgeHighlightGroup;
+  private ICanvasObjectGroup edgeHighlightGroup;
 
   /**
    * Initializes a new highlight manager for the given graph control.
    */
-  DemoHighlightManager( GraphControl graphControl ) {
-    super(graphControl);
-    GraphModelManager modelManager = graphControl.getGraphModelManager();
+  @Override
+  public void install( CanvasControl control ) {
+    super.install(control);
+    GraphModelManager modelManager = ((GraphControl) control).getGraphModelManager();
     modelManager.setHierarchicNestingPolicy(HierarchicNestingPolicy.NONE);
     edgeHighlightGroup = modelManager.getContentGroup().addGroup();
     edgeHighlightGroup.below(modelManager.getNodeGroup());
+  }
+
+  @Override
+  public void uninstall(CanvasControl canvasControl) {
+    super.uninstall(canvasControl);
+    edgeHighlightGroup.remove();
+    edgeHighlightGroup = null;
   }
 
   /**

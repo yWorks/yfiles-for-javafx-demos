@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -62,11 +62,11 @@ import com.yworks.yfiles.graph.IPort;
 import com.yworks.yfiles.graph.IPortOwner;
 import com.yworks.yfiles.graph.ItemChangedEventArgs;
 import com.yworks.yfiles.graph.LabelEventArgs;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.LookupChain;
 import com.yworks.yfiles.graph.NodeDefaults;
 import com.yworks.yfiles.graph.NodeEventArgs;
 import com.yworks.yfiles.graph.PortEventArgs;
+import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.ILabelStyle;
@@ -80,12 +80,13 @@ import com.yworks.yfiles.view.input.IPositionHandler;
 import com.yworks.yfiles.view.input.IReshapeHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Function;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -330,12 +331,12 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
       filteredAggregationItems.add(aggregationEdge);
       raiseLabelRemovedEvents(aggregationEdge);
       raisePortRemovedEvents(aggregationEdge);
-      onEdgeRemoved(new EdgeEventArgs(aggregationEdge, (IPort)null, (IPort)null, (IPortOwner)null, (IPortOwner)null));
+      onEdgeRemoved(new EdgeEventArgs(aggregationEdge));
       return;
     }
 
     // hide adjacent aggregation edges (which are not hidden by filtered graph)
-    for (IEdge edge : edgesAt(portOwner, AdjacencyTypes.ALL).toList()) {
+    for (IEdge edge : edgesAt(portOwner).toList()) {
       if (edge instanceof AggregationEdge) {
         hide(edge);
       }
@@ -345,7 +346,7 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
   }
 
   private void hideAdjacentEdges( AggregationLabelPortOwner portOwner ) {
-    for (IEdge edge : edgesAt(portOwner, AdjacencyTypes.ALL).toList()) {
+    for (IEdge edge : edgesAt(portOwner).toList()) {
       hide(edge);
     }
   }
@@ -367,7 +368,7 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
     AggregationEdge aggregationEdge = (item instanceof AggregationEdge) ? (AggregationEdge)item : null;
     if (aggregationEdge != null) {
       filteredAggregationItems.remove(aggregationEdge);
-      onEdgeCreated(new EdgeEventArgs(aggregationEdge, (IPort)null, (IPort)null, (IPortOwner)null, (IPortOwner)null));
+      onEdgeCreated(new EdgeEventArgs(aggregationEdge));
       raisePortAddedEvents(aggregationEdge);
       showAdjacentEdges(aggregationEdge);
       raiseLabelAddedEvents(aggregationEdge);
@@ -553,12 +554,12 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
 
     // raise edge created events not until here, so the aggregated items are complete
     for (AggregationEdge edge : outgoingReplacementEdges.values()) {
-      onEdgeCreated(new EdgeEventArgs(edge, (IPort)null, (IPort)null, (IPortOwner)null, (IPortOwner)null));
+      onEdgeCreated(new EdgeEventArgs(edge));
     }
 
     if (edgesAreDirected) {
       for (AggregationEdge edge : incomingReplacementEdges.values()) {
-        onEdgeCreated(new EdgeEventArgs(edge, (IPort)null, (IPort)null, (IPortOwner)null, (IPortOwner)null));
+        onEdgeCreated(new EdgeEventArgs(edge));
       }
     }
   }
@@ -625,7 +626,7 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
       throw new IllegalArgumentException("Parameter node: Cannot separate aggregation node " + node + " that is not in this graph.");
     }
 
-    List<IEdge> adjacentEdges = edgesAt(aggregationNode, AdjacencyTypes.ALL).toList();
+    List<IEdge> adjacentEdges = edgesAt(aggregationNode).toList();
     for (IEdge edge : adjacentEdges) {
       removeAggregationEdge((AggregationEdge)edge);
     }
@@ -692,7 +693,7 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
         .filter(edge -> ports.contains(isIncoming ? edge.getTargetPort() : edge.getSourcePort()));
 
     if (!isAggregationItem(node)) {
-      edgesAt = Stream.concat(edgesAt, super.edgesAt(node, AdjacencyTypes.ALL).stream());
+      edgesAt = Stream.concat(edgesAt, super.edgesAt(node).stream());
     }
 
     for (IEdge edge : edgesAt.collect(Collectors.toList())) {
@@ -731,6 +732,11 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
   /**
    * Separates all aggregation nodes such that this graph contains exactly the same items as the
    * {@link AbstractGraphWrapper#getWrappedGraph() WrappedGraph}.
+   * <p>
+   * This method separates all aggregated nodes recursively until the original items are visible again. Therefore, it raises
+   * all events for each intermediate aggregation item as well, in contrast to {@link #separateToOriginalItems()} which skips
+   * all intermediate aggregation states and directly restores the original items.
+   * </p>
    */
   public final void separateAll() {
     do {
@@ -741,6 +747,36 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
         separate(aggregationNode);
       }
     } while (aggregationNodes.size() > 0);
+  }
+
+  /**
+   * Separates the currently visible items and restores directly the original items of the
+   * {@link AbstractGraphWrapper#getWrappedGraph() WrappedGraph}.
+   * <p>
+   * In contrast to {@link #separateAll()}, this method does not recursively separate all aggregation items on each level.
+   * After separating the currently visible nodes, it immediately restores the original items of the
+   * {@link AbstractGraphWrapper#getWrappedGraph() WrappedGraph}.
+   * </p>
+   */
+  public final void separateToOriginalItems() {
+    // remove the visible node, raising all events for them
+    List<AggregationNode> visibleNodes = aggregationNodes.stream().filter(this::aggregationItemPredicate).collect(Collectors.toList());
+    for (AggregationNode aggregationNode : visibleNodes) {
+      IListEnumerable<IEdge> adjacentEdges = edgesAt(aggregationNode);
+      for (IEdge edge : adjacentEdges) {
+        removeAggregationEdge((AggregationEdge)edge);
+      }
+      removeAggregationNode(aggregationNode);
+    }
+
+    // directly show the actual nodes of the graph by clearing all aggregation states
+    filteredAggregationItems.clear();
+    filteredOriginalNodes.clear();
+    aggregationNodes.clear();
+    aggregationEdges.clear();
+
+    // update the filteredGraph, raising the related events for showing the nodes
+    filteredGraph.nodePredicateChanged();
   }
 
 
@@ -887,7 +923,7 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
         .filter(edge -> edge.getSourcePort() == port || edge.getTargetPort() == port)
         .count();
     if (!isAggregationItem) {
-      edgesAtPort += super.edgesAt(port, AdjacencyTypes.ALL).size();
+      edgesAtPort += super.edgesAt(port).size();
     }
     if (edgesAtPort == 0) {
       removeCore(port);
@@ -933,7 +969,7 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
   }
 
   private void removeAggregationPort( AggregationPort aggregationPort ) {
-    for (IEdge edge : edgesAt(aggregationPort, AdjacencyTypes.ALL).toList()) {
+    for (IEdge edge : edgesAt(aggregationPort).toList()) {
       removeAggregationEdge((AggregationEdge)edge);
     }
     for (ILabel label : aggregationPort.getLabels().toList()) {
@@ -1180,7 +1216,7 @@ public final class AggregateGraphWrapper extends AbstractGraphWrapper {
 
       ILabelModelParameter labelModelParameter = layoutParameter != null ? layoutParameter : getLabelModelParameter(labelOwner);
       ILabelStyle labelStyle = style != null ? style : getLabelStyle(labelOwner);
-      SizeD labelPreferredSize = preferredSize != null ? preferredSize : this.calculateLabelPreferredSize(labelOwner, text, labelModelParameter, labelStyle, (Object)null);
+      SizeD labelPreferredSize = preferredSize != null ? preferredSize : this.calculateLabelPreferredSize(labelOwner, text, labelModelParameter, labelStyle);
 
       AggregationLabel aggregationLabel = new AggregationLabel(this);
       aggregationLabel.owner = labelOwner;

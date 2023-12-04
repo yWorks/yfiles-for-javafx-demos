@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -62,7 +62,7 @@
     <!-- the jar archive of batik -->
     <property name="batik.jar" value="${lib.dir}/batik.jar"/>
     <!-- the download location of batik -->
-    <property name="batik.download" value="https://www.yworks.com/resources/yfilesjava/demos-support/3.5/batik.jar"/>
+    <property name="batik.download" value="https://www.yworks.com/resources/yfilesjava/demos-support/3.6/batik.jar"/>
     <!-- the jar archive of JFXConverter  -->
     <property name="JFXConverter.jar" value="${lib.dir}/JFXConverter.jar"/>
     <!-- the download location of JFXConverter  -->

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -46,10 +46,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -225,13 +224,11 @@ public class ConfigConverter {
     final Field fieldInfo = (member instanceof Field) ? (Field)member : null;
     if (fieldInfo != null) {
       if (Boolean.TYPE.equals(fieldInfo.getGenericType())) {
-        return (new Supplier<Boolean>(){
-          public Boolean get() {
-            try {
-              return (Boolean)fieldInfo.get(config);
-            } catch (IllegalAccessException e) {
-              return false;
-            }
+        return (() -> {
+          try {
+            return (Boolean)fieldInfo.get(config);
+          } catch (IllegalAccessException e) {
+            return false;
           }
         });
       }
@@ -239,15 +236,13 @@ public class ConfigConverter {
     final PropertyInfo propertyInfo = (member instanceof PropertyInfo) ? (PropertyInfo)member : null;
     if (propertyInfo != null) {
       if (Boolean.TYPE.equals(propertyInfo.getType())) {
-        return (new Supplier<Boolean>(){
-          public Boolean get() {
-            try {
-              return (Boolean)propertyInfo.getValue(config);
-            } catch (InvocationTargetException e) {
-              return false;
-            } catch (IllegalAccessException e) {
-              return false;
-            }
+        return (() -> {
+          try {
+            return (Boolean)propertyInfo.getValue(config);
+          } catch (InvocationTargetException e) {
+            return false;
+          } catch (IllegalAccessException e) {
+            return false;
           }
         });
       }
@@ -255,15 +250,13 @@ public class ConfigConverter {
     final Method methodInfo = (member instanceof Method) ? (Method)member : null;
     if (methodInfo != null) {
       if (Boolean.TYPE.equals(methodInfo.getReturnType())) {
-        return (new Supplier<Boolean>(){
-          public Boolean get() {
-            try {
-              return (Boolean)methodInfo.invoke(config);
-            } catch (IllegalAccessException e) {
-              return false;
-            } catch (InvocationTargetException e) {
-              return false;
-            }
+        return (() -> {
+          try {
+            return (Boolean)methodInfo.invoke(config);
+          } catch (IllegalAccessException e) {
+            return false;
+          } catch (InvocationTargetException e) {
+            return false;
           }
         });
       }
@@ -370,22 +363,18 @@ public class ConfigConverter {
     setLabel(field, f);
     setEnumValues(field, field.getGenericType(), f);
 
-    f.setGetter(new Supplier<Object>(){
-      public Object get() {
-        try {
-          return field.get(config);
-        } catch (IllegalAccessException e) {
-          return null;
-        }
+    f.setGetter(() -> {
+      try {
+        return field.get(config);
+      } catch (IllegalAccessException e) {
+        return null;
       }
     });
-    f.setSetter(new Consumer<Object>(){
-      public void accept( Object value ) {
-        try {
-          field.set(config, value);
-        } catch (IllegalAccessException e) {
-          e.printStackTrace();
-        }
+    f.setSetter(value -> {
+      try {
+        field.set(config, value);
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
       }
     });
     Annotation defaultValueAnnotation = getCustomAnnotation(field, DefaultValue.class);
@@ -425,28 +414,24 @@ public class ConfigConverter {
     setLabel(property, p);
     setEnumValues(property, property.getType(), p);
 
-    p.setGetter(new Supplier<Object>(){
-      public Object get() {
-        try {
-          return property.getValue(config);
-        } catch (InvocationTargetException e) {
-          return null;
-        } catch (IllegalAccessException e) {
-          return null;
-        }
+    p.setGetter(() -> {
+      try {
+        return property.getValue(config);
+      } catch (InvocationTargetException e) {
+        return null;
+      } catch (IllegalAccessException e) {
+        return null;
       }
     });
-    p.setSetter(new Consumer<Object>(){
-      public void accept( Object value ) {
-        try {
-          property.setValue(config, value);
-        } catch (InvocationTargetException e) {
-          e.printStackTrace();
-        } catch (IllegalAccessException e) {
-          e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-          throw new IllegalArgumentException("The value " + value + " can't be assigned to the property " + property.getName() + " of type " + property.getType());
-        }
+    p.setSetter(value -> {
+      try {
+        property.setValue(config, value);
+      } catch (InvocationTargetException e) {
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("The value " + value + " can't be assigned to the property " + property.getName() + " of type " + property.getType());
       }
     });
 

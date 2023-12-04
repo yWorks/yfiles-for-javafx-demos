@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,9 +29,9 @@
  ***************************************************************************/
 package complete.bpmn.view;
 
+import com.yworks.yfiles.geometry.IOrientedRectangle;
 import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.InsetsD;
-import com.yworks.yfiles.geometry.IOrientedRectangle;
 import com.yworks.yfiles.geometry.OrientedRectangle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.graph.ILabel;

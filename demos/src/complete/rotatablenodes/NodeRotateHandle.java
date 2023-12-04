@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,8 +29,6 @@
  ***************************************************************************/
 package complete.rotatablenodes;
 
-import com.yworks.yfiles.view.CanvasControl;
-import com.yworks.yfiles.view.GraphControl;
 import complete.rotatablenodes.RotatedNodeResizeHandle.DelegatingContext;
 import complete.rotatablenodes.RotatedNodeResizeHandle.DummyPortLocationModelParameterHandle;
 import com.yworks.yfiles.geometry.RectD;
@@ -44,8 +42,11 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IPort;
 import com.yworks.yfiles.graph.UndoEngine;
 import com.yworks.yfiles.utils.IEnumerable;
+import com.yworks.yfiles.view.CanvasControl;
+import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.ICanvasObject;
 import com.yworks.yfiles.view.ModifierKeys;
+import com.yworks.yfiles.view.input.ClickEventArgs;
 import com.yworks.yfiles.view.input.HandleTypes;
 import com.yworks.yfiles.view.input.IHandle;
 import com.yworks.yfiles.view.input.IInputModeContext;
@@ -459,6 +460,10 @@ public class NodeRotateHandle implements IHandle, IPoint {
       cursor = loadCustomCursor(getClass());
     }
     return cursor;
+  }
+
+  @Override
+  public void handleClick(ClickEventArgs eventArgs) {
   }
 
   /**

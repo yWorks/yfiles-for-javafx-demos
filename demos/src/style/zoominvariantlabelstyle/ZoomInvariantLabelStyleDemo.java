@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -48,6 +48,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.IOException;
@@ -229,6 +230,7 @@ public class ZoomInvariantLabelStyleDemo extends DemoApplication {
    * Loads a sample graph.
    */
   private void loadGraph() {
+    DemoStyles.initDemoStyles(graphControl.getGraph());
     GraphMLIOHandler graphMLIOHandler = graphControl.getGraphMLIOHandler();
     graphMLIOHandler.addXamlNamespaceMapping(
       "http://www.yworks.com/yfiles-for-javafx/demos/zoominvariantlabelstyle/1.0",

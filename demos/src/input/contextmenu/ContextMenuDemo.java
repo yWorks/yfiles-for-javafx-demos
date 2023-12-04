@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,7 +35,6 @@ import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.utils.IEventHandler;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.MouseButtons;
@@ -48,6 +47,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.CommandMenuItem;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 /**
@@ -78,9 +78,7 @@ public class ContextMenuDemo extends DemoApplication {
 
     // create a sample graph that contains just 3 simple nodes which can be selected and right clicked to show a popup menu
     IGraph graph = graphControl.getGraph();
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.DARKORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graph);
     graph.getNodeDefaults().setSize(new SizeD(40, 40));
     graph.addLabel(graph.createNode(new PointD(100, 100)), "1");
     graph.addLabel(graph.createNode(new PointD(200, 100)), "2");

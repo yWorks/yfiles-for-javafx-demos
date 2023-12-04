@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -31,16 +31,15 @@ package input.singleselection;
 
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IModelItem;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.IEventRecognizer;
 import com.yworks.yfiles.view.input.KeyboardInputModeBinding;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.IOException;
@@ -76,9 +75,7 @@ public class SingleSelectionDemo extends DemoApplication {
     // setup the help text on the right side.
     WebViewUtils.initHelp(help, this);
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.DARKORANGE);
-    graphControl.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphControl.getGraph());
 
     GraphEditorInputMode mode = new GraphEditorInputMode();
     graphControl.setInputMode(mode);

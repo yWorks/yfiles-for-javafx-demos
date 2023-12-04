@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -38,7 +38,7 @@ import com.yworks.yfiles.view.input.IEdgeReconnectionPortCandidateProvider;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.IPortCandidate;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
-import javafx.scene.paint.Color;
+import toolkit.Themes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ class OrangeReconnectionEdgePortCandidateProvider implements IEdgeReconnectionPo
     IGraph graph = context.getGraph();
     if (graph != null) {
       graph.getNodes().stream()
-          .filter(node -> node != edge.getTargetNode() && Color.DARKORANGE.equals(node.getTag()))
+          .filter(node -> node != edge.getTargetNode() && Themes.PALETTE_ORANGE.equals(node.getTag()))
           .forEach(node -> addCandidates(context, candidates, node, true));
     }
     return candidates;
@@ -84,7 +84,7 @@ class OrangeReconnectionEdgePortCandidateProvider implements IEdgeReconnectionPo
     IGraph graph = context.getGraph();
     if (graph != null) {
       graph.getNodes().stream()
-          .filter(node -> node != edge.getSourceNode() && Color.DARKORANGE.equals(node.getTag()))
+          .filter(node -> node != edge.getSourceNode() && Themes.PALETTE_ORANGE.equals(node.getTag()))
           .forEach(node -> addCandidates(context, candidates, node, false));
     }
     return candidates;

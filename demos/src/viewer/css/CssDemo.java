@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -314,7 +314,6 @@ public class CssDemo extends DemoApplication {
     masterGraph.setUndoEngineEnabled(true);
 
     // configure the group node style.
-    //PanelNodeStyle is a nice style especially suited for group nodes
     CssGroupNodeStyle decoratedStyle = new CssGroupNodeStyle("group-node-style");
     CollapsibleNodeStyleDecorator groupNodeStyle = new CssCollapsibleNodeStyleDecorator(decoratedStyle);
     groupNodeStyle.setButtonPlacement(new FreeNodeLabelModel().createParameter(

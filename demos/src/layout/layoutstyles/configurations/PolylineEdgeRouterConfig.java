@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -35,11 +35,14 @@ import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.CurveConnectionStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.PortCandidate;
 import com.yworks.yfiles.layout.PortDirections;
+import com.yworks.yfiles.layout.SequentialLayout;
+import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.router.MonotonicPathRestriction;
+import com.yworks.yfiles.layout.router.RoutingPolicy;
+import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.layout.router.polyline.BusDescriptor;
 import com.yworks.yfiles.layout.router.polyline.EdgeLayoutDescriptor;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
@@ -47,9 +50,6 @@ import com.yworks.yfiles.layout.router.polyline.EdgeRouterData;
 import com.yworks.yfiles.layout.router.polyline.EdgeRoutingStyle;
 import com.yworks.yfiles.layout.router.polyline.Grid;
 import com.yworks.yfiles.layout.router.polyline.PenaltySettings;
-import com.yworks.yfiles.layout.router.RoutingPolicy;
-import com.yworks.yfiles.layout.router.Scope;
-import com.yworks.yfiles.layout.SequentialLayout;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.IGraphSelection;
@@ -57,7 +57,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import toolkit.optionhandler.ComponentType;
@@ -66,7 +65,6 @@ import toolkit.optionhandler.EnumValueAnnotation;
 import toolkit.optionhandler.Label;
 import toolkit.optionhandler.MinMax;
 import toolkit.optionhandler.OptionGroupAnnotation;
-import java.util.function.Predicate;
 
 /**
  * Configuration options for the {@link EdgeRouter} algorithm.
@@ -243,11 +241,7 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
     switch (getBusRoutingItem()) {
       case SINGLE_BUS:
         // All edges in a single bus
-        layoutData.getBuses().add(createBusDescriptor()).setPredicate(new Predicate<IEdge>(){
-          public boolean test( IEdge edge ) {
-            return true;
-          }
-        });
+        layoutData.getBuses().add(createBusDescriptor()).setPredicate(edge -> true);
         break;
       case BY_LABEL:
         HashMap<String, ArrayList<IEdge>> byLabel = new HashMap<String, ArrayList<IEdge>>();

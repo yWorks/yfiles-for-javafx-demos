@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -41,6 +41,7 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.NodeDecorator;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.layout.CompositeLayoutData;
 import com.yworks.yfiles.layout.FixNodeLayoutData;
 import com.yworks.yfiles.layout.FixNodeLayoutStage;
@@ -54,8 +55,12 @@ import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
 import com.yworks.yfiles.utils.ItemEventArgs;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
+import javafx.scene.control.OverrunStyle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 import java.io.IOException;
@@ -83,7 +88,7 @@ public class HierarchicGroupingDemo extends DemoApplication {
     incrementalNodes = new HashSet<>();
     incrementalEdges = new HashSet<>();
 
-    // setup the help text on the right side.
+    // set up the help text on the right side.
     WebViewUtils.initHelp(help, this);
 
     // initialize the graph
@@ -111,7 +116,8 @@ public class HierarchicGroupingDemo extends DemoApplication {
     graphControl.fitGraphBounds();
     graphControl.getGraph().applyLayout(createLayoutAlgorithm());
     // top align the graph
-    graphControl.setViewPoint(new PointD(graphControl.getViewPoint().getX(), graphControl.getContentRect().getMinY() - 50));
+    graphControl.setViewPoint(
+        new PointD(graphControl.getViewPoint().getX(), graphControl.getContentRect().getMinY() - 50));
   }
 
   /**
@@ -123,12 +129,17 @@ public class HierarchicGroupingDemo extends DemoApplication {
 
     // create a view
     foldingView = foldingManager.createFoldingView();
+    IGraph graph = foldingView.getGraph();
 
     // and set it to the GraphControl
-    graphControl.setGraph(foldingView.getGraph());
+    graphControl.setGraph(graph);
+
+    DemoStyles.initDemoStyles(graph, true);
+    DefaultLabelStyle style = (DefaultLabelStyle) graph.getGroupNodeDefaults().getLabelDefaults().getStyle();
+    style.setTextOverrunStyle(OverrunStyle.ELLIPSIS);
+    style.setFont(Font.font(style.getFont().getFamily(), FontWeight.BOLD, 11));
 
     // decorate the behavior of nodes
-    IGraph graph = graphControl.getGraph();
     NodeDecorator nodeDecorator = graph.getDecorator().getNodeDecorator();
 
     // adjust the insets so that labels are considered
@@ -149,6 +160,9 @@ public class HierarchicGroupingDemo extends DemoApplication {
     graph.getNodes().forEach(incrementalNodes::add);
   }
 
+  /**
+   * Loads a sample graph.
+   */
   private void loadSampleGraph() {
     try {
       graphControl.importFromGraphML(getClass().getResource("resources/sample.graphml"));
@@ -235,6 +249,7 @@ public class HierarchicGroupingDemo extends DemoApplication {
 
   /**
    * Calculates and applies a layout in an animated fashion.
+   *
    * @param fixGroupNode The group node whose top right corner shall be fixed.
    */
   private void applyLayout(INode fixGroupNode) {

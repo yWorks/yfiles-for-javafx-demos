@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -49,8 +49,7 @@
   <key attr.name="SharedData" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
   <data key="d9">
     <y:SharedData>
-      <java:Color xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Value="ForestGreen" x:Key="1"/>
-      <java:Font xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Family="System" Size="12.0" x:Key="2"/>
+      <yfx:ShapeNodeStyle x:Key="BlueStar" Shape="STAR5" Paint="#46A8D5" Pen="#224556" />
     </y:SharedData>
   </data>
   <graph id="G">
@@ -59,7 +58,7 @@
         <y:RectD Height="75.0" Width="75.0" X="-92.25" Y="266.5"/>
       </data>
       <data key="d3">
-        <yfx:ShapeNodeStyle Paint="{y:GraphMLReference 1}" Pen="Black" Shape="STAR5"/>
+        <y:GraphMLReference ResourceKey="BlueStar" />
       </data>
     </node>
     <node id="n1">
@@ -67,7 +66,7 @@
         <y:RectD Height="75.0" Width="75.0" X="87.25" Y="279.0"/>
       </data>
       <data key="d3">
-        <yfx:ShapeNodeStyle Paint="{y:GraphMLReference 1}" Pen="Black" Shape="STAR5"/>
+        <y:GraphMLReference ResourceKey="BlueStar" />
       </data>
     </node>
     <node id="n2">
@@ -77,9 +76,6 @@
             <y:Label.LayoutParameter>
               <y:RatioAnchoredLabelModelParameter LabelRatio="0.5,0.5" LayoutOffset="0,-25" LayoutRatio="0.5,0"/>
             </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfx:DefaultLabelStyle BackgroundPen="Black" Font="{y:GraphMLReference 2}" FontSmoothingType="{x:Null}"/>
-            </y:Label.Style>
             <y:Label.Text><![CDATA[This node label has an extra extended super long text
 so you can see how nodes snap all along its border.]]></y:Label.Text>
           </y:Label>
@@ -88,26 +84,17 @@ so you can see how nodes snap all along its border.]]></y:Label.Text>
       <data key="d1">
         <y:RectD Height="50.0" Width="50.0" X="-79.75" Y="57.0"/>
       </data>
-      <data key="d3">
-        <yfx:BevelNodeStyle Inset="3.0" Radius="10.0"/>
-      </data>
       <port name="p0"/>
     </node>
     <node id="n3">
       <data key="d1">
         <y:RectD Height="50.0" Width="50.0" X="357.75" Y="279.0"/>
       </data>
-      <data key="d3">
-        <yfx:BevelNodeStyle Inset="3.0" Radius="10.0"/>
-      </data>
       <port name="p0"/>
     </node>
     <node id="n4">
       <data key="d1">
         <y:RectD Height="50.0" Width="50.0" X="47.25" Y="-86.0"/>
-      </data>
-      <data key="d3">
-        <yfx:BevelNodeStyle Inset="3.0" Radius="10.0"/>
       </data>
     </node>
     <edge id="e0" source="n2" sourceport="p0" target="n3" targetport="p0">
@@ -121,9 +108,6 @@ so you can see how nodes snap all along its border.]]></y:Label.Text>
                 </y:SmartEdgeLabelModelParameter.Model>
               </y:SmartEdgeLabelModelParameter>
             </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfx:DefaultLabelStyle BackgroundPen="Black" Font="{y:GraphMLReference 2}" FontSmoothingType="{x:Null}"/>
-            </y:Label.Style>
             <y:Label.Text><![CDATA[Other graph items can snap
 to this edge label as long as
 it is orthogonal.]]></y:Label.Text>

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -33,6 +33,7 @@ import com.yworks.yfiles.geometry.IPoint;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.view.CanvasControl;
+import com.yworks.yfiles.view.input.ClickEventArgs;
 import com.yworks.yfiles.view.input.HandleTypes;
 import com.yworks.yfiles.view.input.IHandle;
 import com.yworks.yfiles.view.input.IInputModeContext;
@@ -119,6 +120,10 @@ public class HeightHandle implements IHandle {
   @Override
   public Cursor getCursor() {
     return Cursor.HAND;
+  }
+
+  @Override
+  public void handleClick(ClickEventArgs eventArgs) {
   }
 
   public Geometry getGeometry() {

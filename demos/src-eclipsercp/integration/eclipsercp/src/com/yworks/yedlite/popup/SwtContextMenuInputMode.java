@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -42,7 +42,7 @@ import org.eclipse.swt.widgets.MenuItem;
 
 /**
  * An implementation of {@link AbstractContextMenuInputMode} interface that will
- * display a {@link Menu SWT context menu} when the user right clicks on the {@link
+ * display a {@link Menu SWT context menu} when the user right-clicks on the {@link
  * com.yworks.yfiles.view.CanvasControl} or presses the menu key.
  * <p>
  * Note: the SWT context menu must be accessed and changed in the SWT event thread.

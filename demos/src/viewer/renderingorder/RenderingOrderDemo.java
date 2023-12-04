@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -39,20 +39,14 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.INodeDefaults;
 import com.yworks.yfiles.graph.SimpleLabel;
 import com.yworks.yfiles.graph.SimpleNode;
-import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.labelmodels.SmartEdgeLabelModel;
+import com.yworks.yfiles.graph.labelmodels.*;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
+import com.yworks.yfiles.graph.styles.*;
 import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.GraphModelManager;
 import com.yworks.yfiles.view.HierarchicNestingPolicy;
+import com.yworks.yfiles.view.ICanvasObject;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.ICanvasObjectGroup;
 import com.yworks.yfiles.view.LabelLayerPolicy;
@@ -68,6 +62,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 import toolkit.DemoApplication;
+import toolkit.DemoStyles;
 import toolkit.WebViewUtils;
 
 /**
@@ -157,6 +152,9 @@ public class RenderingOrderDemo extends DemoApplication {
    * Resets the graph to the initial sample.
    */
   public void resetGraph() {
+    for (ICanvasObject border : graphControl.getBackgroundGroup().toList()) {
+      border.remove();
+    }
     graphControl.getGraph().clear();
     createGraph();
     graphControl.fitGraphBounds();
@@ -201,7 +199,7 @@ public class RenderingOrderDemo extends DemoApplication {
     INodeDefaults nodeDefaults = graphControl.getGraph().getNodeDefaults();
 
     //set default node color as slightly transparent dark orange
-    ShapeNodeStyle defaultNodeStyle = new ShapeNodeStyle();
+    RectangleNodeStyle defaultNodeStyle = DemoStyles.createDemoNodeStyle();
     defaultNodeStyle.setPaint(Color.rgb(255, 140, 0, 238d/255));
     defaultNodeStyle.setPen(Pen.getWhite());
 
@@ -212,7 +210,7 @@ public class RenderingOrderDemo extends DemoApplication {
     nodeDefaults.setSize(defaultNodeSize);
 
     //set label text alignment and trimming
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
+    DefaultLabelStyle defaultLabelStyle = DemoStyles.createDemoNodeLabelStyle();
     defaultLabelStyle.setVerticalTextAlignment(VPos.CENTER);
     defaultLabelStyle.setTextWrapping(TextWrapping.WRAP);
     nodeDefaults.getLabelDefaults().setStyle(defaultLabelStyle);
@@ -234,26 +232,19 @@ public class RenderingOrderDemo extends DemoApplication {
     INodeDefaults groupNodeDefaults = graphControl.getGraph().getGroupNodeDefaults();
 
     //set default group node style
-    PanelNodeStyle defaultGroupNodeStyle = new PanelNodeStyle();
-    defaultGroupNodeStyle.setColor(Color.rgb(214, 229, 248, 229/255d));
-    defaultGroupNodeStyle.setInsets(new InsetsD(18, 5, 5, 5));
-    defaultGroupNodeStyle.setLabelInsetsColor(Color.rgb(214, 229, 248, 1));
-
+    GroupNodeStyle defaultGroupNodeStyle = DemoStyles.createDemoGroupStyle();
     groupNodeDefaults.setStyle(defaultGroupNodeStyle);
 
     //set defaults for group node labels
-    DefaultLabelStyle defaultGroupLabelStyle = new DefaultLabelStyle();
-    defaultGroupLabelStyle.setVerticalTextAlignment(VPos.CENTER);
+    ILabelStyle defaultGroupLabelStyle = DemoStyles.createDemoGroupLabelStyle();
     groupNodeDefaults.getLabelDefaults().setStyle(defaultGroupLabelStyle);
-    groupNodeDefaults.getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
+    groupNodeDefaults.getLabelDefaults().setLayoutParameter(new GroupNodeLabelModel().createDefaultParameter());
 
     //configure edge label defaults
     graphControl.getGraph().getEdgeDefaults().getLabelDefaults().setLayoutParameter(
             new SmartEdgeLabelModel().createParameterFromSource(0, 5, 0));
 
-    DefaultLabelStyle defaultEdgeLabelStyle = new DefaultLabelStyle();
-    defaultEdgeLabelStyle.setBackgroundPaint(Color.WHITE);
-    defaultEdgeLabelStyle.setBackgroundPen(Pen.getLightGray());
+    DefaultLabelStyle defaultEdgeLabelStyle = DemoStyles.createDemoEdgeLabelStyle();
     graphControl.getGraph().getEdgeDefaults().getLabelDefaults().setStyle(defaultEdgeLabelStyle);
 
     //set default pen used for boundary rectangles
@@ -443,10 +434,10 @@ public class RenderingOrderDemo extends DemoApplication {
     rectLabel.setStyle(rectLabelStyle);
     rectLabel.setPreferredSize(DEFAULT_PREF_RECTANGLE_SIZE);
 
-    //add the boundary rectangle and its title label to the root group
-    ICanvasObjectGroup rootGroup = graphControl.getRootGroup();
-    rootGroup.addChild(rect, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
-    rootGroup.addChild(rectLabel, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
+    //add the boundary rectangle and its title label to the background
+    ICanvasObjectGroup background = graphControl.getBackgroundGroup();
+    background.addChild(rect, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
+    background.addChild(rectLabel, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
   }
 
   public static void main(String[] args) {

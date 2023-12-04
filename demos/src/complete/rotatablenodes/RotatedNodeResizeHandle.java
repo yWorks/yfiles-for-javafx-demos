@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -41,6 +41,7 @@ import com.yworks.yfiles.graph.IPort;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModel;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
 import com.yworks.yfiles.view.CanvasControl;
+import com.yworks.yfiles.view.input.ClickEventArgs;
 import com.yworks.yfiles.view.input.HandlePositions;
 import com.yworks.yfiles.view.input.HandleTypes;
 import com.yworks.yfiles.view.input.IHandle;
@@ -168,6 +169,10 @@ public class RotatedNodeResizeHandle implements IHandle, IPoint {
     }
 
     return cursors[index];
+  }
+
+  @Override
+  public void handleClick(ClickEventArgs eventArgs) {
   }
 
   /**
@@ -412,7 +417,6 @@ public class RotatedNodeResizeHandle implements IHandle, IPoint {
 
     }
   }
-
 
   /**
    * A context that returns no snapContext in its lookup and delegates its other methods to an inner context.

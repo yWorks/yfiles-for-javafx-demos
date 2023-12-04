@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -68,13 +68,31 @@
           </y:GenericLabelModel>
         </y:GenericLabelModelParameter.Model>
       </y:GenericLabelModelParameter>
-      <yfx:DefaultLabelStyle FontSmoothingType="{x:Null}" x:Key="3"/>
-      <yfx:ShinyPlateNodeStyle Paint="Orange" Pen="Orange" x:Key="4"/>
-      <yfx:PolylineEdgeStyle Pen="Black" TargetArrow="DEFAULT" x:Key="5"/>
-      <y:InteriorStretchLabelModel x:Key="6"/>
-      <yfx:CollapsibleNodeStyleDecorator ButtonPlacement="{x:Static y:InteriorLabelModel.NorthWest}" x:Key="7">
-        <yfx:PanelNodeStyle Color="{y:GraphMLReference 1}" LabelInsetsColor="{y:GraphMLReference 1}"/>
-      </yfx:CollapsibleNodeStyleDecorator>
+      <yfx:DefaultLabelStyle BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER" x:Key="3"/>
+      <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="4">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
+      <yfx:PolylineEdgeStyle x:Key="5">
+        <yfx:PolylineEdgeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:PolylineEdgeStyle.Pen>
+        <yfx:PolylineEdgeStyle.TargetArrow>
+          <yfx:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfx:PolylineEdgeStyle.TargetArrow>
+      </yfx:PolylineEdgeStyle>
+      <y:GroupNodeLabelModelParameter PlaceOnTab="False" x:Key="6">
+        <y:GroupNodeLabelModelParameter.Model>
+          <y:GroupNodeLabelModel/>
+        </y:GroupNodeLabelModelParameter.Model>
+      </y:GroupNodeLabelModelParameter>
+      <yfx:GroupNodeStyle ContentAreaHitTransparent="True" GroupIcon="MINUS" IconForegroundPaint="#FF0B7189" IconOffset="2.0" TabBackgroundPaint="#FF0B7189" TabHeight="20.0" TabInset="3.0" TabPaint="#FF9DC6D0" TabPosition="TOP_TRAILING" TabWidth="30.0" x:Key="7">
+        <yfx:GroupNodeStyle.Pen>
+          <yfx:Pen Paint="#FF0B7189" Thickness="2.0"/>
+        </yfx:GroupNodeStyle.Pen>
+      </yfx:GroupNodeStyle>
+      <yfx:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" VerticalTextAlignment="CENTER" x:Key="8"/>
     </y:SharedData>
   </data>
   <graph id="G">
@@ -84,13 +102,7 @@
     <node id="n0">
       <data key="d1">
         <x:List>
-          <y:Label>
-            <y:Label.LayoutParameter>
-              <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 6}"/>
-            </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfx:DefaultLabelStyle TextAlignment="RIGHT"/>
-            </y:Label.Style>
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 8}">
             <y:Label.Text>Group</y:Label.Text>
           </y:Label>
         </x:List>
@@ -175,13 +187,7 @@
     <node id="n1">
       <data key="d1">
         <x:List>
-          <y:Label>
-            <y:Label.LayoutParameter>
-              <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 6}"/>
-            </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfx:DefaultLabelStyle TextAlignment="RIGHT"/>
-            </y:Label.Style>
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 8}">
             <y:Label.Text>Group</y:Label.Text>
           </y:Label>
         </x:List>
@@ -266,13 +272,7 @@
     <node id="n2">
       <data key="d1">
         <x:List>
-          <y:Label>
-            <y:Label.LayoutParameter>
-              <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 6}"/>
-            </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfx:DefaultLabelStyle TextAlignment="RIGHT"/>
-            </y:Label.Style>
+          <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 8}">
             <y:Label.Text>Group</y:Label.Text>
           </y:Label>
         </x:List>
@@ -304,13 +304,7 @@
         <node id="n2::n1">
           <data key="d1">
             <x:List>
-              <y:Label>
-                <y:Label.LayoutParameter>
-                  <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 6}"/>
-                </y:Label.LayoutParameter>
-                <y:Label.Style>
-                  <yfx:DefaultLabelStyle TextAlignment="RIGHT"/>
-                </y:Label.Style>
+              <y:Label LayoutParameter="{y:GraphMLReference 6}" Style="{y:GraphMLReference 8}">
                 <y:Label.Text>Group</y:Label.Text>
               </y:Label>
             </x:List>

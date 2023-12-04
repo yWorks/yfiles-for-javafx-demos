@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -29,17 +29,16 @@
  ***************************************************************************/
 package com.yworks.yedlite.dragdrop;
 
-import javafx.scene.input.DragEvent;
-
 import com.yworks.yfiles.graph.DefaultGraph;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.utils.ItemEventArgs;
 import com.yworks.yfiles.view.input.ConcurrencyController;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.NodeDropInputMode;
+import javafx.scene.input.DragEvent;
 
 /**
  * Handles drop events for node templates.
@@ -67,13 +66,13 @@ public class SwtNodeDropInputMode extends NodeDropInputMode {
     // Enables preview during drag operations.
     // Keep in mind that, prior to JDK 8u40, due to an issue in the DnD handling in FXCanvas (RT-37906),
     // using the preview feature of the yFiles library may cause problems when dropping a dragged node
-    // outside of the GraphControl.
+    // outside the GraphControl.
     // To prevent this, the native SWT preview, which shows a simple image, can also be used at this point.
     // To do this, just disable the option here instead (setPreviewEnabled(false);) and adjust the
     // TableHandler.dragStart method in the PaletteViewPart class.
     setPreviewEnabled(true);
-    // define nodes with CollapsibleNodeStyleDecorator as group nodes
-    setIsGroupNodePredicate(node -> node.getStyle() instanceof CollapsibleNodeStyleDecorator);
+    // define nodes with GroupNodeStyle as group nodes
+    setIsGroupNodePredicate(node -> node.getStyle() instanceof GroupNodeStyle);
     factory = new DefaultGraph();
     node = factory.createNode();
     

@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -47,8 +47,11 @@
   <target name="-init">
     <!-- the directory with libraries needed for this demo -->
     <property name="lib.dir" value="${basedir}/lib"/>
-    <!-- the directory with the source files of the demo -->
-    <property name="demo.src.dir" value="${basedir}/demos/src-swt"/>
+    <!-- the directories with the source files of the demo -->
+    <path id="demo.src.path">
+      <pathelement location="${basedir}/demos/src-swt"/>
+      <pathelement location="${basedir}/demos/src"/>
+    </path>
     <!-- the directory with the class files of the demo -->
     <property name="demo.class.dir" value="${basedir}/demos/out/classes"/>
     <!--the directory with icon resources used in the demo -->
@@ -75,8 +78,8 @@
 
     <!-- the class path for the demo -->
     <path id="demo.classpath">
+      <path refid="demo.src.path"/>
       <pathelement location="${demo.class.dir}"/>
-      <pathelement location="${demo.src.dir}"/>
       <pathelement location="${demo.resources.dir}"/>
       <pathelement location="${jfxswt.jar}"/>
       <pathelement location="${yfiles.jar}"/>
@@ -164,7 +167,8 @@
   <!-- compiles the application's classes -->
   <target name="compile" description="Compiles the demo files" depends="-unzip-swt,utils.check-fx-sdk">
     <mkdir dir="${demo.class.dir}"/>
-    <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" srcdir="${demo.src.dir}" debug="true">
+    <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" debug="true">
+      <src refid="demo.src.path"/>
       <classpath refid="demo.classpath"/>
       <compilerarg line="${java.fx.args}"/>
     </javac>

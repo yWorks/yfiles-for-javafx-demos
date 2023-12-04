@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -31,7 +31,6 @@ package complete.bpmn.view;
 
 import com.yworks.yfiles.geometry.GeneralPath;
 import com.yworks.yfiles.geometry.InsetsD;
-import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
@@ -50,16 +49,16 @@ import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.ICanvasContext;
+import com.yworks.yfiles.view.IRenderContext;
+import com.yworks.yfiles.view.IVisualCreator;
+import com.yworks.yfiles.view.Pen;
+import com.yworks.yfiles.view.VisualGroup;
 import com.yworks.yfiles.view.input.IEditLabelHelper;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.INodeInsetsProvider;
 import com.yworks.yfiles.view.input.INodeSizeConstraintProvider;
 import com.yworks.yfiles.view.input.LabelEditingEventArgs;
 import com.yworks.yfiles.view.input.NodeSizeConstraintProvider;
-import com.yworks.yfiles.view.IRenderContext;
-import com.yworks.yfiles.view.IVisualCreator;
-import com.yworks.yfiles.view.Pen;
-import com.yworks.yfiles.view.VisualGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -571,7 +570,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
   }
 
   private void updateInitiatingMessageIcon() {
-    initiatingMessageIcon = IconFactory.createMessage(messagePen, getInitiatingColor(), false);
+    initiatingMessageIcon = IconFactory.createMessage(messagePen, getInitiatingColor());
     updateMessageLineIcon();
     updateTopInitiatingMessageIcon();
     updateBottomInitiatingMessageIcon();
@@ -586,7 +585,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
   }
 
   private void updateResponseMessageIcon() {
-    responseMessageIcon = IconFactory.createMessage(messagePen, getResponseColor(), false);
+    responseMessageIcon = IconFactory.createMessage(messagePen, getResponseColor());
     updateMessageLineIcon();
     updateTopResponseMessageIcon();
     updateBottomResponseMessageIcon();
@@ -909,7 +908,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
   protected GeneralPath getOutline( INode node ) {
     SNS.getRenderer().getShapeGeometry(node, SNS);
     GeneralPath tmp = SNS.getRenderer().getOutline();
-    GeneralPath path = tmp != null ? tmp : new GeneralPath(16);
+    GeneralPath path = tmp != null ? tmp : new GeneralPath();
 
     RectD layout = node.getLayout().toRectD();
 
@@ -995,7 +994,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     if (type == INodeSizeConstraintProvider.class) {
       double minWidth = Math.max(0, getMinimumSize().width);
       double minHeight = Math.max(0, getMinimumSize().height) + topParticipants.getHeight() + bottomParticipants.getHeight();
-      return new NodeSizeConstraintProvider(new SizeD(minWidth, minHeight), SizeD.INFINITE, (IRectangle)null);
+      return new NodeSizeConstraintProvider(new SizeD(minWidth, minHeight), SizeD.INFINITE);
     } else if (type == INodeInsetsProvider.class) {
       return new ChoreographyInsetsProvider(this);
     } else if (type == IEditLabelHelper.class) {

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for JavaFX 3.5.
+ ** This demo file is part of yFiles for JavaFX 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -50,6 +50,7 @@ import com.yworks.yfiles.view.input.KeyboardInputMode;
 import com.yworks.yfiles.view.input.PopulateItemContextMenuEventArgs;
 import com.yworks.yfiles.view.input.WaitInputMode;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -181,19 +182,25 @@ public class PartitionGridDemo extends DemoApplication {
    * Determines whether the {@link #RUN_HIERARCHIC_LAYOUT} can be executed.
    */
   private boolean canExecuteHierarchicLayout(ICommand command, Object parameter, Object sender) {
-    return canExecuteAnyLayout(parameter);
+    return canExecuteAnyLayout();
   }
 
   /**
    * Determines whether the {@link #RUN_ORGANIC_LAYOUT} can be executed.
    */
   private boolean canExecuteOrganicLayout(ICommand command, Object parameter, Object sender) {
-    if (!canExecuteAnyLayout(parameter)) {
+    if (!canExecuteAnyLayout()) {
       return false;
     }
 
-    // the <em>Organic</em> layout doesn't support to stretch a group node if it contains child nodes assigned
-    // to different rows or columns. In this case the <em>Organic</em> layout button shall be disabled.
+    if (stretchGroupBox.isSelected()) {
+      return true;
+    }
+
+    // With "stretch group nodes" turned off, the organic layout algorithm does
+    // not support group nodes that contain child nodes assigned to different
+    // rows or columns. In this case the organic layout button shall be
+    // disabled.
     IGraph graph = graphControl.getGraph();
     for (INode node : graph.getNodes()) {
       if (graph.isGroupNode(node)) {
@@ -226,18 +233,26 @@ public class PartitionGridDemo extends DemoApplication {
   /**
    * Determines whether any layout can be executed.
    */
-  private boolean canExecuteAnyLayout(final Object layoutParameter) {
+  private boolean canExecuteAnyLayout() {
     // if a layout algorithm is currently running, no other layout algorithm shall be executable for two reasons:
     // - the result of the current layout run shall be presented before executing a new layout
     // - layout algorithms are not thread safe, so calling applyLayout on a layout algorithm that currently calculates
     //   a layout may result in errors
-    if (layoutParameter instanceof ILayoutAlgorithm && !waitInputMode.isWaiting()) {
+    if (!waitInputMode.isWaiting()) {
       // don't allow layouts for empty graphs
       IGraph graph = graphControl.getGraph();
       return graph != null && graph.getNodes().size() != 0;
     } else {
       return false;
     }
+  }
+
+  /**
+   * Triggers reevaluation of the executable state of the demo's custom
+   * {@link #RUN_HIERARCHIC_LAYOUT} and {@link #RUN_ORGANIC_LAYOUT} commands.
+   */
+  public void onStretchChanged(ActionEvent event) {
+    ICommand.invalidateRequerySuggested();
   }
 
   /**

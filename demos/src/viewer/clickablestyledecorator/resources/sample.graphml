@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -52,8 +52,19 @@
   <key attr.name="SharedData" id="d11" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
   <data key="d11">
     <y:SharedData>
-      <yfx:ShapeNodeStyle Paint="DarkOrange" Pen="#FFFF8C00" x:Key="1"/>
-      <yfx:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="2"/>
+      <yfx:RectangleNodeStyle Paint="#46A8D5" CornerSize="3.5" x:Key="1">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#224556" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
+      <yfx:PolylineEdgeStyle x:Key="2">
+        <yfx:PolylineEdgeStyle.Pen>
+          <yfx:Pen Paint="#224556" Thickness="1.5"/>
+        </yfx:PolylineEdgeStyle.Pen>
+        <yfx:PolylineEdgeStyle.TargetArrow>
+          <yfx:Arrow Paint="#224556" Type="TRIANGLE"/>
+        </yfx:PolylineEdgeStyle.TargetArrow>
+      </yfx:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G">
@@ -108,7 +119,7 @@
               </y:PortDefaults>
             </y:NodeDefaults.Ports>
             <y:NodeDefaults.Style>
-              <yfx:PanelNodeStyle Color="#FFD6E5F8" Insets="5.0,18.0,5.0,5.0" LabelInsetsColor="#FFD6E5F8"/>
+              <yfx:GroupNodeStyle TabPaint="#FFD6E5F8"/>
             </y:NodeDefaults.Style>
             <y:NodeDefaults.Labels>
               <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" ShareLayoutParameterInstance="True" ShareStyleInstance="True">

@@ -2,9 +2,9 @@
 <!--
   /////////////////////////////////////////////////////////////////////////////
   //
-  // This demo file is part of yFiles for JavaFX 3.5.
+  // This demo file is part of yFiles for JavaFX 3.6.
   //
-  // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+  // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
   // 72070 Tuebingen, Germany. All rights reserved.
   //
   // yFiles demo files exhibit yFiles for JavaFX functionalities. Any redistribution
@@ -52,21 +52,26 @@
   <data key="d11">
     <y:SharedData>
       <java:Color xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Value="#FFD6E5F8" x:Key="1"/>
-      <yfx:ShapeNodeStyle Paint="Orange" x:Key="2">
-        <yfx:ShapeNodeStyle.Pen>
-          <yfx:Pen Paint="White"/>
-        </yfx:ShapeNodeStyle.Pen>
-      </yfx:ShapeNodeStyle>
-      <yfx:DefaultLabelStyle TextAlignment="RIGHT" x:Key="3"/>
-      <yfx:PanelNodeStyle Color="{y:GraphMLReference 1}" Insets="5.0,18.0,5.0,5.0" LabelInsetsColor="{y:GraphMLReference 1}" x:Key="4"/>
-      <yfx:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="5"/>
+      <yfx:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="2">
+        <yfx:RectangleNodeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:RectangleNodeStyle.Pen>
+      </yfx:RectangleNodeStyle>
+      <yfx:PolylineEdgeStyle x:Key="3">
+        <yfx:PolylineEdgeStyle.Pen>
+          <yfx:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfx:PolylineEdgeStyle.Pen>
+        <yfx:PolylineEdgeStyle.TargetArrow>
+          <yfx:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfx:PolylineEdgeStyle.TargetArrow>
+      </yfx:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G">
     <data key="d7">
       <y:GraphSettings>
         <y:GraphSettings.EdgeDefaults>
-          <y:EdgeDefaults Style="{y:GraphMLReference 5}">
+          <y:EdgeDefaults Style="{y:GraphMLReference 3}">
             <y:EdgeDefaults.Ports>
               <y:PortDefaults LocationParameter="{x:Static y:BendAnchoredPortLocationModel.FirstBend}" Style="{x:Static y:VoidPortStyle.Instance}">
                 <y:PortDefaults.Labels>
@@ -91,14 +96,14 @@
                   </y:EdgeSegmentLabelModelParameter>
                 </y:LabelDefaults.LayoutParameter>
                 <y:LabelDefaults.Style>
-                  <yfx:DefaultLabelStyle/>
+                  <yfx:DefaultLabelStyle BackgroundPaint="#FFE0D5CC" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER"/>
                 </y:LabelDefaults.Style>
               </y:LabelDefaults>
             </y:EdgeDefaults.Labels>
           </y:EdgeDefaults>
         </y:GraphSettings.EdgeDefaults>
         <y:GraphSettings.GroupNodeDefaults>
-          <y:NodeDefaults Size="30.0,30.0" Style="{y:GraphMLReference 4}">
+          <y:NodeDefaults Size="30.0,30.0">
             <y:NodeDefaults.Ports>
               <y:PortDefaults LocationParameter="{x:Static y:FreeNodePortLocationModel.NodeCenterAnchored}" Style="{x:Static y:VoidPortStyle.Instance}">
                 <y:PortDefaults.Labels>
@@ -107,14 +112,32 @@
                       <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
                     </y:LabelDefaults.LayoutParameter>
                     <y:LabelDefaults.Style>
-                      <yfx:DefaultLabelStyle/>
+                      <yfx:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" VerticalTextAlignment="CENTER"/>
                     </y:LabelDefaults.Style>
                   </y:LabelDefaults>
                 </y:PortDefaults.Labels>
               </y:PortDefaults>
             </y:NodeDefaults.Ports>
+            <y:NodeDefaults.Style>
+              <yfx:GroupNodeStyle ContentAreaHitTransparent="True" GroupIcon="MINUS" IconForegroundPaint="#FF0B7189" IconOffset="2.0" TabBackgroundPaint="#FF0B7189" TabHeight="20.0" TabInset="3.0" TabPaint="#FF9DC6D0" TabPosition="TOP_TRAILING" TabWidth="30.0">
+                <yfx:GroupNodeStyle.Pen>
+                  <yfx:Pen Paint="#FF0B7189" Thickness="2.0"/>
+                </yfx:GroupNodeStyle.Pen>
+              </yfx:GroupNodeStyle>
+            </y:NodeDefaults.Style>
             <y:NodeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 3}"/>
+              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                <y:LabelDefaults.Style>
+                  <yfx:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" VerticalTextAlignment="CENTER"/>
+                </y:LabelDefaults.Style>
+                <y:LabelDefaults.LayoutParameter>
+                  <y:GroupNodeLabelModelParameter PlaceOnTab="False">
+                    <y:GroupNodeLabelModelParameter.Model>
+                      <y:GroupNodeLabelModel/>
+                    </y:GroupNodeLabelModelParameter.Model>
+                  </y:GroupNodeLabelModelParameter>
+                </y:LabelDefaults.LayoutParameter>
+              </y:LabelDefaults>
             </y:NodeDefaults.Labels>
           </y:NodeDefaults>
         </y:GraphSettings.GroupNodeDefaults>
@@ -137,7 +160,7 @@
             <y:NodeDefaults.Labels>
               <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:ExteriorLabelModel.South}" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
                 <y:LabelDefaults.Style>
-                  <yfx:DefaultLabelStyle TextAlignment="CENTER"/>
+                  <yfx:DefaultLabelStyle BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER"/>
                 </y:LabelDefaults.Style>
               </y:LabelDefaults>
             </y:NodeDefaults.Labels>
@@ -179,16 +202,30 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 3}">
+          <y:Label>
+            <y:Label.Style>
+              <yfx:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" VerticalTextAlignment="CENTER"/>
+            </y:Label.Style>
+            <y:Label.LayoutParameter>
+              <y:GroupNodeLabelModelParameter PlaceOnTab="False">
+                <y:GroupNodeLabelModelParameter.Model>
+                  <y:GroupNodeLabelModel/>
+                </y:GroupNodeLabelModelParameter.Model>
+              </y:GroupNodeLabelModelParameter>
+            </y:Label.LayoutParameter>
             <y:Label.Text><![CDATA[Group 1]]></y:Label.Text>
           </y:Label>
         </x:List>
       </data>
       <data key="d1">
-        <y:RectD Height="138.0" Width="120.0" X="-40.0" Y="-226.5"/>
+        <y:RectD Height="158.0" Width="140.0" X="-50.0" Y="-236.5"/>
       </data>
       <data key="d3">
-        <y:GraphMLReference ResourceKey="4"/>
+        <yfx:GroupNodeStyle ContentAreaHitTransparent="True" GroupIcon="NONE" IconForegroundPaint="#FF0B7189" IconOffset="2.0" TabBackgroundPaint="#FF0B7189" TabHeight="20.0" TabInset="3.0" TabPaint="#FF9DC6D0" TabPosition="TOP_TRAILING" TabWidth="30.0">
+          <yfx:GroupNodeStyle.Pen>
+            <yfx:Pen Paint="#FF0B7189" Thickness="2.0"/>
+          </yfx:GroupNodeStyle.Pen>
+        </yfx:GroupNodeStyle>
       </data>
       <graph id="n2:">
         <node id="n2::n0">
@@ -258,7 +295,7 @@
             </x:List>
           </data>
           <data key="d6">
-            <y:GraphMLReference ResourceKey="5"/>
+            <y:GraphMLReference ResourceKey="3"/>
           </data>
         </edge>
         <edge id="n2::e1" source="n2::n0" sourceport="p1" target="n2::n2" targetport="p0">
@@ -269,7 +306,7 @@
             </x:List>
           </data>
           <data key="d6">
-            <y:GraphMLReference ResourceKey="5"/>
+            <y:GraphMLReference ResourceKey="3"/>
           </data>
         </edge>
       </graph>
@@ -282,7 +319,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <y:GraphMLReference ResourceKey="5"/>
+        <y:GraphMLReference ResourceKey="3"/>
       </data>
     </edge>
     <edge id="e1" source="n2::n2" sourceport="p2" target="n1" targetport="p0">
@@ -293,12 +330,12 @@
         </x:List>
       </data>
       <data key="d6">
-        <y:GraphMLReference ResourceKey="5"/>
+        <y:GraphMLReference ResourceKey="3"/>
       </data>
     </edge>
     <edge id="e2" source="n2::n0" sourceport="p2" target="n1" targetport="p1">
       <data key="d6">
-        <y:GraphMLReference ResourceKey="5"/>
+        <y:GraphMLReference ResourceKey="3"/>
       </data>
     </edge>
   </graph>
